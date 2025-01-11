@@ -505,8 +505,8 @@ function cluster_correlation(reef_clusters, timeseries, lag, func)
         indices_not_target = findall(reef_clusters .== cluster)
         indices_not_target = indices_not_target[indices_not_target .!= ind]
 
-        target_timeseries = timeseries[sites = ind]
-        non_target_median = timeseries[sites = indices_not_target]
+        target_timeseries = timeseries[locations = ind]
+        non_target_median = timeseries[locations = indices_not_target]
         non_target_median = vec(mapslices(median, non_target_median.data, dims=2))
         correlation_values[ind] = cross_correlation(target_timeseries, non_target_median, lag, func, true)
     end
@@ -782,13 +782,13 @@ Extract the timeseries data for each reef in `reefs` dataframe and attach `conte
 - `context_cols` : Names of desired context columns for attaching to output timeseries dataframe
 """
 function extract_timeseries(rs_YAXArray, reefs, context_cols)
-    df = DataFrame(rs_YAXArray.data, collect(getAxis("sites", rs_YAXArray).val))
+    df = DataFrame(rs_YAXArray.data, collect(getAxis("locations", rs_YAXArray).val))
     df.year = [string(i) for i in 1:size(df,1)]
     select!(df, :year, Not(:year))
 
-    data = permutedims(df, 1, "RME_UNIQUE_ID")
-    data = data[data.RME_UNIQUE_ID .∈ [reefs.RME_UNIQUE_ID],:]
-    data = leftjoin(data, reefs[:, vcat(["RME_UNIQUE_ID", context_cols]...)], on=:RME_UNIQUE_ID)
+    data = permutedims(df, 1, "reef_siteid")
+    data = data[data.reef_siteid .∈ [reefs.reef_siteid],:]
+    data = leftjoin(data, reefs[:, vcat(["reef_siteid", context_cols]...)], on=:reef_siteid)
     data = dropmissing(data)
 
     return data

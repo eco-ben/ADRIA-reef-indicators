@@ -390,7 +390,7 @@ function label_lines(label)
 end
 
 function _axis_size(gdf, x_fig_size, y_fig_size, n_col)
-    xsize = x_fig_size / (n_col*2)
+    xsize = x_fig_size / (n_col)
     n_fig_row = first(fldmod1(length(gdf), n_col))
     ysize = y_fig_size / (n_fig_row*1.5)
 
@@ -640,8 +640,8 @@ function grouped_timeseries_plots(
         dataframe,
         bellwether_reefs_col,
         grouping;
-        x_fig_size=2130,
-        y_fig_size=1500
+        x_fig_size=x_fig_size,
+        y_fig_size=y_fig_size
     )
     xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col)
     xticks = timeseries_xticks(length_t, 2022:2099)
