@@ -782,13 +782,21 @@ Extract the timeseries data for each reef in `reefs` dataframe and attach `conte
 - `context_cols` : Names of desired context columns for attaching to output timeseries dataframe
 """
 function extract_timeseries(rs_YAXArray, reefs, context_cols)
-    df = DataFrame(rs_YAXArray.data, collect(getAxis("locations", rs_YAXArray).val))
+    local reef_ids = []
+    try
+        reef_ids = collect(getAxis("locations", rs_YAXArray).val)
+    catch
+        @warn "locations dimension not found in YAXArray, attaching from `reefs`"
+        reef_ids = reefs.UNIQUE_ID
+    end
+
+    df = DataFrame(rs_YAXArray.data, reef_ids)
     df.year = [string(i) for i in 1:size(df,1)]
     select!(df, :year, Not(:year))
 
-    data = permutedims(df, 1, "reef_siteid")
-    data = data[data.reef_siteid .∈ [reefs.reef_siteid],:]
-    data = leftjoin(data, reefs[:, vcat(["reef_siteid", context_cols]...)], on=:reef_siteid)
+    data = permutedims(df, 1, "UNIQUE_ID")
+    data = data[data.UNIQUE_ID .∈ [reefs.UNIQUE_ID],:]
+    data = leftjoin(data, reefs[:, vcat(["UNIQUE_ID", context_cols]...)], on=:UNIQUE_ID)
     data = dropmissing(data)
 
     return data
@@ -998,16 +1006,16 @@ function bellwether_glmm_fit(dataset)
     return results
 end
 
-function bioregion_counts(dataset, bellwether_reefs_col, fn, GCM)
-    reef_counts = combine(groupby(dataset, :bioregion)) do sdf
+function grouping_counts(grouping_col::Symbol, dataset, bellwether_reefs_col, fn, GCM)
+    reef_counts = combine(groupby(dataset, grouping_col)) do sdf
         return (bellwether_reefs = sum(sdf[:, bellwether_reefs_col]), total_reefs=nrow(sdf))
     end
 
-    removed_bioregions = reef_counts[reef_counts[:, :bellwether_reefs] .< 5, :bioregion]
+    removed_groups = reef_counts[reef_counts[:, :bellwether_reefs] .< 5, grouping_col]
 
     CSV.write(fn, reef_counts)
 
-    return removed_bioregions
+    return removed_groups
 end
 
 function naive_split_metric(obs::AbstractVector, n_members::Int, metric::Function=mean)
@@ -1021,33 +1029,142 @@ function naive_split_metric(obs::AbstractVector, n_members::Int, metric::Functio
     return scores
 end
 
-"""
-    temporal_variability(x::AbstractVector{<:Real})
-    temporal_variability(x::AbstractArray{<:Real, 2})
-    temporal_variability(x::AbstractArray{<:Real}, func_or_data...)
+# """
+#     temporal_variability(x::AbstractVector{<:Real})
+#     temporal_variability(x::AbstractArray{<:Real, 2})
+#     temporal_variability(x::AbstractArray{<:Real}, func_or_data...)
 
-The V meta-metric.
+# The V meta-metric.
 
-As a meta-metric, it can be applied to any combination of
-metrics (including itself), assuming \$x\$ is bound between 0 and 1.
-If this is not the case, consider normalizing values first.
+# As a meta-metric, it can be applied to any combination of
+# metrics (including itself), assuming \$x\$ is bound between 0 and 1.
+# If this is not the case, consider normalizing values first.
 
-# Examples
-```julia-repl
-# Apply V to a time series
-julia> temporal_variability(rand(50))
+# # Examples
+# ```julia-repl
+# # Apply V to a time series
+# julia> temporal_variability(rand(50))
 
-# Apply V to an ensemble of time series
-julia> x = rand(50, 200)
-julia> temporal_variability(x)
+# # Apply V to an ensemble of time series
+# julia> x = rand(50, 200)
+# julia> temporal_variability(x)
 
-# Create and apply a modified V metric to an ensemble of time series.
-# Where the argument is an array and not a function, the data is used directly
-# and so it is assumed all matrices are of the same size and shape.
-julia> temporal_variability(x, temporal_variabilty, temporal_variability(P(x)))
-julia> temporal_variability(x, temporal_variabilty, P(x), D(x), E(x))
-```
-"""
-function temporal_variability(x::AbstractVector{<:Real}; w=[0.9, 0.1])
-    return mean([mean(x)*w[1], std(x)*w[2]])
+# # Create and apply a modified V metric to an ensemble of time series.
+# # Where the argument is an array and not a function, the data is used directly
+# # and so it is assumed all matrices are of the same size and shape.
+# julia> temporal_variability(x, temporal_variabilty, temporal_variability(P(x)))
+# julia> temporal_variability(x, temporal_variabilty, P(x), D(x), E(x))
+# ```
+# """
+# function temporal_variability(x::AbstractVector{<:Real}; w=[0.9, 0.1])
+#     return mean([mean(x)*w[1], std(x)*w[2]])
+# end
+
+
+# """
+
+# """
+# function cluster_temporal_variability(reef_clusters, temporal_variability_results, threshold)
+#     bellwether_reefs = zeros(Bool, length(reef_clusters))
+
+#     for (ind, cluster) in enumerate(reef_clusters)
+#         indices_not_target = findall(reef_clusters .== cluster)
+#         indices_not_target = indices_not_target[indices_not_target .!= ind]
+
+#         target_temporal_variability = temporal_variability_results[ind]
+#         non_target_temp_variability = median(temporal_variability_results[indices_not_target])
+
+#         bellwether_reefs[ind] = (non_target_temp_variability - target_temporal_variability) > threshold
+#     end
+
+#     return bellwether_reefs
+# end
+
+# function cluster_temporal_variability(reef_clusters, temporal_variability_results; quantile_threshold=0.25)
+#     bellwether_reefs = zeros(Bool, length(reef_clusters))
+
+#     for (ind, cluster) in enumerate(reef_clusters)
+#         indices_not_target = findall(reef_clusters .== cluster)
+#         indices_not_target = indices_not_target[indices_not_target .!= ind]
+
+#         target_temporal_variability = temporal_variability_results[ind]
+#         non_target_quantile = quantile(temporal_variability_results[indices_not_target], quantile_threshold)
+
+#         bellwether_reefs[ind] = target_temporal_variability < non_target_quantile
+#     end
+
+#     return bellwether_reefs
+# end
+
+function GCM_analysis_results(results_set)
+    
+    # Extract metric from scenarios
+    tac = ADRIA.metrics.total_absolute_cover(results_set)
+
+    # Get a timeseries summarizing the scenarios for each site
+    absolute_cover = ADRIA.metrics.loc_trajectory(median, tac)
+
+    # # Calculate scenario taxa evenness and then summarise to median location level
+    # taxa_evenness = ADRIA.metrics.coral_evenness(rs)
+    # taxa_evenness = ADRIA.metrics.loc_trajectory(median, taxa_evenness)
+
+    # Calculate cover relative to the reef's initial coral cover
+    rel_cover = Float64.(mapslices(relative_site_cover, absolute_cover[:, :], dims=[:timesteps]))
+
+    return Dataset(;
+        Dict(
+            :absolute_scenario_cover => tac,
+            :absolute_median_cover => absolute_cover,
+            :relative_cover => rel_cover
+        )...
+    )
+end
+
+function grouped_timeseries_clustering(timeseries, grouping, n_clusters; length_t=1:size(timeseries, 1))
+    # clustering = Dict{String, Any}(group => missing for group in grouping)
+    cluster_assignemnts = zeros(Int64, length(grouping))
+    cluster_cats = Vector{Union{String, Missing}}(missing, length(grouping))
+
+    for group in unique(grouping)
+        indices = findall(grouping .== group)
+        group_ts = timeseries[:, indices]
+
+        clusters = ADRIA.analysis.cluster_series(group_ts[length_t, :], n_clusters)
+        unique_clusters = unique(clusters)
+
+        # Find which numerical cluster belongs to each 'high, medium or low' group. These can differ between bioregions
+        # so we need to find which cluster number belongs to the high, med or low median group. This is just based on 
+        # years 2030:2050 (time indices 6:26)
+        cluster_medians = [median(group_ts[6:26, findall(clusters .== cluster)]) for cluster in unique_clusters]
+        cluster_categories = Dict(
+            "high" => unique_clusters[argmax(cluster_medians)],
+            "low" => unique_clusters[argmin(cluster_medians)],
+        )
+        merge!(
+            cluster_categories, 
+            Dict("medium" => 
+            unique_clusters[
+                findfirst(unique_clusters .∉ [[cluster_categories["high"], cluster_categories["low"]]])
+                ]
+            )
+        )
+        cluster_categories = [find_dict_val(value, cluster_categories) for value in clusters]
+        cluster_cats[indices] = cluster_categories
+
+        # Once we know which reefs are 'high, medium or low' we can then number them accordingly so the labels
+        # are consistent across regions. Low = 1, Medium = 2, High = 3.
+        cluster_numbers = Dict("high" => 3, "medium" => 2, "low" => 1)
+        cluster_assignemnts[indices] = [cluster_numbers[key] for key in cluster_categories]
+        
+    end
+
+    return (cluster_assignemnts, cluster_cats)
+end
+
+function find_dict_val(val, dict)
+    for (k,v) in dict
+        if v == val
+            return k
+        end
+    end
 end

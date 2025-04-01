@@ -24,7 +24,7 @@ for gcm in GCMs
     # Check if GCM DHW already exists
     if isfile(gcm_output_fn)
         @info "$(gcm) already processed, continuing to next GCM"
-        DHW_data[gcm] = open_dataset(gcm_output_fn)
+        DHW_data[gcm] = open_dataset(gcm_output_fn).dhw
         continue
     end
 
@@ -53,14 +53,16 @@ for gcm in GCMs
 end
 
 # Combine GCM YAXArrays and add GCM labels in properties
-combined_dhw = cat(
+cubes = [
     DHW_data["EC-Earth3-Veg"],
     DHW_data["ACCESS-ESM1-5"],
     DHW_data["ACCESS-CM2"],
     DHW_data["NorESM2-MM"],
-    DHW_data["GFDL-CM4"];
-    dims=3
-)
+    DHW_data["GFDL-CM4"]
+]
+member_axis = Dim{:member}(1:5)
+combined_dhw = concatenatecubes(cubes, member_axis)
+
 axlist = (
     Dim{:timesteps}(2025:1:2099),
     Dim{:sites}(1:1:3806),

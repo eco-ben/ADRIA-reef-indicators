@@ -83,7 +83,7 @@ function subset_highrescoralstress_nc(nc_dataset::Dataset, reef_outlines::DataFr
 end
 
 """
-    calculate_annual_dhw(nc_dataset::Dataset, target_pixels::Vector)::YAXArray
+    calculate_annual_dhw(nc_dataset::Dataset, target_pixels::BitVector)::YAXArray
 
 Calculate annual DHW timeseries for each pixel in `nc_dataset.sst` that is selected 
 by `target_pixels`. 
@@ -100,7 +100,7 @@ The method for DHW calculation follows NOAA DHW calculation, this includes:
 - MMM climatology methodology : https://www.ncei.noaa.gov/data/oceans/coris/library/NOAA/CRCP/project/915/TR_NESDIS_145.pdf
 - HotSpot and DHW calculation methodology (and MMM) : https://coralreefwatch.noaa.gov/product/5km/methodology.php#ref_her
 """
-function calculate_annual_dhw(nc_dataset::Dataset, target_pixels::Vector)::YAXArray
+function calculate_annual_dhw(nc_dataset::Dataset, target_pixels::BitVector)::YAXArray
     gbr_sst = nc_dataset.sst[pixels = target_pixels]
     required_lon = nc_dataset.lon[target_pixels]
     required_lat = nc_dataset.lat[target_pixels]
@@ -148,7 +148,7 @@ function calculate_annual_dhw(nc_dataset::Dataset, target_pixels::Vector)::YAXAr
         # Only consider HotSpot heat stress values greater than 1! 
         # Divide by 7 to express DHW values in degree Celsius weeks. 
         Hs = sst_loc.data .- MMM
-        Hs = ifelse.(Hs .< 1, 0, Hs) ./ 7 # This must be set to  Hs < 1 according to NOAA methodology
+        Hs = ifelse.(Hs .< 1, 0, Hs) ./ 7 # !This must be set to  Hs < 1 according to NOAA methodology!
 
         # DHW calculation
         n = 7 * 12
@@ -184,7 +184,7 @@ end
     extract_reef_DHW_timeseries(
         annual_DHW_pixels::YAXArray, 
         target_reef_outlines::DataFrame, 
-        target_pixels::Vector{Bool}, 
+        target_pixels::BitVector, 
         source_nc::Dataset
     )::YAXArray
 
@@ -193,7 +193,7 @@ Extract mean DHW values for each reef polygon in `target_reef_outlines`.
 function extract_reef_DHW_timeseries(
     annual_DHW_pixels::YAXArray, 
     target_reef_outlines::DataFrame, 
-    target_pixels::Vector{Bool}, 
+    target_pixels::BitVector, 
     source_nc::Dataset
 )::YAXArray
 
@@ -340,11 +340,11 @@ function recreate_adriadomain_dhw_yaxarray(
     axlist = (
         Dim{:timesteps}(2025:1:2099),
         Dim{:sites}(1:1:3806),
-        Dim{:member}([1])
+        #Dim{:member}([1])
     )
 
-    loc_DHW_timeseries_data = reshape(reef_DHW_timeseries.data', (75, 3806, 1))
-    loc_DHW_timeseries_data = YAXArray(axlist, loc_DHW_timeseries_data, template_dhw_properties)
+    loc_DHW_timeseries_data = reef_DHW_timeseries.data #loc_DHW_timeseries_data = reshape(reef_DHW_timeseries.data', (75, 3806, 1))
+    loc_DHW_timeseries_data = YAXArray(axlist, loc_DHW_timeseries_data', template_dhw_properties)
 
     return loc_DHW_timeseries_data
 end

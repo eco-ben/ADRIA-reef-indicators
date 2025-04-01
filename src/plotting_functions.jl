@@ -390,7 +390,7 @@ function label_lines(label)
 end
 
 function _axis_size(gdf, x_fig_size, y_fig_size, n_col)
-    xsize = x_fig_size / (n_col)
+    xsize = x_fig_size / (n_col)*1.5
     n_fig_row = first(fldmod1(length(gdf), n_col))
     ysize = y_fig_size / (n_fig_row*1.5)
 
@@ -399,9 +399,10 @@ end
 
 function _extract_name_and_correlation(df,bellwether_reefs_col, correlation_col, grouping)
     bioregion = first(df[:, grouping])
-    cor = round(mean(df[df[:, bellwether_reefs_col] .== "bellwether", correlation_col]), sigdigits=2)
+    bellwether_cor = round(mean(df[df[:, bellwether_reefs_col] .== "bellwether", correlation_col]), sigdigits=2)
+    non_bellwether_cor = round(mean(df[df[:, bellwether_reefs_col] .== "non-bellwether", correlation_col]), sigdigits=2)
 
-    return "$(bioregion) ($(@sprintf("%.2f",cor)))"
+    return "$(bioregion) ($(@sprintf("%.2f",bellwether_cor))) ($(@sprintf("%.2f",non_bellwether_cor)))"
 end
 
 function _setup_grouped_figure(dataframe, bellwether_reefs_col, grouping; x_fig_size=2130, y_fig_size=1500)
@@ -437,6 +438,40 @@ function _setup_grouped_figure(dataframe, bellwether_reefs_col, grouping; x_fig_
     return fig, gdf, plot_layout, colors, categories
 end
 
+function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500)
+    dataframe = sort(dataframe, :management_area; rev=true)
+    
+    gdf = DataFrames.groupby(dataframe, grouping)
+
+    fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size))
+
+    n_col = optimum_columns(length(unique(dataframe[:, grouping])))
+    plot_layout = figure_layouts(length(gdf), n_col)
+
+    # Configure the legend for the figure
+    last_figure = last(plot_layout)
+    if last(last_figure) < n_col
+        legend_position = (last_figure[1], last_figure[2]+1:n_col)
+    else
+        legend_position = (last_figure[1] + 1, 1:n_col)
+    end
+    
+    legend_entries = []
+    for (i, col) in enumerate([:blue, :orange, :green])
+        LE = LineElement(; color=col, marker=:circle)
+        push!(legend_entries, [LE])
+    end
+
+    Legend(
+        fig[legend_position...],
+        legend_entries,
+        ["High", "Medium", "Low"],
+        nbanks=1
+    )
+
+    return fig, gdf, plot_layout
+end
+
 function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", title="", xsize=220, ysize=150, background_color=:white)
     # if plot_layout_xi == (1,1)
     #     ax = Axis(
@@ -459,8 +494,8 @@ function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", 
     ax = Axis(
         fig[plot_layout_xi...];
         backgroundcolor=background_color,
-        xticklabelsize=14,
-        yticklabelsize=14,
+        xticklabelsize=16,
+        yticklabelsize=16,
         xticks = xticks,
         xticksvisible=false,
         title=title,
@@ -476,8 +511,8 @@ function grouped_violin_plots(
     grouping,
     variable;
     ylabel="", xlabel="", title="",
-    x_fig_size=2000,
-    y_fig_size=1700,
+    x_fig_size=1500,
+    y_fig_size=1000,
     datalimits=(-Inf, Inf)
 )
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
@@ -485,8 +520,8 @@ function grouped_violin_plots(
         dataframe,
         bellwether_reefs_col,
         grouping;
-        x_fig_size=2130,
-        y_fig_size=1500
+        x_fig_size=x_fig_size,
+        y_fig_size=y_fig_size
     )
     xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col)
     xticks = (1:2, levels(categories))
@@ -548,7 +583,7 @@ function grouped_violin_plots(
         Label(
             fig[plot_layout_xi..., Top()],
             labels[xi],
-            fontsize = 14,
+            fontsize = 16,
             font = :bold,
             padding = (0, 5, 5, 0),
             halign = :center
@@ -560,10 +595,10 @@ function grouped_violin_plots(
         fig[1:n_fig_row, 0],
         ylabel,
         rotation= pi/2,
-        fontsize=14
+        fontsize=18
     )
 
-    linkaxes!(filter(x -> x isa Axis, fig.content)...)
+    #linkaxes!(filter(x -> x isa Axis, fig.content)...)
     resize_to_layout!(fig)
 
     display(fig)
@@ -575,7 +610,7 @@ function timeseries_xticks(length_t, years)
     length_range = first(length_t):10:last(length_t)
     years_length = collect(years)[length_range]
 
-    return (length_range, years_length)
+    return (length_range, string.(years_length))
 end
 
 
@@ -627,13 +662,13 @@ end
 function grouped_timeseries_plots(
     dataframe,
     bellwether_reefs_col,
-    correlation_col,
+    #correlation_col,
     grouping,
     length_t,
     lag;
     ylabel="", xlabel="", title="",
-    x_fig_size=2000,
-    y_fig_size=1700
+    x_fig_size=1500,
+    y_fig_size=1000
 )
     n_col = n_col = optimum_columns(length(unique(dataframe[:, grouping])))
     fig, gdf, plot_layout, colors = _setup_grouped_figure(
@@ -644,10 +679,11 @@ function grouped_timeseries_plots(
         y_fig_size=y_fig_size
     )
     xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col)
-    xticks = timeseries_xticks(length_t, 2022:2099)
-    xticks = (1:10:55, ["$(year)" for year in 2025:10:2075])
+    xticks = timeseries_xticks(length_t, 2025:2099)
+    #xticks = (1:10:55, ["$(year)" for year in 2025:10:2075])
 
-    labels = label_lines.([_extract_name_and_correlation(df, bellwether_reefs_col, correlation_col, grouping) for df in gdf])
+    #labels = label_lines.([_extract_name_and_correlation(df, bellwether_reefs_col, correlation_col, grouping) for df in gdf])
+    labels = label_lines.(first(df[:, grouping]) for df in gdf)
 
     for (xi, groupdf) in enumerate(gdf)
         plot_layout_xi = plot_layout[xi]
@@ -682,20 +718,23 @@ function grouped_timeseries_plots(
 
         #band_indices = first(length_t) + lag:last(length_t) + lag
         band_indices = first(length_t):(last(length_t)-lag)
+
+        band!(band_indices, non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.2))
+        #band!(first(length_t):last(length_t), non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.3))
+        series!(non_target_reefs', solid_color=(colors[1], 0.2))
+        series!(non_target_reefs_median', solid_color=:blue)
+
+        
         #bands = band!(band_indices, target_reefs_lb[band_indices], target_reefs_ub[band_indices]; color=(colors[2], 0.3))
         band!(band_indices, target_reefs_lb, target_reefs_ub; color=(colors[2], 0.3))
         series!(ax, target_reefs', solid_color=(colors[2], 0.5))
         series!(target_reefs_median', solid_color=:red)
-
-        band!(band_indices, non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.3))
-        #band!(first(length_t):last(length_t), non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.3))
-        #series!(non_target_reefs', solid_color=(colors[1], 0.2))
-        series!(non_target_reefs_median', solid_color=:blue)
+      
 
         Label(
             fig[plot_layout_xi..., Top()],
             labels[xi],
-            fontsize = 14,
+            fontsize = 16,
             font = :bold,
             padding = (0, 5, 5, 0),
             halign = :center
@@ -707,10 +746,10 @@ function grouped_timeseries_plots(
         fig[1:n_fig_row, 0],
         ylabel,
         rotation= pi/2,
-        fontsize=14
+        fontsize=18
     )
 
-    linkaxes!(filter(x -> x isa Axis, fig.content)...)
+    #linkaxes!(filter(x -> x isa Axis, fig.content)...)
     resize_to_layout!(fig)
 
     display(fig)
@@ -731,355 +770,355 @@ function violin_limits(variable_vector)
     return (-Inf, Inf)
 end
 
-function violin_plots!(
-    fig,
-    gdf,
-    bellwether_reefs_col,
-    variable,
-    labels,
-    plot_layout,
-    xsize,
-    ysize,
-    colors;
-    xlabel=xlabel,
-    ylabel=ylabel,
-    title="",
-    xticks=unique(dataframe[:, bellwether_reefs_col])
-)
-    for (xi, groupdf) in enumerate(gdf)
-        categories = categorical(groupdf[:, bellwether_reefs_col])
+# function violin_plots!(
+#     fig,
+#     gdf,
+#     bellwether_reefs_col,
+#     variable,
+#     labels,
+#     plot_layout,
+#     xsize,
+#     ysize,
+#     colors;
+#     xlabel=xlabel,
+#     ylabel=ylabel,
+#     title="",
+#     xticks=unique(dataframe[:, bellwether_reefs_col])
+# )
+#     for (xi, groupdf) in enumerate(gdf)
+#         categories = categorical(groupdf[:, bellwether_reefs_col])
 
-        bellwether_var_med = median(groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", variable])
-        non_bellwether_var_75 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.75)
-        non_bellwether_var_25 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.25)
+#         bellwether_var_med = median(groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", variable])
+#         non_bellwether_var_75 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.75)
+#         non_bellwether_var_25 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.25)
 
-        if bellwether_var_med < non_bellwether_var_25
-            background_color = (:royalblue, 0.2)
-        elseif bellwether_var_med > non_bellwether_var_75
-            background_color = (:goldenrod1, 0.2)
-        else
-            background_color = :white
-        end
+#         if bellwether_var_med < non_bellwether_var_25
+#             background_color = (:royalblue, 0.2)
+#         elseif bellwether_var_med > non_bellwether_var_75
+#             background_color = (:goldenrod1, 0.2)
+#         else
+#             background_color = :white
+#         end
 
-        if xi == 1
-            ax = Axis(
-                fig[plot_layout[xi]...];
-                backgroundcolor=background_color,
-                xlabel = xlabel,
-                xlabelsize = 13,
-                ylabelsize = 13,
-                ylabel = ylabel,
-                xticks = (unique(categories.refs), xticks),
-                xticklabelsize=12,
-                yticklabelsize=12,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        else
-            ax = Axis(
-                fig[plot_layout[xi]...];
-                backgroundcolor=background_color,
-                xticklabelsize=12,
-                yticklabelsize=12,
-                xticks = (unique(categories.refs), ["",""]),
-                xticksvisible=false,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        end
+#         if xi == 1
+#             ax = Axis(
+#                 fig[plot_layout[xi]...];
+#                 backgroundcolor=background_color,
+#                 xlabel = xlabel,
+#                 xlabelsize = 13,
+#                 ylabelsize = 13,
+#                 ylabel = ylabel,
+#                 xticks = (unique(categories.refs), xticks),
+#                 xticklabelsize=12,
+#                 yticklabelsize=12,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         else
+#             ax = Axis(
+#                 fig[plot_layout[xi]...];
+#                 backgroundcolor=background_color,
+#                 xticklabelsize=12,
+#                 yticklabelsize=12,
+#                 xticks = (unique(categories.refs), ["",""]),
+#                 xticksvisible=false,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         end
 
-        f = violin!(
-            ax,
-            categories.refs,
-            groupdf[:, variable];
-            color=colors[indexin(categories, unique(categories))],
-            show_median=true,
-            datalimits=extrema
-        )
-        f = rainclouds!(
-            ax,
-            categories.refs,
-            groupdf[:, variable];
-            color=:black,
-            markersize=5,
-            jitter_width=0.27,
-            side_nudge=0.001,
-            plot_boxplots=false,
-            clouds=nothing
-        )
+#         f = violin!(
+#             ax,
+#             categories.refs,
+#             groupdf[:, variable];
+#             color=colors[indexin(categories, unique(categories))],
+#             show_median=true,
+#             datalimits=extrema
+#         )
+#         f = rainclouds!(
+#             ax,
+#             categories.refs,
+#             groupdf[:, variable];
+#             color=:black,
+#             markersize=5,
+#             jitter_width=0.27,
+#             side_nudge=0.001,
+#             plot_boxplots=false,
+#             clouds=nothing
+#         )
 
-        if variable == :so_to_si
-            hlines!(1; color=(:gray, 0.5), linewidth=3)
-        end
+#         if variable == :so_to_si
+#             hlines!(1; color=(:gray, 0.5), linewidth=3)
+#         end
 
-        Label(
-            fig[plot_layout[xi]..., Top()],
-            labels[xi],
-            fontsize = 11,
-            font = :bold,
-            padding = (0, 5, 5, 0),
-            halign = :center
-        )
-    end
+#         Label(
+#             fig[plot_layout[xi]..., Top()],
+#             labels[xi],
+#             fontsize = 11,
+#             font = :bold,
+#             padding = (0, 5, 5, 0),
+#             halign = :center
+#         )
+#     end
 
-    if variable ∈ ["$(GCM)_mean_dhw", "$(GCM)_initial_coral_cover", :so_to_si]
-        linkaxes!(filter(x -> x isa Axis, fig.content)...)
-    end
+#     if variable ∈ ["$(GCM)_mean_dhw", "$(GCM)_initial_coral_cover", :so_to_si]
+#         linkaxes!(filter(x -> x isa Axis, fig.content)...)
+#     end
 
-    return fig
-end
+#     return fig
+# end
 
-function timeseries_plots!(
-    fig,
-    gdf,
-    bellwether_reefs_col,
-    plot_layout,
-    length_t,
-    lag,
-    labels,
-    xsize,
-    ysize;
-    xlabel=xlabel,
-    ylabel=ylabel,
-    title="",
-    xticks=unique(dataframe[:, bellwether_reefs_col])
-)
-    for (xi, groupdf) in enumerate(gdf)
-        categories = categorical(groupdf[:, bellwether_reefs_col])
+# function timeseries_plots!(
+#     fig,
+#     gdf,
+#     bellwether_reefs_col,
+#     plot_layout,
+#     length_t,
+#     lag,
+#     labels,
+#     xsize,
+#     ysize;
+#     xlabel=xlabel,
+#     ylabel=ylabel,
+#     title="",
+#     xticks=unique(dataframe[:, bellwether_reefs_col])
+# )
+#     for (xi, groupdf) in enumerate(gdf)
+#         categories = categorical(groupdf[:, bellwether_reefs_col])
 
-        target_reefs = Matrix(
-        DataFrames.select(
-            groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", :],
-            DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
-            )
-        )'
-        if lag > 0
-            target_reefs_buffer = fill(missing, 4, size(target_reefs, 2))
-            target_reefs = vcat(target_reefs_buffer, target_reefs)
-        end
-        target_reefs_median, target_reefs_lb, target_reefs_ub = bootstrap_median_ts(target_reefs)
+#         target_reefs = Matrix(
+#         DataFrames.select(
+#             groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", :],
+#             DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
+#             )
+#         )'
+#         if lag > 0
+#             target_reefs_buffer = fill(missing, 4, size(target_reefs, 2))
+#             target_reefs = vcat(target_reefs_buffer, target_reefs)
+#         end
+#         target_reefs_median, target_reefs_lb, target_reefs_ub = bootstrap_median_ts(target_reefs)
 
-        non_target_reefs = Matrix(
-            DataFrames.select(
-                groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", :],
-                DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
-            )
-        )'
-        non_target_reefs_median, non_target_reefs_lb, non_target_reefs_ub = bootstrap_median_ts(non_target_reefs)
+#         non_target_reefs = Matrix(
+#             DataFrames.select(
+#                 groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", :],
+#                 DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
+#             )
+#         )'
+#         non_target_reefs_median, non_target_reefs_lb, non_target_reefs_ub = bootstrap_median_ts(non_target_reefs)
 
-        if xi == 1
-            ax = Axis(
-                fig[plot_layout[xi]...];
-                xlabel = xlabel,
-                xlabelsize = 13,
-                ylabelsize = 13,
-                ylabel = ylabel,
-                xticklabelsize=12,
-                yticklabelsize=12,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        else
-            ax = Axis(
-                fig[plot_layout[xi]...];
-                xticklabelsize=12,
-                yticklabelsize=12,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        end
+#         if xi == 1
+#             ax = Axis(
+#                 fig[plot_layout[xi]...];
+#                 xlabel = xlabel,
+#                 xlabelsize = 13,
+#                 ylabelsize = 13,
+#                 ylabel = ylabel,
+#                 xticklabelsize=12,
+#                 yticklabelsize=12,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         else
+#             ax = Axis(
+#                 fig[plot_layout[xi]...];
+#                 xticklabelsize=12,
+#                 yticklabelsize=12,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         end
 
-        band_indices = first(length_t) + lag:last(length_t) + lag
-        bands = band!(band_indices, target_reefs_lb[band_indices], target_reefs_ub[band_indices]; color=(colors[2], 0.3))
-        #series!(ax, target_reefs', solid_color=(colors[2], 0.3))
-        series!(target_reefs_median', solid_color=:red)
+#         band_indices = first(length_t) + lag:last(length_t) + lag
+#         bands = band!(band_indices, target_reefs_lb[band_indices], target_reefs_ub[band_indices]; color=(colors[2], 0.3))
+#         #series!(ax, target_reefs', solid_color=(colors[2], 0.3))
+#         series!(target_reefs_median', solid_color=:red)
 
-        band!(first(length_t):last(length_t), non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.3))
-        #series!(non_target_reefs', solid_color=(colors[1], 0.2))
-        series!(non_target_reefs_median', solid_color=:blue)
+#         band!(first(length_t):last(length_t), non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.3))
+#         #series!(non_target_reefs', solid_color=(colors[1], 0.2))
+#         series!(non_target_reefs_median', solid_color=:blue)
 
-        Label(
-            fig[plot_layout[xi]..., Top()],
-            labels[xi],
-            fontsize = 11,
-            font = :bold,
-            padding = (0, 5, 5, 0),
-            halign = :center
-        )
-    end
+#         Label(
+#             fig[plot_layout[xi]..., Top()],
+#             labels[xi],
+#             fontsize = 11,
+#             font = :bold,
+#             padding = (0, 5, 5, 0),
+#             halign = :center
+#         )
+#     end
 
-    return fig
-end
+#     return fig
+# end
 
-function bioregion_grouped_violins(
-    dataframe, bellwether_reefs_col, grouping, variable, ncol;
-    xlabel="Bellwether Reefs",
-    ylabel="Value",
-    xticks=unique(dataframe[:, bellwether_reefs_col]),
-    title=""
-)
-    dataframe = sort(dataframe, [bellwether_reefs_col, :management_area]; rev=true)
-    categories = categorical(dataframe[:, bellwether_reefs_col])
+# function bioregion_grouped_violins(
+#     dataframe, bellwether_reefs_col, grouping, variable, ncol;
+#     xlabel="Bellwether Reefs",
+#     ylabel="Value",
+#     xticks=unique(dataframe[:, bellwether_reefs_col]),
+#     title=""
+# )
+#     dataframe = sort(dataframe, [bellwether_reefs_col, :management_area]; rev=true)
+#     categories = categorical(dataframe[:, bellwether_reefs_col])
 
-    gdf = DataFrames.groupby(dataframe, grouping)
+#     gdf = DataFrames.groupby(dataframe, grouping)
 
-    # if length(gdf) < 27
-    #     labels = string.(collect('a':'z'))[1:length(gdf)]
-    # else
-    #     error("number of bioregions > 26 (number of letters for labelling)")
-    # end
-    labels = label_lines.([first(df.bioregion) for df in gdf])
+#     # if length(gdf) < 27
+#     #     labels = string.(collect('a':'z'))[1:length(gdf)]
+#     # else
+#     #     error("number of bioregions > 26 (number of letters for labelling)")
+#     # end
+#     labels = label_lines.([first(df.bioregion) for df in gdf])
 
-    x_fig_size, y_fig_size = (2130, 1500)
-    fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size))
+#     x_fig_size, y_fig_size = (2130, 1500)
+#     fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size))
 
-    colors = [Makie.wong_colors(); Makie.wong_colors()];
-    legend_entries = []
-    for (i, col) in enumerate(unique(colors[indexin(categories, unique(categories))]))
-        LE = MarkerElement(; color=col, marker=:circle)
-        push!(legend_entries, [LE])
-    end
+#     colors = [Makie.wong_colors(); Makie.wong_colors()];
+#     legend_entries = []
+#     for (i, col) in enumerate(unique(colors[indexin(categories, unique(categories))]))
+#         LE = MarkerElement(; color=col, marker=:circle)
+#         push!(legend_entries, [LE])
+#     end
 
-    min_var, max_var = extrema(dataframe[:, variable])
-    # var_difference = max_var - min_var
-    # # if variable ∈ [:mean_dhw, :so_to_si]
-    # #     limits = (nothing, (floor(Int64, min_var - 2), ceil(Int64, max_var + 2)))
-    # #     yticks = round.(Int64, min_var:2:max_var)
-    # # elseif variable == :initial_coral_cover
-    # #     limits = (nothing, (floor(Int64, min_var - 5), ceil(Int64, max_var + 5)))
-    # #     yticks = round.(Int64, min_var:10:max_var)
-    # # elseif variable == :total_strength
-    # #     limits = (nothing, (round(min_var - 0.3, digits=2), round(max_var + 0.3, digits=2)))
-    # #     yticks = round.(min_var:0.5:max_var, digits=1)
-    # # elseif variable ∈ [:dhw_cover_cor, :dhw_evenness_cor]
-    # #     limits = (nothing, (-1.1,1.1))
-    # #     yticks = (-1:0.5:1)
-    # # elseif variable == :conn_score
-    # #     limits = (nothing, nothing)
-    # #     yticks = Makie.automatic
-    # # end
+#     min_var, max_var = extrema(dataframe[:, variable])
+#     # var_difference = max_var - min_var
+#     # # if variable ∈ [:mean_dhw, :so_to_si]
+#     # #     limits = (nothing, (floor(Int64, min_var - 2), ceil(Int64, max_var + 2)))
+#     # #     yticks = round.(Int64, min_var:2:max_var)
+#     # # elseif variable == :initial_coral_cover
+#     # #     limits = (nothing, (floor(Int64, min_var - 5), ceil(Int64, max_var + 5)))
+#     # #     yticks = round.(Int64, min_var:10:max_var)
+#     # # elseif variable == :total_strength
+#     # #     limits = (nothing, (round(min_var - 0.3, digits=2), round(max_var + 0.3, digits=2)))
+#     # #     yticks = round.(min_var:0.5:max_var, digits=1)
+#     # # elseif variable ∈ [:dhw_cover_cor, :dhw_evenness_cor]
+#     # #     limits = (nothing, (-1.1,1.1))
+#     # #     yticks = (-1:0.5:1)
+#     # # elseif variable == :conn_score
+#     # #     limits = (nothing, nothing)
+#     # #     yticks = Makie.automatic
+#     # # end
 
-    # if var_difference < 4
-    #     limits = (nothing, (min_var - (var_difference/5), max_var + (var_difference/5)))
-    #     yticks = round.(min_var:(var_difference / 4):max_var; digits=3)
-    # else
-    #     limits = (nothing, (floor(Int64, min_var - 1), ceil(Int64, max_var + 1)))
-    #     yticks = round.(min_var:(var_difference / 4):max_var; digits=1)
-    # end
+#     # if var_difference < 4
+#     #     limits = (nothing, (min_var - (var_difference/5), max_var + (var_difference/5)))
+#     #     yticks = round.(min_var:(var_difference / 4):max_var; digits=3)
+#     # else
+#     #     limits = (nothing, (floor(Int64, min_var - 1), ceil(Int64, max_var + 1)))
+#     #     yticks = round.(min_var:(var_difference / 4):max_var; digits=1)
+#     # end
 
-    # if length(gdf) < 10
-    #     xsize, ysize = 180, 120
-    #     label_size = 12
-    # else
-    #     xsize, ysize = 150, 150
-    #     label_size = 12
-    # end
+#     # if length(gdf) < 10
+#     #     xsize, ysize = 180, 120
+#     #     label_size = 12
+#     # else
+#     #     xsize, ysize = 150, 150
+#     #     label_size = 12
+#     # end
 
-    xsize = x_fig_size / (ncol*2)
-    n_fig_row = first(fldmod1(length(gdf), ncol))
-    ysize = y_fig_size / (n_fig_row*1.5)
+#     xsize = x_fig_size / (ncol*2)
+#     n_fig_row = first(fldmod1(length(gdf), ncol))
+#     ysize = y_fig_size / (n_fig_row*1.5)
 
-    for (xi, groupdf) in enumerate(gdf)
-        categories = categorical(groupdf[:, bellwether_reefs_col])
+#     for (xi, groupdf) in enumerate(gdf)
+#         categories = categorical(groupdf[:, bellwether_reefs_col])
 
-        bellwether_var_med = median(groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", variable])
-        non_bellwether_var_75 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.75)
-        non_bellwether_var_25 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.25)
+#         bellwether_var_med = median(groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", variable])
+#         non_bellwether_var_75 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.75)
+#         non_bellwether_var_25 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.25)
 
-        if bellwether_var_med < non_bellwether_var_25
-            background_color = (:royalblue, 0.2)
-        elseif bellwether_var_med > non_bellwether_var_75
-            background_color = (:goldenrod1, 0.2)
-        else
-            background_color = :white
-        end
+#         if bellwether_var_med < non_bellwether_var_25
+#             background_color = (:royalblue, 0.2)
+#         elseif bellwether_var_med > non_bellwether_var_75
+#             background_color = (:goldenrod1, 0.2)
+#         else
+#             background_color = :white
+#         end
 
-        if xi == 1
-            ax = Axis(
-                fig[fldmod1(xi, ncol)...];
-                backgroundcolor=background_color,
-                xlabel = xlabel,
-                xlabelsize = label_size+1,
-                ylabelsize = label_size+1,
-                ylabel = ylabel,
-                xticks = (unique(categories.refs), xticks),
-                xticklabelsize=label_size,
-                #limits= limits,
-                #yticks = yticks,
-                yticklabelsize=label_size,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        else
-            ax = Axis(
-                fig[fldmod1(xi, ncol)...];
-                backgroundcolor=background_color,
-                xticklabelsize=label_size,
-                yticklabelsize=label_size,
-                xticks = (unique(categories.refs), ["",""]),
-                xticksvisible=false,
-                #limits= limits,
-                #yticks = yticks,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        end
+#         if xi == 1
+#             ax = Axis(
+#                 fig[fldmod1(xi, ncol)...];
+#                 backgroundcolor=background_color,
+#                 xlabel = xlabel,
+#                 xlabelsize = label_size+1,
+#                 ylabelsize = label_size+1,
+#                 ylabel = ylabel,
+#                 xticks = (unique(categories.refs), xticks),
+#                 xticklabelsize=label_size,
+#                 #limits= limits,
+#                 #yticks = yticks,
+#                 yticklabelsize=label_size,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         else
+#             ax = Axis(
+#                 fig[fldmod1(xi, ncol)...];
+#                 backgroundcolor=background_color,
+#                 xticklabelsize=label_size,
+#                 yticklabelsize=label_size,
+#                 xticks = (unique(categories.refs), ["",""]),
+#                 xticksvisible=false,
+#                 #limits= limits,
+#                 #yticks = yticks,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         end
 
-        f = violin!(
-            ax,
-            categories.refs,
-            groupdf[:, variable];
-            color=colors[indexin(categories, unique(categories))],
-            show_median=true
-        )
-        f = rainclouds!(
-            ax,
-            categories.refs,
-            groupdf[:, variable];
-            color=:black,
-            markersize=5,
-            jitter_width=0.27,
-            side_nudge=0.001,
-            plot_boxplots=false,
-            clouds=nothing
-        )
+#         f = violin!(
+#             ax,
+#             categories.refs,
+#             groupdf[:, variable];
+#             color=colors[indexin(categories, unique(categories))],
+#             show_median=true
+#         )
+#         f = rainclouds!(
+#             ax,
+#             categories.refs,
+#             groupdf[:, variable];
+#             color=:black,
+#             markersize=5,
+#             jitter_width=0.27,
+#             side_nudge=0.001,
+#             plot_boxplots=false,
+#             clouds=nothing
+#         )
 
-        if variable == :so_to_si
-            hlines!(1; color=(:gray, 0.5), linewidth=3)
-        end
+#         if variable == :so_to_si
+#             hlines!(1; color=(:gray, 0.5), linewidth=3)
+#         end
 
-        Label(
-            fig[fldmod1(xi, ncol)..., Top()],
-            labels[xi],
-            fontsize = 11,
-            font = :bold,
-            padding = (0, 5, 5, 0),
-            halign = :center
-        )
-    end
+#         Label(
+#             fig[fldmod1(xi, ncol)..., Top()],
+#             labels[xi],
+#             fontsize = 11,
+#             font = :bold,
+#             padding = (0, 5, 5, 0),
+#             halign = :center
+#         )
+#     end
 
-    if variable ∈ ["$(GCM)_mean_dhw", "$(GCM)_initial_coral_cover", :so_to_si]
-        linkaxes!(filter(x -> x isa Axis, fig.content)...)
-    end
+#     if variable ∈ ["$(GCM)_mean_dhw", "$(GCM)_initial_coral_cover", :so_to_si]
+#         linkaxes!(filter(x -> x isa Axis, fig.content)...)
+#     end
 
-    last_figure = fldmod1(length(gdf), ncol)
-    if last_figure[2] < ncol
-        Legend(fig[last_figure[1], last_figure[2]+1:ncol], legend_entries, unique(categories), nbanks=1)
-    else
-        Legend(fig[last_figure[1] + 1, 1:ncol], legend_entries, unique(categories), nbanks=1)
-    end
-    resize_to_layout!(fig)
+#     last_figure = fldmod1(length(gdf), ncol)
+#     if last_figure[2] < ncol
+#         Legend(fig[last_figure[1], last_figure[2]+1:ncol], legend_entries, unique(categories), nbanks=1)
+#     else
+#         Legend(fig[last_figure[1] + 1, 1:ncol], legend_entries, unique(categories), nbanks=1)
+#     end
+#     resize_to_layout!(fig)
 
-    display(fig)
+#     display(fig)
 
-    return fig
-end
+#     return fig
+# end
 
 function bootstrap_median_ts(timeseries)
     ts_median = Vector{Union{Missing, Float64}}(missing, size(timeseries, 1))
@@ -1115,114 +1154,114 @@ function bootstrap_mean_ts(timeseries)
     return ts_mean, ts_lb, ts_ub
 end
 
-function bioregion_grouped_lagged_timeseries(
-    dataframe, bellwether_reefs_col, length_t, grouping, lag, ncol;
-    xlabel="Years",
-    ylabel="Value",
-    title=""
-)
-    dataframe = sort(dataframe, [bellwether_reefs_col, :management_area]; rev=true)
-    categories = categorical(dataframe[:, bellwether_reefs_col])
+# function bioregion_grouped_lagged_timeseries(
+#     dataframe, bellwether_reefs_col, length_t, grouping, lag, ncol;
+#     xlabel="Years",
+#     ylabel="Value",
+#     title=""
+# )
+#     dataframe = sort(dataframe, [bellwether_reefs_col, :management_area]; rev=true)
+#     categories = categorical(dataframe[:, bellwether_reefs_col])
 
-    gdf = DataFrames.groupby(dataframe, grouping)
+#     gdf = DataFrames.groupby(dataframe, grouping)
 
-    labels = label_lines.([first(df.bioregion) for df in gdf])
+#     labels = label_lines.([first(df.bioregion) for df in gdf])
 
-    x_fig_size, y_fig_size = (2130, 1500)
-    fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size))
+#     x_fig_size, y_fig_size = (2130, 1500)
+#     fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size))
 
-    colors = [Makie.wong_colors(); Makie.wong_colors()];
-    legend_entries = [
-        [PolyElement(;color = colors[1]), LineElement(;color=:blue)],
-        [PolyElement(;color = colors[2]), LineElement(;color=:red)]
-    ]
+#     colors = [Makie.wong_colors(); Makie.wong_colors()];
+#     legend_entries = [
+#         [PolyElement(;color = colors[1]), LineElement(;color=:blue)],
+#         [PolyElement(;color = colors[2]), LineElement(;color=:red)]
+#     ]
 
-    xsize = x_fig_size / (ncol*2)
-    n_fig_row = first(fldmod1(length(gdf), ncol))
-    ysize = y_fig_size / (n_fig_row*1.5)
+#     xsize = x_fig_size / (ncol*2)
+#     n_fig_row = first(fldmod1(length(gdf), ncol))
+#     ysize = y_fig_size / (n_fig_row*1.5)
 
-    for (xi, groupdf) in enumerate(gdf)
-        categories = categorical(groupdf[:, bellwether_reefs_col])
+#     for (xi, groupdf) in enumerate(gdf)
+#         categories = categorical(groupdf[:, bellwether_reefs_col])
 
-        target_reefs = Matrix(
-        DataFrames.select(
-            groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", :],
-            DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
-            )
-        )'
-        if lag > 0
-            target_reefs_buffer = fill(missing, 4, size(target_reefs, 2))
-            target_reefs = vcat(target_reefs_buffer, target_reefs)
-        end
-        target_reefs_median, target_reefs_lb, target_reefs_ub = bootstrap_median_ts(target_reefs)
+#         target_reefs = Matrix(
+#         DataFrames.select(
+#             groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", :],
+#             DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
+#             )
+#         )'
+#         if lag > 0
+#             target_reefs_buffer = fill(missing, 4, size(target_reefs, 2))
+#             target_reefs = vcat(target_reefs_buffer, target_reefs)
+#         end
+#         target_reefs_median, target_reefs_lb, target_reefs_ub = bootstrap_median_ts(target_reefs)
 
 
 
-        non_target_reefs = Matrix(
-            DataFrames.select(
-                groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", :],
-                DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
-            )
-        )'
-        non_target_reefs_median, non_target_reefs_lb, non_target_reefs_ub = bootstrap_median_ts(non_target_reefs)
+#         non_target_reefs = Matrix(
+#             DataFrames.select(
+#                 groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", :],
+#                 DataFrames.Between(Symbol(length_t[1]), Symbol(length_t[2]))
+#             )
+#         )'
+#         non_target_reefs_median, non_target_reefs_lb, non_target_reefs_ub = bootstrap_median_ts(non_target_reefs)
 
-        if xi == 1
-            ax = Axis(
-                fig[fldmod1(xi, ncol)...];
-                xlabel = xlabel,
-                xlabelsize = label_size+1,
-                ylabelsize = label_size+1,
-                ylabel = ylabel,
-                xticklabelsize=label_size,
-                yticklabelsize=label_size,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        else
-            ax = Axis(
-                fig[fldmod1(xi, ncol)...];
-                xticklabelsize=label_size,
-                yticklabelsize=label_size,
-                title=title,
-                width=xsize,
-                height=ysize
-            )
-        end
+#         if xi == 1
+#             ax = Axis(
+#                 fig[fldmod1(xi, ncol)...];
+#                 xlabel = xlabel,
+#                 xlabelsize = label_size+1,
+#                 ylabelsize = label_size+1,
+#                 ylabel = ylabel,
+#                 xticklabelsize=label_size,
+#                 yticklabelsize=label_size,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         else
+#             ax = Axis(
+#                 fig[fldmod1(xi, ncol)...];
+#                 xticklabelsize=label_size,
+#                 yticklabelsize=label_size,
+#                 title=title,
+#                 width=xsize,
+#                 height=ysize
+#             )
+#         end
 
-        band_indices = first(length_t) + lag:last(length_t) + lag
-        bands = band!(band_indices, target_reefs_lb[band_indices], target_reefs_ub[band_indices]; color=(colors[2], 0.3))
-        #series!(ax, target_reefs', solid_color=(colors[2], 0.3))
-        series!(target_reefs_median', solid_color=:red)
+#         band_indices = first(length_t) + lag:last(length_t) + lag
+#         bands = band!(band_indices, target_reefs_lb[band_indices], target_reefs_ub[band_indices]; color=(colors[2], 0.3))
+#         #series!(ax, target_reefs', solid_color=(colors[2], 0.3))
+#         series!(target_reefs_median', solid_color=:red)
 
-        band!(first(length_t):last(length_t), non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.3))
-        #series!(non_target_reefs', solid_color=(colors[1], 0.2))
-        series!(non_target_reefs_median', solid_color=:blue)
+#         band!(first(length_t):last(length_t), non_target_reefs_lb, non_target_reefs_ub; color=(colors[1], 0.3))
+#         #series!(non_target_reefs', solid_color=(colors[1], 0.2))
+#         series!(non_target_reefs_median', solid_color=:blue)
 
-        Label(
-            fig[fldmod1(xi, ncol)..., Top()],
-            labels[xi],
-            fontsize = 11,
-            font = :bold,
-            padding = (0, 5, 5, 0),
-            halign = :center
-        )
-    end
+#         Label(
+#             fig[fldmod1(xi, ncol)..., Top()],
+#             labels[xi],
+#             fontsize = 11,
+#             font = :bold,
+#             padding = (0, 5, 5, 0),
+#             halign = :center
+#         )
+#     end
 
-    linkaxes!(filter(x -> x isa Axis, fig.content)...)
+#     linkaxes!(filter(x -> x isa Axis, fig.content)...)
 
-    last_figure = fldmod1(length(gdf), ncol)
-    if last_figure[2] < ncol
-        Legend(fig[last_figure[1], last_figure[2]+1:ncol], legend_entries, unique(categories), nbanks=1)
-    else
-        Legend(fig[last_figure[1] + 1, 1:ncol], legend_entries, unique(categories), nbanks=1)
-    end
-    resize_to_layout!(fig)
+#     last_figure = fldmod1(length(gdf), ncol)
+#     if last_figure[2] < ncol
+#         Legend(fig[last_figure[1], last_figure[2]+1:ncol], legend_entries, unique(categories), nbanks=1)
+#     else
+#         Legend(fig[last_figure[1] + 1, 1:ncol], legend_entries, unique(categories), nbanks=1)
+#     end
+#     resize_to_layout!(fig)
 
-    display(fig)
+#     display(fig)
 
-    return fig, gdf.keymap
-end
+#     return fig, gdf.keymap
+# end
 
 function figure_layouts(n_bioregions, n_col)
     return [fldmod1(x, n_col) for x in 1:n_bioregions]
@@ -1293,4 +1332,152 @@ function optimum_columns(n_bioregions)
     end
 
     return 5
+end
+
+function ecs_plot(ecs_values, low_conf_range, high_conf_range, impact_labels)
+    fig = Figure()
+    ax = Axis(
+        ylab = "Equilibrium Climate Sensitivity ()"
+    )
+end
+
+function grouped_cluster_timeseries_plots(
+    timeseries_array,
+    dataframe,
+    cluster_col,
+    grouping,
+    length_t;
+    x_fig_size=1500,
+    y_fig_size=1000
+)
+    n_col = optimum_columns(length(unique(dataframe[:, grouping])))
+    fig, gdf, plot_layout = _setup_grouped_figure(
+        dataframe,
+        grouping;
+        x_fig_size=x_fig_size,
+        y_fig_size=y_fig_size
+    )
+
+    labels = label_lines.(first(df[:, grouping]) for df in gdf)
+
+    for (xi, groupdf) in enumerate(gdf)
+        plot_layout_xi = plot_layout[xi]
+        groupdf = sort(groupdf, cluster_col)
+
+        # Ensure that relative cover timeseries match the cluster allocations from groupdf
+        group_timeseries = timeseries_array[length_t, timeseries_array.locations .∈ [groupdf.UNIQUE_ID]]
+        group_timeseries = group_timeseries[:, indexin(groupdf.UNIQUE_ID, String.(group_timeseries.locations))]
+
+        clusters = Int64.(groupdf[:, cluster_col])
+
+        ADRIA.viz.clustered_scenarios!(
+            fig[plot_layout_xi...],
+            group_timeseries,
+            clusters;
+            opts = Dict{Symbol, Any}(:legend => false),
+            axis_opts = Dict(:title => labels[xi])
+        )
+    end
+
+    display(fig)
+
+    return fig
+end
+
+function grouped_cluster_violin_plots(
+    dataframe,
+    cluster_col,
+    grouping,
+    length_t;
+    x_fig_size=1500,
+    y_fig_size=1000
+)
+    n_col = optimum_columns(length(unique(dataframe[:, grouping])))
+    fig, gdf, plot_layout = _setup_grouped_figure(
+        dataframe,
+        grouping;
+        x_fig_size=x_fig_size,
+        y_fig_size=y_fig_size
+    )
+
+    labels = label_lines.(first(df[:, grouping]) for df in gdf)
+    colors = [:green, :orange, :blue]
+
+    for (xi, groupdf) in enumerate(gdf)
+        plot_layout_xi = plot_layout[xi]
+        groupdf = sort(groupdf, cluster_col)
+
+        clusters = Int64.(groupdf[:, cluster_col])     
+
+        bellwether_var_med = median(groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", variable])
+        non_bellwether_var_75 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.75)
+        non_bellwether_var_25 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.25)
+
+        if bellwether_var_med < non_bellwether_var_25
+            background_color = (:royalblue, 0.2)
+        elseif bellwether_var_med > non_bellwether_var_75
+            background_color = (:goldenrod1, 0.2)
+        else
+            background_color = :white
+        end
+
+        ax = _setup_grouped_axes(
+            fig,
+            plot_layout_xi,
+            xticks;
+            ylabel=ylabel,
+            xlabel=xlabel,
+            title=title,
+            xsize=xsize,
+            ysize=ysize,
+            background_color=background_color
+        )
+
+        f = violin!(
+            ax,
+            clusters,
+            groupdf[:, variable];
+            color=colors[indexin(clusters, unique(clusters))],
+            show_median=true,
+            datalimits=datalimits
+        )
+        f = rainclouds!(
+            ax,
+            clusters,
+            groupdf[:, variable];
+            color=:black,
+            markersize=5,
+            jitter_width=0.27,
+            side_nudge=0.001,
+            plot_boxplots=false,
+            clouds=nothing
+        )
+
+        if variable == :so_to_si
+            hlines!(1; color=(:gray, 0.5), linewidth=3)
+        end
+
+        Label(
+            fig[plot_layout_xi..., Top()],
+            labels[xi],
+            fontsize = 16,
+            font = :bold,
+            padding = (0, 5, 5, 0),
+            halign = :center
+        )
+    end
+    n_fig_row = first(fldmod1(length(gdf), n_col))
+    Label(
+        fig[1:n_fig_row, 0],
+        ylabel,
+        rotation= pi/2,
+        fontsize=18
+    )
+
+    #linkaxes!(filter(x -> x isa Axis, fig.content)...)
+    resize_to_layout!(fig)
+    
+    display(fig)
+
+    return fig
 end
