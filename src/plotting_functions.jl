@@ -438,7 +438,7 @@ function _setup_grouped_figure(dataframe, bellwether_reefs_col, grouping; x_fig_
     return fig, gdf, plot_layout, colors, categories
 end
 
-function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500)
+function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement)
     dataframe = sort(dataframe, :management_area; rev=true)
     
     gdf = DataFrames.groupby(dataframe, grouping)
@@ -458,7 +458,7 @@ function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=
     
     legend_entries = []
     for (i, col) in enumerate([:blue, :orange, :green])
-        LE = LineElement(; color=col, marker=:circle)
+        LE = marker(; color=col, marker=:circle)
         push!(legend_entries, [LE])
     end
 
@@ -1388,7 +1388,10 @@ function grouped_cluster_violin_plots(
     dataframe,
     cluster_col,
     grouping,
-    length_t;
+    variable;
+    title="",
+    xlabel="Cluster",
+    ylabel="",
     x_fig_size=1500,
     y_fig_size=1000
 )
@@ -1397,29 +1400,32 @@ function grouped_cluster_violin_plots(
         dataframe,
         grouping;
         x_fig_size=x_fig_size,
-        y_fig_size=y_fig_size
+        y_fig_size=y_fig_size,
+        marker=PolyElement
     )
 
     labels = label_lines.(first(df[:, grouping]) for df in gdf)
     colors = [:green, :orange, :blue]
+    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col)
 
     for (xi, groupdf) in enumerate(gdf)
+        #println("$(xi)")
         plot_layout_xi = plot_layout[xi]
         groupdf = sort(groupdf, cluster_col)
 
         clusters = Int64.(groupdf[:, cluster_col])     
 
-        bellwether_var_med = median(groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", variable])
-        non_bellwether_var_75 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.75)
-        non_bellwether_var_25 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.25)
+        # bellwether_var_med = median(groupdf[groupdf[:, bellwether_reefs_col] .== "bellwether", variable])
+        # non_bellwether_var_75 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.75)
+        # non_bellwether_var_25 = quantile(groupdf[groupdf[:, bellwether_reefs_col] .== "non-bellwether", variable], 0.25)
 
-        if bellwether_var_med < non_bellwether_var_25
-            background_color = (:royalblue, 0.2)
-        elseif bellwether_var_med > non_bellwether_var_75
-            background_color = (:goldenrod1, 0.2)
-        else
-            background_color = :white
-        end
+        # if bellwether_var_med < non_bellwether_var_25
+        #     background_color = (:royalblue, 0.2)
+        # elseif bellwether_var_med > non_bellwether_var_75
+        #     background_color = (:goldenrod1, 0.2)
+        # else
+        #     background_color = :white
+        # end
 
         ax = _setup_grouped_axes(
             fig,
@@ -1430,7 +1436,7 @@ function grouped_cluster_violin_plots(
             title=title,
             xsize=xsize,
             ysize=ysize,
-            background_color=background_color
+            background_color=:white
         )
 
         f = violin!(
@@ -1445,7 +1451,7 @@ function grouped_cluster_violin_plots(
             ax,
             clusters,
             groupdf[:, variable];
-            color=:black,
+            color=:gray,
             markersize=5,
             jitter_width=0.27,
             side_nudge=0.001,
@@ -1476,8 +1482,115 @@ function grouped_cluster_violin_plots(
 
     #linkaxes!(filter(x -> x isa Axis, fig.content)...)
     resize_to_layout!(fig)
-    
+
     display(fig)
 
     return fig
+end
+
+function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fig_out_dir)
+
+    mean_dhw_violin = grouped_cluster_violin_plots(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("$(GCM)_mean_dhw");
+        ylabel="mean DHW", xlabel="Clusters"
+    );
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "mean_dhw_$(grouping)_violin.png"), 
+        mean_dhw_violin
+    )
+
+    so_to_si_violin = grouped_cluster_violin_plots(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, :so_to_si;
+        ylabel="Source to sink ratio", xlabel="Clusters"
+    );
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "so_to_si_$(grouping)_violin.png"), 
+        so_to_si_violin
+    )
+
+    total_strength_violin = grouped_cluster_violin_plots(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, :total_strength;
+        ylabel="Total connectivity strength", xlabel="Clusters"
+    );
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "total_strength_$(grouping)_violin.png"), 
+        total_strength_violin
+    )
+
+    initial_cover_violin = grouped_cluster_violin_plots(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("initial_coral_cover");
+        ylabel="Initial coral cover", xlabel="Clusters"
+    );
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "initial_cover_$(grouping)_violin.png"), 
+        initial_cover_violin
+    )
+
+    initial_proportion_violin = grouped_cluster_violin_plots(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("initial_proportion");
+        ylabel="Initial proportion of habitable area occupied", xlabel="Clusters"
+    );
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "initial_proportion_$(grouping)_violin.png"), 
+        initial_proportion_violin
+    )
+
+    dhw_cover_cor_violin = grouped_cluster_violin_plots(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("$(GCM)_dhw_cover_cor");
+        ylabel="Total coral cover - DHW correlation", xlabel="Clusters"
+    );
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "dhw_cover_cor_$(grouping)_violin.png"), 
+        dhw_cover_cor_violin
+    )
+
+    analysis_layers_depth = analysis_layers[analysis_layers.depth_mean .!= 7, :]
+    depth_median_violin = grouped_cluster_violin_plots(
+        analysis_layers_depth,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("depth_med");
+        ylabel="Median Depth (m)", xlabel="Clusters"
+    );
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "depth_$(grouping)_violin.png"), 
+        depth_median_violin
+    )
+
+    bioregion_grouped_timeseries = grouped_cluster_timeseries_plots(
+        rel_cover,
+        analysis_layers,
+        "$(GCM)_$(grouping)_clusters",
+        grouping,
+        1:50
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "$(grouping)_cover_timeseries.png"), 
+        bioregion_grouped_timeseries
+    )
+
+    bior_reefs_dhw_plot = grouped_cluster_timeseries_plots(
+        dhw_ts,
+        analysis_layers,
+        "$(GCM)_$(grouping)_clusters",
+        grouping,
+        1:50
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "grouping_dhw_timeseries.png"), 
+        bior_reefs_dhw_plot
+    )
+
+    return nothing
 end

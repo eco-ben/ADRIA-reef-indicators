@@ -45,15 +45,15 @@ for GCM in dhw_scenarios.dhw.properties["members"]
 
     context_layers[:, "$(GCM)_bioregion_clusters"] = zeros(size(context_layers, 1))
     context_layers[:, "$(GCM)_bioregion_cluster_cats"] = Vector{Union{String, Missing}}(missing, size(context_layers, 1))
-    context_layers[:, "$(GCM)_man_region_clusters"] = zeros(size(context_layers, 1))
-    context_layers[:, "$(GCM)_man_region_cluster_cats"] = Vector{Union{String, Missing}}(missing, size(context_layers, 1))
+    context_layers[:, "$(GCM)_management_area_clusters"] = zeros(size(context_layers, 1))
+    context_layers[:, "$(GCM)_management_area_cluster_cats"] = Vector{Union{String, Missing}}(missing, size(context_layers, 1))
     context_layers[:, "$(GCM)_gbr_clusters"] = zeros(size(context_layers, 1))
     context_layers[:, "$(GCM)_gbr_cluster_cats"] = Vector{Union{String, Missing}}(missing, size(context_layers, 1))
 
     context_layers[rel_cover_less_than_5_ind, "$(GCM)_bioregion_clusters"] = bioregion_clusters
     context_layers[rel_cover_less_than_5_ind, "$(GCM)_bioregion_cluster_cats"] = bioregion_cluster_cats
-    context_layers[rel_cover_less_than_5_ind, "$(GCM)_man_region_clusters"] = man_region_clusters
-    context_layers[rel_cover_less_than_5_ind, "$(GCM)_man_region_cluster_cats"] = man_region_cluster_cats
+    context_layers[rel_cover_less_than_5_ind, "$(GCM)_management_area_clusters"] = man_region_clusters
+    context_layers[rel_cover_less_than_5_ind, "$(GCM)_management_area_cluster_cats"] = man_region_cluster_cats
     context_layers[rel_cover_less_than_5_ind, "$(GCM)_gbr_clusters"] = gbr_clusters
     context_layers[rel_cover_less_than_5_ind, "$(GCM)_gbr_cluster_cats"] = gbr_cluster_cats
     
