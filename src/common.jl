@@ -1018,6 +1018,17 @@ function grouping_counts(grouping_col::Symbol, dataset, bellwether_reefs_col, fn
     return removed_groups
 end
 
+function grouping_counts(grouping_col::Symbol, dataset, clustering_col, n_clusters::Int64)
+    reef_counts = combine(groupby(dataset, grouping_col)) do sdf
+        return (clusters = length(unique(sdf[:, clustering_col])), total_reefs=nrow(sdf))
+    end
+
+    removed_groups = reef_counts[reef_counts[:, :clusters] .< n_clusters, grouping_col]
+
+
+    return removed_groups
+end
+
 function naive_split_metric(obs::AbstractVector, n_members::Int, metric::Function=mean)
     obs_chunks = Iterators.partition(obs, n_members)
     scores = Vector{Float64}(undef, ceil(Int64, length(obs) / n_members))
@@ -1168,3 +1179,11 @@ function find_dict_val(val, dict)
         end
     end
 end
+
+# function find_substantial_difference(values, groups)
+#     unique_groups = unique(groups)
+
+#     medians = [median(values[groups .== group]) for group in unique_groups]
+#     quantile_75 = [quantile(values[groups .== group], 0.75) for group in unique_groups]
+#     quantile_25 = [quantile(values[groups .== group], 0.25) for group in unique_groups]
+

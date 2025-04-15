@@ -389,10 +389,10 @@ function label_lines(label)
     return label
 end
 
-function _axis_size(gdf, x_fig_size, y_fig_size, n_col)
-    xsize = x_fig_size / (n_col)*1.5
+function _axis_size(gdf, x_fig_size, y_fig_size, n_col; x_gap = 1.5, y_gap = 1.2)
+    xsize = x_fig_size / (n_col*x_gap)
     n_fig_row = first(fldmod1(length(gdf), n_col))
-    ysize = y_fig_size / (n_fig_row*1.5)
+    ysize = y_fig_size / (n_fig_row*y_gap)
 
     return xsize, ysize
 end
@@ -438,36 +438,41 @@ function _setup_grouped_figure(dataframe, bellwether_reefs_col, grouping; x_fig_
     return fig, gdf, plot_layout, colors, categories
 end
 
-function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement)
-    dataframe = sort(dataframe, :management_area; rev=true)
+function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement, order=:management_area, multi_axis=true)
+    dataframe = sort(dataframe, order; rev=true)
     
     gdf = DataFrames.groupby(dataframe, grouping)
 
-    fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size))
+    fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size), fontsize = 8pt)
+    plot_layout = nothing
 
-    n_col = optimum_columns(length(unique(dataframe[:, grouping])))
-    plot_layout = figure_layouts(length(gdf), n_col)
+    if multi_axis
+        n_col = optimum_columns(size(unique(dataframe[:, grouping]), 1))
+        plot_layout = figure_layouts(length(gdf), n_col)
 
-    # Configure the legend for the figure
-    last_figure = last(plot_layout)
-    if last(last_figure) < n_col
-        legend_position = (last_figure[1], last_figure[2]+1:n_col)
-    else
-        legend_position = (last_figure[1] + 1, 1:n_col)
+        # Configure the legend for the figure
+        last_figure = last(plot_layout)
+        if last(last_figure) < n_col
+            legend_position = (last_figure[1], last_figure[2]+1:n_col)
+            n_banks = 1
+        else
+            legend_position = (last_figure[1] + 1, 1:n_col)
+            n_banks = 3
+        end
+        
+        legend_entries = []
+        for (i, col) in enumerate([:green, :orange, :blue])
+            LE = marker(; color=col, marker=:circle)
+            push!(legend_entries, [LE])
+        end
+
+        Legend(
+            fig[legend_position...],
+            legend_entries,
+            ["Low", "Medium", "High"],
+            nbanks=n_banks
+        )
     end
-    
-    legend_entries = []
-    for (i, col) in enumerate([:blue, :orange, :green])
-        LE = marker(; color=col, marker=:circle)
-        push!(legend_entries, [LE])
-    end
-
-    Legend(
-        fig[legend_position...],
-        legend_entries,
-        ["High", "Medium", "Low"],
-        nbanks=1
-    )
 
     return fig, gdf, plot_layout
 end
@@ -494,8 +499,8 @@ function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", 
     ax = Axis(
         fig[plot_layout_xi...];
         backgroundcolor=background_color,
-        xticklabelsize=16,
-        yticklabelsize=16,
+        #xticklabelsize=16,
+        #yticklabelsize=16,
         xticks = xticks,
         xticksvisible=false,
         title=title,
@@ -1329,16 +1334,51 @@ function optimum_columns(n_bioregions)
         return 3
     elseif n_bioregions < 20
         return 4
+    elseif n_bioregions <30
+        return 5
     end
 
-    return 5
+    return 6
 end
 
-function ecs_plot(ecs_values, low_conf_range, high_conf_range, impact_labels)
-    fig = Figure()
+function GCM_label(x,y,GCM)
+    return text!(x, y; text = GCM, align = (:right, :center))
+end
+
+inch = 96
+pt = 4/3
+cm = inch / 2.54
+
+function ecs_plot(ecs_values, low_conf_range, high_conf_range, GCM_labels)
+    low_min, low_max = extrema(low_conf_range)
+    high_min, high_max = extrema(high_conf_range)
+
+    fig = Figure(size = (10cm, 13cm), fontsize = 12pt)
     ax = Axis(
-        ylab = "Equilibrium Climate Sensitivity ()"
+        fig[1,1],
+        ylabel = "Equilibrium Climate Sensitivity (°C)",
+        height = 10cm,
+        width = 8cm
     )
+    hidexdecorations!(ax)
+    poly!(
+        ax, 
+        [(0.98, high_min), (1.02, high_min), (1.02, high_max), (0.98, high_max)];
+        color = (:red, 0.2), linestyle = :dash, strokewidth = 1.5, label = "likely"
+    )
+    poly!(
+        ax, 
+        [(0.98, low_min), (1.02, low_min), (1.02, low_max), (0.98, low_max)];
+        color = (:red, 0.6), strokewidth = 1.5, label = "very likely"
+    )
+    scatter!(ax, ones(length(ecs_values)), ecs_values, markersize = 15, color=:black)
+    GCM_label.(fill(1.06, length(ecs_values)), ecs_values, GCM_labels)
+
+    fig[2,1] = Legend(fig, ax, "ECS assessed range", framevisible = false, nbanks = 2)
+
+    display(fig)
+
+    return fig    
 end
 
 function grouped_cluster_timeseries_plots(
@@ -1347,8 +1387,8 @@ function grouped_cluster_timeseries_plots(
     cluster_col,
     grouping,
     length_t;
-    x_fig_size=1500,
-    y_fig_size=1000
+    x_fig_size=18cm,
+    y_fig_size=15cm
 )
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
     fig, gdf, plot_layout = _setup_grouped_figure(
@@ -1359,6 +1399,7 @@ function grouped_cluster_timeseries_plots(
     )
 
     labels = label_lines.(first(df[:, grouping]) for df in gdf)
+    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col; y_gap=1.2)
 
     for (xi, groupdf) in enumerate(gdf)
         plot_layout_xi = plot_layout[xi]
@@ -1367,6 +1408,7 @@ function grouped_cluster_timeseries_plots(
         # Ensure that relative cover timeseries match the cluster allocations from groupdf
         group_timeseries = timeseries_array[length_t, timeseries_array.locations .∈ [groupdf.UNIQUE_ID]]
         group_timeseries = group_timeseries[:, indexin(groupdf.UNIQUE_ID, String.(group_timeseries.locations))]
+        timesteps = group_timeseries.timesteps
 
         clusters = Int64.(groupdf[:, cluster_col])
 
@@ -1375,10 +1417,19 @@ function grouped_cluster_timeseries_plots(
             group_timeseries,
             clusters;
             opts = Dict{Symbol, Any}(:legend => false),
-            axis_opts = Dict(:title => labels[xi])
+            axis_opts = Dict(
+                :title => labels[xi], 
+                :xticks => (
+                    first(length_t):10:last(length_t), 
+                    string.(collect((first(timesteps):10:last(timesteps))))
+                ),
+                :height => ysize,
+                :width => xsize
+            )
         )
     end
 
+    resize_to_layout!(fig)
     display(fig)
 
     return fig
@@ -1392,8 +1443,9 @@ function grouped_cluster_violin_plots(
     title="",
     xlabel="Cluster",
     ylabel="",
-    x_fig_size=1500,
-    y_fig_size=1000
+    x_fig_size=16cm,
+    y_fig_size=16cm,
+    datalimits=(-Inf,Inf)
 )
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
     fig, gdf, plot_layout = _setup_grouped_figure(
@@ -1406,7 +1458,8 @@ function grouped_cluster_violin_plots(
 
     labels = label_lines.(first(df[:, grouping]) for df in gdf)
     colors = [:green, :orange, :blue]
-    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col)
+    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col; y_gap=1.5, x_gap=1.5)
+    xticks = (1:3, ["Low", "Medium", "High"])
 
     for (xi, groupdf) in enumerate(gdf)
         #println("$(xi)")
@@ -1460,13 +1513,15 @@ function grouped_cluster_violin_plots(
         )
 
         if variable == :so_to_si
-            hlines!(1; color=(:gray, 0.5), linewidth=3)
+            hlines!(1; color=(:gray, 0.5), linewidth=4)
+        elseif variable == :log_so_to_si
+            hlines(0; color=(:gray, 0.5), linewidth=4)
         end
 
         Label(
             fig[plot_layout_xi..., Top()],
             labels[xi],
-            fontsize = 16,
+            fontsize = 8pt,
             font = :bold,
             padding = (0, 5, 5, 0),
             halign = :center
@@ -1477,18 +1532,126 @@ function grouped_cluster_violin_plots(
         fig[1:n_fig_row, 0],
         ylabel,
         rotation= pi/2,
-        fontsize=18
+        fontsize=10pt
     )
 
     #linkaxes!(filter(x -> x isa Axis, fig.content)...)
-    resize_to_layout!(fig)
+    #resize_to_layout!(fig)
 
     display(fig)
 
     return fig
 end
 
+function grouped_cluster_ridgeline_plot(
+    dataframe,
+    cluster_col,
+    grouping,
+    variable;
+    title="",
+    xlabel="Cluster",
+    ylabel="",
+    x_fig_size=16cm,
+    y_fig_size=16cm,
+    datalimits=(-Inf,Inf),
+    overlap=1
+)
+    # Prepare plot
+    fig, gdf, plot_layout = _setup_grouped_figure(
+        dataframe,
+        grouping;
+        x_fig_size=x_fig_size,
+        y_fig_size=y_fig_size,
+        marker=PolyElement,
+        multi_axis=false
+    )
+
+    labels = [first(df[:, grouping]) for df in gdf]
+    colors = [:green, :orange, :blue]
+    ax = Axis(
+        fig[1,1],
+        title=title,
+        ylabel=ylabel,
+        xlabel=xlabel
+    )
+    
+    for (i, groupdf) in enumerate(gdf)
+        
+        groupdf = sort(groupdf, cluster_col)
+
+        clusters = Int64.(groupdf[:, cluster_col])
+        cluster_order = unique(clusters)   
+
+        if variable == :so_to_si
+            vlines!(1; color=(:gray, 0.5), linewidth=4)
+        elseif variable == :log_so_to_si
+            vlines(0; color=(:gray, 0.5), linewidth=4)
+        end
+
+        y_offset = (i - 1) * overlap
+
+        for (j, cluster) in enumerate(cluster_order)
+            d = groupdf[groupdf[:, cluster_col] .== cluster, variable]
+            cluster_color = colors[j]
+
+            violin!(
+                fill(y_offset, length(d)), 
+                d, 
+                color=(cluster_color, 0.2), 
+                orientation=:horizontal, 
+                show_median=true,
+                mediancolor=cluster_color,
+                side = :right,
+                datalimits=datalimits
+            )
+            # rainclouds!(
+            #     fill(y_offset, length(d)),
+            #     d;
+            #     color=(cluster_colors[cluster], 0.6),
+            #     markersize=5,
+            #     jitter_width=0.27,
+            #     side_nudge=0.25,
+            #     plot_boxplots=false,
+            #     clouds=nothing,
+            #     side = :left,
+            #     orientation=:horizontal
+            # )
+            # vlines!(median(d), ymin=y_offset, ymax = y_offset + maximum(kde(d).density))
+        end
+    end
+
+    # Adjust y-axis labels to show group names
+    y_ticks = [(i - 1) * overlap for i in eachindex(labels)]
+    ax.yticks = (y_ticks, labels)
+    hidespines!(ax)
+    
+    legend_entries = []
+    for (i, col) in enumerate([:green, :orange, :blue])
+        LE = PolyElement(; color=col, marker=:circle)
+        push!(legend_entries, [LE])
+    end
+
+    Legend(
+        fig[1,2],
+        legend_entries,
+        ["Low", "Medium", "High"],
+        nbanks=1
+    )
+
+
+    display(fig)
+
+    return fig
+end
+
+
 function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fig_out_dir)
+
+    # Filter out groups that don't have 3 clusters due to earlier filtering.
+    groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3)
+    analysis_layers = analysis_layers[analysis_layers[:, grouping] .∉ [groups_too_few_clusters], :]
+    rel_cover = rel_cover = rel_cover[:, rel_cover.locations .∈ [analysis_layers.UNIQUE_ID]]
+    dhw_ts = dhw_ts[:, dhw_ts.locations .∈ [rel_cover.locations]]
 
     mean_dhw_violin = grouped_cluster_violin_plots(
         analysis_layers,
@@ -1498,7 +1661,8 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "mean_dhw_$(grouping)_violin.png"), 
-        mean_dhw_violin
+        mean_dhw_violin, 
+        px_per_unit = 300/inch
     )
 
     so_to_si_violin = grouped_cluster_violin_plots(
@@ -1509,7 +1673,8 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "so_to_si_$(grouping)_violin.png"), 
-        so_to_si_violin
+        so_to_si_violin, 
+        px_per_unit = 300/inch
     )
 
     total_strength_violin = grouped_cluster_violin_plots(
@@ -1520,7 +1685,8 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "total_strength_$(grouping)_violin.png"), 
-        total_strength_violin
+        total_strength_violin,
+        px_per_unit = 300/inch
     )
 
     initial_cover_violin = grouped_cluster_violin_plots(
@@ -1531,7 +1697,8 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "initial_cover_$(grouping)_violin.png"), 
-        initial_cover_violin
+        initial_cover_violin, 
+        px_per_unit = 300/inch
     )
 
     initial_proportion_violin = grouped_cluster_violin_plots(
@@ -1542,7 +1709,8 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "initial_proportion_$(grouping)_violin.png"), 
-        initial_proportion_violin
+        initial_proportion_violin, 
+        px_per_unit = 300/inch
     )
 
     dhw_cover_cor_violin = grouped_cluster_violin_plots(
@@ -1553,10 +1721,21 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "dhw_cover_cor_$(grouping)_violin.png"), 
-        dhw_cover_cor_violin
+        dhw_cover_cor_violin, 
+        px_per_unit = 300/inch
     )
 
     analysis_layers_depth = analysis_layers[analysis_layers.depth_mean .!= 7, :]
+    groups_too_few_clusters_depth = grouping_counts(
+        grouping, 
+        analysis_layers_depth, 
+        "$(GCM)_$(grouping)_clusters", 
+        3
+    )
+    analysis_layers_depth = analysis_layers_depth[
+        analysis_layers_depth[:, grouping] .∉ [groups_too_few_clusters_depth], :
+    ]
+
     depth_median_violin = grouped_cluster_violin_plots(
         analysis_layers_depth,
         Symbol("$(GCM)_$(grouping)_clusters"),
@@ -1565,7 +1744,8 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "depth_$(grouping)_violin.png"), 
-        depth_median_violin
+        depth_median_violin, 
+        px_per_unit = 300/inch
     )
 
     bioregion_grouped_timeseries = grouped_cluster_timeseries_plots(
@@ -1577,7 +1757,8 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     )
     save(
         joinpath(fig_out_dir, "$(grouping)", "$(grouping)_cover_timeseries.png"), 
-        bioregion_grouped_timeseries
+        bioregion_grouped_timeseries, 
+        px_per_unit = 300/inch
     )
 
     bior_reefs_dhw_plot = grouped_cluster_timeseries_plots(
@@ -1589,8 +1770,60 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     )
     save(
         joinpath(fig_out_dir, "$(grouping)", "grouping_dhw_timeseries.png"), 
-        bior_reefs_dhw_plot
+        bior_reefs_dhw_plot, 
+        px_per_unit = 300/inch
     )
 
     return nothing
+end
+
+function grouped_GCM_cluster_timeseries_plots(
+    timeseries_array,
+    dataframe,
+    cluster_col,
+    grouping,
+    length_t;
+    x_fig_size=1500,
+    y_fig_size=1000
+)
+    n_col = optimum_columns(size(unique(dataframe[:, grouping]), 1))
+    fig, gdf, plot_layout = _setup_grouped_figure(
+        dataframe,
+        grouping;
+        x_fig_size=x_fig_size,
+        y_fig_size=y_fig_size,
+        order=[:management_area, :GCM]
+    )
+
+    labels = label_lines.("$(first(df.management_area)) - $(first(df.GCM))" for df in gdf)
+
+    for (xi, groupdf) in enumerate(gdf)
+        plot_layout_xi = plot_layout[xi]
+        groupdf = sort(groupdf, cluster_col)
+
+        # Ensure that relative cover timeseries match the cluster allocations from groupdf
+        gcm = first(groupdf.GCM)
+        group_timeseries = timeseries_array[GCM = (timeseries_array.GCM .== gcm)][:, :, 1]
+        group_timeseries = group_timeseries[locations = (group_timeseries.locations .∈ [groupdf.UNIQUE_ID])]
+        group_timeseries = group_timeseries[length_t, indexin(groupdf.UNIQUE_ID, String.(group_timeseries.locations))]
+        
+        group_timeseries_less_than_5 = [all(group_timeseries[:, i].data .< 5) for i in 1:size(group_timeseries, 2)]
+        group_timeseries_less_than_5_ind = findall(group_timeseries_less_than_5)
+        group_timeseries = group_timeseries[:, group_timeseries_less_than_5_ind]
+        groupdf = groupdf[groupdf.UNIQUE_ID .∈ [group_timeseries.locations], :]
+
+        clusters = Int64.(groupdf[:, cluster_col])
+
+        ADRIA.viz.clustered_scenarios!(
+            fig[plot_layout_xi...],
+            group_timeseries,
+            clusters;
+            opts = Dict{Symbol, Any}(:legend => false),
+            axis_opts = Dict(:title => labels[xi])
+        )
+    end
+
+    display(fig)
+
+    return fig
 end
