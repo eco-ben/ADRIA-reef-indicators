@@ -1,0 +1,7 @@
+[operation]
+num_cores = 6
+threshold = 1e-8
+debug = false
+
+[results]
+output_dir = "../outputs/ADRIA_results/HighResCoralStress"

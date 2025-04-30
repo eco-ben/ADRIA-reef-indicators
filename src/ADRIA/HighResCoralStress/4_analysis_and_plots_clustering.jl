@@ -18,6 +18,8 @@ GCMs = dhw_scenarios.dhw.properties["members"]
 
 context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers.gpkg")
 context_layers.gbr .= "Great Barrier Reef"
+context_layers.log_so_to_si = log10.(context_layers.so_to_si)
+context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
 
