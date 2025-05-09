@@ -8,7 +8,7 @@ using CairoMakie
 using ADRIA
 
 include("../../common.jl")
-includet("../../plotting_functions.jl")
+include("../../plotting_functions.jl")
 
 CairoMakie.activate!()
 
@@ -22,6 +22,8 @@ context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
+
+
 
 for (i_gcm, GCM) in enumerate(GCMs)
     # Select GCM and load relevant results
@@ -58,8 +60,8 @@ man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM i
 bioregion_gcm_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
 gbr_gcm_cluster_cols = [Symbol("$(GCM)_gbr_clusters") for GCM in GCMs]
 analysis_layers_long = stack(
-    context_layers[:, [:UNIQUE_ID, :management_area, gcm_cluster_cols...]], 
-    gcm_cluster_cols
+    context_layers[:, [:UNIQUE_ID, :management_area, gbr_gcm_cluster_cols...]], 
+    gbr_gcm_cluster_cols
 )
 analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_long.variable]
 
@@ -75,7 +77,11 @@ GCM_comparison_plot = grouped_GCM_cluster_timeseries_plots(
     [:management_area, :GCM],
     1:50
 )
-save("../outputs/ADRIA_results/HighResCoralStress/figs/GCM_timeseries_plot.png", GCM_comparison_plot)
+save(
+    "../outputs/ADRIA_results/HighResCoralStress/figs/GCM_timeseries_plot.png", 
+    GCM_comparison_plot,
+    px_per_unit = dpi
+)
 
 analysis_layers = context_layers[context_layers.UNIQUE_ID .∈ [unique(analysis_layers_long.UNIQUE_ID)], :]
 reefs_with_clusters = (
@@ -94,40 +100,40 @@ consistent_reefs = (
 )
 sum(consistent_reefs) / length(consistent_reefs)
 
-fig = Figure()
-ax = Axis(
-    fig[1,1],
-    xlabel = "GCM",
-    ylabel = "Cluster",
-    xticks = (1:length(GCMs), GCMs)
-)
-man_cluster_changes = [unique(collect(row[gcm_cluster_cols])) for row in eachrow(analysis_layers)]
-lines!.(ax, cluster_changes; color = (:gray, 0.1))
+# fig = Figure()
+# ax = Axis(
+#     fig[1,1],
+#     xlabel = "GCM",
+#     ylabel = "Cluster",
+#     xticks = (1:length(GCMs), GCMs)
+# )
+# man_cluster_changes = [unique(collect(row[gcm_cluster_cols])) for row in eachrow(analysis_layers)]
+# lines!.(ax, cluster_changes; color = (:gray, 0.1))
 
-function transition_count_matrix(v, unique_vals)
-    mat = zeros(length(unique_vals), length(unique_vals))
+# function transition_count_matrix(v, unique_vals)
+#     mat = zeros(length(unique_vals), length(unique_vals))
 
-    for i in 1:length(v)-1
-        current_val = Int64(v[i])
-        next_val = Int64(v[i + 1])
-        if current_val != next_val
-            mat[current_val, next_val] += 1
-        end
-    end
+#     for i in 1:length(v)-1
+#         current_val = Int64(v[i])
+#         next_val = Int64(v[i + 1])
+#         if current_val != next_val
+#             mat[current_val, next_val] += 1
+#         end
+#     end
 
-    return mat
-end
-cluster_transitions = [transition_count_matrix(vals, 1:3) for vals in cluster_changes]
-cluster_transitions_mat = zeros(3,3)
-for matrix in cluster_transitions
-    cluster_transitions_mat = cluster_transitions_mat + matrix
-end
-cluster_trans_props = cluster_transitions_mat ./ sum(cluster_transitions_mat)
+#     return mat
+# end
+# cluster_transitions = [transition_count_matrix(vals, 1:3) for vals in cluster_changes]
+# cluster_transitions_mat = zeros(3,3)
+# for matrix in cluster_transitions
+#     cluster_transitions_mat = cluster_transitions_mat + matrix
+# end
+# cluster_trans_props = cluster_transitions_mat ./ sum(cluster_transitions_mat)
 
-unique_cluster_changes = [(maximum(vals) - minimum(vals)) for vals in cluster_changes]
-sum(unique_cluster_changes .== 0) / length(unique_cluster_changes)
-sum(unique_cluster_changes .== 1) / length(unique_cluster_changes)
-sum(unique_cluster_changes .== 2) / length(unique_cluster_changes)
+# unique_cluster_changes = [(maximum(vals) - minimum(vals)) for vals in cluster_changes]
+# sum(unique_cluster_changes .== 0) / length(unique_cluster_changes)
+# sum(unique_cluster_changes .== 1) / length(unique_cluster_changes)
+# sum(unique_cluster_changes .== 2) / length(unique_cluster_changes)
 
 # ECS plot
 ecs_values = Dict(
@@ -139,24 +145,3 @@ ecs_values = Dict(
 )
 ecs = ecs_plot(collect(values(ecs_values)), [2.5,5.1], [2.1,7.7], collect(keys(ecs_values)))
 save("../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png", ecs, px_per_unit = 300/inch)
-
-using DataFrames
-using StatsBase
-using Distributions
-
-# Sample data: 10 groups, 3 clusters, 100 depth values each
-groups = ["Group $i" for i in 1:30]
-clusters = ["A", "B", "C"]
-data = DataFrame(group=String[], cluster=String[], depth=Float64[])
-
-for group in groups
-    for cluster in clusters
-        μ = rand(Uniform(20, 80))
-        depths = rand(Normal(μ, 5), 100)
-        for d in depths
-            push!(data, (group, cluster, d))
-        end
-    end
-end
-
-fig = ridgeline_plot(data; overlap = 0.7)

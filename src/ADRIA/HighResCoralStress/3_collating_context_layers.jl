@@ -8,11 +8,13 @@ using DataFrames, Statistics, YAXArrays
 
 using GLMakie, GeoMakie, GraphMakie
 
-using ADRIA
-
 import GeoDataFrames as GDF
 
 import GeoFormatTypes as GFT
+
+change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs
+
+using ADRIA
 
 include("../../common.jl")
 
@@ -143,7 +145,16 @@ for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
 
     end
 
-    context_layers[!, "$(GCM)_dhw_cover_cor"] = dhw_cover_cor   
+    context_layers[!, "$(GCM)_dhw_cover_cor"] = dhw_cover_cor
+
+    # 4. Re-run 5 scenarios for each GCM and extract mean DHW tolerance from timeseries
+    scens = rs.inputs[1:4, Not(318)] # Only use 1st 5 scenarios for speed and remove RCP variable in inputs
+    scens.wave_scenario .= 1.0
+    rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
+    dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
+    dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
+    
+    context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean
 end
 
 # 5. Calculate the number of reefs in each bioregion
@@ -151,6 +162,13 @@ context_layers.bioregion_count .= 1
 for reef in eachrow(context_layers)
     reef.bioregion_count = count(context_layers.bioregion .== [reef.bioregion])
 end
+
+# 6. Add average latitude for each bioregion
+bioregion_average_latitude = combine(groupby(context_layers, :bioregion)) do sdf
+    return average_latitude = mean([ArchGDAL.gety(ArchGDAL.centroid(geom), 0) for geom in sdf.geometry])
+end
+rename!(bioregion_average_latitude, :x1 => :bioregion_average_latitude)
+context_layers = leftjoin(context_layers, bioregion_average_latitude, on=:bioregion)
 
 # Format columns for writing to geopackage
 context_layers.income_strength = Float64.(context_layers.income_strength)
@@ -165,3 +183,5 @@ context_layers.total_comb .= convert.(Float64, context_layers.total_comb)
 context_layers.so_to_si .= convert.(Float64, context_layers.so_to_si)
 
 GDF.write("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers.gpkg", context_layers; crs=GFT.EPSG(7844), overwrite=true)
+
+change_ADRIA_debug(false) # reset ADRIA debug mode to false as required by other scripts

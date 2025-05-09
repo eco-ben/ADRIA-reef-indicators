@@ -5,6 +5,22 @@ File includes the plotting functions for ADRIA-reef-indicators analysis.
 using Printf
 using Colors
 using Random
+using TOML
+
+config = TOML.parsefile("config.toml")
+
+# Extract figure sizes and convert to pixel measurement
+fig_sizes = config["fig_formats_cm"]
+cm = 37.7952755906 # Size of 1cm in pixels
+map!(x -> x*cm, values(fig_sizes))
+
+# Extract figure fontsize and convert to pixel measurement
+pt = 1.33 # size of 1 pt in pixels
+fontsize = config["fig_fontsize"]
+fontsize = fontsize["fontsize"] * pt
+
+inch = 96 # size of 1 inch in pixels
+dpi = 300 / inch
 
 function _convert_plottable(gdf::Union{DataFrame,DataFrameRow}, geom_col::Symbol)
     local plottable
@@ -292,9 +308,9 @@ function skipmissing_median(x)
     return new_median
 end
 
-function label_lines(label)
-    if length(label) > 25
-        label_new = replace(label, r"(.{25} )" => s"\1\n")
+function label_lines(label; l_length=25)
+    if length(label) > l_length
+        label_new = replace(label, r"(.{l_length} )" => s"\1\n")
 
         return label_new
     end
@@ -351,12 +367,12 @@ function _setup_grouped_figure(dataframe, bellwether_reefs_col, grouping; x_fig_
     return fig, gdf, plot_layout, colors, categories
 end
 
-function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement, order=:management_area, multi_axis=true)
+function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement, order=:bioregion_average_latitude, multi_axis=true, fontsize=11pt)
     dataframe = sort(dataframe, order; rev=true)
     
     gdf = DataFrames.groupby(dataframe, grouping)
 
-    fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size), fontsize = 7pt)
+    fig = Figure(size = (x_fig_size, y_fig_size), fontsize = fontsize)
     plot_layout = nothing
 
     if multi_axis
@@ -507,15 +523,14 @@ function GCM_label(x,y,GCM)
     return text!(x, y; text = GCM, align = (:right, :center))
 end
 
-inch = 96
-pt = 4/3
-cm = inch / 2.54
+function ecs_plot(ecs_values, low_conf_range, high_conf_range, GCM_labels; fig_sizes=fig_sizes, fontsize=fontsize)
+    fig_x_size = fig_sizes["ecs_width"]
+    fig_y_size = fig_sizes["ecs_height"]
 
-function ecs_plot(ecs_values, low_conf_range, high_conf_range, GCM_labels)
     low_min, low_max = extrema(low_conf_range)
     high_min, high_max = extrema(high_conf_range)
 
-    fig = Figure(size = (10cm, 13cm), fontsize = 12pt)
+    fig = Figure(size = (fig_x_size, fig_y_size), fontsize = fontsize)
     ax = Axis(
         fig[1,1],
         ylabel = "Equilibrium Climate Sensitivity (°C)",
@@ -549,15 +564,19 @@ function grouped_cluster_timeseries_plots(
     cluster_col,
     grouping,
     length_t;
-    x_fig_size=18cm,
-    y_fig_size=15cm
+    fig_sizes=fig_sizes,
+    fontsize=fontsize
 )
+
+    fig_x_size = fig_sizes["timeseries_width"]
+    fig_y_size = fig_sizes["timeseries_height"]
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
     fig, gdf, plot_layout = _setup_grouped_figure(
         dataframe,
         grouping;
-        x_fig_size=x_fig_size,
-        y_fig_size=y_fig_size
+        x_fig_size=fig_x_size,
+        y_fig_size=fig_y_size,
+        fontsize=fontsize
     )
 
     labels = label_lines.(first(df[:, grouping]) for df in gdf)
@@ -605,22 +624,25 @@ function grouped_cluster_violin_plots(
     title="",
     xlabel="Cluster",
     ylabel="",
-    x_fig_size=16cm,
-    y_fig_size=16cm,
+    fig_sizes=fig_sizes,
+    fontsize=fontsize,
     datalimits=(-Inf,Inf)
 )
+    fig_x_size = fig_sizes["violin_width"]
+    fig_y_size = fig_sizes["violin_height"]
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
     fig, gdf, plot_layout = _setup_grouped_figure(
         dataframe,
         grouping;
-        x_fig_size=x_fig_size,
-        y_fig_size=y_fig_size,
+        x_fig_size=fig_x_size,
+        y_fig_size=fig_y_size,
+        fontsize=fontsize,
         marker=PolyElement
     )
 
-    labels = label_lines.(first(df[:, grouping]) for df in gdf)
+    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length = 10)
     colors = [:green, :orange, :blue]
-    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col; y_gap=1.5, x_gap=1.5)
+    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col; y_gap=1.2, x_gap=1.2)
     xticks = (1:3, ["Low", "Medium", "High"])
 
     for (xi, groupdf) in enumerate(gdf)
@@ -701,28 +723,33 @@ function grouped_cluster_ridgeline_plot(
     title="",
     xlabel="Cluster",
     ylabel="",
-    x_fig_size=20cm,
-    y_fig_size=20cm,
+    fig_sizes=fig_sizes,
+    fontsize=fontsize,
     datalimits=(-Inf,Inf),
     overlap=1
 )
+
+    fig_x_size = fig_sizes["violin_width"]
+    fig_y_size = fig_sizes["violin_height"]
     # Prepare plot
     fig, gdf, plot_layout = _setup_grouped_figure(
         dataframe,
         grouping;
-        x_fig_size=x_fig_size,
-        y_fig_size=y_fig_size,
+        x_fig_size=fig_y_size,
+        y_fig_size=fig_x_size,
+        fontsize=fontsize,
         marker=PolyElement,
         multi_axis=false
     )
 
-    labels = [first(df[:, grouping]) for df in gdf]
+    labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=18)
     colors = [:green, :orange, :blue]
     ax = Axis(
         fig[1,1],
         title=title,
         ylabel=ylabel,
-        xlabel=xlabel
+        xlabel=xlabel,
+        limits = (extrema(dataframe[:, variable]), nothing)
     )
     
     for (i, groupdf) in enumerate(gdf)
@@ -733,9 +760,9 @@ function grouped_cluster_ridgeline_plot(
         cluster_order = unique(clusters)   
 
         if variable == :so_to_si
-            vlines!(1; color=(:gray, 0.5), linewidth=4)
+            vlines!(1; color=(:gray, 0.5), linewidth=2)
         elseif variable == :log_so_to_si
-            vlines(0; color=(:gray, 0.5), linewidth=4)
+            vlines!(0; color=(:gray, 0.5), linewidth=2)
         end
 
         y_offset = (i - 1) * overlap
@@ -766,7 +793,6 @@ function grouped_cluster_ridgeline_plot(
             #     side = :left,
             #     orientation=:horizontal
             # )
-            # vlines!(median(d), ymin=y_offset, ymax = y_offset + maximum(kde(d).density))
         end
     end
 
@@ -794,11 +820,26 @@ function grouped_cluster_ridgeline_plot(
     return fig
 end
 
+grouping_full_names = Dict(
+    :bioregion => "Bioregion",
+    :management_area => "Management Area",
+    :gbr => ""
+)
 
-function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fig_out_dir)
+function cluster_analysis_plots(
+    analysis_layers, 
+    rel_cover, 
+    dhw_ts, 
+    grouping, 
+    fig_out_dir; 
+    grouping_full_names=grouping_full_names,
+    dpi=dpi
+)
+    grouping_fn = grouping_full_names[grouping]
 
+    overlap = 0.6
     # Filter out groups that don't have 3 clusters due to earlier filtering.
-    groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3)
+    groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3, 7)
     analysis_layers = analysis_layers[analysis_layers[:, grouping] .∉ [groups_too_few_clusters], :]
     rel_cover = rel_cover = rel_cover[:, rel_cover.locations .∈ [analysis_layers.UNIQUE_ID]]
     dhw_ts = dhw_ts[:, dhw_ts.locations .∈ [rel_cover.locations]]
@@ -807,72 +848,72 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_mean_dhw");
-        ylabel="mean DHW", xlabel="Clusters"
+        xlabel="mean DHW", ylabel="$(grouping_fn)", overlap = overlap
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "mean_dhw_$(grouping)_violin.png"), 
         mean_dhw_violin, 
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
-    so_to_si_violin = grouped_cluster_violin_plots(
+    dhw_tol_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
-        grouping, :so_to_si;
-        ylabel="Source to sink ratio", xlabel="Clusters"
+        grouping, Symbol("$(GCM)_mean_DHW_tol");
+        xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap = overlap
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "dhw_tolerance_$(grouping)_violin.png"),
+        dhw_tol_violin,
+        px_per_unit = dpi
+    )
+
+    so_to_si_violin = grouped_cluster_ridgeline_plot(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, :log_so_to_si;
+        xlabel="Log source to sink ratio", ylabel="$(grouping_fn)", overlap = overlap
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "so_to_si_$(grouping)_violin.png"), 
         so_to_si_violin, 
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
-    total_strength_violin = grouped_cluster_violin_plots(
+    total_strength_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
-        grouping, :total_strength;
-        ylabel="Total connectivity strength", xlabel="Clusters"
+        grouping, :log_total_strength;
+        xlabel="Log total connectivity strength", ylabel="$(grouping_fn)", overlap = overlap
     );
     save(
-        joinpath(fig_out_dir, "$(grouping)", "total_strength_$(grouping)_violin.png"), 
+        joinpath(fig_out_dir, "$(grouping)", "log_total_strength_$(grouping)_violin.png"), 
         total_strength_violin,
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
-    initial_cover_violin = grouped_cluster_violin_plots(
-        analysis_layers,
-        Symbol("$(GCM)_$(grouping)_clusters"),
-        grouping, Symbol("initial_coral_cover");
-        ylabel="Initial coral cover", xlabel="Clusters"
-    );
-    save(
-        joinpath(fig_out_dir, "$(grouping)", "initial_cover_$(grouping)_violin.png"), 
-        initial_cover_violin, 
-        px_per_unit = 300/inch
-    )
-
-    initial_proportion_violin = grouped_cluster_violin_plots(
+    initial_proportion_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("initial_proportion");
-        ylabel="Initial proportion of habitable area occupied", xlabel="Clusters"
+        xlabel="Initial proportion of habitable area occupied", ylabel="$(grouping_fn)", overlap = overlap
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "initial_proportion_$(grouping)_violin.png"), 
         initial_proportion_violin, 
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
-    dhw_cover_cor_violin = grouped_cluster_violin_plots(
+    dhw_cover_cor_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_dhw_cover_cor");
-        ylabel="Total coral cover - DHW correlation", xlabel="Clusters"
+        xlabel="Total coral cover - DHW correlation", ylabel="$(grouping_fn)", overlap = overlap
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "dhw_cover_cor_$(grouping)_violin.png"), 
         dhw_cover_cor_violin, 
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
     analysis_layers_depth = analysis_layers[analysis_layers.depth_mean .!= 7, :]
@@ -880,22 +921,23 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
         grouping, 
         analysis_layers_depth, 
         "$(GCM)_$(grouping)_clusters", 
-        3
+        3,
+        7
     )
     analysis_layers_depth = analysis_layers_depth[
         analysis_layers_depth[:, grouping] .∉ [groups_too_few_clusters_depth], :
     ]
 
-    depth_median_violin = grouped_cluster_violin_plots(
+    depth_median_violin = grouped_cluster_ridgeline_plot(
         analysis_layers_depth,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("depth_med");
-        ylabel="Median Depth (m)", xlabel="Clusters"
+        xlabel="Median Depth (m)", ylabel="$(grouping_fn)", overlap = overlap
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "depth_$(grouping)_violin.png"), 
         depth_median_violin, 
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
     bioregion_grouped_timeseries = grouped_cluster_timeseries_plots(
@@ -908,7 +950,7 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     save(
         joinpath(fig_out_dir, "$(grouping)", "$(grouping)_cover_timeseries.png"), 
         bioregion_grouped_timeseries, 
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
     bior_reefs_dhw_plot = grouped_cluster_timeseries_plots(
@@ -921,7 +963,7 @@ function cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, grouping, fi
     save(
         joinpath(fig_out_dir, "$(grouping)", "grouping_dhw_timeseries.png"), 
         bior_reefs_dhw_plot, 
-        px_per_unit = 300/inch
+        px_per_unit = dpi
     )
 
     return nothing
@@ -933,15 +975,18 @@ function grouped_GCM_cluster_timeseries_plots(
     cluster_col,
     grouping,
     length_t;
-    x_fig_size=1500,
-    y_fig_size=1000
+    fig_sizes=fig_sizes,
+    fontsize=fontsize
 )
+    fig_x_size = fig_sizes["timeseries_width"]
+    fig_y_size = fig_sizes["timeseries_height"]
     n_col = optimum_columns(size(unique(dataframe[:, grouping]), 1))
     fig, gdf, plot_layout = _setup_grouped_figure(
         dataframe,
         grouping;
-        x_fig_size=x_fig_size,
-        y_fig_size=y_fig_size,
+        x_fig_size=fig_x_size,
+        y_fig_size=fig_y_size,
+        fontsize=fontsize,
         order=[:management_area, :GCM]
     )
 

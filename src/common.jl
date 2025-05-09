@@ -30,6 +30,7 @@ import GeoDataFrames as GDF
 import GeoFormatTypes as GFT
 import ArchGDAL as AG
 import GeoInterface as GI
+using ADRIA
 
 include("plotting_functions.jl")
 include("ADRIA_DataCube_functions.jl")
@@ -409,20 +410,24 @@ end
 
 """
     grouping_counts(
-        grouping_col::Symbol, 
+        grouping_col::Union{Symbol, String}, 
         dataset::DataFrame, 
         clustering_col::Union{Symbol, String}, 
-        n_clusters::Int64
-    )
+        n_clusters::Int64,
+        n_reefs::Int64
+    )::Vector{String}
 
 Calculate the number of clusters within each grouping. If the number of clusters is less
-than expected then a group is returned in `removed_groups`.
+than expected (`n_clusters`) then a group is returned in `removed_groups`. Calculate the number of reefs
+within each cluster of each group. If the number of reefs is less than desired (`n_reefs`) then
+a group is returned in `removed_groups`.
 
 # Arguments
 - `grouping_col` : Name of column containing group assignments.
 - `dataset` : Dataframe containing `grouping_col` and `clustering_col` information.
 - `clustering_col` : Name of column containing clustered assignments.
 - `n_clusters` : Desired minimum number of unique clusters within each group.
+- `n_reefs` : Desired minimum number of reefs within each cluster of each group.
 
 # Examples
 ```
@@ -430,7 +435,8 @@ groups_too_few_clusters = grouping_counts(
     :bioregion,
     context_layers,
     :bioregion_timeseries_clusters,
-    3
+    3,
+    5
 )
 ```
 """
@@ -438,14 +444,18 @@ function grouping_counts(
     grouping_col::Union{Symbol, String}, 
     dataset::DataFrame, 
     clustering_col::Union{Symbol, String}, 
-    n_clusters::Int64
-)
-    reef_counts = combine(groupby(dataset, grouping_col)) do sdf
+    n_clusters::Int64,
+    n_reefs::Int64
+)::Vector{String}
+    reef_counts = combine(groupby(dataset, [String(grouping_col), clustering_col]), nrow => :nrow)
+    groups_few_reefs = unique(reef_counts[reef_counts.nrow .< n_reefs, grouping_col])
+
+    cluster_counts = combine(groupby(dataset, grouping_col)) do sdf
         return (clusters = length(unique(sdf[:, clustering_col])), total_reefs=nrow(sdf))
     end
-
-    removed_groups = reef_counts[reef_counts[:, :clusters] .< n_clusters, grouping_col]
-
+    groups_few_clusters = unique(cluster_counts[cluster_counts.clusters .< n_clusters, grouping_col])
+    
+    removed_groups = unique(vcat(groups_few_reefs, groups_few_clusters))
 
     return removed_groups
 end
@@ -560,4 +570,116 @@ function find_dict_val(val, dict::Dict)
     end
 
     return nothing
+end
+
+"""
+    change_ADRIA_debug(to::Bool; config_fn::String="config.toml")::Nothing
+
+Edit ADRIA debug mode specified in the `config.toml` to become `to`.
+ADRIA must be reloaded after after this change is made to take effect.
+
+# Arguments
+- `to` : Desired debug option to set in file. (possible options = true, false)
+- `config_fn` : path to config.toml file. Default path is "./config.toml"
+"""
+function change_ADRIA_debug(to::Bool; config_fn::String="config.toml")::Nothing
+    config_contents = TOML.parsefile(config_fn)
+
+    if (config_contents["operation"]["debug"] != to)
+        config_contents["operation"]["debug"] = to
+        
+        open(config_fn, "w") do io
+            TOML.print(io, config_contents)
+        end
+
+        @info "config debug set to $(to)"
+    else
+        @info "config debug already set to $(to)"
+    end
+    return nothing
+end
+
+"""
+    cross_correlation(
+        x::AbstractVector{<:Real},
+        y::AbstractVector{<:Real},
+        lags::AbstractVector{<:Integer},
+        demean::Bool
+    )
+
+Calculate the normalised cross correlation of two vectors x and y with time series
+lags. If `x` is ahead of `y` then a positive lag will result in positive correlation. If `y`
+is ahead of `x`, then a negative lag will result in positive correlation.
+E.g. If testing for x reef to be ahead of y reef, test for correlation at positive lag.
+
+Based on StatsBase https://github.com/JuliaStats/StatsBase.jl/blob/60fb5cd400c31d75efd5cdb7e4edd5088d4b1229/src/signalcorr.jl#L400
+and https://paulbourke.net/miscellaneous/correlate/
+
+# Arguments
+- `x` : Vector of interest to test for being ahead or behind `y`
+- `y` : Vector to test lags of `x` against
+- `lags` : Vector of lags to apply to vector. Positive lags test for `x` leading `y`, negative lags test for `y` leading `x`.
+- `demean` : Subtract the mean of each vector from each element of `x` and `y`. If demean is intended include it as true, otherwise do not include `demean` argument.
+
+# Returns
+Vector of correlation values for each lag in `lags`.
+"""
+function cross_correlation(
+    x::AbstractVector{<:Real},
+    y::AbstractVector{<:Real},
+    lag::Int64,
+    correlation_function::Function,
+    demean::Bool
+    )
+
+    #r = Vector{Float64}()
+    lx = length(x)
+    #m = length(lags)
+
+    if demean
+        zx::Vector{Float64} = x .- mean(x)
+    else
+        throw("`demean` must be true if included. Intended use for applying mean subtraction to `x` and `y`.")
+    end
+
+    if demean
+        zy::Vector{Float64} = y .- mean(y)
+    end
+
+    #for k = 1 : m  # foreach lag value
+        #l = lags[k]
+        l=lag
+
+        if l >= 0
+           sub_x = zx[1:lx-l]
+           sub_y = zy[1+l:lx]
+        else
+           sub_x = zx[1-l:lx]
+           sub_y = zy[1:lx+l]
+        end
+
+        #push!(r, correlation_function(sub_x, sub_y))
+        r = correlation_function(sub_x, sub_y)
+    #end
+
+   return r
+end
+
+function pearsons_cor(x, y)
+    sc = sqrt(dot(x, x) * dot(y, y))
+    r = dot(x, y) / sc
+
+    return r
+end
+
+function CE(x)
+    return sqrt(sum(diff(x).^2))
+end
+
+function CF(x, y)
+    return max(CE(x), CE(y)) / min(CE(x), CE(y))
+end
+
+function CID(x, y)
+    return (sqrt(sum((x - y) .^2)) * CF(x, y))
 end

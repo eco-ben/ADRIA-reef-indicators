@@ -1,7 +1,18 @@
 [operation]
 num_cores = 6
-threshold = 1e-8
+threshold = 1.0e-8
 debug = false
 
 [results]
 output_dir = "../outputs/ADRIA_results/HighResCoralStress"
+
+[fig_formats_cm] # Note that all figure sizes are input in cm, but fontsize matches word pt
+ecs_width = 10
+ecs_height = 13
+timeseries_width = 18
+timeseries_height = 13
+violin_width = 17
+violin_height = 14
+
+[fig_fontsize]
+fontsize = 7
