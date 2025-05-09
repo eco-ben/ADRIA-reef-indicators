@@ -735,8 +735,8 @@ function grouped_cluster_ridgeline_plot(
     fig, gdf, plot_layout = _setup_grouped_figure(
         dataframe,
         grouping;
-        x_fig_size=fig_y_size,
-        y_fig_size=fig_x_size,
+        x_fig_size=fig_x_size,
+        y_fig_size=fig_y_size,
         fontsize=fontsize,
         marker=PolyElement,
         multi_axis=false
