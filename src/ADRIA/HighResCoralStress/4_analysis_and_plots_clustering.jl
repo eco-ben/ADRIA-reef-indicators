@@ -23,8 +23,6 @@ context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
 
-
-
 for (i_gcm, GCM) in enumerate(GCMs)
     # Select GCM and load relevant results
     @info "analysing reef clustering for $(GCM)"
@@ -50,9 +48,9 @@ for (i_gcm, GCM) in enumerate(GCMs)
     analysis_layers = analysis_layers[(analysis_layers.management_area .!= "NA") .& (analysis_layers.bioregion .!= "NA"), :]
 
     # Analysing clusters identified at bioregion level
-    cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, :bioregion, fig_out_dir)
-    cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, :management_area, fig_out_dir)
-    cluster_analysis_plots(analysis_layers, rel_cover, dhw_ts, :gbr, fig_out_dir)
+    cluster_analysis_plots(GCM, analysis_layers, rel_cover, dhw_ts, :bioregion, fig_out_dir)
+    cluster_analysis_plots(GCM, analysis_layers, rel_cover, dhw_ts, :management_area, fig_out_dir)
+    cluster_analysis_plots(GCM, analysis_layers, rel_cover, dhw_ts, :gbr, fig_out_dir)
 
 end
 
@@ -60,8 +58,8 @@ man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM i
 bioregion_gcm_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
 gbr_gcm_cluster_cols = [Symbol("$(GCM)_gbr_clusters") for GCM in GCMs]
 analysis_layers_long = stack(
-    context_layers[:, [:UNIQUE_ID, :management_area, gbr_gcm_cluster_cols...]], 
-    gbr_gcm_cluster_cols
+    context_layers[:, [:UNIQUE_ID, :management_area, man_area_gcm_cluster_cols...]], 
+    man_area_gcm_cluster_cols
 )
 analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_long.variable]
 
@@ -100,6 +98,21 @@ consistent_reefs = (
 )
 sum(consistent_reefs) / length(consistent_reefs)
 
+reefs_1_to_10 = context_layers[
+    (context_layers.depth_qc .== 0) .& 
+    (context_layers.depth_med .>= 1) .& 
+    (context_layers.depth_med .<= 10), :]
+reefs_1_to_10.low_medium_clusters .= 0
+reefs_1_to_10_clusters = analysis_layers_long[analysis_layers_long.UNIQUE_ID .∈ [reefs_1_to_10.UNIQUE_ID], :]
+reefs_1_to_10_clusters = reefs_1_to_10_clusters[reefs_1_to_10_clusters.variable .!= 0.0, :]
+
+for reef in eachrow(reefs_1_to_10)
+    reef_id = reef.UNIQUE_ID
+    reef.low_medium_clusters = all(reefs_1_to_10_clusters[reefs_1_to_10_clusters.UNIQUE_ID .== reef_id, :value] .<= 2.0)
+end
+
+sum(reefs_1_to_10.low_medium_clusters) / nrow(reefs_1_to_10)
+
 # fig = Figure()
 # ax = Axis(
 #     fig[1,1],
@@ -134,14 +147,3 @@ sum(consistent_reefs) / length(consistent_reefs)
 # sum(unique_cluster_changes .== 0) / length(unique_cluster_changes)
 # sum(unique_cluster_changes .== 1) / length(unique_cluster_changes)
 # sum(unique_cluster_changes .== 2) / length(unique_cluster_changes)
-
-# ECS plot
-ecs_values = Dict(
-    "EC-Earth3-Veg" => 4.31,
-    "ACCESS-ESM1-5" => 3.87,
-    "ACCESS-CM2" => 4.72,
-    "GFDL-CM4" => 2.9,
-    "NorESM2-MM" => 2.5
-)
-ecs = ecs_plot(collect(values(ecs_values)), [2.5,5.1], [2.1,7.7], collect(keys(ecs_values)))
-save("../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png", ecs, px_per_unit = 300/inch)

@@ -22,240 +22,10 @@ fontsize = fontsize["fontsize"] * pt
 inch = 96 # size of 1 inch in pixels
 dpi = 300 / inch
 
-function _convert_plottable(gdf::Union{DataFrame,DataFrameRow}, geom_col::Symbol)
-    local plottable
-    try
-        if gdf isa DataFrame
-            plottable = GeoMakie.geo2basic(AG.forceto.(gdf[!, geom_col], AG.wkbPolygon))
-        else
-            plottable = GeoMakie.geo2basic(AG.forceto(gdf[geom_col], AG.wkbPolygon))
-        end
-    catch
-        # Column is already in a plottable form, or some unrelated error occurred
-        if gdf isa DataFrame
-            plottable = gdf[:, geom_col]
-        else
-            plottable = [gdf[geom_col]]
-        end
-    end
-
-    return plottable
-end
-
-"""
-    plot_map(gdf::DataFrame; geom_col::Symbol=:geometry, color_by::Symbol)
-
-Convenience plot function.
-
-# Arguments
-- `gdf` : GeoDataFrame
-- `color_by` : Column name holding factor to color reefs by (e.g. :management_area)
-- `geom_col` : Column name holding geometries to plot
-"""
-function plot_map(gdf::Union{DataFrame,DataFrameRow}; geom_col::Symbol=:geometry)
-    f = Figure(; size=(600, 900))
-    ga = GeoAxis(
-        f[1, 1];
-        dest="+proj=latlong +datum=WGS84",
-        xlabel="Longitude",
-        ylabel="Latitude",
-        xticklabelpad=15,
-        yticklabelpad=40,
-        xticklabelsize=10,
-        yticklabelsize=10,
-        aspect=AxisAspect(0.75),
-        xgridwidth=0.5,
-        ygridwidth=0.5,
-    )
-
-    plottable = _convert_plottable(gdf, geom_col)
-    poly!(ga, plottable)
-
-    display(f)
-
-    return f, ga
-end
-
-function plot_map!(ga::GeoAxis, gdf::DataFrame; geom_col=:geometry, color=nothing)::Nothing
-
-    plottable = _convert_plottable(gdf, geom_col)
-    if !isnothing(color)
-        poly!(ga, plottable, color=color)
-    else
-        poly!(ga, plottable)
-    end
-
-    # Set figure limits explicitly
-    xlims!(ga)
-    ylims!(ga)
-
-    return nothing
-end
-
-function plot_map!(gdf::DataFrame; geom_col=:geometry, color=nothing)::Nothing
-    return plot_map!(current_axis(), gdf; geom_col=geom_col, color=color)
-end
-
-function plot_map(gdf::Union{DataFrame,DataFrameRow}, color_by::Symbol; geom_col::Symbol=:geometry)
-    f = Figure(; size=(600, 900))
-    ga = GeoAxis(
-        f[1, 1];
-        dest="+proj=latlong +datum=WGS84",
-        xlabel="Longitude",
-        ylabel="Latitude",
-        xticklabelpad=15,
-        yticklabelpad=40,
-        xticklabelsize=10,
-        yticklabelsize=10,
-        aspect=AxisAspect(0.75),
-        xgridwidth=0.5,
-        ygridwidth=0.5,
-    )
-
-    plottable = _convert_plottable(gdf, geom_col)
-
-    # Define the unique colors and names for each level of factor color_by.
-    # Use a different color palette for factors with high numbers of levels
-    # (this palette is not as good for visualisation).
-    if size(unique(gdf[:, color_by]),1) <= 20
-        palette = ColorSchemes.tableau_20.colors
-    else
-        palette = ColorSchemes.flag_ec.colors
-    end
-
-    color_indices = groupindices(DataFrames.groupby(gdf, color_by))
-    names = unique(DataFrame(indices=color_indices, names=gdf[:, color_by]))
-
-    # Create the unique legend entries for each level of color_by
-    unique_names = names.names
-    legend_entries = []
-    for name in eachrow(names)
-        col = palette[name.indices]
-        LE = PolyElement(; color=col)
-        push!(legend_entries, [LE])
-    end
-
-    polys = poly!(ga, plottable, color=palette[color_indices])
-
-    Legend(f[2, 1], legend_entries, unique_names, nbanks=3, tellheight=true,
-    tellwidth=false, orientation=:horizontal, labelsize=10)
-
-    display(f)
-    return f, ga
-end
-
 function colorscheme_alpha(cscheme::ColorScheme, alpha = 0.5)
     ncolors = length(cscheme)
 
     return ColorScheme([RGBA(get(cscheme, k), alpha) for k in range(0, 1, length=ncolors)])
-end
-
-# For horizintal and vertical text alignment:
-justifyme(θ) = (0≤θ<π/2 || 3π/2<θ≤2π) ? :left : (π/2<θ<3π/2) ? :right : :center
-justifymeV(θ) = π/4≤θ≤3π/4 ? :bottom : 5π/4<θ≤7π/4 ? :top : :center
-
-# Radar plot function:
-function radarplot(ax::Axis, v, val_labels; p_grid = maximum(v) * (1.0:length(val_labels)) / length(val_labels), title = "", labels = eachindex(v), labelsize = 1, points=true, spokeswidth= 1.5, spokescolor=:salmon, fillalpha=0.2, linewidth=1.5)
-    # Axis attributes
-    ax.xgridvisible = false
-    ax.ygridvisible = false
-    ax.xminorgridvisible = false
-    ax.yminorgridvisible = false
-    ax.leftspinevisible = false
-    ax.rightspinevisible = false
-    ax.bottomspinevisible = false
-    ax.topspinevisible = false
-    ax.xminorticksvisible = false
-    ax.yminorticksvisible = false
-    ax.xticksvisible = false
-    ax.yticksvisible = false
-    ax.xticklabelsvisible = false
-    ax.yticklabelsvisible = false
-    ax.aspect = DataAspect()
-    ax.title = title
-    #
-    l = length(v)
-    rad = (0:(l-1)) * 2π / l
-    # Point coordinates
-    x = v .* cos.(rad) .- 0.05
-    y = v .* sin.(rad) .- 0.05
-    # if p_grid != 0
-        # Coordinates for radial grid
-        xa = maximum(p_grid) * cos.(rad) * 1.1
-        ya = maximum(p_grid) * sin.(rad) * 1.1
-        # Coordinates for polar grid text
-        radC = (rad[Int(round(l / 2))] + rad[1 + Int(round(l / 2))]) / 2.0
-        xc = p_grid * cos(radC)
-        yc = p_grid * sin(radC)
-        for i in p_grid
-            poly!(ax, Circle(Point2f(0, 0), i), color = :transparent, strokewidth=1, strokecolor=ax.xgridcolor)
-        end
-        text!(ax, xc, yc, text=val_labels, fontsize = 12, align = (:center, :baseline), color=ax.xlabelcolor)
-        arrows!(ax, zeros(l), zeros(l), xa, ya, color=ax.xgridcolor, linestyle=:solid, arrowhead=' ')
-        if length(labels) == l
-            for i in eachindex(rad)
-                text!(ax, xa[i], ya[i], text=string(labels[i]), fontsize = labelsize, markerspace = :data, align = (justifyme(rad[i]), justifymeV(rad[i])), color=ax.xlabelcolor)
-            end
-        elseif length(labels) > 1
-            printstyled("WARNING! Labels omitted:  they don't match with the points ($(length(labels)) vs $l).\n", bold=true, color=:yellow)
-        end
-    # end
-    pp = scatter!(ax, [(x[i], y[i]) for i in eachindex(x)], color=RGB{Float32}(0.4, 0.4, 0.4))
-    cc = to_value(pp.color)
-    m_color = RGBA{Float32}(comp1(cc), comp2(cc), comp3(cc), fillalpha)
-    s_color = RGB{Float32}(comp1(cc), comp2(cc), comp3(cc))
-    pp.color = m_color
-    pp.strokecolor = s_color
-    pp.strokewidth= linewidth
-    arrows!(ax, zeros(l), zeros(l), x, y, color=spokescolor, linewidth=spokeswidth, arrowhead=' ')
-    if points
-        scatter!(ax, x, y)
-    end
-    ax
-end
-
-function radarplot!(ax, v)
-
-    l = length(v)
-    rad = (0:(l-1)) * 2π / l
-
-    x = v .* cos.(rad) .- 0.15
-    y = v .* sin.(rad) .- 0.15
-
-    pp = scatter!(ax, [(x[i], y[i]) for i in eachindex(x)], color=RGB{Float32}(0.4, 0.4, 0.4))
-
-    ax
-end
-
-"""
-    radarplot_df(df, cols, val_labels, labels; spokeswidth = 0, labelsize = 1)
-
-Plots a radar plot intended to visualise each of the bellwether reefs and check whether their
-correlation occurs at all lags or only some lags.
-
-# Arguments
-- `df` : dataframe containing a row for each reef and columns for each relevant lag. Each
-lag column has corresponding integer values if a reef is a bellwether reef at that lag, e.g.
-if reef-1 is a bellwether reef at lag5 the value of df[reef-1, lag5] = 5.
-- `cols` : vector of column names containing the lag values for each reef.
-- `val_labels` : labels for the values of each ring in the plot.
-- `labels` : Labels for each reef. (RME_UNIQUE_ID or similar identifier)
-"""
-function radarplot_df(df, cols, val_labels, labels; spokeswidth = 0, labelsize = 1)
-    fig = Figure()
-    ax = Axis(fig[1,1])
-    max_vals = [maximum(df[:, col]) for col in cols]
-    initial_column = df[:, cols[argmax(max_vals)]]
-
-    f = radarplot(ax, initial_column, val_labels; labels = labels, spokeswidth = spokeswidth, labelsize = labelsize)
-
-    for col in cols
-        f = radarplot!(ax, df[:, col])
-    end
-
-    display(fig)
-
-    return fig
 end
 
 """
@@ -310,7 +80,7 @@ end
 
 function label_lines(label; l_length=25)
     if length(label) > l_length
-        label_new = replace(label, r"(.{l_length} )" => s"\1\n")
+        label_new = replace(label, Regex("(.{$(l_length)} )") => s"\1\n")
 
         return label_new
     end
@@ -450,61 +220,6 @@ function figure_layouts(n_bioregions, n_col)
     return [fldmod1(x, n_col) for x in 1:n_bioregions]
 end
 
-function plot_map_bellwether_reefs(gdf::Union{DataFrame,DataFrameRow}, color_by::Symbol, bellwether_reefs_col::Symbol; geom_col::Symbol=:geometry)
-    if first(unique(gdf.management_area_short)) ∈ ["FarNorthern", "Cairns-Cooktown"]
-        f = Figure(; size=(700, 1000))
-    else
-        f = Figure(; size=(1000, 800))
-    end
-    ga = GeoAxis(
-        f[1, 1];
-        dest="+proj=latlong +datum=WGS84",
-        xlabel="Longitude",
-        ylabel="Latitude",
-        xticklabelpad=15,
-        yticklabelpad=40,
-        xticklabelsize=10,
-        yticklabelsize=10,
-    )
-
-    plottable = _convert_plottable(gdf, geom_col)
-
-    # Define the unique colors and names for each level of factor color_by.
-    # Use a different color palette for factors with high numbers of levels
-    # (this palette is not as good for visualisation).
-    if size(unique(gdf[:, color_by]),1) <= 20
-        palette = ColorSchemes.tableau_20.colors
-        alph_palette = colorscheme_alpha(ColorSchemes.tableau_20, 0.6)
-    else
-        palette = ColorSchemes.flag_ec.colors
-        alph_palette = colorscheme_alpha(ColorSchemes.flag_ec, 0.6)
-    end
-
-    color_indices = groupindices(DataFrames.groupby(gdf, color_by))
-    names = unique(DataFrame(indices=color_indices, names=gdf[:, color_by]))
-
-    # Create the unique legend entries for each level of color_by
-    unique_names = names.names
-    legend_entries = []
-    for name in eachrow(names)
-        col = palette[name.indices]
-        LE = PolyElement(; color=col)
-        push!(legend_entries, [LE])
-    end
-    bellwether_indices = gdf[:, bellwether_reefs_col] .== "bellwether"
-    non_bellwether_indices = gdf[:, bellwether_reefs_col] .== "non-bellwether"
-
-    non_bell_polys = poly!(ga, plottable[non_bellwether_indices], color=alph_palette[color_indices[non_bellwether_indices]])
-    bell_polys = poly!(ga, plottable[bellwether_indices], color=palette[color_indices[bellwether_indices]], strokewidth=0.5)
-
-    Legend(f[2, 1], legend_entries, unique_names, nbanks=3, tellheight=true,
-    tellwidth=false, orientation=:horizontal, labelsize=9, patchsize=(11,11))
-    resize_to_layout!(f)
-
-    display(f)
-    return f, ga
-end
-
 function optimum_columns(n_bioregions)
     if n_bioregions < 5
         return 2
@@ -579,8 +294,8 @@ function grouped_cluster_timeseries_plots(
         fontsize=fontsize
     )
 
-    labels = label_lines.(first(df[:, grouping]) for df in gdf)
-    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col; y_gap=1.2)
+    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=17)
+    xsize, ysize = _axis_size(gdf, fig_x_size, fig_y_size, n_col; y_gap=1.2)
 
     for (xi, groupdf) in enumerate(gdf)
         plot_layout_xi = plot_layout[xi]
@@ -593,6 +308,7 @@ function grouped_cluster_timeseries_plots(
 
         clusters = Int64.(groupdf[:, cluster_col])
 
+        
         ADRIA.viz.clustered_scenarios!(
             fig[plot_layout_xi...],
             group_timeseries,
@@ -603,14 +319,20 @@ function grouped_cluster_timeseries_plots(
                 :xticks => (
                     first(length_t):10:last(length_t), 
                     string.(collect((first(timesteps):10:last(timesteps))))
-                ),
-                :height => ysize,
-                :width => xsize
+                )
+                # :height => ysize,
+                # :width => xsize
             )
         )
     end
 
-    resize_to_layout!(fig)
+    axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
+    map(x -> hidexdecorations!(x, grid=true), axes_after_1)
+
+    rowgap!(fig.layout, 5)
+    colgap!(fig.layout, 5)
+
+    # resize_to_layout!(fig)
     display(fig)
 
     return fig
@@ -742,7 +464,8 @@ function grouped_cluster_ridgeline_plot(
         multi_axis=false
     )
 
-    labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=18)
+    #labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=17)
+    labels = [first(df[:, grouping]) for df in gdf]
     colors = [:green, :orange, :blue]
     ax = Axis(
         fig[1,1],
@@ -827,6 +550,7 @@ grouping_full_names = Dict(
 )
 
 function cluster_analysis_plots(
+    GCM,
     analysis_layers, 
     rel_cover, 
     dhw_ts, 
@@ -837,7 +561,7 @@ function cluster_analysis_plots(
 )
     grouping_fn = grouping_full_names[grouping]
 
-    overlap = 0.6
+    overlap = 0.8
     # Filter out groups that don't have 3 clusters due to earlier filtering.
     groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3, 7)
     analysis_layers = analysis_layers[analysis_layers[:, grouping] .∉ [groups_too_few_clusters], :]
@@ -990,7 +714,7 @@ function grouped_GCM_cluster_timeseries_plots(
         order=[:management_area, :GCM]
     )
 
-    labels = label_lines.("$(first(df.management_area)) - $(first(df.GCM))" for df in gdf)
+    labels = label_lines.("$(first(df.management_area)) - $(first(df.GCM))" for df in gdf; l_length=15)
 
     for (xi, groupdf) in enumerate(gdf)
         plot_layout_xi = plot_layout[xi]
@@ -1014,10 +738,20 @@ function grouped_GCM_cluster_timeseries_plots(
             group_timeseries,
             clusters;
             opts = Dict{Symbol, Any}(:legend => false),
-            axis_opts = Dict(:title => labels[xi])
+            axis_opts = Dict(
+                :title => labels[xi],
+                :yticks => [0,2,4],
+                :xticks => ([1,10,20,30,40,50], string.([2025,2035,2045,2055,2065,2075]))
+            )
         )
     end
 
+    # Tweak layout defaults
+    # fig.layout.colgap = 5  # Default ~10, reduce to make plots tighter horizontally
+    # fig.layout.rowgap = 5  # Same for vertical spacing
+    # fig.layout.outerpadding = 5  # Reduce space around the entire figure
+
+    linkaxes!(filter(x -> x isa Axis, fig.content)...)
     display(fig)
 
     return fig

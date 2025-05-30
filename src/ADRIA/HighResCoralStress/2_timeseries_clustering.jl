@@ -56,6 +56,6 @@ for GCM in dhw_scenarios.dhw.properties["members"]
     context_layers[rel_cover_less_than_5_ind, "$(GCM)_management_area_cluster_cats"] = man_region_cluster_cats
     context_layers[rel_cover_less_than_5_ind, "$(GCM)_gbr_clusters"] = gbr_clusters
     context_layers[rel_cover_less_than_5_ind, "$(GCM)_gbr_cluster_cats"] = gbr_cluster_cats
-    
 end
+
 GDF.write("../outputs/ADRIA_results/HighResCoralStress/bellwether_reefs.gpkg", context_layers)

@@ -4,7 +4,7 @@ connections for each reef. Run after running 3_.jl to include the bioregions and
 reef layers.
 """
 
-using DataFrames, Statistics, YAXArrays
+using DataFrames, Statistics, YAXArrays, ArchGDAL
 
 using GLMakie, GeoMakie, GraphMakie
 
