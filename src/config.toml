@@ -11,8 +11,8 @@ map_width = 18
 map_height = 18
 ecs_width = 10
 ecs_height = 13
-timeseries_width = 18
-timeseries_height = 13
+timeseries_width = 20
+timeseries_height = 15
 violin_width = 17
 violin_height = 14
 

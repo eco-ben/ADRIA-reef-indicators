@@ -280,9 +280,9 @@ function grouped_cluster_timeseries_plots(
     grouping,
     length_t;
     fig_sizes=fig_sizes,
-    fontsize=fontsize
+    fontsize=fontsize,
+    ytitle=""
 )
-
     fig_x_size = fig_sizes["timeseries_width"]
     fig_y_size = fig_sizes["timeseries_height"]
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
@@ -315,6 +315,7 @@ function grouped_cluster_timeseries_plots(
             clusters;
             opts = Dict{Symbol, Any}(:legend => false),
             axis_opts = Dict(
+                :ylabel => ytitle,
                 :title => labels[xi], 
                 :xticks => (
                     first(length_t):10:last(length_t), 
@@ -327,10 +328,14 @@ function grouped_cluster_timeseries_plots(
     end
 
     axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
-    map(x -> hidexdecorations!(x, grid=true), axes_after_1)
+    map(x -> hidexdecorations!(x; grid = false, ticks = false), axes_after_1)
+    map(x -> hideydecorations!(x, ticks = false, ticklabels = false, grid = false, label = false), axes_after_1)
 
-    rowgap!(fig.layout, 5)
-    colgap!(fig.layout, 5)
+    if grouping == :bioregion
+        rowgap!(fig.layout, 5)
+        colgap!(fig.layout, 5)
+        map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
+    end
 
     # resize_to_layout!(fig)
     display(fig)
@@ -563,7 +568,7 @@ function cluster_analysis_plots(
 
     overlap = 0.8
     # Filter out groups that don't have 3 clusters due to earlier filtering.
-    groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3, 7)
+    groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3, 5)
     analysis_layers = analysis_layers[analysis_layers[:, grouping] .∉ [groups_too_few_clusters], :]
     rel_cover = rel_cover = rel_cover[:, rel_cover.locations .∈ [analysis_layers.UNIQUE_ID]]
     dhw_ts = dhw_ts[:, dhw_ts.locations .∈ [rel_cover.locations]]
@@ -646,7 +651,7 @@ function cluster_analysis_plots(
         analysis_layers_depth, 
         "$(GCM)_$(grouping)_clusters", 
         3,
-        7
+        5
     )
     analysis_layers_depth = analysis_layers_depth[
         analysis_layers_depth[:, grouping] .∉ [groups_too_few_clusters_depth], :
