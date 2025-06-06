@@ -38,10 +38,11 @@ for GCM in dhw_scenarios.dhw.properties["members"]
 
     rel_cover_less_than_5 = [all(rel_cover[:, i].data .< 5) for i in 1:size(rel_cover, 2)]
     rel_cover_less_than_5_ind = findall(rel_cover_less_than_5)
+    # rel_cover_less_than_5 = ones(size(context_layers, 1))
 
-    (bioregion_clusters, bioregion_cluster_cats) = grouped_timeseries_clustering(rel_cover[:, rel_cover_less_than_5], context_layers.bioregion[rel_cover_less_than_5], n_clusters; length_t=1:50)
-    (man_region_clusters, man_region_cluster_cats) = grouped_timeseries_clustering(rel_cover[:, rel_cover_less_than_5], context_layers.management_area[rel_cover_less_than_5], n_clusters; length_t=1:50)
-    (gbr_clusters, gbr_cluster_cats) = grouped_timeseries_clustering(rel_cover[:, rel_cover_less_than_5], ones(sum(rel_cover_less_than_5)), n_clusters; length_t=1:50)
+    (bioregion_clusters, bioregion_cluster_cats) = grouped_timeseries_clustering(rel_cover[:, rel_cover_less_than_5], context_layers.bioregion[rel_cover_less_than_5]; n_clusters=n_clusters, length_t=1:50)
+    (man_region_clusters, man_region_cluster_cats) = grouped_timeseries_clustering(rel_cover[:, rel_cover_less_than_5], context_layers.management_area[rel_cover_less_than_5]; n_clusters=n_clusters, length_t=1:50)
+    (gbr_clusters, gbr_cluster_cats) = grouped_timeseries_clustering(rel_cover[:, rel_cover_less_than_5], ones(sum(rel_cover_less_than_5)); n_clusters=n_clusters, length_t=1:50)
 
     context_layers[:, "$(GCM)_bioregion_clusters"] = zeros(size(context_layers, 1))
     context_layers[:, "$(GCM)_bioregion_cluster_cats"] = Vector{Union{String, Missing}}(missing, size(context_layers, 1))

@@ -683,3 +683,26 @@ end
 function CID(x, y)
     return (sqrt(sum((x - y) .^2)) * CF(x, y))
 end
+
+function carbonate_threshold_cover(area, cover; threshold=0.2)
+    carbonate_cover = area * threshold
+
+    return (cover .- carbonate_cover) ./ carbonate_cover .* 100
+end
+
+function threshold_cover_timeseries(areas, cover_timeseries, threshold)
+    threshold_cover = YAXArray(
+        (cover_timeseries.timesteps, cover_timeseries.locations),
+        zeros(size(cover_timeseries))
+    )
+
+    for loc in eachindex(areas)
+        threshold_cover[:, loc] = carbonate_threshold_cover(
+            areas[loc], 
+            cover_timeseries[:, loc]; 
+            threshold=threshold
+        )
+    end
+
+    return threshold_cover
+end

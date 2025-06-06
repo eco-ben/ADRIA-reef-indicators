@@ -147,3 +147,47 @@ sum(reefs_1_to_10.low_medium_clusters) / nrow(reefs_1_to_10)
 # sum(unique_cluster_changes .== 0) / length(unique_cluster_changes)
 # sum(unique_cluster_changes .== 1) / length(unique_cluster_changes)
 # sum(unique_cluster_changes .== 2) / length(unique_cluster_changes)
+analysis_layers_depth = analysis_layers[analysis_layers.depth_mean .!= 7, :]
+groups_too_few_clusters_depth = grouping_counts(
+    grouping, 
+    analysis_layers_depth, 
+    "$(GCM)_$(grouping)_clusters", 
+    3,
+    5
+)
+analysis_layers_depth = analysis_layers_depth[
+    analysis_layers_depth[:, grouping] .∉ [groups_too_few_clusters_depth], :
+]
+threshold = 10
+
+bioregion_colors = distinguishable_colors(length(unique(analysis_layers_depth.bioregion)))
+bioregion_colors = 
+
+fig = Figure()
+ax1 = Axis(
+    fig[1,1];
+    xlabel="median reef depth",
+    ylabel="number of years above threshold $(threshold)"
+)
+scat1 = scatter!(
+    ax1, 
+    analysis_layers_depth.depth_med, 
+    analysis_layers_depth[:, "$(GCM)_years_above_$(threshold)"];
+    color=analysis_layers_depth[:, "$(GCM)_gbr_clusters"],
+    alpha=0.5
+)
+Colorbar(fig[1,1][1,2], scat1, label="GBR-scale cluster")
+
+ax2 = Axis(
+    fig[1,2];
+    xlabel="Log total connectivity strength",
+    ylabel="number of years above threshold $(threshold)"
+)
+scat2 = scatter!(
+    ax2, 
+    analysis_layers_depth.log_total_strength,
+    analysis_layers_depth[:, "$(GCM)_years_above_$(threshold)"];
+    color=log.(analysis_layers_depth.area),
+    alpha=0.7
+)
+Colorbar(fig[1,2][1,2], scat2, label="Log reef area")

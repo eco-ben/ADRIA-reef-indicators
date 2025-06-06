@@ -15,11 +15,12 @@ import GeoFormatTypes as GFT
 change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs
 
 using ADRIA
+using ArchGDAL
 
 include("../../common.jl")
 
 # Load context layers with bioregions and target reefs
-context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/bellwether_reefs.gpkg")
+context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/bellwether_reefs_carbonate.gpkg")
 
 # GBR wide domain
 gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
@@ -118,11 +119,22 @@ context_layers.initial_proportion = (
     (context_layers.area .* context_layers.k)
 )
 
+thresholds = 10:1:20
 # Attaching GCM-dependent context layers
 for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
 
     rs = ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
     GCM_results = GCM_analysis_results(rs)
+
+    # 3. Calculate number of years each reef is above a carbonate budget threshold
+    @floop for threshold in thresholds
+        t_threshold = threshold / 100
+        reef_thresholds = context_layers.area .* t_threshold
+
+        absolute_cover = GCM_results.absolute_median_cover
+        n_years_above = [sum(absolute_cover[:, loc] .> reef_thresholds[loc]) for loc in eachindex(reef_thresholds)]
+        context_layers[!, "$(GCM)_years_above_$(threshold)"] = n_years_above
+    end
 
     # 3. Attach DHW data to context_layers
     # mean DHW data for sites
@@ -182,6 +194,6 @@ context_layers.total_count .= convert.(Int64, context_layers.total_count)
 context_layers.total_comb .= convert.(Float64, context_layers.total_comb)
 context_layers.so_to_si .= convert.(Float64, context_layers.so_to_si)
 
-GDF.write("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers.gpkg", context_layers; crs=GFT.EPSG(7844), overwrite=true)
+GDF.write("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers_carbonate.gpkg", context_layers; crs=GFT.EPSG(7844), overwrite=true)
 
 change_ADRIA_debug(false) # reset ADRIA debug mode to false as required by other scripts
