@@ -585,17 +585,17 @@ function cluster_analysis_plots(
         px_per_unit = dpi
     )
 
-    dhw_tol_violin = grouped_cluster_ridgeline_plot(
-        analysis_layers,
-        Symbol("$(GCM)_$(grouping)_clusters"),
-        grouping, Symbol("$(GCM)_mean_DHW_tol");
-        xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap = overlap
-    )
-    save(
-        joinpath(fig_out_dir, "$(grouping)", "dhw_tolerance_$(grouping)_violin.png"),
-        dhw_tol_violin,
-        px_per_unit = dpi
-    )
+    # dhw_tol_violin = grouped_cluster_ridgeline_plot(
+    #     analysis_layers,
+    #     Symbol("$(GCM)_$(grouping)_clusters"),
+    #     grouping, Symbol("$(GCM)_mean_DHW_tol");
+    #     xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap = overlap
+    # )
+    # save(
+    #     joinpath(fig_out_dir, "$(grouping)", "dhw_tolerance_$(grouping)_violin.png"),
+    #     dhw_tol_violin,
+    #     px_per_unit = dpi
+    # )
 
     so_to_si_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
@@ -722,6 +722,7 @@ function grouped_GCM_cluster_timeseries_plots(
     labels = label_lines.("$(first(df.management_area)) - $(first(df.GCM))" for df in gdf; l_length=15)
 
     for (xi, groupdf) in enumerate(gdf)
+        # println("$(xi)")
         plot_layout_xi = plot_layout[xi]
         groupdf = sort(groupdf, cluster_col)
 
@@ -731,9 +732,9 @@ function grouped_GCM_cluster_timeseries_plots(
         group_timeseries = group_timeseries[locations = (group_timeseries.locations .∈ [groupdf.UNIQUE_ID])]
         group_timeseries = group_timeseries[length_t, indexin(groupdf.UNIQUE_ID, String.(group_timeseries.locations))]
         
-        group_timeseries_less_than_5 = [all(group_timeseries[:, i].data .< 5) for i in 1:size(group_timeseries, 2)]
-        group_timeseries_less_than_5_ind = findall(group_timeseries_less_than_5)
-        group_timeseries = group_timeseries[:, group_timeseries_less_than_5_ind]
+        # group_timeseries_less_than_5 = [all(group_timeseries[:, i].data .< 5) for i in 1:size(group_timeseries, 2)]
+        # group_timeseries_less_than_5_ind = findall(group_timeseries_less_than_5)
+        # group_timeseries = group_timeseries[:, group_timeseries_less_than_5_ind]
         groupdf = groupdf[groupdf.UNIQUE_ID .∈ [group_timeseries.locations], :]
 
         clusters = Int64.(groupdf[:, cluster_col])
@@ -745,7 +746,7 @@ function grouped_GCM_cluster_timeseries_plots(
             opts = Dict{Symbol, Any}(:legend => false),
             axis_opts = Dict(
                 :title => labels[xi],
-                :yticks => [0,2,4],
+                # :yticks => [0,2,4],
                 :xticks => ([1,10,20,30,40,50], string.([2025,2035,2045,2055,2065,2075]))
             )
         )

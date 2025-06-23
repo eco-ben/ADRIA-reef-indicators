@@ -165,7 +165,8 @@ for GCM in dhw_scenarios.dhw.properties["members"]
     GCM_results = GCM_analysis_results(rs)
     absolute_cover = GCM_results.absolute_median_cover
 
-    threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
+    # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
+    threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
 
     (bioregion_clusters, bioregion_cluster_cats) = grouped_timeseries_clustering(threshold_cover.data, context_layers.bioregion; n_clusters=n_clusters, length_t=1:50)
     (man_region_clusters, man_region_cluster_cats) = grouped_timeseries_clustering(threshold_cover, context_layers.management_area; n_clusters=n_clusters, length_t=1:50)
@@ -181,3 +182,8 @@ for GCM in dhw_scenarios.dhw.properties["members"]
 end
 
 GDF.write("../outputs/ADRIA_results/HighResCoralStress/bellwether_reefs_carbonate.gpkg", context_layers)
+
+# threshold_cover = absolute_cover
+# for loc in eachindex(absolute_cover.locations)
+#     threshold_cover[:, loc] = normalise(threshold_cover[:, loc], (0,1))
+# end

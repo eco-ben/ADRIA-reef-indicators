@@ -706,3 +706,25 @@ function threshold_cover_timeseries(areas, cover_timeseries, threshold)
 
     return threshold_cover
 end
+
+function percentage_cover_timeseries(areas, cover_timeseries)
+    props = Dict(
+        :metric_feature => "Cover",
+        :axes_names => ["timesteps", "locations"],
+        :metric_name => "Cover of reef area",
+        :axes_units => ["years", ""],
+        :is_relative => true,
+        :metric_unit => "%"
+    )
+    percentage_cover = YAXArray(
+        (cover_timeseries.timesteps, cover_timeseries.locations),
+        zeros(size(cover_timeseries)), props
+    )
+
+    for loc in eachindex(areas)
+        percentage_cover[:, loc] = cover_timeseries[:, loc] ./ areas[loc] .* 100
+    end
+
+    return percentage_cover
+end
+

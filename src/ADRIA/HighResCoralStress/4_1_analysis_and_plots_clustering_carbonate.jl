@@ -16,12 +16,13 @@ CairoMakie.activate!()
 dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
 GCMs = dhw_scenarios.dhw.properties["members"]
 
-context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers.gpkg")
+context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers_carbonate.gpkg")
 context_layers.gbr .= "Great Barrier Reef"
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
+areas = gbr_dom.loc_data.area
 
 for (i_gcm, GCM) in enumerate(GCMs)
     # Select GCM and load relevant results
@@ -31,10 +32,9 @@ for (i_gcm, GCM) in enumerate(GCMs)
 
     rs = ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
     GCM_results = GCM_analysis_results(rs)
-    rel_cover = GCM_results.relative_cover
-
-    rel_cover_less_than_5 = [all(rel_cover[:, i].data .< 5) for i in 1:size(rel_cover, 2)]
-    rel_cover_less_than_5_ind = findall(rel_cover_less_than_5)
+    absolute_cover = GCM_results.absolute_median_cover
+    # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
+    threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
 
     dhw_ts = gbr_dom.dhw_scens[:,:,i_gcm]
     ax = (
@@ -44,13 +44,12 @@ for (i_gcm, GCM) in enumerate(GCMs)
     dhw_ts = rebuild(dhw_ts, dims=ax)
 
     # Subset layers to remove reefs that start with very low coral cover
-    analysis_layers = context_layers[rel_cover_less_than_5, :]
-    analysis_layers = analysis_layers[(analysis_layers.management_area .!= "NA") .& (analysis_layers.bioregion .!= "NA"), :]
+    analysis_layers = context_layers[(context_layers.management_area .!= "NA") .& (context_layers.bioregion .!= "NA"), :]
 
     # Analysing clusters identified at bioregion level
-    cluster_analysis_plots(GCM, analysis_layers, rel_cover, dhw_ts, :bioregion, fig_out_dir)
-    cluster_analysis_plots(GCM, analysis_layers, rel_cover, dhw_ts, :management_area, fig_out_dir)
-    cluster_analysis_plots(GCM, analysis_layers, rel_cover, dhw_ts, :gbr, fig_out_dir)
+    cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :bioregion, fig_out_dir)
+    cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :management_area, fig_out_dir)
+    cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :gbr, fig_out_dir)
 
 end
 
@@ -63,7 +62,15 @@ analysis_layers_long = stack(
 )
 analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_long.variable]
 
-rel_cover_arrays = [GCM_analysis_results(ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")).relative_cover for GCM in GCMs]
+rel_cover_arrays = [
+    percentage_cover_timeseries(
+        areas, 
+        GCM_analysis_results(
+            ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
+            ).absolute_median_cover
+        ) for GCM in GCMs
+]
+
 rel_cover_arrays = concatenatecubes(rel_cover_arrays, Dim{:GCM}(GCMs))
 analysis_layers_long = analysis_layers_long[analysis_layers_long.management_area .!= "NA", :]
 rel_cover_arrays = rel_cover_arrays[locations = (rel_cover_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
@@ -83,18 +90,18 @@ save(
 
 analysis_layers = context_layers[context_layers.UNIQUE_ID .∈ [unique(analysis_layers_long.UNIQUE_ID)], :]
 reefs_with_clusters = (
-    (analysis_layers[:, gcm_cluster_cols[1]] .!= 0) .&
-    (analysis_layers[:, gcm_cluster_cols[2]] .!= 0) .&
-    (analysis_layers[:, gcm_cluster_cols[3]] .!= 0) .&
-    (analysis_layers[:, gcm_cluster_cols[4]] .!= 0) .&
-    (analysis_layers[:, gcm_cluster_cols[5]] .!= 0)
+    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .!= 0) .&
+    (analysis_layers[:, gbr_gcm_cluster_cols[2]] .!= 0) .&
+    (analysis_layers[:, gbr_gcm_cluster_cols[3]] .!= 0) .&
+    (analysis_layers[:, gbr_gcm_cluster_cols[4]] .!= 0) .&
+    (analysis_layers[:, gbr_gcm_cluster_cols[5]] .!= 0)
 )
 analysis_layers = analysis_layers[reefs_with_clusters, :]
 consistent_reefs = (
-    (analysis_layers[:, gcm_cluster_cols[1]] .== analysis_layers[:, gcm_cluster_cols[2]]) .&
-    (analysis_layers[:, gcm_cluster_cols[1]] .== analysis_layers[:, gcm_cluster_cols[3]]) .&
-    (analysis_layers[:, gcm_cluster_cols[1]] .== analysis_layers[:, gcm_cluster_cols[4]]) .&
-    (analysis_layers[:, gcm_cluster_cols[1]] .== analysis_layers[:, gcm_cluster_cols[5]])
+    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[2]]) .&
+    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[3]]) .&
+    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[4]]) .&
+    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[5]])
 )
 sum(consistent_reefs) / length(consistent_reefs)
 
@@ -147,47 +154,43 @@ sum(reefs_1_to_10.low_medium_clusters) / nrow(reefs_1_to_10)
 # sum(unique_cluster_changes .== 0) / length(unique_cluster_changes)
 # sum(unique_cluster_changes .== 1) / length(unique_cluster_changes)
 # sum(unique_cluster_changes .== 2) / length(unique_cluster_changes)
-analysis_layers_depth = analysis_layers[analysis_layers.depth_mean .!= 7, :]
-groups_too_few_clusters_depth = grouping_counts(
-    grouping, 
-    analysis_layers_depth, 
-    "$(GCM)_$(grouping)_clusters", 
-    3,
-    5
-)
-analysis_layers_depth = analysis_layers_depth[
-    analysis_layers_depth[:, grouping] .∉ [groups_too_few_clusters_depth], :
-]
-threshold = 10
 
-bioregion_colors = distinguishable_colors(length(unique(analysis_layers_depth.bioregion)))
-bioregion_colors = 
+
+year_cols = Vector{String}()
+for GCM in GCMs
+    for threshold in thresholds
+        push!(year_cols, "$(GCM)_years_above_$(threshold)")
+    end
+end
+
+long_depth_reefs = stack(
+    context_layers[:, ["UNIQUE_ID", "depth_med", year_cols...]],
+    year_cols
+)
+ACCESS_ESM1_5_long = long_depth_reefs[contains.(long_depth_reefs.variable, "ACCESS-ESM1-5"), :]
+ACCESS_ESM1_5_long.variable = last.(split.(ACCESS_ESM1_5_long.variable, "_"))
 
 fig = Figure()
-ax1 = Axis(
-    fig[1,1];
-    xlabel="median reef depth",
-    ylabel="number of years above threshold $(threshold)"
+ax = Axis(
+    fig[1,1],
+    ylabel = "Years above carbonate budget threshold",
+    xlabel = "Carbonate budget threshold (%)",
+    xticks = (1:1:11, unique(ACCESS_ESM1_5_long.variable))
 )
-scat1 = scatter!(
-    ax1, 
-    analysis_layers_depth.depth_med, 
-    analysis_layers_depth[:, "$(GCM)_years_above_$(threshold)"];
-    color=analysis_layers_depth[:, "$(GCM)_gbr_clusters"],
-    alpha=0.5
+rain = rainclouds!(
+    ACCESS_ESM1_5_long.variable, 
+    ACCESS_ESM1_5_long.value;
+    color=ACCESS_ESM1_5_long.depth_med, 
+    plot_boxplots=false, 
+    clouds=nothing,
+    show_median=false, 
+    markersize=6, 
+    jitter_width=0.9
 )
-# Colorbar(fig[1,1][1,2], scat1, label="GBR-scale cluster")
-
-ax2 = Axis(
-    fig[1,2];
-    xlabel="Log total connectivity strength",
-    ylabel="number of years above threshold $(threshold)"
-)
-scat2 = scatter!(
-    ax2, 
-    analysis_layers_depth.log_total_strength,
-    analysis_layers_depth[:, "$(GCM)_years_above_$(threshold)"];
-    color=analysis_layers_depth[:, "$(GCM)_gbr_clusters"],
-    alpha=0.7
-)
-Colorbar(fig[1,3], scat2, label="GBR-scale cluster")
+# scat = scatter!(
+#     ACCESS_ESM1_5_long.variable,
+#     ACCESS_ESM1_5_long.value,
+#     color=ACCESS_ESM1_5_long.depth_med,
+#     alpha = 0.5
+# )
+Colorbar(fig[1,2], rain, label = "Median reef depth (m)")
