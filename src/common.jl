@@ -709,7 +709,7 @@ end
 
 function percentage_cover_timeseries(areas, cover_timeseries)
     props = Dict(
-        :metric_feature => "Cover",
+        :metric_feature => "Cover of reef area",
         :axes_names => ["timesteps", "locations"],
         :metric_name => "Cover of reef area",
         :axes_units => ["years", ""],

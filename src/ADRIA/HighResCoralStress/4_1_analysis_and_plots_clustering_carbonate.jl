@@ -1,3 +1,8 @@
+"""
+Create analysis plots for clustering and carbonate budget analyses. Performed for each GCM separately,
+and multi-GCM comparison plot created at end of the script.
+"""
+
 using Revise, Infiltrator
 
 using GLMakie, GeoMakie, GraphMakie
@@ -23,6 +28,18 @@ context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
 areas = gbr_dom.loc_data.area
+
+year_cols = Vector{String}()
+for GCM in GCMs
+    for threshold in thresholds
+        push!(year_cols, "$(GCM)_years_above_$(threshold)")
+    end
+end
+
+reefs_long = stack(
+    context_layers[:, ["UNIQUE_ID", "depth_med", "log_total_strength", year_cols...]],
+    year_cols
+)
 
 for (i_gcm, GCM) in enumerate(GCMs)
     # Select GCM and load relevant results
@@ -50,6 +67,25 @@ for (i_gcm, GCM) in enumerate(GCMs)
     cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :bioregion, fig_out_dir)
     cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :management_area, fig_out_dir)
     cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :gbr, fig_out_dir)
+
+    gcm_reefs_long = reefs_long[contains.(long_depth_reefs.variable, GCM), :]
+    gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
+    gcm_reefs_long_depth = gcm_reefs_long[
+        gcm_reefs_long.UNIQUE_ID .∈ context_layers[context_layers.depth .!= 7, :UNIQUE_ID],
+    :]
+
+    depth_carbonate_scatter = carbonate_budget_variable_scatter(gcm_reefs_long_depth, :depth_med, :value, :variable; color_label = "Median reef depth (m)")
+    save(
+        joinpath(fig_out_dir, "depth_carbonate_scatter.png"), 
+        depth_carbonate_scatter, 
+        px_per_unit = dpi
+    )
+    total_connectivity_carbonate_scatter = carbonate_budget_variable_scatter(gcm_reefs_long, :log_total_strength, :value, :variable; color_label = "Log total connectivity strength")
+    save(
+        joinpath(fig_out_dir, "log_total_strength_carbonate_scatter.png"), 
+        total_connectivity_carbonate_scatter, 
+        px_per_unit = dpi
+    )
 
 end
 
@@ -105,6 +141,7 @@ consistent_reefs = (
 )
 sum(consistent_reefs) / length(consistent_reefs)
 
+# Identify reefs that have a median depth of 1 to 10m and the proportion of these reefs that are in low-medium cover clusters
 reefs_1_to_10 = context_layers[
     (context_layers.depth_qc .== 0) .& 
     (context_layers.depth_med .>= 1) .& 
@@ -119,78 +156,3 @@ for reef in eachrow(reefs_1_to_10)
 end
 
 sum(reefs_1_to_10.low_medium_clusters) / nrow(reefs_1_to_10)
-
-# fig = Figure()
-# ax = Axis(
-#     fig[1,1],
-#     xlabel = "GCM",
-#     ylabel = "Cluster",
-#     xticks = (1:length(GCMs), GCMs)
-# )
-# man_cluster_changes = [unique(collect(row[gcm_cluster_cols])) for row in eachrow(analysis_layers)]
-# lines!.(ax, cluster_changes; color = (:gray, 0.1))
-
-# function transition_count_matrix(v, unique_vals)
-#     mat = zeros(length(unique_vals), length(unique_vals))
-
-#     for i in 1:length(v)-1
-#         current_val = Int64(v[i])
-#         next_val = Int64(v[i + 1])
-#         if current_val != next_val
-#             mat[current_val, next_val] += 1
-#         end
-#     end
-
-#     return mat
-# end
-# cluster_transitions = [transition_count_matrix(vals, 1:3) for vals in cluster_changes]
-# cluster_transitions_mat = zeros(3,3)
-# for matrix in cluster_transitions
-#     cluster_transitions_mat = cluster_transitions_mat + matrix
-# end
-# cluster_trans_props = cluster_transitions_mat ./ sum(cluster_transitions_mat)
-
-# unique_cluster_changes = [(maximum(vals) - minimum(vals)) for vals in cluster_changes]
-# sum(unique_cluster_changes .== 0) / length(unique_cluster_changes)
-# sum(unique_cluster_changes .== 1) / length(unique_cluster_changes)
-# sum(unique_cluster_changes .== 2) / length(unique_cluster_changes)
-
-
-year_cols = Vector{String}()
-for GCM in GCMs
-    for threshold in thresholds
-        push!(year_cols, "$(GCM)_years_above_$(threshold)")
-    end
-end
-
-long_depth_reefs = stack(
-    context_layers[:, ["UNIQUE_ID", "depth_med", year_cols...]],
-    year_cols
-)
-ACCESS_ESM1_5_long = long_depth_reefs[contains.(long_depth_reefs.variable, "ACCESS-ESM1-5"), :]
-ACCESS_ESM1_5_long.variable = last.(split.(ACCESS_ESM1_5_long.variable, "_"))
-
-fig = Figure()
-ax = Axis(
-    fig[1,1],
-    ylabel = "Years above carbonate budget threshold",
-    xlabel = "Carbonate budget threshold (%)",
-    xticks = (1:1:11, unique(ACCESS_ESM1_5_long.variable))
-)
-rain = rainclouds!(
-    ACCESS_ESM1_5_long.variable, 
-    ACCESS_ESM1_5_long.value;
-    color=ACCESS_ESM1_5_long.depth_med, 
-    plot_boxplots=false, 
-    clouds=nothing,
-    show_median=false, 
-    markersize=6, 
-    jitter_width=0.9
-)
-# scat = scatter!(
-#     ACCESS_ESM1_5_long.variable,
-#     ACCESS_ESM1_5_long.value,
-#     color=ACCESS_ESM1_5_long.depth_med,
-#     alpha = 0.5
-# )
-Colorbar(fig[1,2], rain, label = "Median reef depth (m)")

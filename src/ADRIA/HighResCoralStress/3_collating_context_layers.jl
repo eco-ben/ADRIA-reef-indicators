@@ -1,7 +1,7 @@
 """
 Access the domain connectivity and calculate the strength and number of outgoing/incoming
-connections for each reef. Run after running 3_.jl to include the bioregions and identified
-reef layers.
+connections for each reef. Add context information such as reef DHW levels, years above carbonate
+budget thresholds, DHW tolerance levels and number of reefs in each bioregion.
 """
 
 using DataFrames, Statistics, YAXArrays, ArchGDAL
@@ -15,7 +15,6 @@ import GeoFormatTypes as GFT
 change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs
 
 using ADRIA
-using ArchGDAL
 
 include("../../common.jl")
 
@@ -160,13 +159,13 @@ for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
     context_layers[!, "$(GCM)_dhw_cover_cor"] = dhw_cover_cor
 
     # 4. Re-run 5 scenarios for each GCM and extract mean DHW tolerance from timeseries
-    scens = rs.inputs[1:4, Not(318)] # Only use 1st 5 scenarios for speed and remove RCP variable in inputs
-    scens.wave_scenario .= 1.0
-    rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
-    dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
-    dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
+    # scens = rs.inputs[1:4, Not(318)] # Only use 1st 5 scenarios for speed and remove RCP variable in inputs
+    # scens.wave_scenario .= 1.0
+    # rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
+    # dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
+    # dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
     
-    context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean
+    # context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean
 end
 
 # 5. Calculate the number of reefs in each bioregion
@@ -180,7 +179,8 @@ bioregion_average_latitude = combine(groupby(context_layers, :bioregion)) do sdf
     return average_latitude = mean([ArchGDAL.gety(ArchGDAL.centroid(geom), 0) for geom in sdf.geometry])
 end
 rename!(bioregion_average_latitude, :x1 => :bioregion_average_latitude)
-context_layers = leftjoin(context_layers, bioregion_average_latitude, on=:bioregion)
+bioregion_average_latitude = Dict(tuple.(bioregion_average_latitude.bioregion, bioregion_average_latitude.bioregion_average_latitude))
+context_layers.bioregion_average_latitude = [bioregion_average_latitude[bior] for bior in context_layers.bioregion]
 
 # Format columns for writing to geopackage
 context_layers.income_strength = Float64.(context_layers.income_strength)

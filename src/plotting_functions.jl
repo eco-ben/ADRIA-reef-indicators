@@ -762,3 +762,47 @@ function grouped_GCM_cluster_timeseries_plots(
 
     return fig
 end
+
+function carbonate_budget_variable_scatter(
+    long_df,
+    color_variable_col,
+    year_col,
+    carbonate_budget_col;
+    xlabel="Carbonate budget threshold (%)",
+    ylabel="Years above carbonate budget threshold",
+    color_label="",
+    fig_sizes=fig_sizes,
+    fontsize=fontsize
+)
+    x_fig_size = fig_sizes["carb_width"]
+    y_fig_size = fig_sizes["carb_height"]
+
+    fig = Figure(size = (x_fig_size, y_fig_size), fontsize = fontsize)
+    ax = Axis(
+        fig[1,1],
+        ylabel = ylabel,
+        xlabel = xlabel,
+        xticks = (1:1:11, unique(long_df[:, carbonate_budget_col]))
+    )
+    rain = rainclouds!(
+        long_df[:, carbonate_budget_col], 
+        long_df[:, year_col];
+        color=long_df[:, color_variable_col], 
+        plot_boxplots=false, 
+        clouds=nothing,
+        show_median=false, 
+        markersize=6, 
+        jitter_width=0.9
+    )
+    # scat = scatter!(
+    #     ACCESS_ESM1_5_long.variable,
+    #     ACCESS_ESM1_5_long.value,
+    #     color=ACCESS_ESM1_5_long.depth_med,
+    #     alpha = 0.5
+    # )
+    Colorbar(fig[1,2], rain, label = color_label)
+
+    display(fig)
+
+    return fig
+end

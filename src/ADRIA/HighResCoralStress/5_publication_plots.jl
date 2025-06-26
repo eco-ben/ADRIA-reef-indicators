@@ -1,5 +1,5 @@
 """
-Script to create additional plots required for publication.
+Script to create additional plots required for publication. E.g. maps and GCM plots.
 """
 
 using Revise, Infiltrator
