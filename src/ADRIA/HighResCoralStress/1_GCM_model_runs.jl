@@ -1,6 +1,7 @@
 using Revise, Infiltrator
-using YAXArrays
+using YAXArrays, NetCDF
 
+include("../../common.jl")
 change_ADRIA_debug(false) # Ensure ADRIA debug mode is set to false to allow parallel processing.
 
 using ADRIA
@@ -25,4 +26,26 @@ for (g, GCM) in enumerate(gcms)
     rs = ADRIA.run_scenarios(gbr_dom, scens, "45")
 
     # Rename result store directory according to GCM that is chosen
+end
+
+# Save output absolute median cover to allow for data sharing.
+for GCM in gcms
+    processed_outputs = "../outputs/ADRIA_results/HighResCoralStress/processed_model_outputs/median_cover_$(GCM).nc"
+    if !isfile(processed_outputs)
+
+        rs = ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
+        scenario_cover = ADRIA.metrics.total_absolute_cover(rs)
+        median_cover = ADRIA.metrics.loc_trajectory(median, scenario_cover)
+
+        dims = (
+            Dim{:timesteps}(string.(scenario_cover.timesteps)),
+            Dim{:locations}(string.(scenario_cover.locations))
+        )
+        properties=median_cover.properties
+        pop!(properties, :is_relative)
+        properties = Dict{String, Any}([(string.(k), v) for (k,v) in properties])
+
+        median_cover = rebuild(median_cover, dims=dims, metadata=properties)
+        savecube(median_cover, processed_outputs, driver=:netcdf, overwrite=true)
+    end
 end
