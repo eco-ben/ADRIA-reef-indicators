@@ -6,6 +6,9 @@ debug = false
 [results]
 output_dir = "../outputs/ADRIA_results/HighResCoralStress"
 
+[domain]
+domain_dir = "../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/"
+
 [fig_fontsize]
 fontsize = 6
 

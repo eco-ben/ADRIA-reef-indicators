@@ -38,7 +38,7 @@ for GCM in gcms
         median_cover = ADRIA.metrics.loc_trajectory(median, scenario_cover)
 
         dims = (
-            Dim{:timesteps}(string.(scenario_cover.timesteps)),
+            Dim{:timesteps}(Int64.(scenario_cover.timesteps)),
             Dim{:locations}(string.(scenario_cover.locations))
         )
         properties=median_cover.properties

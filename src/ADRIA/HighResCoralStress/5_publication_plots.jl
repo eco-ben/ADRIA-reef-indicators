@@ -18,7 +18,7 @@ include("../../plotting_functions.jl")
 
 CairoMakie.activate!()
 
-context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers.gpkg")
+context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 
 # ECS plot - methods
 ecs_values = Dict(
@@ -29,7 +29,7 @@ ecs_values = Dict(
     "NorESM2-MM" => 2.5
 )
 ecs = ecs_plot(collect(values(ecs_values)), [2.5,5.1], [2.1,7.7], collect(keys(ecs_values)))
-save("../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png", ecs, px_per_unit = 300/inch)
+save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit = 300/inch)
 
 # GBR map plot - methods
 investigation_reefs = context_layers[
@@ -97,13 +97,13 @@ Legend(
     rowgap=1,
     backgroundcolor=bgcol
 )
-save("../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png", fig, px_per_unit = 300/inch)
+save(joinpath(output_path, "figs/region_map.png"), fig, px_per_unit = 300/inch)
 
-fig = Figure()
-ax = Axis(
-    fig[1,1],
-    limits = (nothing, (-0.1, 400)),
-    ylabel="Initial cover",
-    xlabel="Reefs with <5x initial cover in timeseries"
-)
-scatter!((context_layers[:, "ACCESS-ESM1-5_gbr_clusters"] .!= 0.0), context_layers.initial_coral_cover)
+# fig = Figure()
+# ax = Axis(
+#     fig[1,1],
+#     limits = (nothing, (-0.1, 400)),
+#     ylabel="Initial cover",
+#     xlabel="Reefs with <5x initial cover in timeseries"
+# )
+# scatter!((context_layers[:, "ACCESS-ESM1-5_gbr_clusters"] .!= 0.0), context_layers.initial_coral_cover)

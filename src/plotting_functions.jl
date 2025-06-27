@@ -7,6 +7,7 @@ using Colors
 using Random
 using TOML
 
+
 config = TOML.parsefile("config.toml")
 
 # Extract figure sizes and convert to pixel measurement
@@ -315,7 +316,6 @@ function grouped_cluster_timeseries_plots(
             clusters;
             opts = Dict{Symbol, Any}(:legend => false),
             axis_opts = Dict(
-                :ylabel => ytitle,
                 :title => labels[xi], 
                 :xticks => (
                     first(length_t):10:last(length_t), 

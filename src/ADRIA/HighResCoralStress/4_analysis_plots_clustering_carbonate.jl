@@ -17,18 +17,26 @@ include("../../plotting_functions.jl")
 
 CairoMakie.activate!()
 
-# Select the target GCM from
-dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
-GCMs = dhw_scenarios.dhw.properties["members"]
+# # Select the target GCM from
+# dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
+# GCMs = dhw_scenarios.dhw.properties["members"]
+GCMs = [
+    "EC-Earth3-Veg",
+    "ACCESS-ESM1-5",
+    "ACCESS-CM2",
+    "NorESM2-MM",
+    "GFDL-CM4"
+]
 
-context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers_carbonate.gpkg")
+context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 context_layers.gbr .= "Great Barrier Reef"
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
 
-gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
+gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 areas = gbr_dom.loc_data.area
 
+thresholds = 10:1:20
 year_cols = Vector{String}()
 for GCM in GCMs
     for threshold in thresholds
@@ -45,20 +53,14 @@ for (i_gcm, GCM) in enumerate(GCMs)
     # Select GCM and load relevant results
     @info "analysing reef clustering for $(GCM)"
 
-    fig_out_dir = "../outputs/ADRIA_results/HighResCoralStress/figs/$(GCM)"
+    fig_out_dir = joinpath(output_path, "figs/$(GCM)")
 
-    rs = ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
-    GCM_results = GCM_analysis_results(rs)
-    absolute_cover = GCM_results.absolute_median_cover
+    absolute_cover = open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer
     # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
     threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
 
     dhw_ts = gbr_dom.dhw_scens[:,:,i_gcm]
-    ax = (
-        Dim{:timesteps}(2025:2099),
-        Dim{:locations}(collect(GCM_results.relative_cover.locations))
-    )
-    dhw_ts = rebuild(dhw_ts, dims=ax)
+    dhw_ts = rebuild(dhw_ts, dims=threshold_cover.axes)
 
     # Subset layers to remove reefs that start with very low coral cover
     analysis_layers = context_layers[(context_layers.management_area .!= "NA") .& (context_layers.bioregion .!= "NA"), :]
@@ -68,10 +70,10 @@ for (i_gcm, GCM) in enumerate(GCMs)
     cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :management_area, fig_out_dir)
     cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :gbr, fig_out_dir)
 
-    gcm_reefs_long = reefs_long[contains.(long_depth_reefs.variable, GCM), :]
+    gcm_reefs_long = reefs_long[contains.(reefs_long.variable, GCM), :]
     gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
     gcm_reefs_long_depth = gcm_reefs_long[
-        gcm_reefs_long.UNIQUE_ID .∈ context_layers[context_layers.depth .!= 7, :UNIQUE_ID],
+        gcm_reefs_long.UNIQUE_ID .∈ [context_layers[context_layers.depth_qc .== 0, :UNIQUE_ID]],
     :]
 
     depth_carbonate_scatter = carbonate_budget_variable_scatter(gcm_reefs_long_depth, :depth_med, :value, :variable; color_label = "Median reef depth (m)")
@@ -101,9 +103,7 @@ analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_
 rel_cover_arrays = [
     percentage_cover_timeseries(
         areas, 
-        GCM_analysis_results(
-            ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
-            ).absolute_median_cover
+        open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer
         ) for GCM in GCMs
 ]
 
@@ -119,7 +119,7 @@ GCM_comparison_plot = grouped_GCM_cluster_timeseries_plots(
     1:50
 )
 save(
-    "../outputs/ADRIA_results/HighResCoralStress/figs/GCM_timeseries_plot.png", 
+    joinpath(output_path, "figs/GCM_timeseries_plot.png"), 
     GCM_comparison_plot,
     px_per_unit = dpi
 )

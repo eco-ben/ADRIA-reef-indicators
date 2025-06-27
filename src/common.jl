@@ -35,8 +35,8 @@ using ADRIA
 include("plotting_functions.jl")
 include("ADRIA_DataCube_functions.jl")
 
-gbr_domain_path = "c:/Users/bgrier/Documents/Projects/ADRIA_Domains/rme_ml_2024_01_08/"
-conn_path = joinpath(gbr_domain_path, "data_files/con_bin")
+gbr_domain_path = config["domain"]["domain_dir"]
+output_path = config["results"]["output_dir"]
 
 """
     find_intersections(

@@ -39,9 +39,7 @@ for GCM in dhw_scenarios.dhw.properties["members"]
     # Select GCM and load relevant results
     @info "Performing timeseries clustering for $(GCM)"
 
-    rs = ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
-    GCM_results = GCM_analysis_results(rs)
-    absolute_cover = GCM_results.absolute_median_cover
+    absolute_cover = open_dataset("../outputs/ADRIA_results/HighResCoralStress/processed_model_outputs/median_cover_$(GCM).nc").layer
 
     # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
     percentage_cover = percentage_cover_timeseries(areas, absolute_cover)
