@@ -76,13 +76,44 @@ for (i_gcm, GCM) in enumerate(GCMs)
         gcm_reefs_long.UNIQUE_ID .∈ [context_layers[context_layers.depth_qc .== 0, :UNIQUE_ID]],
     :]
 
-    depth_carbonate_scatter = carbonate_budget_variable_scatter(gcm_reefs_long_depth, :depth_med, :value, :variable; color_label = "Median reef depth (m)")
+    depth_year_correlation = Dict([
+        (thresh, corspearman(
+            gcm_reefs_long_depth[gcm_reefs_long_depth.variable .== thresh, :value],
+            gcm_reefs_long_depth[gcm_reefs_long_depth.variable .== thresh, :depth_med]
+        ))
+        for thresh in string.(thresholds)
+    ])
+
+    depth_carbonate_scatter = carbonate_budget_variable_scatter(
+        gcm_reefs_long_depth, 
+        :depth_med, 
+        :value, 
+        :variable, 
+        depth_year_correlation; 
+        color_label = "Median reef depth (m)"
+    )
     save(
         joinpath(fig_out_dir, "depth_carbonate_scatter.png"), 
         depth_carbonate_scatter, 
         px_per_unit = dpi
     )
-    total_connectivity_carbonate_scatter = carbonate_budget_variable_scatter(gcm_reefs_long, :log_total_strength, :value, :variable; color_label = "Log total connectivity strength")
+
+
+    log_strength_year_correlation = Dict([
+        (thresh, corspearman(
+            gcm_reefs_long[gcm_reefs_long.variable .== thresh, :value],
+            gcm_reefs_long[gcm_reefs_long.variable .== thresh, :log_total_strength]
+        ))
+        for thresh in string.(thresholds)
+    ])
+    total_connectivity_carbonate_scatter = carbonate_budget_variable_scatter(
+        gcm_reefs_long, 
+        :log_total_strength, 
+        :value, 
+        :variable,
+        log_strength_year_correlation; 
+        color_label = "Log total connectivity strength"
+    )
     save(
         joinpath(fig_out_dir, "log_total_strength_carbonate_scatter.png"), 
         total_connectivity_carbonate_scatter, 

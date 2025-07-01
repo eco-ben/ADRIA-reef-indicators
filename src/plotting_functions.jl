@@ -767,8 +767,9 @@ function carbonate_budget_variable_scatter(
     long_df,
     color_variable_col,
     year_col,
-    carbonate_budget_col;
-    xlabel="Carbonate budget threshold (%)",
+    carbonate_budget_col,
+    year_variable_correlation;
+    xlabel="Carbonate budget threshold (%) (correlation)",
     ylabel="Years above carbonate budget threshold",
     color_label="",
     fig_sizes=fig_sizes,
@@ -777,12 +778,15 @@ function carbonate_budget_variable_scatter(
     x_fig_size = fig_sizes["carb_width"]
     y_fig_size = fig_sizes["carb_height"]
 
+    labels = unique(long_df[:, carbonate_budget_col])
+    labels = ["$(lab) ($(round(year_variable_correlation[lab], digits=2)))" for lab in labels]
+
     fig = Figure(size = (x_fig_size, y_fig_size), fontsize = fontsize)
     ax = Axis(
         fig[1,1],
         ylabel = ylabel,
         xlabel = xlabel,
-        xticks = (1:1:11, unique(long_df[:, carbonate_budget_col]))
+        xticks = (1:1:11, labels)
     )
     rain = rainclouds!(
         long_df[:, carbonate_budget_col], 
