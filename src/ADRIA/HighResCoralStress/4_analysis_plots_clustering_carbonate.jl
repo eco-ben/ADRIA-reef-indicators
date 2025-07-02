@@ -131,6 +131,7 @@ analysis_layers_long = stack(
 )
 analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_long.variable]
 
+# Collate all cover timeseries and plot them grouped by management area
 rel_cover_arrays = [
     percentage_cover_timeseries(
         areas, 
@@ -154,6 +155,8 @@ save(
     GCM_comparison_plot,
     px_per_unit = dpi
 )
+
+# Collate all DHW timeseries and plot them grouped by management area
 
 analysis_layers = context_layers[context_layers.UNIQUE_ID .∈ [unique(analysis_layers_long.UNIQUE_ID)], :]
 reefs_with_clusters = (
