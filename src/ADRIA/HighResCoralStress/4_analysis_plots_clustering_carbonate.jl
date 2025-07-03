@@ -55,7 +55,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
 
     fig_out_dir = joinpath(output_path, "figs/$(GCM)")
 
-    absolute_cover = open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer
+    absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
     # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
     threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
 
@@ -135,15 +135,21 @@ analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_
 rel_cover_arrays = [
     percentage_cover_timeseries(
         areas, 
-        open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer
+        readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
         ) for GCM in GCMs
 ]
-
 rel_cover_arrays = concatenatecubes(rel_cover_arrays, Dim{:GCM}(GCMs))
+
+dhw_arrays = [
+    rebuild(gbr_dom.dhw_scens[:, :, i_gcm], dims=rel_cover_arrays.axes[1:2]) for i_gcm in eachindex(GCMs)
+]
+dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
+
 analysis_layers_long = analysis_layers_long[analysis_layers_long.management_area .!= "NA", :]
 rel_cover_arrays = rel_cover_arrays[locations = (rel_cover_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
+dhw_arrays = dhw_arrays[locations = (dhw_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
 
-GCM_comparison_plot = grouped_GCM_cluster_timeseries_plots(
+GCM_comparison_cover_plot = grouped_GCM_cluster_timeseries_plots(
     rel_cover_arrays,
     analysis_layers_long,
     :value,
@@ -151,10 +157,24 @@ GCM_comparison_plot = grouped_GCM_cluster_timeseries_plots(
     1:50
 )
 save(
-    joinpath(output_path, "figs/GCM_timeseries_plot.png"), 
-    GCM_comparison_plot,
+    joinpath(output_path, "figs/GCM_cover_timeseries_plot.png"), 
+    GCM_comparison_cover_plot,
     px_per_unit = dpi
 )
+
+GCM_comparison_dhw_plot = grouped_GCM_cluster_timeseries_plots(
+    dhw_arrays,
+    analysis_layers_long,
+    :value,
+    [:management_area, :GCM],
+    1:50
+)
+save(
+    joinpath(output_path, "figs/GCM_dhw_timeseries_plot.png"), 
+    GCM_comparison_dhw_plot,
+    px_per_unit = dpi
+)
+
 
 # Collate all DHW timeseries and plot them grouped by management area
 
