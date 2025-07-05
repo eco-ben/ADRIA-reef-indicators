@@ -5,13 +5,6 @@ and multi-GCM comparison plot created at end of the script.
 
 using Revise, Infiltrator
 
-using GLMakie, GeoMakie, GraphMakie
-using Statistics
-using YAXArrays
-using CairoMakie
-
-using ADRIA
-
 include("../../common.jl")
 include("../../plotting_functions.jl")
 

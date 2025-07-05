@@ -5,13 +5,6 @@ reef cover as a percentage of total reef area is used.
 
 using Revise, Infiltrator
 
-using GLMakie, GeoMakie, GraphMakie
-using Statistics
-using YAXArrays
-import GeoDataFrames as GDF
-
-using ADRIA
-
 include("../../common.jl")
 includet("../../plotting_functions.jl")
 

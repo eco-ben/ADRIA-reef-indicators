@@ -4,13 +4,6 @@ Script to create additional plots required for publication. E.g. maps and GCM pl
 
 using Revise, Infiltrator
 
-using GLMakie, GeoMakie, GraphMakie
-using Statistics
-using YAXArrays
-using CairoMakie
-
-using ADRIA
-
 import GeometryOps as GO
 
 include("../../common.jl")

@@ -4,17 +4,9 @@ connections for each reef. Add context information such as reef DHW levels, year
 budget thresholds, DHW tolerance levels and number of reefs in each bioregion.
 """
 
-using DataFrames, Statistics, YAXArrays, ArchGDAL
-
-using GLMakie, GeoMakie, GraphMakie
-
-import GeoDataFrames as GDF
-
-import GeoFormatTypes as GFT
+using ArchGDAL
 
 change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs
-
-using ADRIA
 
 include("../../common.jl")
 

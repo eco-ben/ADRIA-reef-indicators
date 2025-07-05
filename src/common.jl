@@ -16,7 +16,7 @@ using
 using
     ColorSchemes,
     GeoMakie,
-    # GLMakie,
+    CairoMakie,
     GraphMakie
 
 using
