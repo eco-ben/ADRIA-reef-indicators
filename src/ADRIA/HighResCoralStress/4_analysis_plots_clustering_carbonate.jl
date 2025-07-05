@@ -5,13 +5,6 @@ and multi-GCM comparison plot created at end of the script.
 
 using Revise, Infiltrator
 
-using GLMakie, GeoMakie, GraphMakie
-using Statistics
-using YAXArrays
-using CairoMakie
-
-using ADRIA
-
 include("../../common.jl")
 include("../../plotting_functions.jl")
 
@@ -59,11 +52,11 @@ for (i_gcm, GCM) in enumerate(GCMs)
     # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
     threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
 
-    dhw_ts = gbr_dom.dhw_scens[:,:,i_gcm]
+    dhw_ts = gbr_dom.dhw_scens[:, :, i_gcm]
     dhw_ts = rebuild(dhw_ts, dims=threshold_cover.axes)
 
     # Subset layers to remove reefs that start with very low coral cover
-    analysis_layers = context_layers[(context_layers.management_area .!= "NA") .& (context_layers.bioregion .!= "NA"), :]
+    analysis_layers = context_layers[(context_layers.management_area.!="NA").&(context_layers.bioregion.!="NA"), :]
 
     # Analysing clusters identified at bioregion level
     cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :bioregion, fig_out_dir)
@@ -73,51 +66,51 @@ for (i_gcm, GCM) in enumerate(GCMs)
     gcm_reefs_long = reefs_long[contains.(reefs_long.variable, GCM), :]
     gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
     gcm_reefs_long_depth = gcm_reefs_long[
-        gcm_reefs_long.UNIQUE_ID .∈ [context_layers[context_layers.depth_qc .== 0, :UNIQUE_ID]],
-    :]
+        gcm_reefs_long.UNIQUE_ID.∈[context_layers[context_layers.depth_qc.==0, :UNIQUE_ID]],
+        :]
 
     depth_year_correlation = Dict([
         (thresh, corspearman(
-            gcm_reefs_long_depth[gcm_reefs_long_depth.variable .== thresh, :value],
-            gcm_reefs_long_depth[gcm_reefs_long_depth.variable .== thresh, :depth_med]
+            gcm_reefs_long_depth[gcm_reefs_long_depth.variable.==thresh, :value],
+            gcm_reefs_long_depth[gcm_reefs_long_depth.variable.==thresh, :depth_med]
         ))
         for thresh in string.(thresholds)
     ])
 
     depth_carbonate_scatter = carbonate_budget_variable_scatter(
-        gcm_reefs_long_depth, 
-        :depth_med, 
-        :value, 
-        :variable, 
-        depth_year_correlation; 
-        color_label = "Median reef depth (m)"
+        gcm_reefs_long_depth,
+        :depth_med,
+        :value,
+        :variable,
+        depth_year_correlation;
+        color_label="Median reef depth (m)"
     )
     save(
-        joinpath(fig_out_dir, "depth_carbonate_scatter.png"), 
-        depth_carbonate_scatter, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "depth_carbonate_scatter.png"),
+        depth_carbonate_scatter,
+        px_per_unit=dpi
     )
 
 
     log_strength_year_correlation = Dict([
         (thresh, corspearman(
-            gcm_reefs_long[gcm_reefs_long.variable .== thresh, :value],
-            gcm_reefs_long[gcm_reefs_long.variable .== thresh, :log_total_strength]
+            gcm_reefs_long[gcm_reefs_long.variable.==thresh, :value],
+            gcm_reefs_long[gcm_reefs_long.variable.==thresh, :log_total_strength]
         ))
         for thresh in string.(thresholds)
     ])
     total_connectivity_carbonate_scatter = carbonate_budget_variable_scatter(
-        gcm_reefs_long, 
-        :log_total_strength, 
-        :value, 
+        gcm_reefs_long,
+        :log_total_strength,
+        :value,
         :variable,
-        log_strength_year_correlation; 
-        color_label = "Log total connectivity strength"
+        log_strength_year_correlation;
+        color_label="Log total connectivity strength"
     )
     save(
-        joinpath(fig_out_dir, "log_total_strength_carbonate_scatter.png"), 
-        total_connectivity_carbonate_scatter, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "log_total_strength_carbonate_scatter.png"),
+        total_connectivity_carbonate_scatter,
+        px_per_unit=dpi
     )
 
 end
@@ -126,7 +119,7 @@ man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM i
 bioregion_gcm_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
 gbr_gcm_cluster_cols = [Symbol("$(GCM)_gbr_clusters") for GCM in GCMs]
 analysis_layers_long = stack(
-    context_layers[:, [:UNIQUE_ID, :management_area, man_area_gcm_cluster_cols...]], 
+    context_layers[:, [:UNIQUE_ID, :management_area, man_area_gcm_cluster_cols...]],
     man_area_gcm_cluster_cols
 )
 analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_long.variable]
@@ -134,9 +127,9 @@ analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_
 # Collate all cover timeseries and plot them grouped by management area
 rel_cover_arrays = [
     percentage_cover_timeseries(
-        areas, 
+        areas,
         readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
-        ) for GCM in GCMs
+    ) for GCM in GCMs
 ]
 rel_cover_arrays = concatenatecubes(rel_cover_arrays, Dim{:GCM}(GCMs))
 
@@ -145,9 +138,9 @@ dhw_arrays = [
 ]
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
 
-analysis_layers_long = analysis_layers_long[analysis_layers_long.management_area .!= "NA", :]
-rel_cover_arrays = rel_cover_arrays[locations = (rel_cover_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
-dhw_arrays = dhw_arrays[locations = (dhw_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
+analysis_layers_long = analysis_layers_long[analysis_layers_long.management_area.!="NA", :]
+rel_cover_arrays = rel_cover_arrays[locations=(rel_cover_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
+dhw_arrays = dhw_arrays[locations=(dhw_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
 
 GCM_comparison_cover_plot = grouped_GCM_cluster_timeseries_plots(
     rel_cover_arrays,
@@ -157,9 +150,9 @@ GCM_comparison_cover_plot = grouped_GCM_cluster_timeseries_plots(
     1:50
 )
 save(
-    joinpath(output_path, "figs/GCM_cover_timeseries_plot.png"), 
+    joinpath(output_path, "figs/GCM_cover_timeseries_plot.png"),
     GCM_comparison_cover_plot,
-    px_per_unit = dpi
+    px_per_unit=dpi
 )
 
 GCM_comparison_dhw_plot = grouped_GCM_cluster_timeseries_plots(
@@ -170,15 +163,15 @@ GCM_comparison_dhw_plot = grouped_GCM_cluster_timeseries_plots(
     1:50
 )
 save(
-    joinpath(output_path, "figs/GCM_dhw_timeseries_plot.png"), 
+    joinpath(output_path, "figs/GCM_dhw_timeseries_plot.png"),
     GCM_comparison_dhw_plot,
-    px_per_unit = dpi
+    px_per_unit=dpi
 )
 
 
 # Collate all DHW timeseries and plot them grouped by management area
 
-analysis_layers = context_layers[context_layers.UNIQUE_ID .∈ [unique(analysis_layers_long.UNIQUE_ID)], :]
+analysis_layers = context_layers[context_layers.UNIQUE_ID.∈[unique(analysis_layers_long.UNIQUE_ID)], :]
 reefs_with_clusters = (
     (analysis_layers[:, gbr_gcm_cluster_cols[1]] .!= 0) .&
     (analysis_layers[:, gbr_gcm_cluster_cols[2]] .!= 0) .&
@@ -197,16 +190,14 @@ sum(consistent_reefs) / length(consistent_reefs)
 
 # Identify reefs that have a median depth of 1 to 10m and the proportion of these reefs that are in low-medium cover clusters
 reefs_1_to_10 = context_layers[
-    (context_layers.depth_qc .== 0) .& 
-    (context_layers.depth_med .>= 1) .& 
-    (context_layers.depth_med .<= 10), :]
+    (context_layers.depth_qc.==0).&(context_layers.depth_med.>=1).&(context_layers.depth_med.<=10), :]
 reefs_1_to_10.low_medium_clusters .= 0
-reefs_1_to_10_clusters = analysis_layers_long[analysis_layers_long.UNIQUE_ID .∈ [reefs_1_to_10.UNIQUE_ID], :]
-reefs_1_to_10_clusters = reefs_1_to_10_clusters[reefs_1_to_10_clusters.variable .!= 0.0, :]
+reefs_1_to_10_clusters = analysis_layers_long[analysis_layers_long.UNIQUE_ID.∈[reefs_1_to_10.UNIQUE_ID], :]
+reefs_1_to_10_clusters = reefs_1_to_10_clusters[reefs_1_to_10_clusters.variable.!=0.0, :]
 
 for reef in eachrow(reefs_1_to_10)
     reef_id = reef.UNIQUE_ID
-    reef.low_medium_clusters = all(reefs_1_to_10_clusters[reefs_1_to_10_clusters.UNIQUE_ID .== reef_id, :value] .<= 2.0)
+    reef.low_medium_clusters = all(reefs_1_to_10_clusters[reefs_1_to_10_clusters.UNIQUE_ID.==reef_id, :value] .<= 2.0)
 end
 
 sum(reefs_1_to_10.low_medium_clusters) / nrow(reefs_1_to_10)

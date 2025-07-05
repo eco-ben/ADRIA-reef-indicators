@@ -16,7 +16,7 @@ using
 using
     ColorSchemes,
     GeoMakie,
-    # GLMakie,
+    CairoMakie,
     GraphMakie
 
 using
@@ -193,7 +193,7 @@ Calculate the cover of a site at each timestep of x relative to the site's initi
 function relative_site_cover(x)
     init = x[1]
     for (index, step) in enumerate(x)
-        x[index] = x[index]/init
+        x[index] = x[index] / init
     end
 
     return x
@@ -204,10 +204,10 @@ canonical_reefs = GDF.read(canonical_reefs)
 
 # Get location indices
 REGION_REEFS = DataStructures.OrderedDict(
-    "Far Northern Management Area"=>Int64[],
-    "Cairns/Cooktown Management Area"=>Int64[],
-    "Townsville/Whitsunday Management Area"=>Int64[],
-    "Mackay/Capricorn Management Area"=>Int64[],
+    "Far Northern Management Area" => Int64[],
+    "Cairns/Cooktown Management Area" => Int64[],
+    "Townsville/Whitsunday Management Area" => Int64[],
+    "Mackay/Capricorn Management Area" => Int64[],
 )
 
 for mgmt_area in collect(keys(REGION_REEFS))
@@ -246,20 +246,20 @@ function connectivity_scoring(
 )::DataFrame
     RME_UNIQUE_ID = collect(getAxis("Source", conn_matrix).val)
     connectivity_scores = DataFrame(
-        [RME_UNIQUE_ID, Vector{Union{Missing, Float64}}(missing, 3806)],
+        [RME_UNIQUE_ID, Vector{Union{Missing,Float64}}(missing, 3806)],
         [:RME_UNIQUE_ID, :conn_score]
     )
 
     if by_layer
         for level in unique(gdf[:, context_layer])
-            level_reefs = gdf[gdf[:, context_layer] .== level, :RME_UNIQUE_ID]
-            level_matrix = conn_matrix[conn_matrix.Source .∈ [level_reefs], conn_matrix.Sink .∈ [level_reefs]]
+            level_reefs = gdf[gdf[:, context_layer].==level, :RME_UNIQUE_ID]
+            level_matrix = conn_matrix[conn_matrix.Source.∈[level_reefs], conn_matrix.Sink.∈[level_reefs]]
 
             g = SimpleWeightedDiGraph(level_matrix)
             conn_scores = Dict(zip(collect(level_matrix.Source), eigenvector_centrality(g)))
 
             for (k, v) in conn_scores
-                connectivity_scores[connectivity_scores.RME_UNIQUE_ID .== k, :conn_score] .= v
+                connectivity_scores[connectivity_scores.RME_UNIQUE_ID.==k, :conn_score] .= v
             end
         end
 
@@ -294,14 +294,14 @@ function weight_by_context(
     target_col::Symbol,
     context_layer::Symbol,
     new_col_name::Symbol
-    )::DataFrame
+)::DataFrame
 
     gdf[:, new_col_name] .= 0.0
     for level in unique(gdf[:, context_layer])
-        gdf_level = gdf[gdf[:, context_layer] .== level, :]
+        gdf_level = gdf[gdf[:, context_layer].==level, :]
 
         max_target = maximum(gdf_level[:, target_col])
-        gdf[gdf[:, context_layer] .== level, new_col_name] = gdf_level[:, target_col] ./ max_target
+        gdf[gdf[:, context_layer].==level, new_col_name] = gdf_level[:, target_col] ./ max_target
     end
 
     return gdf
@@ -317,7 +317,7 @@ Normalise the vector `x` so that it's minimum value is `a` and its maximum value
 - `normalise([1, 5, 10, 78] (-1,1))` to return a vector with min=-1 and max=1.
 """
 function normalise(x, (a, b))
-    x_norm = (b - a) .* ((x .- minimum(filter(!isnan,x))) ./ (maximum(filter(!isnan,x)) .- minimum(filter(!isnan,x)))) .+ a
+    x_norm = (b - a) .* ((x .- minimum(filter(!isnan, x))) ./ (maximum(filter(!isnan, x)) .- minimum(filter(!isnan, x)))) .+ a
     return x_norm
 end
 
@@ -332,19 +332,19 @@ function _coral_evenness(r_taxa_cover::AbstractArray{T}; method="scaled_evenness
 
     if method == "scaled_evenness_multiplicative"
         for loc in axes(loc_cover, 2)
-            norm_evenness = normalise((1.0 ./ sum((r_taxa_cover[:, loc, :] ./ loc_cover[:, loc]) .^ 2, dims=2)), (0,1))
-            norm_loc_cover = normalise(loc_cover[:, loc], (0,1))
+            norm_evenness = normalise((1.0 ./ sum((r_taxa_cover[:, loc, :] ./ loc_cover[:, loc]) .^ 2, dims=2)), (0, 1))
+            norm_loc_cover = normalise(loc_cover[:, loc], (0, 1))
             simpsons_diversity[:, loc] = norm_evenness .* norm_loc_cover
         end
     elseif method == "scaled_evenness_additive"
         for loc in axes(loc_cover, 2)
-            norm_evenness = normalise((1.0 ./ sum((r_taxa_cover[:, loc, :] ./ loc_cover[:, loc]) .^ 2, dims=2)), (0,1))
-            norm_loc_cover = normalise(loc_cover[:, loc], (0,1))
+            norm_evenness = normalise((1.0 ./ sum((r_taxa_cover[:, loc, :] ./ loc_cover[:, loc]) .^ 2, dims=2)), (0, 1))
+            norm_loc_cover = normalise(loc_cover[:, loc], (0, 1))
             simpsons_diversity[:, loc] = (evenness_weight .* norm_evenness) .+ (cover_weight .* norm_loc_cover)
         end
     elseif method == "normalised_evenness"
         for loc in axes(loc_cover, 2)
-            simpsons_diversity[:, loc] = normalise((1.0 ./ sum((r_taxa_cover[:, loc, :] ./ loc_cover[:, loc]) .^ 2, dims=2)), (0,1))
+            simpsons_diversity[:, loc] = normalise((1.0 ./ sum((r_taxa_cover[:, loc, :] ./ loc_cover[:, loc]) .^ 2, dims=2)), (0, 1))
         end
     elseif method == "raw_evenness"
         for loc in axes(loc_cover, 2)
@@ -380,11 +380,11 @@ function extract_timeseries(rs_YAXArray, reefs, context_cols)
     end
 
     df = DataFrame(rs_YAXArray.data, reef_ids)
-    df.year = [string(i) for i in 1:size(df,1)]
+    df.year = [string(i) for i in 1:size(df, 1)]
     select!(df, :year, Not(:year))
 
     data = permutedims(df, 1, "UNIQUE_ID")
-    data = data[data.UNIQUE_ID .∈ [reefs.UNIQUE_ID],:]
+    data = data[data.UNIQUE_ID.∈[reefs.UNIQUE_ID], :]
     data = leftjoin(data, reefs[:, vcat(["UNIQUE_ID", context_cols]...)], on=:UNIQUE_ID)
     data = dropmissing(data)
 
@@ -410,9 +410,9 @@ end
 
 """
     grouping_counts(
-        grouping_col::Union{Symbol, String}, 
-        dataset::DataFrame, 
-        clustering_col::Union{Symbol, String}, 
+        grouping_col::Union{Symbol, String},
+        dataset::DataFrame,
+        clustering_col::Union{Symbol, String},
         n_clusters::Int64,
         n_reefs::Int64
     )::Vector{String}
@@ -441,20 +441,20 @@ groups_too_few_clusters = grouping_counts(
 ```
 """
 function grouping_counts(
-    grouping_col::Union{Symbol, String}, 
-    dataset::DataFrame, 
-    clustering_col::Union{Symbol, String}, 
+    grouping_col::Union{Symbol,String},
+    dataset::DataFrame,
+    clustering_col::Union{Symbol,String},
     n_clusters::Int64,
     n_reefs::Int64
 )::Vector{String}
     reef_counts = combine(groupby(dataset, [String(grouping_col), clustering_col]), nrow => :nrow)
-    groups_few_reefs = unique(reef_counts[reef_counts.nrow .< n_reefs, grouping_col])
+    groups_few_reefs = unique(reef_counts[reef_counts.nrow.<n_reefs, grouping_col])
 
     cluster_counts = combine(groupby(dataset, grouping_col)) do sdf
-        return (clusters = length(unique(sdf[:, clustering_col])), total_reefs=nrow(sdf))
+        return (clusters=length(unique(sdf[:, clustering_col])), total_reefs=nrow(sdf))
     end
-    groups_few_clusters = unique(cluster_counts[cluster_counts.clusters .< n_clusters, grouping_col])
-    
+    groups_few_clusters = unique(cluster_counts[cluster_counts.clusters.<n_clusters, grouping_col])
+
     removed_groups = unique(vcat(groups_few_reefs, groups_few_clusters))
 
     return removed_groups
@@ -469,7 +469,7 @@ coral cover timeseries (`absolute_median_cover`) and coral cover relative to ree
 cover (`relative_cover`).
 """
 function GCM_analysis_results(results_set::ADRIA.ADRIAResultSet)::Dataset
-    
+
     # Extract metric from scenarios
     tac = ADRIA.metrics.total_absolute_cover(results_set)
 
@@ -494,30 +494,30 @@ end
 
 """
     grouped_timeseries_clustering(
-        timeseries::AbstractMatrix, 
-        grouping::Vector; 
-        n_clusters::Int64=3, 
+        timeseries::AbstractMatrix,
+        grouping::Vector;
+        n_clusters::Int64=3,
         length_t=1:size(timeseries, 1)
     )::Tuple{Vector{Int64}, Vector{String}}
 
 Perform ADRIA timeseries clustering within each group of `grouping`. Return two vectors
 matching the location-order of `timeseries` and `grouping` containing the integer cluster
 assignments and the matching coral cover levels.
-Function is designed to assign 3 clusters in each group and label these clusters `low`, 
+Function is designed to assign 3 clusters in each group and label these clusters `low`,
 `medium` or `high` depending on their relative coral cover levels between timesteps 6:26 of
 the timeseries (2030:2050).
 Cover-labelling is performed based on these years of timeseries because there are commonly
 large declines in cover in years 1-5 and low levels of cover in years post-2050.
 """
 function grouped_timeseries_clustering(
-    timeseries::AbstractMatrix, 
+    timeseries::AbstractMatrix,
     grouping::Vector;
-    n_clusters::Int64=3, 
+    n_clusters::Int64=3,
     length_t=1:size(timeseries, 1)
-)::Tuple{Vector{Int64}, Vector{String}}
+)::Tuple{Vector{Int64},Vector{String}}
     # clustering = Dict{String, Any}(group => missing for group in grouping)
     cluster_assignemnts = zeros(Int64, length(grouping))
-    cluster_cats = Vector{Union{String, Missing}}(missing, length(grouping))
+    cluster_cats = Vector{Union{String,Missing}}(missing, length(grouping))
 
     for group in unique(grouping)
         indices = findall(grouping .== group)
@@ -527,7 +527,7 @@ function grouped_timeseries_clustering(
         unique_clusters = unique(clusters)
 
         # Find which numerical cluster belongs to each 'high, medium or low' group. These can differ between bioregions
-        # so we need to find which cluster number belongs to the high, med or low median group. This is just based on 
+        # so we need to find which cluster number belongs to the high, med or low median group. This is just based on
         # years 2030:2050 (time indices 6:26)
         cluster_medians = [median(group_ts[6:26, findall(clusters .== cluster)]) for cluster in unique_clusters]
         cluster_categories = Dict(
@@ -535,10 +535,10 @@ function grouped_timeseries_clustering(
             "low" => unique_clusters[argmin(cluster_medians)],
         )
         merge!(
-            cluster_categories, 
-            Dict("medium" => 
-            unique_clusters[
-                findfirst(unique_clusters .∉ [[cluster_categories["high"], cluster_categories["low"]]])
+            cluster_categories,
+            Dict("medium" =>
+                unique_clusters[
+                    findfirst(unique_clusters .∉ [[cluster_categories["high"], cluster_categories["low"]]])
                 ]
             )
         )
@@ -549,7 +549,7 @@ function grouped_timeseries_clustering(
         # are consistent across regions. Low = 1, Medium = 2, High = 3.
         cluster_numbers = Dict("high" => 3, "medium" => 2, "low" => 1)
         cluster_assignemnts[indices] = [cluster_numbers[key] for key in cluster_categories]
-        
+
     end
 
     return (cluster_assignemnts, cluster_cats)
@@ -563,7 +563,7 @@ Identify the key in `dict` that holds the target `val`. If there are multiple ma
 nothing is returned.
 """
 function find_dict_val(val, dict::Dict)
-    for (k,v) in dict
+    for (k, v) in dict
         if v == val
             return k
         end
@@ -587,7 +587,7 @@ function change_ADRIA_debug(to::Bool; config_fn::String="config.toml")::Nothing
 
     if (config_contents["operation"]["debug"] != to)
         config_contents["operation"]["debug"] = to
-        
+
         open(config_fn, "w") do io
             TOML.print(io, config_contents)
         end
@@ -630,7 +630,7 @@ function cross_correlation(
     lag::Int64,
     correlation_function::Function,
     demean::Bool
-    )
+)
 
     #r = Vector{Float64}()
     lx = length(x)
@@ -647,22 +647,22 @@ function cross_correlation(
     end
 
     #for k = 1 : m  # foreach lag value
-        #l = lags[k]
-        l=lag
+    #l = lags[k]
+    l = lag
 
-        if l >= 0
-           sub_x = zx[1:lx-l]
-           sub_y = zy[1+l:lx]
-        else
-           sub_x = zx[1-l:lx]
-           sub_y = zy[1:lx+l]
-        end
+    if l >= 0
+        sub_x = zx[1:lx-l]
+        sub_y = zy[1+l:lx]
+    else
+        sub_x = zx[1-l:lx]
+        sub_y = zy[1:lx+l]
+    end
 
-        #push!(r, correlation_function(sub_x, sub_y))
-        r = correlation_function(sub_x, sub_y)
+    #push!(r, correlation_function(sub_x, sub_y))
+    r = correlation_function(sub_x, sub_y)
     #end
 
-   return r
+    return r
 end
 
 function pearsons_cor(x, y)
@@ -673,7 +673,7 @@ function pearsons_cor(x, y)
 end
 
 function CE(x)
-    return sqrt(sum(diff(x).^2))
+    return sqrt(sum(diff(x) .^ 2))
 end
 
 function CF(x, y)
@@ -681,7 +681,7 @@ function CF(x, y)
 end
 
 function CID(x, y)
-    return (sqrt(sum((x - y) .^2)) * CF(x, y))
+    return (sqrt(sum((x - y) .^ 2)) * CF(x, y))
 end
 
 function carbonate_threshold_cover(area, cover; threshold=0.2)
@@ -698,8 +698,8 @@ function threshold_cover_timeseries(areas, cover_timeseries, threshold)
 
     for loc in eachindex(areas)
         threshold_cover[:, loc] = carbonate_threshold_cover(
-            areas[loc], 
-            cover_timeseries[:, loc]; 
+            areas[loc],
+            cover_timeseries[:, loc];
             threshold=threshold
         )
     end
@@ -727,4 +727,3 @@ function percentage_cover_timeseries(areas, cover_timeseries)
 
     return percentage_cover
 end
-

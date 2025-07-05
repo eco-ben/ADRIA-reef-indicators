@@ -4,8 +4,6 @@ using YAXArrays, NetCDF
 include("../../common.jl")
 change_ADRIA_debug(false) # Ensure ADRIA debug mode is set to false to allow parallel processing.
 
-using ADRIA
-
 GBR_domain_path = "../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/"
 dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
 gcms = dhw_scenarios.dhw.properties["members"]
@@ -41,9 +39,9 @@ for GCM in gcms
             Dim{:timesteps}(Int64.(scenario_cover.timesteps)),
             Dim{:locations}(string.(scenario_cover.locations))
         )
-        properties=median_cover.properties
+        properties = median_cover.properties
         pop!(properties, :is_relative)
-        properties = Dict{String, Any}([(string.(k), v) for (k,v) in properties])
+        properties = Dict{String,Any}([(string.(k), v) for (k, v) in properties])
 
         median_cover = rebuild(median_cover, dims=dims, metadata=properties)
         savecube(median_cover, processed_outputs, driver=:netcdf, overwrite=true)
