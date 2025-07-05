@@ -28,7 +28,7 @@ n_clusters = 3
 areas = gbr_dom.loc_data.area
 
 for GCM in dhw_scenarios.dhw.properties["members"]
-    
+
     # Select GCM and load relevant results
     @info "Performing timeseries clustering for $(GCM)"
 

@@ -39,9 +39,9 @@ for GCM in gcms
             Dim{:timesteps}(Int64.(scenario_cover.timesteps)),
             Dim{:locations}(string.(scenario_cover.locations))
         )
-        properties=median_cover.properties
+        properties = median_cover.properties
         pop!(properties, :is_relative)
-        properties = Dict{String, Any}([(string.(k), v) for (k,v) in properties])
+        properties = Dict{String,Any}([(string.(k), v) for (k, v) in properties])
 
         median_cover = rebuild(median_cover, dims=dims, metadata=properties)
         savecube(median_cover, processed_outputs, driver=:netcdf, overwrite=true)
