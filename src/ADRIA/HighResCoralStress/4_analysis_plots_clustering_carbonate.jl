@@ -83,7 +83,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
         :value,
         :variable,
         depth_year_correlation;
-        color_label="Median reef depth (m)"
+        color_label="Median reef depth [m]"
     )
     save(
         joinpath(fig_out_dir, "depth_carbonate_scatter.png"),

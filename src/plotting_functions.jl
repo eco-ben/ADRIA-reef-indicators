@@ -661,7 +661,7 @@ function cluster_analysis_plots(
         analysis_layers_depth,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("depth_med");
-        xlabel="Median Depth (m)", ylabel="$(grouping_fn)", overlap = overlap
+        xlabel="Median Depth [m]", ylabel="$(grouping_fn)", overlap = overlap
     );
     save(
         joinpath(fig_out_dir, "$(grouping)", "depth_$(grouping)_violin.png"), 
@@ -773,17 +773,26 @@ function carbonate_budget_variable_scatter(
     year_col,
     carbonate_budget_col,
     year_variable_correlation;
-    xlabel="Carbonate budget threshold (%) (correlation)",
+    xlabel="Carbonate budget threshold [%] (correlation)",
     ylabel="Years above carbonate budget threshold",
     color_label="",
     fig_sizes=fig_sizes,
-    fontsize=fontsize
+    fontsize=fontsize,
+    alpha=0.5
 )
     x_fig_size = fig_sizes["carb_width"]
     y_fig_size = fig_sizes["carb_height"]
 
     labels = unique(long_df[:, carbonate_budget_col])
-    labels = ["$(lab) ($(round(year_variable_correlation[lab], digits=2)))" for lab in labels]
+    labels = ["$(lab)\n($(round(year_variable_correlation[lab], digits=2)))" for lab in labels]
+
+    # Get the default colormap (as a gradient with 256 colors)
+    base_cmap = cgrad(:viridis, 256)
+    # Convert all colors to RGBA with alpha = 0.4 (adjust as needed)
+    transparent_colors = [RGBA(c.r, c.g, c.b, alpha) for c in base_cmap.colors]
+    # Wrap into a ColorScheme object
+    transparent_cmap = ColorScheme(transparent_colors)
+
 
     fig = Figure(size = (x_fig_size, y_fig_size), fontsize = fontsize)
     ax = Axis(
@@ -800,8 +809,10 @@ function carbonate_budget_variable_scatter(
         clouds=nothing,
         show_median=false, 
         markersize=6, 
-        jitter_width=0.9
+        jitter_width=1
     )
+    rain.plots[1].colormap = transparent_cmap
+
     # scat = scatter!(
     #     ACCESS_ESM1_5_long.variable,
     #     ACCESS_ESM1_5_long.value,
