@@ -17,11 +17,11 @@ map!(x -> x*cm, values(fig_sizes))
 
 # Extract figure fontsize and convert to pixel measurement
 pt = 1.33 # size of 1 pt in pixels
-fontsize = config["fig_fontsize"]
-fontsize = fontsize["fontsize"] * pt
+misc_sizes = config["fig_misc"]
+fontsize = misc_sizes["fontsize"] * pt
 
 inch = 96 # size of 1 inch in pixels
-dpi = 300 / inch
+dpi = misc_sizes["dpi"] / inch
 
 function colorscheme_alpha(cscheme::ColorScheme, alpha = 0.5)
     ncolors = length(cscheme)
@@ -752,6 +752,10 @@ function grouped_GCM_cluster_timeseries_plots(
         )
     end
 
+    axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
+    map(x -> hidexdecorations!(x; grid = false, ticks = false), axes_after_1)
+    map(x -> hideydecorations!(x, ticks = false, ticklabels = false, grid = false), axes_after_1)
+    
     # Tweak layout defaults
     # fig.layout.colgap = 5  # Default ~10, reduce to make plots tighter horizontally
     # fig.layout.rowgap = 5  # Same for vertical spacing

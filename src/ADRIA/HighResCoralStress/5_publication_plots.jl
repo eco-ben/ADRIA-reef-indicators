@@ -22,7 +22,7 @@ ecs_values = Dict(
     "NorESM2-MM" => 2.5
 )
 ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys(ecs_values)))
-save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit=300 / inch)
+save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit=dpi)
 
 # GBR map plot - methods
 investigation_reefs = context_layers[
@@ -89,7 +89,7 @@ Legend(
     rowgap=1,
     backgroundcolor=bgcol
 )
-save(joinpath(output_path, "figs/region_map.png"), fig, px_per_unit=300 / inch)
+save(joinpath(output_path, "figs/region_map.png"), fig, px_per_unit=dpi)
 
 # fig = Figure()
 # ax = Axis(
