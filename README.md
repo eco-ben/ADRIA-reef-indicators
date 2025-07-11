@@ -72,16 +72,16 @@ If median cover timeseries and `analysis_context_layers_carbonate.gpkg` are alre
 If figures are already available, then the paper.qmd document can be rendered immediately.
 
 Workflow:
-```{mermaid}
-flowchart LR
-    A[Start] --> B{All publication figures produced?}
-    B -->|Yes| C[Render paper .qmd file]
-    B -->|No| D{median_cover_GCM*.nc timeseries and analysis_context_layers_carbonate.gpkg available?}
-    D -->|Yes| E[Run scripts 4 and 5]
-    E --> C
-    D -->|No| F[Run scripts 1 and 2]
-    F --> E
-    E --> C
+```mermaid
+flowchart LR;
+    A[Start] --> B{All publication figures produced?};
+    B -->|Yes| C[Render paper .qmd file];
+    B -->|No| D{median_cover_GCM*.nc timeseries and analysis_context_layers_carbonate.gpkg available?};
+    D -->|Yes| E[Run scripts 4 and 5];
+    E --> C;
+    D -->|No| F[Run scripts 1 and 2];
+    F --> E;
+    E --> C;
 ```
 
 - `1_GCM_model_runs.jl` : Script to run ADRIA - CoralBlox with the required ADRIADomain and produce processed median coral cover outputs.
@@ -90,48 +90,46 @@ flowchart LR
 - `4_analysis_plots_clustering_carbonate.jl` : Create required results for paper using timeseries data and analysis factors collated in `3_*.jl`. Additionally, calculate the proportion of reefs that change cluster assignment across the GCM levels and the proportion of reefs with depths of 1-10m that occur in low and medium coral cover clusters.
 - `5_publication_plots.jl` : Create extra required plots for publication such as a context map and diagram of GCM Equilibium Climate Sensitivity values.
 
-### Data Requirements
+### Raw Data Requirements
 
-- `raw scenario data` : Raw scenario data resulting from `rme_1_1_initial_runs_remote_desktop.jl` can be found at
-- `processed median data` : Processed data resulting from `rme_1_2_processing_run_results.jl` can be found at https://aimsgovau.sharepoint.com/:f:/s/ADRIADevelopment/EqJeFYVKvadKop2h2sVoUpEBDqlEzVdUDq66hK8KqNvPiw?e=ptVG3c
-- `canonical-reefs gpkg` : Canonical reefs geopackage can be found at _ or created by running _
-- `GBRMPA_Reefal_bioregions.gpkg` : https://aimsgovau.sharepoint.com/:u:/s/ADRIADevelopment/EefReOCyAwVCnhKHLdTPeuYBIiNfoTucyMcV4MgtU9PVbA?e=Yso4uC
+- `GBR-wide ADRIADomain data with HighResCoralStress DWHs` : **link uploaded domain M&DS**
+- `GBRMPA management areas` : https://geohub-gbrmpa.hub.arcgis.com/datasets/management-areas
+- `GBRMPA reef features` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::great-barrier-reef-features
+- `GBRMPA reefal bioregions` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::reefal-marine-bioregions
 
 ## Methods
 
 ### Domain
 
-Using GBR-wide domain from ReefModEngine data: "rme_ml_2024_06_13".
-
-Currently using RCP 45 from domain.
+Using GBR-wide ADRIADomain.
 
 #### Includes:
 
 - Initial coral cover data from RME
-- DHW/environmental data from RME
+- DHW timeseries data from HighResCoralStress.org
 - Reef spatial data from RME
-- Connectivity data from RME
+- GBR1 connectivity data
 
 ### Scales
 
-Timeseries are grouped by reefs into their bioregion (GBRMPA reefal bioregion data).
-The timeseries are then compared for each reef within these groups with the overall group median timeseries.
+Timeseris clustering analyses are performed at bioregion, management area and GBR-wide scales. Only bioregion scale analyses are carried forward into the paper as findings are the same across the spatial scales.
 
-### Lagged Correlation Analyses
+### Timeseries clustering
 
-Lagged correlation analysis is performed between each reef in a group and the group's median time series.
-A strong-positive correlation at positive lags means a reef's changes are early compared to group-median. A strong-positive correlation at negative lags means a reef's changes are delayed compared to the group-median.
+Timeseries are clustered based on their complexity invariant distance (CID). The CID 
+corrects the Euclidean distance between pairs of timeseries (which accounts for magnitude
+differences) with the complexity of each timeseries (obtained through a measure of their 
+variability) to ensure reefs are clustered based on their underlying temporal dynamics 
+rather than simply their average coral cover. 
+Reefs are clustered into 3 clusters based on these values, with clusters being assigned a
+low, medium or high value based on their median-cluster coral cover from 2030-2050.
 
-## Results
+### Carbonate budget analysis
 
-Results from lagged correlation analyses are used to explore characteristics of reefs that occur early/late compared to their surrounding group.
-Reefs with timeseries that occur early/late at both subregion/bioregion scales are considered to be candidates for further analyses.
-
-These candidate reefs are then explored for their common characteristics that differ from other surrounding reefs, such as:
-
-- Strength/number of outgoing and incoming larval connections
-- Connectivity centrality (eigenvector)
-- Initial coral cover values
-- Mean DHW thermal stress experienced
-- Correlation of cover/evenness timeseries with DHW timeseries (susceptibility)
-- Crown of Thorns Starfish Mortality
+Reef health can be assessed by estimating the carbonate budget status. A positive
+carbonate budget means that carbonate accumulation processes outweigh erosion and corals
+can build the skeletal structures important to ecosystem functioning. We can estimate the
+number of years a reef is predicted to have a positive carbonate budget but assuming a
+live-coral-cover threshold above which a reef has a positive carbonate budget.
+As this threshold is uncertain we explore a range of values and compare the results in 
+analyses.
