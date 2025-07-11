@@ -319,24 +319,26 @@ used to calculate an overall mean DHW – tolerance value for each reef under ea
 
 ## Reef carbonate budget
 
-The number of years reefs maintain coral cover above a required carbonate budget level
-substantially decreases as the required carbonate budget threshold (as a percentage of reef
-area) increases. Reefs with greater median depth levels maintain coral cover above required
-carbonate budget levels for longer than reefs at shallow depths
-[@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate positive correlation
-with the number of years a reef maintains coral cover above the required threshold
-[@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintainence correlation
-decreases as the required carbonate budget threshold increases. This is likely due to an
-increasing number of reefs being unable to maintain coral cover above threshold levels as
-the threshold increases. There are no clear relationships between reef total connectivity
-levels and the number of years reefs maintain coral cover above carbonate budget threshold
-levels [@sfig-access-esm1-5-conn-carbonate]. Reef log (natural) total connectivity strength
-has no correlation with the number of years a reef maintains cover above the required
-thresholds. Log connectivity strength - carbonate budget maintainence correlation slightly
-decreases as the required carbonate budget threshold increases.
+As one might expect, the number of years above $\beta_{0}$ (the assumed positive carbonate
+budget threshold) substantially decreases as $\beta_{0}$ increases.
 
-![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
-2099. The carbonate budget thresholds assessed range from 10 to 20% of total reef area.
+Reefs with greater median depth levels maintain coral cover above
+indicative carbonate budget levels for a longer time frame compared to reefs with shallower
+median depths [@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate
+positive correlation with the number of years a reef maintains coral cover above the
+required threshold [@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget
+maintainence correlation decreases as the required carbonate budget threshold increases.
+This is likely due to an increasing number of reefs being unable to maintain coral cover
+above threshold levels as the threshold increases. There are no clear relationships between
+reef total connectivity levels and the number of years reefs maintain coral cover above
+carbonate budget threshold levels [@sfig-access-esm1-5-conn-carbonate]. The natural log of
+total connectivity strength was found to have no correlation with the number of years a reef
+maintains cover above the required thresholds. Log connectivity strength - carbonate budget
+maintainence correlation slightly decreases as the required carbonate budget threshold
+increases.
+
+![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025
+to 1. The carbonate budget thresholds assessed range from 10 to 20% of total reef area.
 Bracketed x-axis values represent the Spearman's correlation between reef depth and the
 number of years cover exceeds the carbonate budget threshold. Point colour represents the
 median reef depth level in metres. Displays results from median timeseries using
