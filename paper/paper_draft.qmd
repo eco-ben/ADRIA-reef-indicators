@@ -179,18 +179,15 @@ were selected. -->
 
 Equilibrium climate sensitivity (ECS) is defined, by the IPCC, as the long term warming
 caused by a doubling of carbon dioxide above its pre-industrial concentration
-[@forster2021]. The four GCMs
-<!-- @Ben, says "four GCMs" here, but we used five? -->
-span a range of ECS values within the IPCC assessed likely
-range, and GCM development families, allowing for a range of possible climate futures to be
-explored, capturing the uncertainty in future responses to CO2 increases (@fig-ecs;
-[@grose2023; @shepherd2018]). The following analyses are performed using each GCM
-separately. SSP 2-4.5 was
+[@forster2021]. The four GCMs <!-- @Ben, says "four GCMs" here, but we used five? --> span a
+range of ECS values within the IPCC assessed likely range, and GCM development families,
+allowing for a range of possible climate futures to be explored, capturing the uncertainty
+in future responses to CO2 increases (@fig-ecs; [@grose2023; @shepherd2018]). The following
+analyses are performed using each GCM separately. SSP 2-4.5 was
 <!-- I changed "is" to "was" - anything to do with the analysis making the decision to
-standardise to past tense as currently there is a mix. -->
-used as a plausible emission pathway under current emission
-trajectories, with similar atmospheric CO2 levels remaining until 2050 [@hausfather2020;
-IPCC -@climate2023].
+standardise to past tense as currently there is a mix. --> used as a plausible emission
+pathway under current emission trajectories, with similar atmospheric CO2 levels remaining
+until 2050 [@hausfather2020; IPCC -@climate2023].
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). The green polygon represents the Far Northern management area,
