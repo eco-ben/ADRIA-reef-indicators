@@ -170,14 +170,22 @@ Maximum monthly mean DHW levels were calculated from the SST data following NOAA
 [@liu2017; @skirving2020]. DHWs were represented by a selection of five Global Climate
 Models (GCMs) from the Sixth Phase of the Coupled Model Intercomparison Project (CMIP6;
 **citation**). These five GCMs were EC-Earth3-Veg, ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and
-GDFL-CM4, and their inclusion were based on evaluation by Grose et al. [-@grose2023]. Grose et al. [-@grose2023] found high correlation between observed temperature, rainfall, El Niño Southern Oscillation and Indian Ocean Dipole patterns in the Australian terrestrial region, and the corresponding mechanisms in these GCMs.
+GDFL-CM4, and their inclusion were based on evaluation by Grose et al. [-@grose2023]. Grose
+et al. [-@grose2023] found high correlation between observed temperature, rainfall, El Niño
+Southern Oscillation and Indian Ocean Dipole patterns in the Australian terrestrial region,
+and the corresponding mechanisms in these GCMs.
 <!-- @Ben, the last sentence above is quite long and doesn't explain why the five GCMs
 were selected. -->
 
 Equilibrium climate sensitivity (ECS) is defined, by the IPCC, as the long term warming
 caused by a doubling of carbon dioxide above its pre-industrial concentration
-[@forster2021]. The five GCMs span a range of ECS values within the IPCC assessed likely range, and GCM development families, allowing for a range of possible climate futures to be explored, capturing the uncertainty in future responses to CO2 increases (@fig-ecs; [@grose2023; @shepherd2018]). The following analyses were performed using each GCM separately. SSP 2-4.5 was
-used as a plausible emission pathway under current emission trajectories, with similar atmospheric CO2 levels remaining until 2050 [@hausfather2020; IPCC -@climate2023].
+[@forster2021]. The five GCMs span a range of ECS values within the IPCC assessed likely
+range, and GCM development families, allowing for a range of possible climate futures to be
+explored, capturing the uncertainty in future responses to CO2 increases (@fig-ecs;
+[@grose2023; @shepherd2018]). The following analyses were performed using each GCM
+separately. SSP 2-4.5 was used as a plausible emission pathway under current emission
+trajectories, with similar atmospheric CO2 levels remaining until 2050 [@hausfather2020;
+IPCC -@climate2023].
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). The green polygon represents the Far Northern management area,
@@ -205,10 +213,11 @@ in the supplementary material \[**link ADRIA - CoralBlox**\].
 
 ### Factors influencing bleaching mortality
 
-In ADRIA we track the thermal tolerance of each functional group and size class as a truncated normal distribution that is updated in each timestep following growth and recruitment. This
-distribution determines that proportion of the population on a reef that is susceptible to
-bleaching (i.e. has a thermal threshold below the experienced DHW value). Starting
-distributions for thermal tolerance levels are informed by Bairos-Novak et al.
+In ADRIA we track the thermal tolerance of each functional group and size class as a
+truncated normal distribution that is updated in each timestep following growth and
+recruitment. This distribution determines that proportion of the population on a reef that
+is susceptible to bleaching (i.e. has a thermal threshold below the experienced DHW value).
+Starting distributions for thermal tolerance levels are informed by Bairos-Novak et al.
 [-@bairos-novak2021].
 
 Tropical cyclones and impact of wave activity to reefs were not included in this
@@ -218,9 +227,9 @@ coral colonies on a reef impacted by high heat stress as depth increases. Median
 each reef location were extracted from satellite derived bathymetry data for the Great
 Barrier Reef (GBRMPA [-@gbr10gb2020]) (see discussion for more details). Due to varying
 degrees of alignment between bathymetry data and the defined outlines for GBR reefs, reefs
-with less than 5% coverage of valid bathymetry data were removed from this
-investigation. Furthermore, reefs that were outside the GBRMPA management areas or not
-associated with a bioregion were removed from the investigation.
+with less than 5% coverage of valid bathymetry data were removed from this investigation.
+Furthermore, reefs that were outside the GBRMPA management areas or not associated with a
+bioregion were removed from the investigation.
 
 ### Connectivity modelling
 
@@ -244,35 +253,35 @@ level of live coral cover necessary to maintain a positive carbonate budget (den
 $\beta_{0}$ to indicate the budget equilibrium). Greater number of years above $\beta_{0}$
 therefore suggests greater resilience and opportunity for recovery.
 
-Recent analyses suggest a general threshold of ~17% live coral cover in the case of
-the GBR [@desbiens]. Given in situ carbonate budgets are influenced by (1) a range of
-processes; (2) the variety of approaches that could be used to measure those processes; and
-(3) the uncertainty surrounding these, it would be unreasonable to assume all
-reefs adhere to a single precise $\beta_{0}$ value. Concurrently, it is difficult to
-ascertain a suitable $\beta_{0}$ value for each individual reef.
+Recent analyses suggest a general threshold of \~17% live coral cover in the case of the GBR
+[@desbiens]. Given in situ carbonate budgets are influenced by (1) a range of processes; (2)
+the variety of approaches that could be used to measure those processes; and (3) the
+uncertainty surrounding these, it would be unreasonable to assume all reefs adhere to a
+single precise $\beta_{0}$ value. Concurrently, it is difficult to ascertain a suitable
+$\beta_{0}$ value for each individual reef.
 
 Given the uncertainties present, the proportion of reefs that display capacity to maintain
 coral cover above a given $\beta_{0}$ threshold is examined. An indicative range of 10 to
 20% is used (inclusive, with a step size of 1%). The range was informed by Perry et al.,
-[-@perry2015] and Desbians et al., [-@desbiens] providing plausible indications of the
-lower and upper bounds respectively. Robustness of the conclusions drawn to the uncertainty
-in the precise value of $\beta_{0}$ for all reefs can then be assessed by using the
-indicative range.
+[-@perry2015] and Desbians et al., [-@desbiens] providing plausible indications of the lower
+and upper bounds respectively. Robustness of the conclusions drawn to the uncertainty in the
+precise value of $\beta_{0}$ for all reefs can then be assessed by using the indicative
+range.
 
 The relationship between the number of years above $\beta_{0}$ and median reef depth was
 then assessed with Spearman's rank correlation. Spearman's correlation coefficient was
-adopted as reef depth and connectivity strength distributions are expected to be non-normal and
-highly skewed. Furthermore, reefs are naturally of different types and experience different 
-conditions, and so the monotonic trends (whether the relationship consistently increase or 
-decrease) rather than the exact quantative relationship is of interest.
+adopted as reef depth and connectivity strength distributions are expected to be non-normal
+and highly skewed. Furthermore, reefs are naturally of different types and experience
+different conditions, and so the monotonic trends (whether the relationship consistently
+increase or decrease) rather than the exact quantative relationship is of interest.
 
 <!-- Split and move below to results/discussion -->
+
 The distribution of number of years above carbonate-cover thresholds is right-skewed, with
 many reefs experiencing low numbers of years above thresholds. Similarly, reef median depth
-levels and natural log total connectivity strength levels follow right-skewed
-distributions. Therefore, we analyse the correlation between number of years above
-carbonate-cover thresholds and these characteristics using Spearman's correlation
-coefficient.
+levels and natural log total connectivity strength levels follow right-skewed distributions.
+Therefore, we analyse the correlation between number of years above carbonate-cover
+thresholds and these characteristics using Spearman's correlation coefficient.
 
 ### Timeseries clustering
 
@@ -301,7 +310,10 @@ between total coral cover and inversed DHW timeseries, proportion of coral habit
 occupied by corals in the first timestep, ratio of source-to-sink larval connectivity and
 total strength of larval connections between reefs. To analyse the DHW - tolerance levels of
 reefs, heritable DHW – tolerance values were tracked over timeseries in a timestep \* taxa
-\* reef \* scenario matrix. The mean timeseries DHW - tolerance was calculated over the first four scenarios for each GCM (four from 4096 scenarios per GCM) due to computational restraints, and then used to calculate an overall mean DHW – tolerance value for each reef under each GCM.
+\* reef \* scenario matrix. The mean timeseries DHW - tolerance was calculated over the
+first four scenarios for each GCM (four from 4096 scenarios per GCM) due to computational
+restraints, and then used to calculate an overall mean DHW – tolerance value for each reef
+under each GCM.
 
 # Results
 
@@ -310,19 +322,18 @@ reefs, heritable DHW – tolerance values were tracked over timeseries in a time
 As one might expect, the number of years above $\beta_{0}$ (the assumed positive carbonate
 budget threshold) substantially decreases as $\beta_{0}$ increases.
 
-Reefs with greater median depth levels maintain coral cover above
-indicative carbonate budget levels for a longer time frame compared to reefs with shallower
-median depths [@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate
-positive correlation with the number of years a reef maintains coral cover above the
-required threshold [@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget
-maintainence correlation decreases as the required carbonate budget threshold increases.
-This is likely due to an increasing number of reefs being unable to maintain coral cover
-above threshold levels as the threshold increases, with values becoming increasingly
-right-skewed. The natural log of total connectivity strength was found to have no 
-correlation with the number of years a reef maintains cover above the required thresholds
-[@sfig-access-esm1-5-conn-carbonate]. Log connectivity strength - carbonate budget 
-maintainence correlation slightly decreases as the required carbonate budget threshold
-increases.
+Reefs with greater median depth levels maintain coral cover above indicative carbonate
+budget levels for a longer time frame compared to reefs with shallower median depths
+[@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate positive correlation
+with the number of years a reef maintains coral cover above the required threshold
+[@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintainence correlation
+decreases as the required carbonate budget threshold increases. This is likely due to an
+increasing number of reefs being unable to maintain coral cover above threshold levels as
+the threshold increases, with values becoming increasingly right-skewed. The natural log of
+total connectivity strength was found to have no correlation with the number of years a reef
+maintains cover above the required thresholds [@sfig-access-esm1-5-conn-carbonate]. Log
+connectivity strength - carbonate budget maintainence correlation slightly decreases as the
+required carbonate budget threshold increases.
 
 ![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025
 to 1. The carbonate budget thresholds assessed range from 10 to 20% of total reef area.
