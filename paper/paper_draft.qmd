@@ -80,8 +80,8 @@ The Great Barrier Reef (GBR) is the world's largest coral reef ecosystem consist
 thousands of individual reefs. They are interconnected through coral and fish larval
 dispersal patterns mediated by hydrodynamic, spatial, and ecological processes
 [@grimaldi2022]. Current modelling projects severe declines in coral cover under projections
-of Degree Heating Weeks \[**Bozec 2025**\]. These coral cover declines will be compounded by
-ocean acidification, intensifying tropical cyclones, and crown-of-thorns starfish outbreaks
+of Degree Heating Weeks [@bozec]. These coral cover declines will be compounded by ocean
+acidification, intensifying tropical cyclones, and crown-of-thorns starfish outbreaks
 [@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. Ominously, the
 2023-24 Summer mass bleaching event may be signalling a shift towards this reef future, with
 some level of bleaching recorded on 79% of surveyed reefs [@cantin2024].
@@ -127,16 +127,15 @@ thermal stress events, the long-term viability of coral reefs depends not only o
 survival but also on the maintenance of reef structure through positive carbonate budgets.
 Scleractinian corals are primary habitat structures on coral reefs, and the accumulation and
 erosion of coral reef carbonate frameworks is controlled by a range of processes including
-coral accumulation \[**Perry**\], bioerosion , physical damage generating coral rubble
-\[**Kenyon**\], and calcification and CaCO₃ dissolution rates \[**Eyre 2014, 2018**\]. The
-balance of these processes and occurrence of net carbonate framework production (referred to
-as a positive carbonate budget) are influenced by factors such as coral cover and complexity
-\[**Perry, Desbiens**\], rates of physical environmental processes, and ocean acidity
-\[**Perry, Eyre**\]. Total live coral cover on a reef highly influences the maintenance of
-net positive carbonate budgets, with estimates ranging from 10 to 20% \[**Perry**\] of a
+coral accumulation [@perry2015], bioerosion , physical damage generating coral rubble
+[@kenyon], and calcification and CaCO₃ dissolution rates [@eyre2014; @eyre2018]. The balance
+of these processes and occurrence of net carbonate framework production (referred to as a
+positive carbonate budget) are influenced by factors such as coral cover and complexity
+[@perry2012; @desbiens], rates of physical environmental processes, and ocean acidity
+[@perry2015; @eyre2018]. Total live coral cover on a reef highly influences the maintenance
+of net positive carbonate budgets, with estimates ranging from 10 to 20% [@perry2015] of a
 reef's total area required to maintain positive budgets. For mid and outer shelf reefs on
-the Great Barrier Reef, this threshold is approximately 17% live coral cover
-\[**Desbiens**\].
+the Great Barrier Reef, this threshold is reportedly 17% live coral cover [@desbiens].
 
 Incorporating the latest advancements in whole ecosystem larval connectivity modeling and
 coral thermal response and adaptation research into coral population modeling allows an
