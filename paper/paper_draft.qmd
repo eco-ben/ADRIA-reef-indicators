@@ -250,18 +250,30 @@ absolute coral cover.
 ### Carbonate budget analysis
 
 Using median coral cover timeseries for each reef we calculated the number of years each
-reef maintains coral cover above these live coral cover threshold levels, inferring the
-number of years each reef maintains a net positive carbonate budget, accumulating reef
-framework. As in situ carbonate budgets are influenced by a range of processes, our
-calculations of carbonate budget maintainence are intended as estimates and do not reflect
-the conditions that will be experienced on a reef, but indicate relative levels of health
-across reefs. To capture the wide influence of environmental factors on carbonate budget
-levels, we analyse live coral cover thresholds required for positive carbonate budgets from
-10 to 20% (inclusive, at step 1%).
+reef maintains coral cover above a given percent threshold. The threshold represents the
+level of live coral cover necessary to maintain a positive carbonate budget (denoted here as
+$\beta_{0}$ to indicate the budget equilibrium). Greater number of years above $\beta_{0}$
+therefore suggests greater resilience and opportunity for recovery.
 
+Recent analyses suggest a general threshold of ~17% live coral cover in the case of
+the GBR [@desbiens]. Given in situ carbonate budgets are influenced by (1) a range of
+processes; (2) the variety of approaches that could be used to measure those processes; and
+(3) the uncertainty surrounding these, it would be unreasonable to assume all
+reefs adhere to a single precise $\beta_{0}$ value. Concurrently, it is difficult to
+ascertain a suitable $\beta_{0}$ value for each individual reef.
+
+Given the uncertainties present, the proportion of reefs that display capacity to maintain
+coral cover above a given $\beta_{0}$ threshold is examined. An indicative range of 10 to
+20% is used (inclusive, with a step size of 1%). The range was informed by Perry et al.,
+[-@perry2015] and Desbians et al., [-@desbiens] providing indications of the lower and upper
+bounds respectively. Spearman's correlation coefficient was adopted to assessed the
+relationship between connectivity strength and the number of years above $\beta_{0}$.
+The process was then repeated with median reef depth.
+
+<!-- Split and move below to results/discussion -->
 The distribution of number of years above carbonate-cover thresholds is right-skewed, with
 many reefs experiencing low numbers of years above thresholds. Similarly, reef median depth
-levels and log (natural) total connectivity strength levels follow right-skewed
+levels and natural log total connectivity strength levels follow right-skewed
 distributions. Therefore, we analyse the correlation between number of years above
 carbonate-cover thresholds and these characteristics using Spearman's correlation
 coefficient.
