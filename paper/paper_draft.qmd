@@ -141,15 +141,18 @@ Incorporating the latest advancements in whole ecosystem larval connectivity mod
 coral thermal response and adaptation research into coral population modeling allows an
 investigation into how abiotic and biotic factors interact to influence coral climate change
 resilience and the maintenance of positive carbonate budgets. Improvements in coral reef
-climate response modeling, including sampling from a range of possible climate futures,
-enable timeseries analyses of uncertain climate change and ecological scenarios [@bode2017;
-@chollett2022; @donner2018; @klein2024; @uusitalo2015]. While it has previously been
-suggested that highly connected source reefs that are resilient to bleaching and CoTS
-outbreaks are likely to play a critical role in supporting future reef recovery across the
-entire GBR [@hock2017], integrated modelling under current projections of Degree Heating
-Weeks indicate that depth, rather than connectivity, plays a critical role in determining
-reef resilience. It is further demonstrated that depth supports the maintenance of a postive
-carbonate budget under all Global Climate Models.
+climate response modeling, including sampling from a range of current projected climate
+futures, enable timeseries analyses of uncertain climate change and ecological scenarios
+[@bode2017; @chollett2022; @donner2018; @klein2024; @uusitalo2015].
+
+It has previously been suggested that highly connected source reefs that are resilient to
+bleaching and CoTS outbreaks are likely to play a critical role in supporting future reef
+recovery across the entire GBR [@hock2017]. Integrated modelling incorporating data from the
+latest advancements in coral population modelling [@ribeirodealmeida2024], whole of
+ecosystem larval connectivity \[**citation**\], and current projections of Degree Heating
+Weeks [@dixon2022; @dixon] indicate that depth, rather than connectivity, plays a more
+critical role in reef resilience under projected conditions. It is further demonstrated that
+deeper reefs support maintenance of positive carbonate budget under all climate projections.
 
 # Methods
 
