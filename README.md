@@ -76,10 +76,10 @@ Workflow:
 flowchart LR;
     A[Start] --> B{All publication figures produced?};
     B -->|Yes| C[Render paper .qmd file];
-    B -->|No| D{median_cover_GCM*.nc timeseries and analysis_context_layers_carbonate.gpkg available?};
+    B -->|No| D{median_cover_GCM timeseries and analysis_context_layers_carbonate available?};
     D -->|Yes| E[Run scripts 4 and 5];
     E --> C;
-    D -->|No| F[Run scripts 1 and 2];
+    D -->|No| F[Run scripts 1, 2 and 3];
     F --> E;
     E --> C;
 ```
