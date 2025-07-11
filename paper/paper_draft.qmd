@@ -161,33 +161,23 @@ The spatial extent of the GBR coral reefs represented in this investigation foll
 definitions available via the Great Barrier Reef Marine Park Authority
 \[https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::great-barrier-reef-features-/explore?location=-19.221541%2C145.776418%2C4.94\].
 In total this covers 3806 reef areas across the GBR marine park. Annually and spatially
-averaged Degree Heating Week (DHW) data was used to represent future thermal stress at each
+averaged Degree Heating Week (DHW) data were used to represent future thermal stress at each
 reef location.
 
 Statistically downscaled 1km resolution Sea Surface Temperature (SST) data for the Great
 Barrier Reef were obtained from the HighResCoralStress database [@dixon2022; @dixon].
 Maximum monthly mean DHW levels were calculated from the SST data following NOAA methodology
-[@liu2017; @skirving2020]. The SSTs are represented by a selection of five Global Climate
+[@liu2017; @skirving2020]. DHWs were represented by a selection of five Global Climate
 Models (GCMs) from the Sixth Phase of the Coupled Model Intercomparison Project (CMIP6;
 **citation**). These five GCMs were EC-Earth3-Veg, ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and
-GDFL-CM4, and their inclusion were based on evaluation by Grose et al. [-@grose2023], which
-found high correlation between observed temperature, rainfall, El Niño Southern Oscillation
-and Indian Ocean Dipole patterns in the Australian terrestrial region, and the corresponding
-mechanisms in these GCMs.
+GDFL-CM4, and their inclusion were based on evaluation by Grose et al. [-@grose2023]. Grose et al. [-@grose2023] found high correlation between observed temperature, rainfall, El Niño Southern Oscillation and Indian Ocean Dipole patterns in the Australian terrestrial region, and the corresponding mechanisms in these GCMs.
 <!-- @Ben, the last sentence above is quite long and doesn't explain why the five GCMs
 were selected. -->
 
 Equilibrium climate sensitivity (ECS) is defined, by the IPCC, as the long term warming
 caused by a doubling of carbon dioxide above its pre-industrial concentration
-[@forster2021]. The four GCMs <!-- @Ben, says "four GCMs" here, but we used five? --> span a
-range of ECS values within the IPCC assessed likely range, and GCM development families,
-allowing for a range of possible climate futures to be explored, capturing the uncertainty
-in future responses to CO2 increases (@fig-ecs; [@grose2023; @shepherd2018]). The following
-analyses are performed using each GCM separately. SSP 2-4.5 was
-<!-- I changed "is" to "was" - anything to do with the analysis making the decision to
-standardise to past tense as currently there is a mix. --> used as a plausible emission
-pathway under current emission trajectories, with similar atmospheric CO2 levels remaining
-until 2050 [@hausfather2020; IPCC -@climate2023].
+[@forster2021]. The five GCMs span a range of ECS values within the IPCC assessed likely range, and GCM development families, allowing for a range of possible climate futures to be explored, capturing the uncertainty in future responses to CO2 increases (@fig-ecs; [@grose2023; @shepherd2018]). The following analyses were performed using each GCM separately. SSP 2-4.5 was
+used as a plausible emission pathway under current emission trajectories, with similar atmospheric CO2 levels remaining until 2050 [@hausfather2020; IPCC -@climate2023].
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). The green polygon represents the Far Northern management area,
@@ -215,21 +205,20 @@ in the supplementary material \[**link ADRIA - CoralBlox**\].
 
 ### Factors influencing bleaching mortality
 
-We track the thermal tolerance of each functional group and size class as a truncated normal
-distribution that is updated in each timestep following growth and recruitment. This
+In ADRIA we track the thermal tolerance of each functional group and size class as a truncated normal distribution that is updated in each timestep following growth and recruitment. This
 distribution determines that proportion of the population on a reef that is susceptible to
 bleaching (i.e. has a thermal threshold below the experienced DHW value). Starting
 distributions for thermal tolerance levels are informed by Bairos-Novak et al.
 [-@bairos-novak2021].
 
-Tropical cyclones and impact of wave activity to reefs are not included in this
+Tropical cyclones and impact of wave activity to reefs were not included in this
 investigation. We scale coral bleaching impacts by a coefficient determined by the median
 depth of each reef location, following Baird et al. [@baird2018], reducing the proportion of
 coral colonies on a reef impacted by high heat stress as depth increases. Median depths for
-each reef location have been extracted from satellite derived bathymetry data for the Great
+each reef location were extracted from satellite derived bathymetry data for the Great
 Barrier Reef (GBRMPA [-@gbr10gb2020]) (see discussion for more details). Due to varying
 degrees of alignment between bathymetry data and the defined outlines for GBR reefs, reefs
-with less than 5% coverage of valid bathymetry data have been removed from this
+with less than 5% coverage of valid bathymetry data were removed from this
 investigation. Furthermore, reefs that were outside the GBRMPA management areas or not
 associated with a bioregion were removed from the investigation.
 
@@ -305,16 +294,14 @@ management regions and whole-of-GBR scale. These were found to lead to identical
 and so are not shown here. Results of these analyses can be found at \[**insert citation for
 repository**\] for those interested.
 
-Reefs in each timeseries cluster are compared to identify characteristics that differ
+Reefs in each timeseries cluster were compared to identify characteristics that differ
 between low, medium and high coral cover clusters. These characteristics include reef median
 depth, mean timeseries DHW, mean timeseries DHW – tolerance level, Pearson’s correlation
 between total coral cover and inversed DHW timeseries, proportion of coral habitable area
 occupied by corals in the first timestep, ratio of source-to-sink larval connectivity and
 total strength of larval connections between reefs. To analyse the DHW - tolerance levels of
 reefs, heritable DHW – tolerance values were tracked over timeseries in a timestep \* taxa
-\* reef \* scenario matrix. The mean timeseries was calculated over the first four scenarios
-for each GCM (four from 4096 scenarios per GCM) due to computational restraints, and then
-used to calculate an overall mean DHW – tolerance value for each reef under each GCM.
+\* reef \* scenario matrix. The mean timeseries DHW - tolerance was calculated over the first four scenarios for each GCM (four from 4096 scenarios per GCM) due to computational restraints, and then used to calculate an overall mean DHW – tolerance value for each reef under each GCM.
 
 # Results
 
