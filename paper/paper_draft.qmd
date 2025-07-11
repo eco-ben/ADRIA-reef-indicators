@@ -204,7 +204,7 @@ width="`{julia} map_width`"}
 The pink - dashed box represents the high-certainty ‘very likely’ range for ECS values and
 the solid red box represents low-certainty ‘likely’ range for ECS values (Forster et al.,
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#fig-ecs
-width="`{julia} ecs_width`" height=500 align="center"}
+width="`{julia} ecs_width`" height="500" align="center"}
 
 ## Coral reef ecosystem model - ADRIA-CoralBlox
 
