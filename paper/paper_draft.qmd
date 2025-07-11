@@ -265,8 +265,9 @@ ascertain a suitable $\beta_{0}$ value for each individual reef.
 Given the uncertainties present, the proportion of reefs that display capacity to maintain
 coral cover above a given $\beta_{0}$ threshold is examined. An indicative range of 10 to
 20% is used (inclusive, with a step size of 1%). The range was informed by Perry et al.,
-[-@perry2015] and Desbians et al., [-@desbiens] providing indications of the lower and upper
-bounds respectively.
+[-@perry2015] and Desbians et al., [-@desbiens] providing plausible indications of the
+lower and upper bounds respectively. Robustness of the conclusions drawn to the uncertainty
+in the precise value of $\beta_{0}$ for all reefs can then be assessed by using a range.
 
 The relationship between the number of years above $\beta_{0}$ and median reef depth was
 then assessed with Spearman's rank correlation. Spearman's correlation coefficient was
