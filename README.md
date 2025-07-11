@@ -1,33 +1,94 @@
 # ADRIA-reef-indicators
 
-Time series analyses for GBR health using ReefModEngine ecosystem model.
-- Looking for reefs that decline early compared to their surrounding reefs. These could be considered as bellwether reefs that indicate oncoming decline.
-- Looking for reefs that have a delay in decline compared to their surrounding reefs. These could be considered as more resilient to the surrounding stressors.
-
-Previously this study used ADRIA and CoralBlox for ecological modelling. This has moved to focus on
-ReefModEngine instead, scripts used for ADRIA modelling have been archived to `src/ADRIA` folder.
+Time series analyses for GBR resilience using ADRIA - CoralBlox reef ecosystem modelling suite.
+- Clustering reef timeseries to identify what characteristics define resilient clusters.
+- Assessing the characteristics that influence positive carbonate budget maintainence into the future.
 
 ## Structure
 
+Repository structure:
 ``` code
 ADRIA-reef-indicators/
-├─ src/           # Analysis scripts
-├─ outputs/
-├─ figs/
+├─ src/     # Analysis scripts
+├─ outputs/     # ADRIA results sets and analysis / figure outputs
 ├─ data/
+├─ paper/   # Reproducible quarto manuscript via the rendering of .qmd file
 ├─ .gitignore
-├─ config.toml    # configuration file for ADRIA
-├─ Project.toml   # Julia project spec
-└─ README.md      # this file
+├─ config.toml  # configuration file for project
+├─ Project.toml     # Julia project spec
+├─ Manifest.toml    # Julia project spec
+└─ README.md    # this file
 ```
 
-### Analysis scripts - `src/RME`
+The ADRIADomain `GBR_2024_10_15_HighResCoralStress` is required to run ADRIA in this project. The path to this domain folder should be specified in the config.toml file.
 
-- `rme_1_1_initial_runs_remote_desktop.jl` : Script for running RME scenarios on the remote desktop (takes 3 days to run 1200 scenarios).
-- `rme_1_2_processing_run_results.jl` : Script for taking the RME results for each GCM and combining them into a single ensemble dataset, then calculating median cover and taxa evenness.
-- `rme_2_Subregion_correlation.jl` : Lagged correlation analysis at for bioregions.
-- `rme_3_analysis_context_layers.jl` : Addition of context layers to the correlation results for statistical analysis.
-- `rme_4_exploratory_analysis.jl` : Exploratory analysis of bellwether reefs.
+The following files should be located in the data folder:
+``` code
+ADRIA-reef-indicators/data/
+├─ GBRMPA_Management_Areas.gpkg    # File containing polygons of GBRMPA management areas
+├─ GBRMPA_Reef_Features.gpkg    # File containing polygons of GBRMPA reef feature data
+└─ GBRMPA_Reefal_Bioregions.gpkg   # File containing polygons of GBRMPA reefal bioregions.
+```
+
+The following structure and files should be maintained in the outputs folder:
+``` code
+ADRIA-reef-indicators/outputs/
+└───ADRIA_results
+    └───HighResCoralStress
+        ├───figs    # Directory directly containing general GCM-wide and paper-methods figures, as well as GCM subdirectories
+        │   ├───ACCESS-CM2
+        │   │   ├───bioregion
+        │   │   ├───gbr
+        │   │   └───management_area
+        │   ├───ACCESS-ESM1-5
+        │   │   ├───bioregion
+        │   │   ├───gbr
+        │   │   └───management_area
+        │   ├───EC-Earth3-Veg
+        │   │   ├───bioregion
+        │   │   ├───gbr
+        │   │   └───management_area
+        │   ├───GFDL-CM4
+        │   │   ├───bioregion
+        │   │   ├───gbr
+        │   │   └───management_area
+        │   └───NorESM2-MM
+        │       ├───bioregion
+        │       ├───gbr
+        │       └───management_area
+        ├───processed_model_outputs     # Folder containing scenario-median timeseries arrays for each GCM
+        │       ├───median_cover_ACCESS-CM2.nc
+        │       ├───median_cover_ACCESS-ESM1-5.nc
+        │       ├───median_cover_EC-Earth3-Veg.nc
+        │       ├─── median_cover_GFDL-CM4.nc
+        │       └───median_cover_NorESM2-MM.nc
+        └───analysis_context_layers_carbonate.gpkg      # Geopackage containing the required timeseries clustering, connectivity and carbonate budget values for each reef
+```
+
+### Analysis scripts - `src/ADRIA/HighResCoralStress/`
+
+Note that scripts 1, 2 and 3 are only required to be run if creating model outputs from scratch. 
+If median cover timeseries and `analysis_context_layers_carbonate.gpkg` are already available in the relevant output structure, then scripts 4 and 5 can be run immediately.
+If figures are already available, then the paper.qmd document can be rendered immediately.
+
+Workflow:
+```{mermaid}
+flowchart LR
+    A[Start] --> B{All publication figures produced?}
+    B -->|Yes| C[Render paper .qmd file]
+    B -->|No| D{median_cover_GCM*.nc timeseries and analysis_context_layers_carbonate.gpkg available?}
+    D -->|Yes| E[Run scripts 4 and 5]
+    E --> C
+    D -->|No| F[Run scripts 1 and 2]
+    F --> E
+    E --> C
+```
+
+- `1_GCM_model_runs.jl` : Script to run ADRIA - CoralBlox with the required ADRIADomain and produce processed median coral cover outputs.
+- `2_timeseries_clustering_absolute.jl` : Perform timeseries clustering analysis on reef-area-scaled absolute coral cover. Analysis is performed at bioregion, management area and GBR wide scales. Cluster assignments for each reef are saved as `analysis_context_layers_carbonate.jl`
+- `3_collating_context_layers.jl` : Attach the required values for each reef for analysis factors including connectivity metrics, reef DHW levels and perform carbonate budget analysis for a range of carbonate budget live coral cover thresholds.
+- `4_analysis_plots_clustering_carbonate.jl` : Create required results for paper using timeseries data and analysis factors collated in `3_*.jl`. Additionally, calculate the proportion of reefs that change cluster assignment across the GCM levels and the proportion of reefs with depths of 1-10m that occur in low and medium coral cover clusters.
+- `5_publication_plots.jl` : Create extra required plots for publication such as a context map and diagram of GCM Equilibium Climate Sensitivity values.
 
 ### Data Requirements
 
