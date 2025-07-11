@@ -49,7 +49,6 @@ editor:
 
 ```{julia}
 #| include: false
-
 cd("../src")
 include("../src/common.jl")
 
@@ -158,22 +157,26 @@ deeper reefs support maintenance of positive carbonate budget under all climate 
 
 ## Environmental modelling context
 
-The spatial extent of GBR coral reefs used in this investigation includes 3806 reef areas.
-It follows the reef definitions as provided by the Great Barrier Reef Marine Park Authority
+The spatial extent of the GBR coral reefs represented in this investigation follows the reef
+definitions available via the Great Barrier Reef Marine Park Authority
 \[https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::great-barrier-reef-features-/explore?location=-19.221541%2C145.776418%2C4.94\].
-Annually and spatially averaged Degree Heating Week (DHW) data is used to represent future
-thermal stress at each reef location. Five Global Climate Models (GCMs) (EC-Earth3-Veg,
-ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GDFL-CM4) from the Sixth Phase of the Coupled
-Model Intercomparison Project (CMIP6; **citation**) were selected for this study.
+In total this covers 3806 reef areas across the GBR marine park. Annually and spatially
+averaged Degree Heating Week (DHW) data was used to represent future thermal stress at each
+reef location.
+
 Statistically downscaled 1km resolution Sea Surface Temperature (SST) data for the Great
 Barrier Reef were obtained from the HighResCoralStress database [@dixon2022; @dixon].
 Maximum monthly mean DHW levels were calculated from the SST data following NOAA methodology
-[@liu2017; @skirving2020]. These GCMs were selected from available GCMs downscaled by Dixon
-et al. [-@dixon] based on evaluation by Grose et al. [-@grose2023], which found high
-correlation between observed temperature, rainfall, El Niño Southern Oscillation and Indian
-Ocean Dipole patterns in the Australian terrestrial region, and the corresponding mechanisms
-in these GCMs. Equilibrium climate sensitivity (ECS) is defined, by the IPCC, as the long
-term warming caused by a doubling of carbon dioxide above its pre-industrial concentration
+[@liu2017; @skirving2020]. The SSTs are represented by a selection of five Global Climate
+Models (GCMs) from the Sixth Phase of the Coupled Model Intercomparison Project (CMIP6;
+**citation**). These five GCMs were EC-Earth3-Veg, ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and
+GDFL-CM4, and their inclusion were based on evaluation by Grose et al. [-@grose2023], which
+found high correlation between observed temperature, rainfall, El Niño Southern Oscillation
+and Indian Ocean Dipole patterns in the Australian terrestrial region, and the corresponding
+mechanisms in these GCMs.
+
+Equilibrium climate sensitivity (ECS) is defined, by the IPCC, as the long term warming
+caused by a doubling of carbon dioxide above its pre-industrial concentration
 [@forster2021]. The four GCMs span a range of ECS values within the IPCC assessed likely
 range, and GCM development families, allowing for a range of possible climate futures to be
 explored, capturing the uncertainty in future responses to CO2 increases (@fig-ecs;
