@@ -261,10 +261,10 @@ indicative range.
 
 The relationship between the number of years above $\beta_{0}$ and median reef depth was
 then assessed with Spearman's rank correlation. Spearman's correlation coefficient was
-adopted as reef depth distributions are expected to be non-normal and highly skewed.
-Furthermore, reefs are naturally of different types and experience different conditions,
-and so the monotonic trends (whether the relationship consistently increase or decrease)
-rather than the exact quantative relationship is of interest.
+adopted as reef depth and connectivity strength distributions are expected to be non-normal and
+highly skewed. Furthermore, reefs are naturally of different types and experience different 
+conditions, and so the monotonic trends (whether the relationship consistently increase or 
+decrease) rather than the exact quantative relationship is of interest.
 
 <!-- Split and move below to results/discussion -->
 The distribution of number of years above carbonate-cover thresholds is right-skewed, with
@@ -317,11 +317,10 @@ positive correlation with the number of years a reef maintains coral cover above
 required threshold [@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget
 maintainence correlation decreases as the required carbonate budget threshold increases.
 This is likely due to an increasing number of reefs being unable to maintain coral cover
-above threshold levels as the threshold increases. There are no clear relationships between
-reef total connectivity levels and the number of years reefs maintain coral cover above
-carbonate budget threshold levels [@sfig-access-esm1-5-conn-carbonate]. The natural log of
-total connectivity strength was found to have no correlation with the number of years a reef
-maintains cover above the required thresholds. Log connectivity strength - carbonate budget
+above threshold levels as the threshold increases, with values becoming increasingly
+right-skewed. The natural log of total connectivity strength was found to have no 
+correlation with the number of years a reef maintains cover above the required thresholds
+[@sfig-access-esm1-5-conn-carbonate]. Log connectivity strength - carbonate budget 
 maintainence correlation slightly decreases as the required carbonate budget threshold
 increases.
 
