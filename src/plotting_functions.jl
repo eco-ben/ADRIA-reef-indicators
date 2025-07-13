@@ -327,9 +327,15 @@ function grouped_cluster_timeseries_plots(
         )
     end
 
-    axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
-    map(x -> hidexdecorations!(x; grid = false, ticks = false), axes_after_1)
-    map(x -> hideydecorations!(x, ticks = false, ticklabels = false, grid = false, label = false), axes_after_1)
+    if grouping != :gbr
+        second_row = findfirst(last.(plot_layout) .== n_col) + 1
+        second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
+        middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
+        axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
+
+        map(x -> hidexdecorations!(x; grid = false, ticks = false), middle_axes)
+        map(x -> hideydecorations!(x; ticks = false, ticklabels = false, grid = false), axes_after_1)
+    end
 
     if grouping == :bioregion
         rowgap!(fig.layout, 5)
@@ -752,8 +758,11 @@ function grouped_GCM_cluster_timeseries_plots(
         )
     end
 
+    second_row = findfirst(last.(plot_layout) .== n_col) + 1
+    second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
+    middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
     axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
-    map(x -> hidexdecorations!(x; grid = false, ticks = false), axes_after_1)
+    map(x -> hidexdecorations!(x; grid = false, ticks = false), middle_axes)
     map(x -> hideydecorations!(x, ticks = false, ticklabels = false, grid = false), axes_after_1)
     
     # Tweak layout defaults

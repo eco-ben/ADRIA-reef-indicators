@@ -137,7 +137,7 @@ dhw_arrays = [
     rebuild(gbr_dom.dhw_scens[:, :, i_gcm], dims=rel_cover_arrays.axes[1:2]) for i_gcm in eachindex(GCMs)
 ]
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
-dhw_properties = rel_cover_arrays.properties
+dhw_properties = copy(rel_cover_arrays.properties)
 dhw_properties[:is_relative] = false
 dhw_properties[:metric_feature] = "Degree Heating Weeks"
 dhw_properties[:metric_unit] = "°C"
