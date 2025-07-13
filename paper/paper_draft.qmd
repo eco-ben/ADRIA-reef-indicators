@@ -464,12 +464,18 @@ DHWs based on SST, the proportion of the reef’s coral population impacted by h
 events depends on the depth of the reef. Analysis from Baird et al. [-@baird2018] is used to
 calculate the degree of protection provided to a reef based on the median depth. Our results
 suggest that within shallow reef ecosystems (depth \< 30m), depth contributes greatly to
-reef resilience and the ability of the reef to maintain cover under heat stress. While
-similar findings have been demonstrated in the eastern Pacific [@smith2014], depth refugia
-analyses have often focussed on the potential of mesophotic reefs (\> 30m deep) as thermal
-refugia [@bongaerts2010; @holstein2015; @semmler2017]. In contrast, Venegas et al.
-[-@venegas2019] found no association between depth and the alleviation of heat stress across
-a range of shallow reefs in the Pacific.
+reef resilience and the ability of the reef to maintain positive carbonate budgets under
+future conditions. While similar findings have been demonstrated in the eastern Pacific
+[@smith2014], depth refugia analyses have often focussed on the potential of mesophotic
+reefs (\> 30m deep) as thermal refugia [@bongaerts2010; @holstein2015; @semmler2017]. In
+contrast, Venegas et al. [-@venegas2019] found no association between depth and the
+alleviation of heat stress across a range of shallow reefs in the Pacific. Reefs at shallow
+depths experience no, or few, years with coral cover exceeding levels likely required to
+maintain positive carbonate budgets. Movement of reefs towards negative cabonate budgets
+under increasing future thermal stress over time may contribute to phase shifts in reef
+dominant $CaCO_3$ production from coral driven to coralline encrusting algae driven
+production, or to bioerosion dominated systems with rapid erosion of physical reef
+frameworks [@dudgeon2010; @perry2008].
 <!-- The depth refugia found on a reef in turn influences the degree of correlation between coral cover timeseries and DHW levels. Reefs in low and medium clusters have lower levels of cover – DHW correlation than those in high clusters, due to their initial sharp declines in coral cover combined with low depth – refugia in the face of persistently high thermal stress these reefs do not recover post 2030, leaving little ability to decline further in periods of high thermal stress and recover in periods of low thermal stress. -->
 
 Overall, these findings support the hypothesis that reefs at greater depths will experience
@@ -495,9 +501,8 @@ of the main depth constraints is being able to visually identify the target site
 surface for deployment and ongoing monitoring, in combination with factors such as
 deployment method and tourism return value. Our results suggest that of the reefs analysed
 within the 1-10m depth range (1800 reefs) 74% (1328) of reefs fall into the low and medium
-clusters (across all GCMs at the GBRMPA management region scale), with many suffering large
-future declines in reef health under climate change and possibly limiting the potential of
-interventions to deliver recovery in these locations. Reef intervention planning is a
+clusters (across all GCMs at the GBRMPA management region scale), with many unable to
+maintain positive carbonate budgets under future conditions. Reef intervention planning is a
 complex and challenging decision making process [@anthony2020], and our results suggest that
 deployment site depth is an important factor to consider when assessing the long-term
 resilience of reef sites.
@@ -530,12 +535,6 @@ connectivity models parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode
 periods respectively. Using updated 1km resolution larval connectivity across the whole GBR,
 our results suggest that larval connectivity alone is not as important for reef resilience
 and recovery as environmental refugia from thermal stress such as depth.
-
-Furthermore, our results suggest that the capacity of reefs to maintain healthy coral
-habitat by being above positive net carbonate budget levels is greater for reefs at deeper
-depths than shallow depths. While the maintanence of positive carbonate budget levels does
-not appear to be linked to reef connectivity metrics. The maintanence of positive carbonate
-budgets is important for reef resilience under climate change.
 
 Five different GCMs were included in analyses to capture uncertainty in climate system
 responses to increasing atmospheric carbon dioxide levels. The large differences in cover
@@ -683,9 +682,18 @@ within each bioregion. ‘High’ clusters (blue) are clusters with the highest 
 area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
 median DHW level for each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/mean_dhw_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwmean
-width="`{julia"}
-violin_width`"} <!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the median DHW tolerance value for each cluster. Displays results for ACCESS-ESM1-5 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwtol width="`{julia}
-violin_width\`"} --\>
+width="`{julia"} violin_width\`"}
+
+<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into 
+clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the 
+lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ 
+clusters (orange) are clusters with intermediate median area-relative cover between 2030 
+and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest 
+median area-relative cover between 2030 and 2040 within each bioregion. Solid lines 
+represent the median DHW tolerance value for each cluster. Displays results for 
+ACCESS-ESM1-5 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwtol width="`{julia}
+violin_width\`"} -->
+
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
 bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
