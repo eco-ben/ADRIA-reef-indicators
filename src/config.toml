@@ -10,7 +10,7 @@ output_dir = "../outputs/ADRIA_results/HighResCoralStress"
 domain_dir = "../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/"
 
 [fig_misc]
-fontsize = 8
+fontsize = 7
 dpi = 400
 
 [fig_formats_cm]

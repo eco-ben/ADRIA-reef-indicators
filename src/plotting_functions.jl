@@ -787,7 +787,7 @@ function carbonate_budget_variable_scatter(
     labels = ["$(lab)\n($(round(year_variable_correlation[lab], digits=2)))" for lab in labels]
 
     # Get the default colormap (as a gradient with 256 colors)
-    base_cmap = cgrad(:viridis, 256)
+    base_cmap = cgrad(:viridis, 256; rev=true)
     # Convert all colors to RGBA with alpha = 0.4 (adjust as needed)
     transparent_colors = [RGBA(c.r, c.g, c.b, alpha) for c in base_cmap.colors]
     # Wrap into a ColorScheme object
