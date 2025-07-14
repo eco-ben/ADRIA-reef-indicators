@@ -559,9 +559,11 @@ caveats to acknowledge in the data sources used in this investigation. Uncertain
 connectivity modelling outputs, satellite-derived bathymetry data and future thermal stress
 projections are likely to influence the results obtained in this investigation. To limit the
 influence of bathymetry data on results, reefs with less than 5% data coverage are removed
-from analyses. We investigate a range of future climate responses and thermal projections to
-account for a range of possible futures, and our results suggest the factors that influence
-reef resilience are consistent across these scenarios.
+from analyses. The DHW data used in this investigation have not been bias corrected for the 
+Great Barrier Reef region and is part of a wider Australian dataset [@dixon2022] developed 
+using statistical downscaling. We investigate a range of future climate responses and 
+thermal projections to account for a range of possible futures, and our results suggest 
+the factors that influence reef resilience are consistent across these scenarios.
 
 ADRIA - CoralBlox has not been calibrated or validated at the GBR-wide scale. Accordingly,
 the purpose of this investigation is to assess the relative influence of reef
