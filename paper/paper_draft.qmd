@@ -210,15 +210,19 @@ bioregion were removed from the investigation.
 
 \*\* need information on GBR1 connectivity used \*\*
 
+### Depth estimation
+
+\*\* Describe process of estimating median depth for each reef \*\*
+
 ## Timeseries analysis
 
-ADRIA-CoralBlox was run for 4096 **sampled** scenarios per GCM. A median absolute coral
-cover timeseries for each reef was calculated for each GCM. For timeseries clustering reef
-cover timeseries were scaled by the total area of the reef to represent timeseries as a
-percentage of the total reef area. The proportion of each functional group occupying the
-reef (group evenness) was also investigated as a metric for timeseries analysis, but was
-found to not sufficiently capture the declined condition of reefs suffering from very low
-absolute coral cover.
+ADRIA-CoralBlox was run for 4096 **sampled** scenarios for each of the five GCMs.
+A median absolute coral cover timeseries for each reef was calculated for each GCM.
+For timeseries clustering reef cover timeseries were scaled by the total area of the reef
+to represent timeseries as a percentage of the total reef area. The proportion of each
+functional group occupying the reef (group evenness) was also investigated as a metric for
+timeseries analysis, but was found to not sufficiently capture the declined condition of reefs
+suffering from very low absolute coral cover.
 
 ### Carbonate budget analysis
 
