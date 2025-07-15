@@ -70,88 +70,63 @@ large-scale coral-macroalgae regime shifts [@arif2022; @wild2011]. Climate impac
 reefs are, and will continue to, decrease the ability of coral reefs to provide ecological
 functions such as benthic habitat and nutrient cycling [@forster2021; @williams2019] as well
 as ecosystem services such as food, protection, tourism and Indigenous cultural value
-[@eddy2021; @stoeckl2021]. We aim to assess the impacts of possible climate futures and
-identify the characteristics of resilient reefs using the latest generation of larval
-connectivity research with scenario-based population modelling for the Great Barrier Reef
-ecosystem.
+[@eddy2021; @stoeckl2021].
+
+Understanding the characteristics of reefs that will persist under projected climate
+conditions requires examining reef resilience across multiple scales and processes.
+Structural resilience - the capacity to maintain coral populations and avoid ecosystem
+regime shifts - depends on three interconnected mechanisms. First, the ability of individual
+corals to survival thermal stress. Second, the connectivity networks that enable
+recolonisation after disturbances. Third, the maintenance of carbonate framework that
+provides reef structure. We aim to assess how these mechanisms interact under current
+projected climate conditions to identify the characteristics of structurally resilient reefs through scenario-based coral population modelling for the Great Barrier Reef ecosystem.
 
 The Great Barrier Reef (GBR) is the world's largest coral reef ecosystem consisting of
 thousands of individual reefs. They are interconnected through coral and fish larval
 dispersal patterns mediated by hydrodynamic, spatial, and ecological processes
-[@grimaldi2022]. Current modelling projects severe declines in coral cover under projections
-of Degree Heating Weeks [@bozec]. These coral cover declines will be compounded by ocean
-acidification, intensifying tropical cyclones, and crown-of-thorns starfish outbreaks
-[@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. Ominously, the
-2023-24 Summer mass bleaching event may be signalling a shift towards this reef future, with
-some level of bleaching recorded on 79% of surveyed reefs [@cantin2024].
+[@grimaldi2022]. The GBR faces severe projected coral cover declines under climate change [@bozec]. These coral cover declines will be compounded by ocean acidification, intensifying tropical cyclones, and crown-of-thorns starfish outbreaks
+[@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. The 2023-24
+Summer mass bleaching event may be signalling a shift towards this reef future, with some
+level of bleaching recorded on 79% of surveyed reefs [@cantin2024].
 
-Connectivity is said to play a crucial role in Great Barrier Reef resilience by enabling
-recolonization after disturbances and facilitating adaptation to climate pressures
-[@angeler2023; @elmhirst2009; @hock2017]. This connectivity, however, creates both strengths
-and vulnerabilities within the system. Larval source populations (those exporting more
-larvae than they import) are essential for system-wide resilience, as they provide larvae
-that enable recovery at distant locations after disturbances [@hock2017; @thomas2015].
-Individually, however, they are more vulnerable to extreme disturbances as they rely more
-heavily on local recruitment to support recovery. In contrast, sink populations can draw on
-external larval inputs from multiple and diverse sources [@ani2024; @hock2017]. When
-disturbances impact major larval source populations, the cascading effects extend throughout
-the network. Increased adult mortality reduces larval export in subsequent years, slowing
-recovery at the connected sink locations that depend on this external supply
-[@figueiredo2022; @hock2017; @munday2009]. Future climate change will further complicate
-these dynamics through population fragmentation, increased larval mortality, and altered
-hydrodynamics, potentially disrupting the connectivity patterns that currently maintain reef
-resilience.
+At the individual coral scale, survival during thermal stress events depends on both
+environmental and biological factors. Environmental factors can either amplify or reduce
+thermal stress exposure. Depth has been suggested as one crucial factor that can provide
+a refuge from thermal stress [@álvarez-noriega2018; @baird2018; @smith2014]. Biological
+factors including coral size [@brandt2009], taxa [@álvarez-noriega2018; @mcclanahan2005],
+and thermal tolerance through acclimation and inheritance [@humanes2022; @lachs2024] all
+influence survival outcomes. Importantly, corals demonstrate adaptive capacity to develop
+thermal tolerance that could delay widespread bleaching under moderate emissions scenarios
+[@bairos-novak2021; @humanes2022], representing a crucial mechanism for reef persistence.
 
-Beyond connectivity, coral resilience to climate change is determined by the complex
-interplay of environmental and biological factors. Environmental abiotic factors influence
-how reefs will experience climate change pressures, including the spatio-temporal patterns
-of thermal stress itself, and indirect factors that influence the stress experienced by
-corals. Environmental factors such as tropical cyclones and wind driven mixing [@lin2023;
-@mcclanahan2005]; currents [@grimaldi2022] and depth [@álvarez-noriega2018; @baird2018;
-@smith2014] can decrease the magnitude of thermal stress corals experience. Conversely, high
-light intensity and nutrient levels in the benthic zone can increase coral bleaching
-[@decarlo2020; @higuchi2015].
+Beyond individual survival, reef-scale resilience depends on connectivity networks that
+enable recolonization after disturbances [@angeler2023; @elmhirst2009; @hock2017]. However,
+connectivity creates both strengths and vulnerabilities. Larval source populations that
+export more larvae than they import are essential for system-wide recovery, providing larvae
+that enable recolonization at distant locations [@hock2017; @thomas2015]. Yet these source
+reefs are paradoxically more vulnerable individually, relying heavily on local recruitment
+for their own recovery. When disturbances impact major source populations, cascading effects
+reduce larval export and slow recovery throughout the connected network [@figueiredo2022;
+@hock2017; @munday2009].
 
-Individual coral resilience depends on multiple biological factors beyond connectivity.
-Coral size [@brandt2009], taxa [@álvarez-noriega2018; @mcclanahan2005], and acclimation and
-inherited thermal tolerance [@humanes2022; @lachs2024] all influence the outcome of high
-coral heat stress events. Importantly, corals have demonstrated adaptive capacity to develop
-thermal tolerance levels capable of delaying the onset of widespread bleaching under low
-emissions scenarios [@bairos-novak2021; @humanes2022]. This adaptive potential represents a
-crucial mechanism for reef persistence under moderate climate change, working in concert
-with the environmental factors that modulate thermal stress exposure.
+Long-term reef viability requires not only coral survival and recolonization, but also
+maintenance of the physical reef structure through positive carbonate budgets. Scleractinian
+corals build the primary habitat framework, but reef persistence depends on the balance
+between carbonate accumulation [@perry2015] and loss through bioerosion, physical damage
+[@kenyon], and dissolution [@eyre2014; @eyre2018]. This balance is influenced by coral cover
+and complexity [@perry2012; @desbiens], environmental processes, and ocean chemistry
+[@perry2015; @eyre2018]. For Great Barrier Reef mid and outer shelf reefs, maintaining
+positive carbonate budgets requires approximately 17% live coral cover [@desbiens].
 
-While these environmental and biological factors determine whether individual corals survive
-thermal stress events, the long-term viability of coral reefs depends not only on coral
-survival but also on the maintenance of reef structure through positive carbonate budgets.
-Scleractinian corals are primary habitat structures on coral reefs, and the accumulation and
-erosion of coral reef carbonate frameworks is controlled by a range of processes including
-coral accumulation [@perry2015], bioerosion , physical damage generating coral rubble
-[@kenyon], and calcification and CaCO₃ dissolution rates [@eyre2014; @eyre2018]. The balance
-of these processes and occurrence of net carbonate framework production (referred to as a
-positive carbonate budget) are influenced by factors such as coral cover and complexity
-[@perry2012; @desbiens], rates of physical environmental processes, and ocean acidity
-[@perry2015; @eyre2018]. Total live coral cover on a reef highly influences the maintenance
-of net positive carbonate budgets, with estimates ranging from 10 to 20% [@perry2015] of a
-reef's total area required to maintain positive budgets. For mid and outer shelf reefs on
-the Great Barrier Reef, this threshold is reportedly 17% live coral cover [@desbiens].
-
-Incorporating the latest advancements in whole ecosystem larval connectivity modeling and
-coral thermal response and adaptation research into coral population modeling allows an
-investigation into how abiotic and biotic factors interact to influence coral climate change
-resilience and the maintenance of positive carbonate budgets. Improvements in coral reef
-climate response modeling, including sampling from a range of current projected climate
-futures, enable timeseries analyses of uncertain climate change and ecological scenarios
-[@bode2017; @chollett2022; @donner2018; @klein2024; @uusitalo2015].
-
-It has previously been suggested that highly connected source reefs that are resilient to
-bleaching and CoTS outbreaks are likely to play a critical role in supporting future reef
-recovery across the entire GBR [@hock2017]. Integrated modelling incorporating data from the
-latest advancements in coral population modelling [@ribeirodealmeida2024], whole of
-ecosystem larval connectivity \[**citation**\], and current projections of Degree Heating
-Weeks [@dixon2022; @dixon] indicate that depth, rather than connectivity, plays a more
-critical role in reef resilience under projected conditions. It is further demonstrated that
-deeper reefs support maintenance of positive carbonate budget under all climate projections.
+Recent advances in whole-ecosystem larval connectivity modelling and coral thermal response
+research enable integrated investigation of how these multiple factors interact to determine
+climate resilience. By incorporating the latest coral population models
+[@ribeirodealmeida2024], ecosystem-wide connectivity data, and updated climate projections
+[@dixon2022], we can examine which factors most strongly influence reef persistence under
+different scenarios. While connectivity has been emphasized as critical for GBR resilience
+[@hock2017], our integrated modelling reveals that environmental factors - particularly
+depth - may play a more fundamental role in determining which reefs maintain viable coral
+populations and positive carbonate budgets under projected climate conditions.
 
 # Methods
 
