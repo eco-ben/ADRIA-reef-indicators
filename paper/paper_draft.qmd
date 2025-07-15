@@ -124,9 +124,9 @@ climate resilience. By incorporating the latest coral population models
 [@ribeirodealmeida2024], ecosystem-wide connectivity data, and updated climate projections
 [@dixon2022], we can examine which factors most strongly influence reef persistence under
 different scenarios. While connectivity has been emphasized as critical for GBR resilience
-[@hock2017], our integrated modelling reveals that environmental factors - particularly
-depth - may play a more fundamental role in determining which reefs maintain viable coral
-populations and positive carbonate budgets under projected climate conditions.
+[@hock2017], and remains an important consideration, our integrated modelling reveals depth
+may play a fundamental role in determining maintenance of reef coral population and positive
+carbonate budgets under current projections of climate change.
 
 # Methods
 
@@ -534,10 +534,10 @@ caveats to acknowledge in the data sources used in this investigation. Uncertain
 connectivity modelling outputs, satellite-derived bathymetry data and future thermal stress
 projections are likely to influence the results obtained in this investigation. To limit the
 influence of bathymetry data on results, reefs with less than 5% data coverage are removed
-from analyses. The DHW data used in this investigation have not been bias corrected for the 
-Great Barrier Reef region and is part of a wider Australian dataset [@dixon2022] developed 
-using statistical downscaling. We investigate a range of future climate responses and 
-thermal projections to account for a range of possible futures, and our results suggest 
+from analyses. The DHW data used in this investigation have not been bias corrected for the
+Great Barrier Reef region and is part of a wider Australian dataset [@dixon2022] developed
+using statistical downscaling. We investigate a range of future climate responses and
+thermal projections to account for a range of possible futures, and our results suggest
 the factors that influence reef resilience are consistent across these scenarios.
 
 ADRIA - CoralBlox has not been calibrated or validated at the GBR-wide scale. Accordingly,
@@ -661,13 +661,13 @@ median DHW level for each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/mean_dhw_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwmean
 width="`{julia"} violin_width\`"}
 
-<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into 
-clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the 
-lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ 
-clusters (orange) are clusters with intermediate median area-relative cover between 2030 
-and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest 
-median area-relative cover between 2030 and 2040 within each bioregion. Solid lines 
-represent the median DHW tolerance value for each cluster. Displays results for 
+<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
+clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
+lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’
+clusters (orange) are clusters with intermediate median area-relative cover between 2030
+and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest
+median area-relative cover between 2030 and 2040 within each bioregion. Solid lines
+represent the median DHW tolerance value for each cluster. Displays results for
 ACCESS-ESM1-5 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwtol width="`{julia}
 violin_width\`"} -->
 
