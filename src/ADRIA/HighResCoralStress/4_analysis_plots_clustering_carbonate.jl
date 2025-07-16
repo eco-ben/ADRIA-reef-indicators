@@ -206,3 +206,43 @@ for reef in eachrow(reefs_1_to_10)
 end
 
 sum(reefs_1_to_10.low_medium_clusters) / nrow(reefs_1_to_10)
+
+# Quanitifying and visualising uncertainty in connectivity data
+conn_files = readdir(joinpath(gbr_domain_path, "connectivity"))
+conn_names = [split(fn, "_")[2] * "_" * split(split(fn, "_")[3], "t")[1] for fn in conn_files]
+conn_files = [joinpath(gbr_domain_path, "connectivity", file) for file in conn_files]
+mean_conn = gbr_dom.conn
+
+function read_conn_file(fn)
+    return Matrix(
+        CSV.read(
+            fn, 
+            DataFrame; 
+            comment="#",
+            missingstring="NA",
+            transpose=false,
+            types=Float64, 
+            drop=[1]
+        )
+    )
+end
+
+all_conn_data = [
+    YAXArray(
+        mean_conn.axes,
+        read_conn_file(c_file)
+    ) for c_file in conn_files
+]
+all_conn_data = concatenatecubes(all_conn_data, Dim{:conn_name}(conn_names))
+
+std_conn = mapslices(std, all_conn_data, dims=[:conn_name])
+rstd_conn = std_conn ./ mean_conn .* 100
+
+fig = Figure()
+ax = Axis(
+    fig[1,1],
+    xlabel="",
+    ylabel=""
+)
+hm = heatmap!(ax, rstd_conn[1:100,1:100])
+Colorbar(fig[1,2], hm, label="std_conn / mean_conn * 100")
