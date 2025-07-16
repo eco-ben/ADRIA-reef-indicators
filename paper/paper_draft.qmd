@@ -496,24 +496,30 @@ traits used in this investigation. The lack of influence of thermal tolerance on
 outcomes is likely due to reef being impacted by overall similar levels of thermal stress,
 combined with the greater importance of factors such as reef depth.
 
-It has been suggested that a primary facet of reef resilience is the degree of larval
-connectivity between reefs and the supply of recruits that a reef receives following
-disturbance [@hock2017]. It was expected that resilient reefs would have greater incoming
-than outgoing larval connectivity to promote recovery in years following thermal stress,
-while non-resilient reefs would have greater outgoing than incoming connectivity inhibiting
-recruitment of corals ability post thermal stress. In contrast, our results suggest that
-there are few differences between resilient and non-resilient reefs in connectivity metrics
-such as the ratio of outgoing to incoming larval connectivity and total connectivity
-strength. Hock et al. [-@hock2017] used larval connectivity modelling to identify resilient
-reefs that may supply up to 47% of the wider Great Barrier Reef ecosystem with larvae
-following disturbance. A critique of this approach [@bode2018] is that results obtained are
-highly sensitive to the biophysical dispersal model used, limiting the application of
-specific identified reefs. Reef depth was not considered in these investigations of reef
-network resilience. These investigations were performed using prior generations of larval
-connectivity models parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time
-periods respectively. Using updated 1km resolution larval connectivity across the whole GBR,
-our results suggest that larval connectivity alone is not as important for reef resilience
-and recovery as environmental refugia from thermal stress such as depth.
+It is a strongly held conclusion in coral reef ecology that a primary facet of reef resilience 
+is the degree of larval connectivity between reefs and the supply of recruits that a 
+reef receives following disturbance [@hock2017] **expand citations**. It was expected that resilient reefs would
+have greater incoming than outgoing larval connectivity to promote recovery in years 
+following thermal stress, while non-resilient reefs would have greater outgoing than 
+incoming connectivity inhibiting recruitment of corals ability post thermal stress. In 
+contrast, our results suggest that there are few differences between resilient and 
+non-resilient reefs in connectivity metrics such as the ratio of outgoing to incoming larval 
+connectivity and total connectivity strength. Hock et al. [-@hock2017] used larval 
+connectivity modelling to identify resilient reefs that may supply up to 47% of the wider 
+Great Barrier Reef ecosystem with larvae following disturbance. A critique of this 
+approach [@bode2018] is that results obtained are highly sensitive to the biophysical 
+dispersal model used, limiting the application of specific identified reefs. Reef depth was
+not considered in these investigations of reef network resilience. These investigations 
+were performed using prior generations of larval connectivity models parameterised for 
+2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods respectively. Using updated 
+1km resolution larval connectivity across the whole GBR, with a limited temporal sample of
+particle flows, our results suggest that larval connectivity alone is not as important for
+reef resilience and recovery as environmental refugia from thermal stress such as depth. 
+Our findings may differ due to the highly uncertain nature of connectivity methods used 
+**citation**, the way larval flows and juvenile recruitment are implemented in ADRIA - 
+CoralBlox, and the magnitude of early bleaching events decreasing the breeding capacity 
+of strongly connected reefs. Further improvements in connectivity modelling are necessary 
+to provide a robust comparison of the factors influencing reef resilience.
 
 Five different GCMs were included in analyses to capture uncertainty in climate system
 responses to increasing atmospheric carbon dioxide levels. The large differences in cover
