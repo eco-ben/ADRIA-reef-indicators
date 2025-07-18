@@ -528,10 +528,11 @@ analyses of biological climate change responses. This is supported by recent lit
 suggesting an effective approach to capturing climate change uncertainty is to model climate
 change responses using a range of climate models separately [@shepherd2018]. However, the
 patterns identified between low, medium and high clusters of reefs suggest that the
-importance of depth refugia is consistent across scenarios. Similarly, at the management
+importance of depth refugia is consistent across scenarios. 
+<!-- Similarly, at the management
 area scale, only 1% of reefs were assigned a ‘low’ and ‘high’ cluster in different GCMs,
 suggesting that intrinsic reef properties can prevent high cover resilient reefs from
-crashing under a different future climate scenario.
+crashing under a different future climate scenario. -->
 
 There are multiple caveats in how coral ecosystem dynamics are modelled in this
 investigation. We model coral colonies as objects with circular diameter values and track
@@ -542,13 +543,16 @@ We do not consider the impacts of Crown of Thorns Starfish (CoTS) on coral survi
 resilience (insert citation for cots affecting corals). Furthermore, there are multiple
 caveats to acknowledge in the data sources used in this investigation. Uncertainty in
 connectivity modelling outputs, satellite-derived bathymetry data and future thermal stress
-projections are likely to influence the results obtained in this investigation. To limit the
-influence of bathymetry data on results, reefs with less than 5% data coverage are removed
-from analyses. The DHW data used in this investigation have not been bias corrected for the
-Great Barrier Reef region and is part of a wider Australian dataset [@dixon2022] developed
-using statistical downscaling. We investigate a range of future climate responses and
-thermal projections to account for a range of possible futures, and our results suggest
-the factors that influence reef resilience are consistent across these scenarios.
+projections are likely to influence the results obtained in this investigation. Incorporating 
+further improvements in connectivity modelling and understanding of the influence of 
+climate change on reef connectivity would improve certainty in the conclusions suggested 
+in this investigation. To limit the influence of bathymetry data on results, reefs with 
+less than 5% data coverage are removed from analyses. The DHW data used in this 
+investigation have not been bias corrected for the Great Barrier Reef region and is part of
+a wider Australian dataset [@dixon2022] developed using statistical downscaling. We 
+investigate a range of future climate responses and thermal projections to account for 
+a range of possible futures, and our results suggest the factors that influence reef 
+resilience are consistent across these scenarios.
 
 ADRIA - CoralBlox has not been calibrated or validated at the GBR-wide scale. Accordingly,
 the purpose of this investigation is to assess the relative influence of reef
