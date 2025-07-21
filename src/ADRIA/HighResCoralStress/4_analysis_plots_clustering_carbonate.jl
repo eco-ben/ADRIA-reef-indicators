@@ -118,6 +118,8 @@ end
 man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM in GCMs]
 bioregion_gcm_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
 gbr_gcm_cluster_cols = [Symbol("$(GCM)_gbr_clusters") for GCM in GCMs]
+
+# Prepare management area grouped clusters and timeseries for plotting
 analysis_layers_long = stack(
     context_layers[:, [:UNIQUE_ID, :management_area, man_area_gcm_cluster_cols...]],
     man_area_gcm_cluster_cols
@@ -173,9 +175,6 @@ save(
     px_per_unit=dpi
 )
 
-
-# Collate all DHW timeseries and plot them grouped by management area
-
 analysis_layers = context_layers[context_layers.UNIQUE_ID.∈[unique(analysis_layers_long.UNIQUE_ID)], :]
 reefs_with_clusters = (
     (analysis_layers[:, gbr_gcm_cluster_cols[1]] .!= 0) .&
@@ -193,11 +192,43 @@ consistent_reefs = (
 )
 sum(consistent_reefs) / length(consistent_reefs)
 
-# Identify reefs that have a median depth of 1 to 10m and the proportion of these reefs that are in low-medium cover clusters
+# Identify how many 'high' cluster reefs move to lower clusters under different GCMs (based on bioregion analyses).
+analysis_layers = context_layers
+reefs_with_clusters = (
+    (analysis_layers[:, bioregion_gcm_cluster_cols[1]] .!= 0) .&
+    (analysis_layers[:, bioregion_gcm_cluster_cols[2]] .!= 0) .&
+    (analysis_layers[:, bioregion_gcm_cluster_cols[3]] .!= 0) .&
+    (analysis_layers[:, bioregion_gcm_cluster_cols[4]] .!= 0) .&
+    (analysis_layers[:, bioregion_gcm_cluster_cols[5]] .!= 0)
+)
+analysis_layers = analysis_layers[reefs_with_clusters, :]
+high_cluster_reefs_any_gcm = analysis_layers[(
+    (analysis_layers[:, bioregion_gcm_cluster_cols[1]] .== 3) .|
+    (analysis_layers[:, bioregion_gcm_cluster_cols[2]] .== 3) .|
+    (analysis_layers[:, bioregion_gcm_cluster_cols[3]] .== 3) .|
+    (analysis_layers[:, bioregion_gcm_cluster_cols[4]] .== 3) .|
+    (analysis_layers[:, bioregion_gcm_cluster_cols[5]] .== 3)
+), :]
+high_to_low_reefs = high_cluster_reefs_any_gcm[(
+    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[1]] .== 1) .|
+    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[2]] .== 1) .|
+    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[3]] .== 1) .|
+    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[4]] .== 1) .|
+    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[5]] .== 1)
+), :]
+
+nrow(switching_high_reefs) / nrow(high_cluster_reefs_any_gcm)
+
+# Identify reefs that have a median depth of 1 to 10m and the proportion of these reefs that are in low-medium cover clusters (based on bioregion analyses).
+analysis_layers_long_bioregion = stack(
+    context_layers[:, [:UNIQUE_ID, :management_area, bioregion_gcm_cluster_cols...]],
+    bioregion_gcm_cluster_cols
+)
+
 reefs_1_to_10 = context_layers[
     (context_layers.depth_qc.==0).&(context_layers.depth_med.>=1).&(context_layers.depth_med.<=10), :]
 reefs_1_to_10.low_medium_clusters .= 0
-reefs_1_to_10_clusters = analysis_layers_long[analysis_layers_long.UNIQUE_ID.∈[reefs_1_to_10.UNIQUE_ID], :]
+reefs_1_to_10_clusters = analysis_layers_long_bioregion[analysis_layers_long_bioregion.UNIQUE_ID.∈[reefs_1_to_10.UNIQUE_ID], :]
 reefs_1_to_10_clusters = reefs_1_to_10_clusters[reefs_1_to_10_clusters.variable.!=0.0, :]
 
 for reef in eachrow(reefs_1_to_10)

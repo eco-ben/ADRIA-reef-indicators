@@ -591,17 +591,17 @@ function cluster_analysis_plots(
         px_per_unit = dpi
     )
 
-    # dhw_tol_violin = grouped_cluster_ridgeline_plot(
-    #     analysis_layers,
-    #     Symbol("$(GCM)_$(grouping)_clusters"),
-    #     grouping, Symbol("$(GCM)_mean_DHW_tol");
-    #     xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap = overlap
-    # )
-    # save(
-    #     joinpath(fig_out_dir, "$(grouping)", "dhw_tolerance_$(grouping)_violin.png"),
-    #     dhw_tol_violin,
-    #     px_per_unit = dpi
-    # )
+    dhw_tol_violin = grouped_cluster_ridgeline_plot(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("$(GCM)_mean_DHW_tol");
+        xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap = overlap
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "dhw_tolerance_$(grouping)_violin.png"),
+        dhw_tol_violin,
+        px_per_unit = dpi
+    )
 
     so_to_si_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,

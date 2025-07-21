@@ -112,6 +112,7 @@ context_layers.initial_proportion = (
     (context_layers.area .* context_layers.k)
 )
 
+areas = gbr_dom.loc_data.area
 thresholds = 10:1:20
 # Attaching GCM-dependent context layers
 for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
@@ -120,11 +121,11 @@ for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
     GCM_results = GCM_analysis_results(rs)
 
     # 3. Calculate number of years each reef is above a carbonate budget threshold
+    absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
     @floop for threshold in thresholds
         t_threshold = threshold / 100
         reef_thresholds = context_layers.area .* t_threshold
 
-        absolute_cover = GCM_results.absolute_median_cover
         n_years_above = [sum(absolute_cover[:, loc] .> reef_thresholds[loc]) for loc in eachindex(reef_thresholds)]
         context_layers[!, "$(GCM)_years_above_$(threshold)"] = n_years_above
     end
@@ -137,29 +138,28 @@ for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
 
     context_layers[:, "$(GCM)_mean_dhw"] = dhw_locs
 
-    rel_cover = GCM_results.relative_cover[1:30, :]
+    threshold_cover = percentage_cover_timeseries(areas, absolute_cover)[1:30, :]
     negative_normal_dhw = -normalise(dhw_time[:, :], (0, 1))
 
     dhw_cover_cor = zeros(Float64, length(context_layers.RME_UNIQUE_ID))
 
     for ind in 1:length(context_layers.UNIQUE_ID)
-        reef_total_cover = rel_cover[locations=ind]
+        reef_total_cover = threshold_cover[locations=ind]
         reef_dhw = negative_normal_dhw[sites=ind]
 
         dhw_cover_cor[ind] = cross_correlation(reef_total_cover.data, reef_dhw.data, 0, pearsons_cor, true)
-
     end
 
     context_layers[!, "$(GCM)_dhw_cover_cor"] = dhw_cover_cor
 
     # 4. Re-run 5 scenarios for each GCM and extract mean DHW tolerance from timeseries
-    # scens = rs.inputs[1:4, Not(318)] # Only use 1st 5 scenarios for speed and remove RCP variable in inputs
-    # scens.wave_scenario .= 1.0
-    # rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
-    # dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
-    # dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
+    scens = rs.inputs[1:4, Not(318)] # Only use 1st 5 scenarios for speed and remove RCP variable in inputs
+    scens.wave_scenario .= 1.0
+    rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
+    dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
+    dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
 
-    # context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean
+    context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean
 end
 
 # 5. Calculate the number of reefs in each bioregion
