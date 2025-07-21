@@ -6,9 +6,11 @@ budget thresholds, DHW tolerance levels and number of reefs in each bioregion.
 
 using ArchGDAL
 
+include("../../common.jl")
+
 change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs
 
-include("../../common.jl")
+using ADRIA
 
 # Load context layers with bioregions and target reefs
 context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/bellwether_reefs_carbonate.gpkg")
@@ -16,7 +18,7 @@ context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/bellwethe
 # GBR wide domain
 gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
 dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
-
+gbr_dom.loc_data.geometry = Vector{ArchGDAL.IGeometry}(gbr_dom.loc_data.geometry) # Need to recast gbr_dom geometry col for ADRIA.run_scenarios(). Possibly issue with GeoDataFrames version.
 # 1. Attach connectivity data to context_layers
 connectivity_matrix = gbr_dom.conn
 
