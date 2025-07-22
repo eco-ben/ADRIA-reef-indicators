@@ -150,7 +150,11 @@ DHW levels were calculated from the SST data following NOAA methodology [@liu201
 from the Sixth Phase of the Coupled Model Intercomparison Project (CMIP6; **citation**).
 These five GCMs were EC-Earth3-Veg, ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GDFL-CM4, and
 their inclusion were based on evaluation by Grose et al. [-@grose2023]. Grose et al.
-[-@grose2023] found these GCMs to rank highly, among 50 GCMs, in recreation of historical atmospheric temperature and precipitation conditions in the Australasian region. While this assessment does not consider oceanic data, Grose et al. [@-grose2023] provide a region-specific selection mechanism which we use as an indicator of general performance of GCMs for the region.
+[-@grose2023] found these GCMs to rank highly, among 50 GCMs, in recreation of historical
+atmospheric temperature and precipitation conditions in the Australasian region. While this
+assessment does not consider oceanic data, Grose et al. \[\@-grose2023\] provide a
+region-specific selection mechanism which we use as an indicator of general performance of
+GCMs for the region.
 
 Equilibrium climate sensitivity (ECS) is defined, by the IPCC, as the long term warming
 caused by a doubling of carbon dioxide above its pre-industrial concentration
@@ -365,13 +369,10 @@ represented five times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#fig-gcm-dhw-trajectories
 width="`{julia} timeseries_width`"}
 
-```{=html}
-<!-- Across the five GCMs, 50% (1812) of reefs, at management region scale, remain in the same
-‘low, medium, high’ cluster assignment. 1757 Reefs (49%) that changed clusters by one level
-across the GCMs (e.g. a reef is assigned ‘low’ and ‘medium’ in different GCMs), while 46
-(1%) reefs changed clusters by two levels across the GCMs (e.g. a reef is assigned ‘low’ and
-‘high’ in different GCMs). -->
-```
+Comparing across GCMs, it is common for reefs to switch cluster level, including from low to
+high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment). This is
+expected as spatial differences in GCM DHW timeseries result in reefs being impacted in
+different magnitudes relative to other reefs in their bioregion.
 
 ## Bioregion scale clustering
 
@@ -399,11 +400,11 @@ cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 width="`{julia} violin_width`"}
 
-Correlation between reef total coral cover and reef DHW timeseries decreases as cluster
-coral cover decreases, with reefs in the ‘high’ cluster commonly having the greatest total
-cover – DHW timeseries correlation levels (@sfig-access-esm1-5-bioregion-dhwcor;
-@sfig-access-cm2-bioregion-dhwcor; @sfig-ec-earth3-veg-bioregion-dhwcor;
-@sfig-gfdl-cm4-bioregion-dhwcor; @sfig-noresm2-mm-bioregion-dhwcor).
+In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW timeseries
+correlation levels, while reefs in 'high' clusters have the highest correlation levels
+(@sfig-access-esm1-5-bioregion-dhwcor; @sfig-access-cm2-bioregion-dhwcor;
+@sfig-ec-earth3-veg-bioregion-dhwcor; @sfig-gfdl-cm4-bioregion-dhwcor;
+@sfig-noresm2-mm-bioregion-dhwcor).
 
 Conversely, there are no consistent patterns across bioregions in reef area-relative cover
 and mean timeseries DHW levels, with clusters having similar mean DHW levels in many
@@ -411,17 +412,14 @@ bioregions (@sfig-access-esm1-5-bioregion-dhwmean; @sfig-access-cm2-bioregion-dh
 @sfig-ec-earth3-veg-bioregion-dhwmean; @sfig-gfdl-cm4-bioregion-dhwmean;
 @sfig-noresm2-mm-bioregion-dhwmean).
 
-<!-- In some bioregions (4 for ACCESS-ESM1-5) reefs in the ‘low’ cluster have substantially 
-lower mean thermal tolerance levels compared to reefs in other clusters. However, many 
-bioregions do not show strong differences in thermal tolerance levels 
-(@sfig-access-esm1-5-bioregion-dhwtol; @sfig-access-cm2-bioregion-dhwtol; 
-@sfig-ec-earth3-veg-bioregion-dhwtol; @sfig-gfdl-cm4-bioregion-dhwtol; 
-@sfig-noresm2-mm-bioregion-dhwtol). -->
+Similarly, there are no substantial differences between reef clusters in mean thermal
+tolerance levels (@sfig-access-esm1-5-bioregion-dhwtol; @sfig-access-cm2-bioregion-dhwtol;
+@sfig-ec-earth3-veg-bioregion-dhwtol; @sfig-gfdl-cm4-bioregion-dhwtol;
+@sfig-noresm2-mm-bioregion-dhwtol).
 
-In many bioregions reefs with high area-relative coral cover levels (‘high’ cluster) have
-the lowest initial proportions of habitable area occupied by corals, while reefs in the
-‘low’ cluster often have the highest initial proportions of coral habitable area occupied by
-corals (@sfig-access-esm1-5-bioregion-initialproportion;
+There are no consistent differences across bioregions and GCMs between clusters in their
+reefs' initial proportion of habitable area occupied by corals
+(@sfig-access-esm1-5-bioregion-initialproportion;
 @sfig-access-cm2-bioregion-initialproportion;
 @sfig-ec-earth3-veg-bioregion-initialproportion; @sfig-gfdl-cm4-bioregion-initialproportion;
 @sfig-noresm2-mm-bioregion-initialproportion).
@@ -472,7 +470,6 @@ Shifting from coral driven to coralline encrusting algae driven production, or t
 dominated systems with rapid erosion of physical reef frameworks [@dudgeon2010; @perry2008].
 While reefs at increased depths may be able to maintain coral driven CaCO~3~ production and
 accumulation into the future for longer.
-<!-- The depth refugia found on a reef in turn influences the degree of correlation between coral cover timeseries and DHW levels. Reefs in low and medium clusters have lower levels of cover – DHW correlation than those in high clusters, due to their initial sharp declines in coral cover combined with low depth – refugia in the face of persistently high thermal stress these reefs do not recover post 2030, leaving little ability to decline further in periods of high thermal stress and recover in periods of low thermal stress. -->
 
 Overall, these findings support the hypothesis that reefs at greater depths will experience
 refugia benefits and more prolonged resilience under climate change compared to shallower
@@ -504,40 +501,37 @@ site depth is an important factor to consider when assessing the long-term resil
 deployment sites.
 
 Overall, our findings do not suggest that reefs in ‘high’ cover clusters have greater
-thermal tolerance than reefs in lower coral cover clusters **need to replot tolerance
-values**. This is in contrast with literature suggesting corals have the capacity to adapt
-to increasing climate change pressures [@humanes2022; @lachs2024], including the
-investigation by Bairos-Novak et al. [-@bairos-novak2021] that revealed high heritability of
-bleaching and survival response traits used to inform the distributions of thermal tolerance
-traits used in this investigation. The lack of influence of thermal tolerance on reef
-outcomes is likely due to reef being impacted by overall similar levels of thermal stress,
-combined with the greater importance of factors such as reef depth.
+thermal tolerance than reefs in lower coral cover clusters. This is in contrast with
+literature suggesting corals have the capacity to adapt to increasing climate change
+pressures [@humanes2022; @lachs2024], including the investigation by Bairos-Novak et al.
+[-@bairos-novak2021] that revealed high heritability of bleaching and survival response
+traits, used to inform the distributions of thermal tolerance traits used in this
+investigation. The lack of influence of thermal tolerance on reef outcomes is likely due to
+reefs being impacted by high levels of thermal stress early in timeseries and being unable
+to build thermal tolerance to DHW levels greater than 9°C.
 
-It is a strongly held conclusion in coral reef ecology that a primary facet of reef
-resilience is the degree of larval connectivity between reefs and the supply of recruits
-that a reef receives following disturbance [@hock2017] **expand citations**. It was expected
-that resilient reefs would have greater incoming than outgoing larval connectivity to
-promote recovery in years following thermal stress, while non-resilient reefs would have
-greater outgoing than incoming connectivity inhibiting recruitment of corals post thermal
-stress. In contrast, our results suggest that there are few differences between resilient
-and non-resilient reefs in connectivity metrics such as the ratio of outgoing to incoming
-larval connectivity and total connectivity strength. Furthermore, our results suggest no
-relationship between connectivity and the ability of reefs to maintain positive carbonate
-budgets under future conditions. There has been contrasting evidence [@bode2018; @hock2017]
-surrounding whether recent generation connectivity modelling is able to identify reefs that
-are important for recovery processes. A key separation of these investigations is their use
-of differing larval connectivity models. Reef depth was not considered in these
-investigations of reef network resilience. These investigations were performed using prior
-generations of larval connectivity models parameterised for 2008-2013 [@hock2017] and
-1996-2002 [@bode2018] time periods. Using updated 1km resolution larval connectivity across
-the whole GBR, with a limited temporal sample of particle flows, our results suggest that
-larval connectivity alone is not as important for reef resilience and recovery as
-environmental refugia from thermal stress such as depth. Our findings may differ due to the
-highly uncertain nature of connectivity methods used **citation**, the way larval flows and
-juvenile recruitment are implemented in ADRIA - CoralBlox, and the magnitude of early
-bleaching events decreasing the breeding capacity of strongly connected reefs. Further
-improvements and research in connectivity modelling are necessary to provide a robust
-comparison of all factors influencing reef resilience.
+It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
+the degree of larval connectivity between reefs and the supply of recruits that a reef
+receives following disturbance [@hock2017] **expand citations**. In contrast, our results
+suggest that there are few differences between resilient and non-resilient reefs in
+connectivity metrics such as the ratio of outgoing to incoming larval connectivity and total
+connectivity strength. Furthermore, our results suggest no relationship between connectivity
+and the ability of reefs to maintain positive carbonate budgets under future conditions.
+There has been contrasting evidence [@bode2018; @hock2017] surrounding whether recent
+generation connectivity modelling is able to identify reefs that are important for recovery
+processes. A key separation of these investigations is their use of differing larval
+connectivity models. Reef depth was not considered in these investigations of reef network
+resilience. These investigations were performed using prior generations of larval
+connectivity models parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time
+periods. Using updated 1km resolution larval connectivity across the whole GBR, with a
+limited temporal sample of particle flows, our results suggest that larval connectivity
+alone is not as important for reef resilience and recovery as environmental refugia from
+thermal stress such as depth. Our findings may differ due to the highly uncertain nature of
+connectivity methods used **citation**, the way larval flows and juvenile recruitment are
+implemented in ADRIA - CoralBlox, and the magnitude of early bleaching events decreasing the
+breeding capacity of strongly connected reefs. Further improvements and research in
+connectivity modelling are necessary to provide a robust comparison of all factors
+influencing reef resilience.
 
 There are multiple caveats in how coral ecosystem dynamics are modelled in this
 investigation. We model coral colonies as objects with circular diameter values and track
@@ -579,12 +573,11 @@ Overall, our results suggest that when modelled as part of a large and complex e
 reef depth is a key factor contributing to ongoing reef resilience. We provide evidence in
 support of depth as a form of refugia for shallow reefs. While protecting ‘key node’ reefs
 in larval connectivity networks is an important consideration for reef restoration efforts
-[@anthony2020; @hock2017], our results suggest that resilient reefs do not have greater
-incoming or total connectivity to contribute to their resilience under modelled projected
-conditions. Instead, we suggest that depth, and likely other environmental thermal refugia
-mechanisms contribute greater to overall reef resilience and recovery. We suggest further
-analyses that investigate the benefits of incorporating depth-based resilience into reef
-decision making.
+[@anthony2020; @hock2017], our results suggest that current connectivity modelling methods
+are not able to generate connectivity levels that contribute to reef resilience under
+projected conditions. We suggest further analyses that investigate the benefits of
+incorporating depth-based resilience into reef decision making, as well as further research
+and development in connectivity modelling methods for whole-ecosystem scales.
 
 # References
 
@@ -597,7 +590,16 @@ decision making.
 The pink - dashed box represents the high-certainty ‘very likely’ range for ECS values and
 the solid red box represents low-certainty ‘likely’ range for ECS values (Forster et al.,
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
-width="`{julia} ecs_width`" height="500" align="center"}
+width="`{julia} ecs_width`" align="center"}
+
+![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
+Green indicates a low cover cluster assignemnt, orange represents a medium cover assignment
+and blue represents assignment of a reef to a high coral cover cluster. The vertical width
+of reef elements varies depending on the number of reefs within the bioregion (displayed in
+the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCESS-ESM1-5,
+ACCESS-CM2, NorESM2-MM and
+GFDL-CM4).](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_bioregion_cluster_assignment.png){#fig-gcm-bioregion-cluster-assignment
+width="`{julia} timeseries_width`"}
 
 ## ADRIA - CoralBlox
 
@@ -670,19 +672,17 @@ within each bioregion. ‘High’ clusters (blue) are clusters with the highest 
 area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
 median DHW level for each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/mean_dhw_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwmean
-width="`{julia"} violin_width\`"}
+width="`{julia} violin_width`"}
 
-```{=html}
-<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
+![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
 clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
 lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’
-clusters (orange) are clusters with intermediate median area-relative cover between 2030
-and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest
-median area-relative cover between 2030 and 2040 within each bioregion. Solid lines
-represent the median DHW tolerance value for each cluster. Displays results for
-ACCESS-ESM1-5 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwtol width="`{julia}
-violin_width\`"} -->
-```
+clusters (orange) are clusters with intermediate median area-relative cover between 2030 and
+2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
+area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
+median DHW tolerance value for each cluster. Displays results for ACCESS-ESM1-5
+GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwtol
+width="`{julia} violin_width`"}
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
 bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
@@ -781,7 +781,15 @@ for ACCESS-CM2
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-CM2/bioregion/dhw_cover_cor_bioregion_violin.png){#sfig-access-cm2-bioregion-dhwcor
 width="`{julia} violin_width`"}
 
-<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the median DHW tolerance value for each cluster. Displays results for ACCESS-CM2 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-CM2/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-cm2-bioregion-dhwtol width=`{julia} violin_width`} -->
+![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
+clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
+lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’
+clusters (orange) are clusters with intermediate median area-relative cover between 2030 and
+2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
+area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
+median DHW tolerance value for each cluster. Displays results for ACCESS-CM2
+GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-CM2/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-cm2-bioregion-dhwtol
+width="`{julia} violin_width`"}
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
 bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
@@ -880,7 +888,15 @@ for EC-Earth3-Veg
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/EC-Earth3-Veg/bioregion/dhw_cover_cor_bioregion_violin.png){#sfig-ec-earth3-veg-bioregion-dhwcor
 width="`{julia} violin_width`"}
 
-<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the median DHW tolerance value for each cluster. Displays results for EC-Earth3-Veg GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/EC-Earth3-Veg/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-ec-earth3-veg-bioregion-dhwtol width=`{julia} violin_width`} -->
+![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
+clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
+lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’
+clusters (orange) are clusters with intermediate median area-relative cover between 2030 and
+2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
+area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
+median DHW tolerance value for each cluster. Displays results for EC-Earth3-Veg
+GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/EC-Earth3-Veg/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-ec-earth3-veg-bioregion-dhwtol
+width="`{julia} violin_width`"}
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
 bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
@@ -979,7 +995,15 @@ for GFDL-CM4
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/GFDL-CM4/bioregion/dhw_cover_cor_bioregion_violin.png){#sfig-gfdl-cm4-bioregion-dhwcor
 width="`{julia} violin_width`"}
 
-<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the median DHW tolerance value for each cluster. Displays results for GFDL-CM4 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/GFDL-CM4/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-gfdl-cm4-bioregion-dhwtol width=`{julia} violin_width`} -->
+![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
+clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
+lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’
+clusters (orange) are clusters with intermediate median area-relative cover between 2030 and
+2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
+area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
+median DHW tolerance value for each cluster. Displays results for GFDL-CM4
+GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/GFDL-CM4/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-gfdl-cm4-bioregion-dhwtol
+width="`{julia} violin_width`"}
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
 bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
@@ -1078,7 +1102,15 @@ for NorESM2-MM
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/NorESM2-MM/bioregion/dhw_cover_cor_bioregion_violin.png){#sfig-noresm2-mm-bioregion-dhwcor
 width="`{julia} violin_width`"}
 
-<!-- ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the median DHW tolerance value for each cluster. Displays results for NorESM2-MM GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/NorESM2-MM/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-noresm2-mm-bioregion-dhwtol width=`{julia} violin_width`} -->
+![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
+clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
+lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’
+clusters (orange) are clusters with intermediate median area-relative cover between 2030 and
+2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
+area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
+median DHW tolerance value for each cluster. Displays results for NorESM2-MM
+GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/NorESM2-MM/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-noresm2-mm-bioregion-dhwtol
+width="`{julia} violin_width`"}
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
 bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
