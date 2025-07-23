@@ -205,6 +205,11 @@ coral colonies on a reef impacted by high heat stress as depth increases.
 
 \*\* need information on GBR1 connectivity used \*\*
 
+Twenty-four total days of connectivity data were used in this investigation, 2015, 2016,
+2018 and 2019 are represented represented by 3 daily connectivity matrices each, while 2017
+and 2020 are represented with 5 daily matrices each. Connectivity levels are implemented in
+ADRIA - CoralBlox as mean over the 24 days for each location.
+
 ### Depth estimation
 
 Median depths for each reef location were extracted from satellite derived bathymetry data
@@ -519,29 +524,29 @@ connectivity strength. Furthermore, our results suggest no relationship between 
 and the ability of reefs to maintain positive carbonate budgets under future conditions.
 There has been contrasting evidence [@bode2018; @hock2017] surrounding whether recent
 generation connectivity modelling is able to identify reefs that are important for recovery
-processes. A key separation of these investigations is their use of differing larval
-connectivity models. Reef depth was not considered in these investigations of reef network
-resilience. These investigations were performed using prior generations of larval
-connectivity models parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time
-periods. Using updated 1km resolution larval connectivity across the whole GBR, with a
-limited temporal sample of particle flows, our results suggest that larval connectivity
-alone is not as important for reef resilience and recovery as environmental refugia from
-thermal stress such as depth. Our findings may differ due to the highly uncertain nature of
-larval connectivity modelling [@vogt-vincent2023], the way larval flows and juvenile
+processes, with findings dependent on the larval connectivity model used. These
+investigations were performed using prior generations of larval connectivity models
+parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods. Using
+updated 1km resolution larval connectivity across the whole GBR, with a limited temporal
+sample of particle flows, our results suggest that larval connectivity alone is not as
+important for reef resilience and recovery as environmental refugia from thermal stress such
+as depth.
+
+Our findings on the importance of connectivity may differ due to the highly uncertain nature
+of larval connectivity modelling [@vogt-vincent2023], the way larval flows and juvenile
 recruitment are implemented in ADRIA - CoralBlox, and the magnitude of early bleaching
-events decreasing the breeding capacity of strongly connected reefs. In our investigation
-connectivity is implemented as a time-mean measure of reef connectivity over all available
-days. Recent analysis of daily reef larval connectivity data suggests that time-mean
-connectivity may not be suitable for capturing the seasonal, ecological time scale,
-connectivity patterns between locations due to the high daily variability in connectivity
-data [@vogt-vincent2023]. This is supported by the connectivity data used in our
-investigation, which have large relative standard deviations for connectivity between reefs
-**figure**. By incorporating connectivity using methods that capture ecological-timescale
-patterns in reef-reef larval dispersal, such as cumulated implicit connectivity
-[@vogt-vincent2023], our investigation may find increased importance of both depth and reef
-connectivity for resilience, in line with [@hock2017; @torres2024]. Further improvements and
-research in connectivity modelling are necessary to provide a robust comparison of all
-factors influencing reef resilience.
+events decreasing the breeding capacity of strongly connected reefs. Analysing daily
+connectivity data Vogt-Vincent et al. [-@vogt-vincent2023] suggest that time-mean
+connectivity may not be suitable for capturing the seasonal - ecological time scale,
+connectivity between locations due to the high daily variability in connectivity data. This
+is supported by the connectivity data used in our investigation, which have large relative
+standard deviations for connectivity between reefs over the 24 days used **figure**. Using
+alternative summarisation methods that capture ecological-timescale patterns in
+coral larval dispersal, such as cumulated implicit connectivity [@vogt-vincent2023],
+future investigations may find increased importance of both depth and reef connectivity for
+resilience, in line with [@hock2017; @torres2024]. Further improvements and research in
+connectivity modelling are necessary to provide a robust comparison of all factors
+influencing reef resilience.
 
 There are multiple caveats in how coral ecosystem dynamics are modelled in this
 investigation. We model coral colonies as objects with circular diameter values and track
