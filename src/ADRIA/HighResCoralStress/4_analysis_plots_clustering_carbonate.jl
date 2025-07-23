@@ -299,3 +299,15 @@ stdev_matrix = dropdims(std(bootstrap_means, dims=3), dims=3)
 bootstrap_means = nothing
 
 rsd_matrix = stdev_matrix ./ mean_matrix .* 100
+
+context_no_na = context_layers[context_layers.bioregion .!= "NA", :]
+bioregion_gcm_clusters = gcm_cluster_assignment_heatmap(
+    context_no_na,
+    :bioregion,
+    bioregion_gcm_cluster_cols
+)
+save(
+    joinpath(output_path, "figs/GCM_bioregion_cluster_assignments.png"),
+    bioregion_gcm_clusters,
+    px_per_unit=dpi
+)

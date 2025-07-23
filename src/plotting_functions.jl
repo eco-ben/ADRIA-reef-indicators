@@ -177,7 +177,7 @@ function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=
     return fig, gdf, plot_layout
 end
 
-function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", title="", xsize=220, ysize=150, background_color=:white)
+function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", title="", xsize=220, ysize=150, background_color=:white, xticklabelrotation=0.0)
 
     ax = Axis(
         fig[plot_layout_xi...];
@@ -188,7 +188,8 @@ function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", 
         xticksvisible=false,
         title=title,
         width=xsize,
-        height=ysize
+        height=ysize,
+        xticklabelrotation=xticklabelrotation
     )
     return ax
 end
@@ -829,6 +830,88 @@ function carbonate_budget_variable_scatter(
     #     alpha = 0.5
     # )
     Colorbar(fig[1,2], rain, label = color_label)
+
+    display(fig)
+
+    return fig
+end
+
+function gcm_cluster_assignment_heatmap(
+    dataframe,
+    grouping,
+    cluster_cols;
+    fig_sizes=fig_sizes,
+    title="",
+    ylabel="",
+    xlabel="",
+    GCMs=GCMs
+)
+    fig_x_size = fig_sizes["timeseries_width"]
+    fig_y_size = fig_sizes["timeseries_height"]
+    n_col = optimum_columns(length(unique(dataframe[:, grouping])))
+    # Prepare plot
+    fig, gdf, plot_layout = _setup_grouped_figure(
+        dataframe,
+        grouping;
+        x_fig_size=fig_x_size,
+        y_fig_size=fig_y_size,
+        fontsize=9,
+        marker=PolyElement,
+        multi_axis=true
+    )
+
+    #labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=17)
+    # labels = [first(df[:, :bioregion]) for df in gdf]
+    colors = [:green, :orange, :blue]
+    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=17)
+    # xsize, ysize = _axis_size(gdf, fig_x_size, fig_y_size, n_col; y_gap=0.8)
+    # xsize, ysize = (50, 50)
+
+    for (xi, groupdf) in enumerate(gdf)
+        plot_layout_xi = plot_layout[xi]
+        ax = _setup_grouped_axes(
+            fig,
+            plot_layout_xi,
+            ([1,2,3,4,5], GCMs);
+            ylabel=ylabel,
+            xlabel=xlabel,
+            title=title,
+            xsize=nothing,
+            ysize=nothing,
+            background_color=:white,
+            xticklabelrotation=45.0
+        )
+
+        cluster_matrix = Matrix(groupdf[:, [cluster_cols...]])
+        hm = heatmap!(ax, cluster_matrix', colormap=colors)
+        # groupdf = sort(groupdf, cluster_col)
+
+        # Ensure that relative cover timeseries match the cluster allocations from groupdf
+        Label(
+            fig[plot_layout_xi..., Top()],
+            labels[xi],
+            fontsize = 8pt,
+            font = :bold,
+            padding = (0, 5, 5, 0),
+            halign = :center
+        )
+    end
+
+    if grouping != :gbr
+        # second_row = findfirst(last.(plot_layout) .== n_col) + 1
+        second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
+        middle_axes = filter(x -> x isa Axis, fig.content)[1:second_last_row]
+        # axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
+
+        map(x -> hidexdecorations!(x; grid = false, ticks=false), middle_axes)
+        map(x -> hideydecorations!(x; ticks = false, ticklabels = false, grid = false), filter(x -> x isa Axis, fig.content))
+    end
+
+    if grouping == :bioregion
+        n_row = maximum(first.(plot_layout))
+        map(x -> rowsize!(fig.layout, x, Relative(1 / n_row)), 1:n_row)
+        map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
+    end
 
     display(fig)
 
