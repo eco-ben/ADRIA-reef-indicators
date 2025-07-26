@@ -269,36 +269,48 @@ all_conn_data = concatenatecubes(all_conn_data, Dim{:conn_name}(conn_names))
 std_conn = mapslices(std, all_conn_data, dims=[:conn_name])
 rstd_conn = std_conn ./ mean_conn .* 100
 
+# fig = Figure()
+# ax = Axis(
+#     fig[1,1],
+#     xlabel="",
+#     ylabel=""
+# )
+# hm = heatmap!(ax, rstd_conn[1:100,1:100])
+# Colorbar(fig[1,2], hm, label="std_conn / mean_conn * 100")
+
+# all_conn_data = readcubedata(all_conn_data)
+# n_boot = 200
+# n_matrices = size(all_conn_data)[3]
+
+# bootstrap_means = Array{Float64, 3}(undef, 3806, 3806, n_boot)
+
+# for b in 1:n_boot
+#     sample_indices = sample(1:n_matrices, n_matrices, replace=true)
+#     sample_matrices = view(all_conn_data, :, :, sample_indices)
+
+#     bootstrap_means[:, :, b] .= dropdims(mean(sample_matrices, dims=3), dims=3)
+# end
+
+# mean_matrix = dropdims(mean(bootstrap_means, dims=3), dims=3)
+# stdev_matrix = dropdims(std(bootstrap_means, dims=3), dims=3)
+# bootstrap_means = nothing
+
+# rsd_matrix = stdev_matrix ./ mean_matrix .* 100
+rstd_matrix = rstd_conn
 fig = Figure()
 ax = Axis(
     fig[1,1],
     xlabel="",
     ylabel=""
 )
-hm = heatmap!(ax, rstd_conn[1:100,1:100])
-Colorbar(fig[1,2], hm, label="std_conn / mean_conn * 100")
+hm = heatmap!(ax, rstd_matrix)
+Colorbar(fig[1,2], hm, label="Relative standard deviation connection strength [%]")
+save(
+    joinpath(output_path, "figs/connectivity_rsd_percent.png"),
+    fig,
+    px_per_unit=dpi
+)
 
-
-
-all_conn_data = readcubedata(all_conn_data)
-n_boot = 200
-n_matrices = size(all_conn_data)[3]
-
-bootstrap_means = Array{Float64, 3}(undef, 3806, 3806, n_boot)
-
-for b in 1:n_boot
-    sample_indices = sample(1:n_matrices, n_matrices, replace=true)
-    sample_matrices = view(all_conn_data, :, :, sample_indices)
-
-    bootstrap_means[:, :, b] .= dropdims(mean(sample_matrices, dims=3), dims=3)
-end
-
-mean_matrix = dropdims(mean(bootstrap_means, dims=3), dims=3)
-stdev_matrix = dropdims(std(bootstrap_means, dims=3), dims=3)
-
-bootstrap_means = nothing
-
-rsd_matrix = stdev_matrix ./ mean_matrix .* 100
 
 context_no_na = context_layers[context_layers.bioregion .!= "NA", :]
 bioregion_gcm_clusters = gcm_cluster_assignment_heatmap(
