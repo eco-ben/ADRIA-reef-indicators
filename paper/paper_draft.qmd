@@ -452,10 +452,10 @@ GFDL-CM4. These large declines are likely due to the high peak thermal stress le
 The large differences in cover timeseries seen across the GCMs suggest that it is important
 to consider this uncertainty in future conditions when assessing possible biological
 responses to change. This is supported by recent literature suggesting an effective approach
-to capturing climate change uncertainty is to model climate change responses using a range
-of climate models separately [@shepherd2018]. Despite large differences in coral cover
-across GCMs, the patterns identified between low, medium and high clusters of reefs suggest
-that the importance of depth refugia is consistent across scenarios.
+to capturing climate change uncertainty is to model responses using a range of GCMs
+separately [@shepherd2018]. Despite large differences in coral cover across GCMs, the
+patterns identified between low, medium and high clusters of reefs suggest that the
+importance of depth refugia is consistent across scenarios.
 
 Reefs in different clusters largely do not differ in mean modelled DHW levels experienced,
 and exhibit overall similar DHW timeseries. While these reefs experience similar magnitude
@@ -469,28 +469,28 @@ have often focussed on the potential of mesophotic reefs (\> 30m deep) as therma
 found no association between depth and the alleviation of heat stress across a range of
 shallow reefs in the Pacific. Reefs at shallow depths experience no, or few, years with
 coral cover exceeding levels likely required to maintain positive carbonate budgets.
-Movement of shallow reefs towards negative cabonate budgets under increasing future thermal
-stress over time may contribute to phase shifts in reef dominant CaCO~3~ production.
-Shifting from coral driven to coralline encrusting algae driven production, or to bioerosion
-dominated systems with rapid erosion of physical reef frameworks [@dudgeon2010; @perry2008].
-While reefs at increased depths may be able to maintain coral driven CaCO~3~ production and
-accumulation into the future for longer.
+Movement of shallow reefs towards negative cabonate budgets in the future may contribute to
+phase shifts in reef dominant CaCO~3~ production. Shifting from coral driven to encrusting
+algae driven production, or to bioerosion dominated systems with rapid erosion of physical
+reef frameworks [@dudgeon2010; @perry2008]. While reefs at increased depths may be able to
+maintain coral driven CaCO~3~ production and accumulation into the future for longer.
 
 Overall, these findings support the hypothesis that reefs at greater depths will experience
 refugia benefits and more prolonged resilience under climate change compared to shallower
-reefs. Additionally, [@liu2024] suggest that rubble instability is inversely correlated with
-reef depth, possibly limiting the juvenile recruitment capacity of shallow reefs. A caveat
-to these findings is the quality of the bathymetry data used to calculate median reef depth.
-This data (GBRMPA [-@gbr10gb2020]) is derived from satellite imagery and is limited in its
-alignment with the established GBRMPA reef outlines used in the investigation to
-characterise reef locations. As a result, 842 reefs (22% of 3806 reefs) were removed from
-the analyses before depth comparisons due to having less than 5% coverage of depth data.
-Additionally, deriving estimates of depth from satellite imagery is prone to high degrees of
-uncertainty. Data adopted for the given assessment are said to be accurate up to 15m from
-Mean Sea Level [@gbr10gb2020]. Furthermore, an estimated median depth is determined for each
-reef, using the established GBRMPA reef outlines to provide an indication of “true” reef
-extent. Therefore, the estimates of reef depths are taken as a useful indication rather than
-an accurate and precise report of reef depths across the GBR.
+reefs. Additionally, Lui, Callaghanand Baldock [-@liu2024] suggest that rubble instability
+is inversely correlated with reef depth, possibly limiting the juvenile recruitment capacity
+of shallow reefs. A caveat to these depth-resilience findings is the quality of the
+bathymetry data used to calculate median reef depth. These data (GBRMPA [-@gbr10gb2020]) are
+derived from satellite imagery and are limited in their alignment with the established
+GBRMPA reef outlines used in the investigation to characterise reef locations. As a result,
+842 reefs (22% of 3806 reefs) were removed from the depth-related analyses due to having
+less than 5% coverage of depth data. Additionally, deriving estimates of depth from
+satellite imagery is prone to high degrees of uncertainty. Data adopted for the given
+assessment are said to be accurate up to 15m from Mean Sea Level [@gbr10gb2020].
+Furthermore, an estimated median depth is determined for each reef, using the established
+GBRMPA reef outlines to provide an indication of “true” reef extent. Therefore, the
+estimates of reef depths are taken as a useful indication rather than an accurate and
+precise report of reef depths across the GBR.
 
 Current reef restoration and intervention-investigation efforts on the GBR, such as
 deployment of coral seeding and fragment devices, target reefs with suitable restoration
@@ -510,10 +510,10 @@ thermal tolerance than reefs in lower coral cover clusters. This is in contrast 
 literature suggesting corals have the capacity to adapt to increasing climate change
 pressures [@humanes2022; @lachs2024], including the investigation by Bairos-Novak et al.
 [-@bairos-novak2021] that revealed high heritability of bleaching and survival response
-traits, used to inform the distributions of thermal tolerance traits used in this
-investigation. The lack of influence of thermal tolerance on reef outcomes is likely due to
-reefs being impacted by high levels of thermal stress early in timeseries and being unable
-to build thermal tolerance to DHW levels greater than 9°C.
+traits, used to inform thermal tolerance trait distributions in this investigation. The lack
+of influence of thermal tolerance on reef outcomes is likely due to reefs being impacted by
+high levels of thermal stress early in timeseries and being unable to build thermal
+tolerance to DHW levels greater than 9°C-weeks.
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the degree of larval connectivity between reefs and the supply of recruits that a reef
@@ -529,40 +529,39 @@ investigations were performed using prior generations of larval connectivity mod
 parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods. Using
 updated 1km resolution larval connectivity across the whole GBR, with a limited temporal
 sample of particle flows, our results suggest that larval connectivity alone is not as
-important for reef resilience and recovery as environmental refugia from thermal stress such
-as depth.
+important for reef resilience and recovery as environmental refugia such as depth.
 
 Our findings on the importance of connectivity may differ due to the highly uncertain nature
 of larval connectivity modelling [@vogt-vincent2023], the way larval flows and juvenile
 recruitment are implemented in ADRIA - CoralBlox, and the magnitude of early bleaching
 events decreasing the breeding capacity of strongly connected reefs. Analysing daily
 connectivity data Vogt-Vincent et al. [-@vogt-vincent2023] suggest that time-mean
-connectivity may not be suitable for capturing the seasonal - ecological time scale,
-connectivity between locations due to the high daily variability in connectivity data. This
-is supported by the connectivity data used in our investigation, which have large relative
-standard deviations for connectivity between reefs over the 24 days used [@sfig-connectivity-rsd]. Using
-alternative summarisation methods that capture ecological-timescale patterns in
-coral larval dispersal, such as cumulated implicit connectivity [@vogt-vincent2023],
-future investigations may find increased importance of both depth and reef connectivity for
-resilience, in line with [@hock2017; @torres2024]. Further improvements and research in
-connectivity modelling are necessary to provide a robust comparison of all factors
-influencing reef resilience.
+connectivity may not be suitable for capturing the seasonal - ecological time scale
+connectivity between locations due to high daily variability in connectivity data. This is
+supported by the connectivity data used in our investigation, which have large relative
+standard deviations for connectivity between reefs over the 24 days used
+[@sfig-connectivity-rsd]. Using alternative summarisation methods that capture
+ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
+connectivity [@vogt-vincent2023], future investigations may find increased importance of
+both depth and reef connectivity for resilience, in line with other investigations
+[@hock2017; @torres2024]. Further improvements and research in connectivity modelling are
+necessary to provide a robust comparison of all factors influencing reef resilience.
 
 There are multiple caveats in how coral ecosystem dynamics are modelled in this
-investigation. We model coral colonies as objects with circular diameter values and track
-these diameters over timesteps through growth. Due to the availability of quality future
-projected data we do not consider the impacts of waves, cyclones, currents and Crown of
-Thorns Starfish (CoTS) on coral colony survival and bleaching [**Deaker et al**; **Massel and Done**]. Uncertainty in connectivity modelling outputs,
-satellite-derived bathymetry data and future thermal stress projections are likely to
-influence the results obtained in this investigation. Incorporating further improvements in
-connectivity modelling and understanding of the influence of climate change on reef
-connectivity would improve the comparison of connectivity as an important factor for reef
-resilience. The DHW data used in this investigation have not been bias corrected for the
-Great Barrier Reef region and are part of a wider Australian dataset [@dixon2022] developed
-using statistical downscaling. We investigate a range of future climate responses, thermal
-projections and ecological parameterisations of ADRIA - CoralBlox to account for many
-possible futures, and our results suggest the factors that influence reef resilience are
-consistent across these scenarios.
+investigation. We model coral colonies as circular diameter values and track these diameters
+over timesteps through growth. Due to the availability of quality future projected data we
+do not consider the impacts of waves, cyclones, currents and Crown of Thorns Starfish (CoTS)
+on coral colony survival and bleaching [@massel1993; @deaker2022]. Uncertainty in
+connectivity modelling outputs, satellite-derived bathymetry data and future thermal stress
+projections are likely to influence the results obtained in this investigation.
+Incorporating further improvements in connectivity modelling and understanding of the
+influence of climate change on reef connectivity would improve the comparison of
+connectivity as an important factor for reef resilience. The DHW data used in this
+investigation have not been bias corrected for the Great Barrier Reef region and are part of
+a wider Australian dataset [@dixon2022] developed using statistical downscaling. We
+investigate a range of future climate responses, thermal projections and ecological
+parameterisations of ADRIA - CoralBlox to account for many possible futures, and our results
+suggest the factors that influence reef resilience are consistent across these scenarios.
 
 ADRIA - CoralBlox has not been calibrated or validated at the GBR-wide scale. Accordingly,
 the purpose of this investigation is to assess the relative influence of reef
@@ -574,12 +573,11 @@ prioritising reef depth in restoration intervention decision making. The ADRIA p
 developed as a modelling tool to incorporate multi-criteria decision analysis (MCDA) and
 ecosystem scenario modelling into reef restoration decision support. The platform allows for
 the investigation of different reef characteristics to be targetted in decision making and
-models the evolving outcomes as a result of reef interventions at various locations. The
+models the evolving outcomes as a result of interventions at various locations. The
 capability of ADRIA-CoralBlox could be further expanded by incorporating the impacts of
-waves, cyclones, CoTS and currents into reef resilience investigations [@lin2023;
+waves, cyclones, CoTS and currents into future resilience investigations [@lin2023;
 @mcclanahan2005; @grimaldi2022; @liu2024]. Additionally, the investigation could be enhanced
-by incorporating future ocean acidification into considerations of coral carbonate budgets
-required for healthy habitat production.
+by incorporating ocean acidification projections into analyses of coral carbonate budgets.
 
 # Conclusions
 
@@ -612,12 +610,15 @@ and blue represents assignment of a reef to a high coral cover cluster. The vert
 of reef elements varies depending on the number of reefs within the bioregion (displayed in
 the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCESS-ESM1-5,
 ACCESS-CM2, NorESM2-MM and
-GFDL-CM4).](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_bioregion_cluster_assignment.png){#fig-gcm-bioregion-cluster-assignment
+GFDL-CM4).](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_bioregion_cluster_assignments.png){#sfig-gcm-bioregion-cluster-assignment
 width="`{julia} timeseries_width`"}
 
-![Heatmaps indicating reef connectivity relative standard deviation (RSD %). Reef connectivity relative
-standard deviation represents the reef standard deviation connection strength as a percentage
-of reef mean connection strength. Lighter colours indicate higher RSD % values.](../outputs/ADRIA_results/HighResCoralStress/figs/connectivity_rsd_percent.png){#sfig-connectivity-rsd width="`{julia} timeseries_width`"}
+![Heatmaps indicating reef connectivity relative standard deviation (RSD %). Reef
+connectivity relative standard deviation represents the reef standard deviation connection
+strength as a percentage of reef mean connection strength. Lighter colours indicate higher
+RSD %
+values.](../outputs/ADRIA_results/HighResCoralStress/figs/connectivity_rsd_percent.png){#sfig-connectivity-rsd
+width="`{julia} timeseries_width`"}
 
 ## ADRIA - CoralBlox
 
