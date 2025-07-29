@@ -311,7 +311,6 @@ save(
     px_per_unit=dpi
 )
 
-
 context_no_na = context_layers[context_layers.bioregion .!= "NA", :]
 bioregion_gcm_clusters = gcm_cluster_assignment_heatmap(
     context_no_na,

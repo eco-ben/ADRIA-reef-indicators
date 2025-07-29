@@ -24,3 +24,6 @@ data/
 # word document files rendered by quarto
 *.docx
 .vscode/
+
+# User created config.toml file
+*config.toml

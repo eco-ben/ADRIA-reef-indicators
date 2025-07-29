@@ -5,66 +5,41 @@ File includes the plotting functions for ADRIA-reef-indicators analysis.
 using Printf
 using Colors
 using Random
-using TOML
 
+# Define figure formatting constants
+fontsize = 7
+dpi = 400
 
-config = TOML.parsefile("config.toml")
+# Define figure sizing constants for different figure types
+fig_sizes = Dict(
+    violin_width => 17,
+    carb_width => 25,
+    map_height => 18,
+    map_width => 18,
+    ecs_width => 10,
+    ecs_height => 13,
+    timeseries_width => 25,
+    violin_height => 14,
+    carb_height => 17,
+    timeseries_height => 18
+)
 
-# Extract figure sizes and convert to pixel measurement
-fig_sizes = config["fig_formats_cm"]
+# Convert figure sizes from cm to pixel measurement
+fig_sizes = 
 cm = 37.7952755906 # Size of 1cm in pixels
 map!(x -> x*cm, values(fig_sizes))
 
-# Extract figure fontsize and convert to pixel measurement
+# Convert fontsize to pixel measurement
 pt = 1.33 # size of 1 pt in pixels
-misc_sizes = config["fig_misc"]
-fontsize = misc_sizes["fontsize"] * pt
+fontsize = fontsize * pt
 
 inch = 96 # size of 1 inch in pixels
-dpi = misc_sizes["dpi"] / inch
+dpi = dpi / inch
 
 function colorscheme_alpha(cscheme::ColorScheme, alpha = 0.5)
     ncolors = length(cscheme)
 
     return ColorScheme([RGBA(get(cscheme, k), alpha) for k in range(0, 1, length=ncolors)])
-end
-
-"""
-    bellwether_reef_numbers_plot(df, variable_col, value_col, xlabel="lags", ylabel="number of bellwether reefs")
-
-Intended to plot the numbers of bellwether reefs seen in each analysis level on a scatter plot.
-
-# Arguments
-- `df` : A long format dataframe with column lags containing Integers for each relevant lag,
-a variable column with the analysis level names for each lag, a value column with the numbers of bellwether reefs.
-- `variable_col` : name of column containing the analysis level strings for colouring points.
-- `value_col` : name of column containing the numbers of bellwether reefs for each lag/analysis level.
-"""
-function bellwether_reef_numbers_plot(df, variable_col, value_col, xlabel="lags", ylabel="number of bellwether reefs")
-    f = Figure()
-    ax = Axis(f[1,1]; xlabel=xlabel, ylabel=ylabel)
-
-    alph_palette = colorscheme_alpha(ColorSchemes.tableau_20, 0.7);
-    palette = ColorSchemes.tableau_20.colors;
-
-    color_indices = groupindices(DataFrames.groupby(df, variable_col))
-    color_names = unique(DataFrame(indices=color_indices, names=df[:, variable_col]))
-
-    # Create the unique legend entries for each level of variable_col
-    unique_names = color_names.names
-    legend_entries = []
-    for name in eachrow(color_names)
-        col = palette[name.indices]
-        LE = PolyElement(; color=col)
-        push!(legend_entries, [LE])
-    end
-
-    points = scatter!(df.lags, df[:, value_col], color=alph_palette[color_indices], markersize=10)
-
-    Legend(f[2, 1], legend_entries, unique_names, nbanks=3, tellheight=true,
-    tellwidth=false, orientation=:horizontal, labelsize=10)
-
-    display(f)
 end
 
 function skipmissing_median(x)
@@ -79,7 +54,13 @@ function skipmissing_median(x)
     return new_median
 end
 
-function label_lines(label; l_length=25)
+"""
+    label_lines(label::String; l_length=25)
+
+Separate a sentence label into multiple lines at l_length point, or the nearest space
+between words.
+"""
+function label_lines(label::String; l_length=25)
     if length(label) > l_length
         label_new = replace(label, Regex("(.{$(l_length)} )") => s"\1\n")
 
@@ -95,47 +76,6 @@ function _axis_size(gdf, x_fig_size, y_fig_size, n_col; x_gap = 1.5, y_gap = 1.2
     ysize = y_fig_size / (n_fig_row*y_gap)
 
     return xsize, ysize
-end
-
-function _extract_name_and_correlation(df,bellwether_reefs_col, correlation_col, grouping)
-    bioregion = first(df[:, grouping])
-    bellwether_cor = round(mean(df[df[:, bellwether_reefs_col] .== "bellwether", correlation_col]), sigdigits=2)
-    non_bellwether_cor = round(mean(df[df[:, bellwether_reefs_col] .== "non-bellwether", correlation_col]), sigdigits=2)
-
-    return "$(bioregion) ($(@sprintf("%.2f",bellwether_cor))) ($(@sprintf("%.2f",non_bellwether_cor)))"
-end
-
-function _setup_grouped_figure(dataframe, bellwether_reefs_col, grouping; x_fig_size=2130, y_fig_size=1500)
-    dataframe = sort(dataframe, [bellwether_reefs_col, :management_area]; rev=true)
-    categories = categorical(dataframe[:, bellwether_reefs_col])
-
-    gdf = DataFrames.groupby(dataframe, grouping)
-
-    fig = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98), size = (x_fig_size, y_fig_size))
-
-    colors = [Makie.wong_colors(); Makie.wong_colors()];
-    legend_entries = []
-    for (i, col) in enumerate(unique(colors[indexin(categories, unique(categories))]))
-        LE = MarkerElement(; color=col, marker=:circle)
-        push!(legend_entries, [LE])
-    end
-
-    n_col = optimum_columns(length(unique(dataframe[:, grouping])))
-    plot_layout = figure_layouts(length(gdf), n_col)
-    last_figure = last(plot_layout)
-    if last(last_figure) < n_col
-        legend_position = (last_figure[1], last_figure[2]+1:n_col)
-    else
-        legend_position = (last_figure[1] + 1, 1:n_col)
-    end
-
-    Legend(
-        fig[legend_position...],
-        legend_entries,
-        unique(categories),
-        nbanks=1
-    )
-    return fig, gdf, plot_layout, colors, categories
 end
 
 function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement, order=:bioregion_average_latitude, multi_axis=true, fontsize=11pt)
@@ -240,7 +180,27 @@ function GCM_label(x,y,GCM)
     return text!(x, y; text = GCM, align = (:right, :center))
 end
 
-function ecs_plot(ecs_values, low_conf_range, high_conf_range, GCM_labels; fig_sizes=fig_sizes, fontsize=fontsize)
+"""
+    ecs_plot(
+        ecs_values::Vector{Union{Float64, Int64}}, 
+        low_conf_range::Vector{Float64}, 
+        high_conf_range::Vector{Float64}, 
+        GCM_labels::Vector{String}; 
+        fig_sizes::Dict=fig_sizes, 
+        fontsize=fontsize
+    )
+
+Create methods publication figure that displays the ECS values for each GCM investigated
+and display the likely/very-likely ranges of ECS values from the IPCC.
+"""
+function ecs_plot(
+    ecs_values::Vector{Union{Float64, Int64}}, 
+    low_conf_range::Vector{Float64}, 
+    high_conf_range::Vector{Float64}, 
+    GCM_labels::Vector{String}; 
+    fig_sizes::Dict=fig_sizes, 
+    fontsize=fontsize
+)
     fig_x_size = fig_sizes["ecs_width"]
     fig_y_size = fig_sizes["ecs_height"]
 
@@ -275,15 +235,39 @@ function ecs_plot(ecs_values, low_conf_range, high_conf_range, GCM_labels; fig_s
     return fig    
 end
 
+"""
+    grouped_cluster_timeseries_plots(
+        timeseries_array::YAXArray,
+        dataframe::DataFrame,
+        cluster_col::Union{Symbol, String},
+        grouping::Union{Symbol, String},
+        length_t::UnitRange;
+        fig_sizes::Dict=fig_sizes,
+        fontsize=fontsize,
+        ytitle::String=""
+    )
+
+Plot grouped-scale triple-cluster timeseries for each group. Uses ADRIA.viz.clustered_scenarios!().
+Designed to plot with 3 clusters per group.
+
+# Arguments
+- `timeseries_array` : YAXArray containing timeseries, with dims at least nrow(dataframe) * length(length_t).
+- `dataframe` : Dataframe containing cluster assignment and grouping information for each location.
+- `cluster_col` : Column in `dataframe` containing numerical cluster assignments.
+- `grouping` : Column in `dataframe` containing the unique grouping levels for locations.
+- `length_t` : Indices to plot timeseries from `timeseries_array`, e.g. 1:50 for timesteps 1:50.
+- `fig_sizes` : Figure sizing dictionary containing timeseries_ width and height measurements.
+- `ytitle` : Y-axis label for timeseries plots.
+"""
 function grouped_cluster_timeseries_plots(
-    timeseries_array,
-    dataframe,
-    cluster_col,
-    grouping,
-    length_t;
-    fig_sizes=fig_sizes,
+    timeseries_array::YAXArray,
+    dataframe::DataFrame,
+    cluster_col::Union{Symbol, String},
+    grouping::Union{Symbol, String},
+    length_t::UnitRange;
+    fig_sizes::Dict=fig_sizes,
     fontsize=fontsize,
-    ytitle=""
+    ytitle::String=""
 )
     fig_x_size = fig_sizes["timeseries_width"]
     fig_y_size = fig_sizes["timeseries_height"]
@@ -350,117 +334,51 @@ function grouped_cluster_timeseries_plots(
     return fig
 end
 
-function grouped_cluster_violin_plots(
-    dataframe,
-    cluster_col,
-    grouping,
-    variable;
-    title="",
-    xlabel="Cluster",
-    ylabel="",
-    fig_sizes=fig_sizes,
-    fontsize=fontsize,
-    datalimits=(-Inf,Inf)
-)
-    fig_x_size = fig_sizes["violin_width"]
-    fig_y_size = fig_sizes["violin_height"]
-    n_col = optimum_columns(length(unique(dataframe[:, grouping])))
-    fig, gdf, plot_layout = _setup_grouped_figure(
-        dataframe,
-        grouping;
-        x_fig_size=fig_x_size,
-        y_fig_size=fig_y_size,
-        fontsize=fontsize,
-        marker=PolyElement
+"""
+    grouped_cluster_ridgeline_plot(
+        dataframe::DataFrame,
+        cluster_col::Union{Symbol, String},
+        grouping::Union{Symbol, String},
+        variable::Union{Symbol, String};
+        title::String="",
+        xlabel::String="Cluster",
+        ylabel::String="",
+        fig_sizes::Dict=fig_sizes,
+        fontsize::Float64=fontsize,
+        datalimits::Tuple=(-Inf,Inf),
+        overlap::Union{Float64, Int64}=1
     )
 
-    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length = 10)
-    colors = [:green, :orange, :blue]
-    xsize, ysize = _axis_size(gdf, x_fig_size, y_fig_size, n_col; y_gap=1.2, x_gap=1.2)
-    xticks = (1:3, ["Low", "Medium", "High"])
+Plot clustered distribution of `variable` values for each group in `grouping`. Designed to 
+plot with 3 clusters in each group. Distributions are plotted using `Makie.violin!()``.
+X-axis is values from distributions, Y-axis is levels from `grouping`.
 
-    for (xi, groupdf) in enumerate(gdf)
-        #println("$(xi)")
-        plot_layout_xi = plot_layout[xi]
-        groupdf = sort(groupdf, cluster_col)
-
-        clusters = Int64.(groupdf[:, cluster_col])     
-
-        ax = _setup_grouped_axes(
-            fig,
-            plot_layout_xi,
-            xticks;
-            ylabel=ylabel,
-            xlabel=xlabel,
-            title=title,
-            xsize=xsize,
-            ysize=ysize,
-            background_color=:white
-        )
-
-        f = violin!(
-            ax,
-            clusters,
-            groupdf[:, variable];
-            color=colors[indexin(clusters, unique(clusters))],
-            show_median=true,
-            datalimits=datalimits
-        )
-        f = rainclouds!(
-            ax,
-            clusters,
-            groupdf[:, variable];
-            color=:gray,
-            markersize=5,
-            jitter_width=0.27,
-            side_nudge=0.001,
-            plot_boxplots=false,
-            clouds=nothing
-        )
-
-        if variable == :so_to_si
-            hlines!(1; color=(:gray, 0.5), linewidth=4)
-        elseif variable == :log_so_to_si
-            hlines(0; color=(:gray, 0.5), linewidth=4)
-        end
-
-        Label(
-            fig[plot_layout_xi..., Top()],
-            labels[xi],
-            fontsize = 8pt,
-            font = :bold,
-            padding = (0, 5, 5, 0),
-            halign = :center
-        )
-    end
-    n_fig_row = first(fldmod1(length(gdf), n_col))
-    Label(
-        fig[1:n_fig_row, 0],
-        ylabel,
-        rotation= pi/2,
-        fontsize=10pt
-    )
-
-    #linkaxes!(filter(x -> x isa Axis, fig.content)...)
-    #resize_to_layout!(fig)
-
-    display(fig)
-
-    return fig
-end
-
+# Arguments
+- `dataframe` : Contains values for `cluster_col`, `grouping`, `variable` columns.
+- `cluster_col` : Column containing numerical cluster assignments for each location.
+- `grouping` : Column containing location grouping levels used to separate locations.
+Unique levels of `grouping` are used as yticklabels.
+- `variable` : Column containing values to plot into density-distributions.
+- `title`
+- `xlabel`
+- `ylabel`
+- `fig_sizes` : Dictionary containing violin_ width and height measurements for figure size.
+- `fontsize`
+- `datalimits` : Tuple containing minimum and maximum values for x axis.
+- `overlap` : Amount of distance between y-axis group ridgelines.
+"""
 function grouped_cluster_ridgeline_plot(
-    dataframe,
-    cluster_col,
-    grouping,
-    variable;
-    title="",
-    xlabel="Cluster",
-    ylabel="",
-    fig_sizes=fig_sizes,
-    fontsize=fontsize,
-    datalimits=(-Inf,Inf),
-    overlap=1
+    dataframe::DataFrame,
+    cluster_col::Union{Symbol, String},
+    grouping::Union{Symbol, String},
+    variable::Union{Symbol, String};
+    title::String="",
+    xlabel::String="Cluster",
+    ylabel::String="",
+    fig_sizes::Dict=fig_sizes,
+    fontsize::Float64=fontsize,
+    datalimits::Tuple=(-Inf,Inf),
+    overlap::Union{Float64, Int64}=1
 )
 
     fig_x_size = fig_sizes["violin_width"]
@@ -561,6 +479,20 @@ grouping_full_names = Dict(
     :gbr => ""
 )
 
+"""
+    cluster_analysis_plots(
+        GCM,
+        analysis_layers, 
+        rel_cover, 
+        dhw_ts, 
+        grouping, 
+        fig_out_dir; 
+        grouping_full_names=grouping_full_names,
+        dpi=dpi
+    )
+
+Plot all analysis plots for paper.
+"""
 function cluster_analysis_plots(
     GCM,
     analysis_layers, 
@@ -705,14 +637,38 @@ function cluster_analysis_plots(
     return nothing
 end
 
+"""
+    grouped_GCM_cluster_timeseries_plots(
+        timeseries_array::YAXArray,
+        dataframe::DataFrame,
+        cluster_col::Union{String, Symbol},
+        grouping::Union{String, Symbol},
+        length_t::UnitRange;
+        fig_sizes::Dict=fig_sizes,
+        fontsize::Float64=fontsize
+    )
+
+Plots clustered timeseries plots for each GCM, separated into different axes for `grouping` levels.
+Each GCM is plotted vertically, with different GCMs in the x direction and different grouping levels
+in the y direction in figure.
+
+# Arguments
+- `timeseries_array` : Timeseries values in array of nrow(dataframe) * length(length_t) * length(GCM-levels) dimensions.
+- `dataframe` : Contains values for `cluster_col` and `grouping`.
+- `cluster_col` : Column containing numerical cluster assignment values.
+- `grouping` : Column containing grouping levels to separate timeseries in y direction.
+- `length_t` : Timestep indices to plot from `timeseries_array`.
+- `fig_sizes` : Dictionary containing timeseries_ width and height variables for figure sizing.
+- `fontsize`
+"""
 function grouped_GCM_cluster_timeseries_plots(
-    timeseries_array,
-    dataframe,
-    cluster_col,
-    grouping,
-    length_t;
-    fig_sizes=fig_sizes,
-    fontsize=fontsize
+    timeseries_array::YAXArray,
+    dataframe::DataFrame,
+    cluster_col::Union{String, Symbol},
+    grouping::Union{String, Symbol},
+    length_t::UnitRange;
+    fig_sizes::Dict=fig_sizes,
+    fontsize::Float64=fontsize
 )
     fig_x_size = fig_sizes["timeseries_width"]
     fig_y_size = fig_sizes["timeseries_height"]
@@ -777,18 +733,51 @@ function grouped_GCM_cluster_timeseries_plots(
     return fig
 end
 
+"""
+    carbonate_budget_variable_scatter(
+        long_df::DataFrame,
+        color_variable_col::Union{String, Symbol},
+        year_col::Union{String, Symbol},
+        carbonate_budget_col::Union{String, Symbol},
+        year_variable_correlation::Dict;
+        xlabel::String="Carbonate budget threshold [%] (correlation)",
+        ylabel::String="Years above carbonate budget threshold",
+        color_label::String="",
+        fig_sizes::Dict=fig_sizes,
+        fontsize::Float64=fontsize,
+        alpha::Union{Float64, Int64}=0.5
+    )
+
+Create scatter plot displaying years reefs exceed carbonate budget thresholds (y axis), for
+each unique carbonate budget threshold level in `carbonate_budget_col` (x axis). Scatter
+points are coloured by `color_variable_col`.
+
+# Arguments
+- `long_df` : Longform DataFrame containing `color_variable_col` and `year_col` values under
+each `carbonate_budget_col` threshold level.
+- `color_variable_col` : Column containing Float64 values to colour the scatter points for each location.
+- `year_col` : Column containing values for the number of years a reef maintains a positive carbonate budget.
+- `carbonate_budget_col` : Column containing the carbonate budget threshold values used in analyses (Β).
+- `year_variable_correlation` : Dictionary containing correlation values (or nothing values) for each unique value in `carbonate_budget_col`.
+- `xlabel`
+- `ylabel`
+- `color_label`
+- `fig_sizes` : Dictionary containing carb_ width and height variables for figure sizing.
+- `fontsize`
+- `alpha` : Transparency applied to scatter points for each location.
+"""
 function carbonate_budget_variable_scatter(
-    long_df,
-    color_variable_col,
-    year_col,
-    carbonate_budget_col,
-    year_variable_correlation;
-    xlabel="Carbonate budget threshold [%] (correlation)",
-    ylabel="Years above carbonate budget threshold",
-    color_label="",
-    fig_sizes=fig_sizes,
-    fontsize=fontsize,
-    alpha=0.5
+    long_df::DataFrame,
+    color_variable_col::Union{String, Symbol},
+    year_col::Union{String, Symbol},
+    carbonate_budget_col::Union{String, Symbol},
+    year_variable_correlation::Dict;
+    xlabel::String="Carbonate budget threshold [%] (correlation)",
+    ylabel::String="Years above carbonate budget threshold",
+    color_label::String="",
+    fig_sizes::Dict=fig_sizes,
+    fontsize::Float64=fontsize,
+    alpha::Union{Float64, Int64}=0.5
 )
     x_fig_size = fig_sizes["carb_width"]
     y_fig_size = fig_sizes["carb_height"]
@@ -836,15 +825,43 @@ function carbonate_budget_variable_scatter(
     return fig
 end
 
+"""
+    gcm_cluster_assignment_heatmap(
+        dataframe::DataFrame,
+        grouping::Union{String, Symbol},
+        cluster_cols::Union{String, Symbol};
+        fig_sizes::Dict=fig_sizes,
+        title::String="",
+        ylabel::String="",
+        xlabel::String="",
+        GCMs::Vector{String}=GCMs
+    )
+
+Plot a heatmap showing cluster assignments over the different GCMs for each location. Heatmaps
+are grouped by `grouping` if there are more than 1 unique levels of `grouping`. Y axes show number
+of locations in groups, x axes show the GCMs. Heatmaps are coloured with the cluster levels (low, medium, high).
+
+
+# Arguments
+- `dataframe` : Dataframe containing all of the required `cluster_cols` and `grouping` values.
+- `grouping` : Column containing grouping to split heatmaps.
+- `cluster_cols` : Vector of column names containing numerical cluster assignemnts for each GCM.
+GCM cluster columns should be in the same order as labels in GCMs vector.
+- `fig_sizes` : Dictionary containing timeseries_ width and height variables for sizing figure.
+- `title` : Main plot title.
+- `ylabel`
+- `xlabel`
+- `GCMs` : Vector containing GCM string labels (In the same order as GCM cluster columns in `cluster_cols`!).
+"""
 function gcm_cluster_assignment_heatmap(
-    dataframe,
-    grouping,
-    cluster_cols;
-    fig_sizes=fig_sizes,
-    title="",
-    ylabel="",
-    xlabel="",
-    GCMs=GCMs
+    dataframe::DataFrame,
+    grouping::Union{String, Symbol},
+    cluster_cols::Vector{Union{String, Symbol}};
+    fig_sizes::Dict=fig_sizes,
+    title::String="",
+    ylabel::String="",
+    xlabel::String="",
+    GCMs::Vector{String}=GCMs
 )
     fig_x_size = fig_sizes["timeseries_width"]
     fig_y_size = fig_sizes["timeseries_height"]
