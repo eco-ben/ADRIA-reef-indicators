@@ -27,7 +27,7 @@ fig_sizes = Dict(
 # Convert figure sizes from cm to pixel measurement
 fig_sizes = 
 cm = 37.7952755906 # Size of 1cm in pixels
-map!(x -> x*cm, values(fig_sizes))
+map!(x -> x * cm, values(fig_sizes))
 
 # Convert fontsize to pixel measurement
 pt = 1.33 # size of 1 pt in pixels
@@ -36,14 +36,14 @@ fontsize = fontsize * pt
 inch = 96 # size of 1 inch in pixels
 dpi = dpi / inch
 
-function colorscheme_alpha(cscheme::ColorScheme, alpha = 0.5)
+function colorscheme_alpha(cscheme::ColorScheme, alpha=0.5)
     ncolors = length(cscheme)
 
     return ColorScheme([RGBA(get(cscheme, k), alpha) for k in range(0, 1, length=ncolors)])
 end
 
 function skipmissing_median(x)
-    new_median = Vector{Union{Missing, Float64}}(missing, size(x, 1))
+    new_median = Vector{Union{Missing,Float64}}(missing, size(x, 1))
     for (i, row) in enumerate(eachrow(x))
         if any(ismissing.(row))
             continue
@@ -70,20 +70,20 @@ function label_lines(label::String; l_length=25)
     return label
 end
 
-function _axis_size(gdf, x_fig_size, y_fig_size, n_col; x_gap = 1.5, y_gap = 1.2)
-    xsize = x_fig_size / (n_col*x_gap)
+function _axis_size(gdf, x_fig_size, y_fig_size, n_col; x_gap=1.5, y_gap=1.2)
+    xsize = x_fig_size / (n_col * x_gap)
     n_fig_row = first(fldmod1(length(gdf), n_col))
-    ysize = y_fig_size / (n_fig_row*y_gap)
+    ysize = y_fig_size / (n_fig_row * y_gap)
 
     return xsize, ysize
 end
 
 function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement, order=:bioregion_average_latitude, multi_axis=true, fontsize=11pt)
     dataframe = sort(dataframe, order; rev=true)
-    
+
     gdf = DataFrames.groupby(dataframe, grouping)
 
-    fig = Figure(size = (x_fig_size, y_fig_size), fontsize = fontsize)
+    fig = Figure(size=(x_fig_size, y_fig_size), fontsize=fontsize)
     plot_layout = nothing
 
     if multi_axis
@@ -99,7 +99,7 @@ function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=
             legend_position = (last_figure[1] + 1, 1:n_col)
             n_banks = 3
         end
-        
+
         legend_entries = []
         for (i, col) in enumerate([:green, :orange, :blue])
             LE = marker(; color=col, marker=:circle)
@@ -124,7 +124,7 @@ function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", 
         backgroundcolor=background_color,
         #xticklabelsize=16,
         #yticklabelsize=16,
-        xticks = xticks,
+        xticks=xticks,
         xticksvisible=false,
         title=title,
         width=xsize,
@@ -142,9 +142,9 @@ function timeseries_xticks(length_t, years)
 end
 
 function bootstrap_mean_ts(timeseries)
-    ts_mean = Vector{Union{Missing, Float64}}(missing, size(timeseries, 1))
-    ts_lb = Vector{Union{Missing, Float64}}(missing, size(timeseries, 1))
-    ts_ub = Vector{Union{Missing, Float64}}(missing, size(timeseries, 1))
+    ts_mean = Vector{Union{Missing,Float64}}(missing, size(timeseries, 1))
+    ts_lb = Vector{Union{Missing,Float64}}(missing, size(timeseries, 1))
+    ts_ub = Vector{Union{Missing,Float64}}(missing, size(timeseries, 1))
 
     for t in 1:size(timeseries, 1)
         if all(.!ismissing.(timeseries[t, :]))
@@ -169,24 +169,24 @@ function optimum_columns(n_bioregions)
         return 3
     elseif n_bioregions < 20
         return 4
-    elseif n_bioregions <30
+    elseif n_bioregions < 30
         return 5
     end
 
     return 6
 end
 
-function GCM_label(x,y,GCM)
-    return text!(x, y; text = GCM, align = (:right, :center))
+function GCM_label(x, y, GCM)
+    return text!(x, y; text=GCM, align=(:right, :center))
 end
 
 """
     ecs_plot(
-        ecs_values::Vector{Union{Float64, Int64}}, 
-        low_conf_range::Vector{Float64}, 
-        high_conf_range::Vector{Float64}, 
-        GCM_labels::Vector{String}; 
-        fig_sizes::Dict=fig_sizes, 
+        ecs_values::Vector{Union{Float64, Int64}},
+        low_conf_range::Vector{Float64},
+        high_conf_range::Vector{Float64},
+        GCM_labels::Vector{String};
+        fig_sizes::Dict=fig_sizes,
         fontsize=fontsize
     )
 
@@ -194,11 +194,11 @@ Create methods publication figure that displays the ECS values for each GCM inve
 and display the likely/very-likely ranges of ECS values from the IPCC.
 """
 function ecs_plot(
-    ecs_values::Vector{Union{Float64, Int64}}, 
-    low_conf_range::Vector{Float64}, 
-    high_conf_range::Vector{Float64}, 
-    GCM_labels::Vector{String}; 
-    fig_sizes::Dict=fig_sizes, 
+    ecs_values::Vector{Union{Float64,Int64}},
+    low_conf_range::Vector{Float64},
+    high_conf_range::Vector{Float64},
+    GCM_labels::Vector{String};
+    fig_sizes::Dict=fig_sizes,
     fontsize=fontsize
 )
     fig_x_size = fig_sizes["ecs_width"]
@@ -207,32 +207,32 @@ function ecs_plot(
     low_min, low_max = extrema(low_conf_range)
     high_min, high_max = extrema(high_conf_range)
 
-    fig = Figure(size = (fig_x_size, fig_y_size), fontsize = fontsize)
+    fig = Figure(size=(fig_x_size, fig_y_size), fontsize=fontsize)
     ax = Axis(
-        fig[1,1],
-        ylabel = "Equilibrium Climate Sensitivity (°C)",
-        height = 10cm,
-        width = 8cm
+        fig[1, 1],
+        ylabel="Equilibrium Climate Sensitivity (°C)",
+        height=10cm,
+        width=8cm
     )
     hidexdecorations!(ax)
     poly!(
-        ax, 
+        ax,
         [(0.98, high_min), (1.02, high_min), (1.02, high_max), (0.98, high_max)];
-        color = (:red, 0.2), linestyle = :dash, strokewidth = 1.5, label = "likely"
+        color=(:red, 0.2), linestyle=:dash, strokewidth=1.5, label="likely"
     )
     poly!(
-        ax, 
+        ax,
         [(0.98, low_min), (1.02, low_min), (1.02, low_max), (0.98, low_max)];
-        color = (:red, 0.6), strokewidth = 1.5, label = "very likely"
+        color=(:red, 0.6), strokewidth=1.5, label="very likely"
     )
-    scatter!(ax, ones(length(ecs_values)), ecs_values, markersize = 15, color=:black)
+    scatter!(ax, ones(length(ecs_values)), ecs_values, markersize=15, color=:black)
     GCM_label.(fill(1.06, length(ecs_values)), ecs_values, GCM_labels)
 
-    fig[2,1] = Legend(fig, ax, "ECS assessed range", framevisible = false, nbanks = 2)
+    fig[2, 1] = Legend(fig, ax, "ECS assessed range", framevisible=false, nbanks=2)
 
     display(fig)
 
-    return fig    
+    return fig
 end
 
 """
@@ -262,8 +262,8 @@ Designed to plot with 3 clusters per group.
 function grouped_cluster_timeseries_plots(
     timeseries_array::YAXArray,
     dataframe::DataFrame,
-    cluster_col::Union{Symbol, String},
-    grouping::Union{Symbol, String},
+    cluster_col::Union{Symbol,String},
+    grouping::Union{Symbol,String},
     length_t::UnitRange;
     fig_sizes::Dict=fig_sizes,
     fontsize=fontsize,
@@ -288,22 +288,22 @@ function grouped_cluster_timeseries_plots(
         groupdf = sort(groupdf, cluster_col)
 
         # Ensure that relative cover timeseries match the cluster allocations from groupdf
-        group_timeseries = timeseries_array[length_t, timeseries_array.locations .∈ [groupdf.UNIQUE_ID]]
+        group_timeseries = timeseries_array[length_t, timeseries_array.locations.∈[groupdf.UNIQUE_ID]]
         group_timeseries = group_timeseries[:, indexin(groupdf.UNIQUE_ID, String.(group_timeseries.locations))]
         timesteps = group_timeseries.timesteps
 
         clusters = Int64.(groupdf[:, cluster_col])
 
-        
+
         ADRIA.viz.clustered_scenarios!(
             fig[plot_layout_xi...],
             group_timeseries,
             clusters;
-            opts = Dict{Symbol, Any}(:legend => false),
-            axis_opts = Dict(
-                :title => labels[xi], 
+            opts=Dict{Symbol,Any}(:legend => false),
+            axis_opts=Dict(
+                :title => labels[xi],
                 :xticks => (
-                    first(length_t):10:last(length_t), 
+                    first(length_t):10:last(length_t),
                     string.(collect((first(timesteps):10:last(timesteps))))
                 )
                 # :height => ysize,
@@ -318,8 +318,8 @@ function grouped_cluster_timeseries_plots(
         middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
         axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
 
-        map(x -> hidexdecorations!(x; grid = false, ticks = false), middle_axes)
-        map(x -> hideydecorations!(x; ticks = false, ticklabels = false, grid = false), axes_after_1)
+        map(x -> hidexdecorations!(x; grid=false, ticks=false), middle_axes)
+        map(x -> hideydecorations!(x; ticks=false, ticklabels=false, grid=false), axes_after_1)
     end
 
     if grouping == :bioregion
@@ -349,7 +349,7 @@ end
         overlap::Union{Float64, Int64}=1
     )
 
-Plot clustered distribution of `variable` values for each group in `grouping`. Designed to 
+Plot clustered distribution of `variable` values for each group in `grouping`. Designed to
 plot with 3 clusters in each group. Distributions are plotted using `Makie.violin!()``.
 X-axis is values from distributions, Y-axis is levels from `grouping`.
 
@@ -369,16 +369,16 @@ Unique levels of `grouping` are used as yticklabels.
 """
 function grouped_cluster_ridgeline_plot(
     dataframe::DataFrame,
-    cluster_col::Union{Symbol, String},
-    grouping::Union{Symbol, String},
-    variable::Union{Symbol, String};
+    cluster_col::Union{Symbol,String},
+    grouping::Union{Symbol,String},
+    variable::Union{Symbol,String};
     title::String="",
     xlabel::String="Cluster",
     ylabel::String="",
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize,
-    datalimits::Tuple=(-Inf,Inf),
-    overlap::Union{Float64, Int64}=1
+    datalimits::Tuple=(-Inf, Inf),
+    overlap::Union{Float64,Int64}=1
 )
 
     fig_x_size = fig_sizes["violin_width"]
@@ -398,19 +398,19 @@ function grouped_cluster_ridgeline_plot(
     labels = [first(df[:, grouping]) for df in gdf]
     colors = [:green, :orange, :blue]
     ax = Axis(
-        fig[1,1],
+        fig[1, 1],
         title=title,
         ylabel=ylabel,
         xlabel=xlabel,
-        limits = (extrema(dataframe[:, variable]), nothing)
+        limits=(extrema(dataframe[:, variable]), nothing)
     )
-    
+
     for (i, groupdf) in enumerate(gdf)
-        
+
         groupdf = sort(groupdf, cluster_col)
 
         clusters = Int64.(groupdf[:, cluster_col])
-        cluster_order = unique(clusters)   
+        cluster_order = unique(clusters)
 
         if variable == :so_to_si
             vlines!(1; color=(:gray, 0.5), linewidth=2)
@@ -421,17 +421,17 @@ function grouped_cluster_ridgeline_plot(
         y_offset = (i - 1) * overlap
 
         for (j, cluster) in enumerate(cluster_order)
-            d = groupdf[groupdf[:, cluster_col] .== cluster, variable]
+            d = groupdf[groupdf[:, cluster_col].==cluster, variable]
             cluster_color = colors[j]
 
             violin!(
-                fill(y_offset, length(d)), 
-                d, 
-                color=(cluster_color, 0.2), 
-                orientation=:horizontal, 
+                fill(y_offset, length(d)),
+                d,
+                color=(cluster_color, 0.2),
+                orientation=:horizontal,
                 show_median=true,
                 mediancolor=cluster_color,
-                side = :right,
+                side=:right,
                 datalimits=datalimits
             )
             # rainclouds!(
@@ -453,7 +453,7 @@ function grouped_cluster_ridgeline_plot(
     y_ticks = [(i - 1) * overlap for i in eachindex(labels)]
     ax.yticks = (y_ticks, labels)
     hidespines!(ax)
-    
+
     legend_entries = []
     for (i, col) in enumerate([:green, :orange, :blue])
         LE = PolyElement(; color=col, marker=:circle)
@@ -461,7 +461,7 @@ function grouped_cluster_ridgeline_plot(
     end
 
     Legend(
-        fig[1,2],
+        fig[1, 2],
         legend_entries,
         ["Low", "Medium", "High"],
         nbanks=1
@@ -482,11 +482,11 @@ grouping_full_names = Dict(
 """
     cluster_analysis_plots(
         GCM,
-        analysis_layers, 
-        rel_cover, 
-        dhw_ts, 
-        grouping, 
-        fig_out_dir; 
+        analysis_layers,
+        rel_cover,
+        dhw_ts,
+        grouping,
+        fig_out_dir;
         grouping_full_names=grouping_full_names,
         dpi=dpi
     )
@@ -495,11 +495,11 @@ Plot all analysis plots for paper.
 """
 function cluster_analysis_plots(
     GCM,
-    analysis_layers, 
-    rel_cover, 
-    dhw_ts, 
-    grouping, 
-    fig_out_dir; 
+    analysis_layers,
+    rel_cover,
+    dhw_ts,
+    grouping,
+    fig_out_dir;
     grouping_full_names=grouping_full_names,
     dpi=dpi
 )
@@ -508,104 +508,104 @@ function cluster_analysis_plots(
     overlap = 0.8
     # Filter out groups that don't have 3 clusters due to earlier filtering.
     groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3, 5)
-    analysis_layers = analysis_layers[analysis_layers[:, grouping] .∉ [groups_too_few_clusters], :]
-    rel_cover = rel_cover = rel_cover[:, rel_cover.locations .∈ [analysis_layers.UNIQUE_ID]]
-    dhw_ts = dhw_ts[:, dhw_ts.locations .∈ [rel_cover.locations]]
+    analysis_layers = analysis_layers[analysis_layers[:, grouping].∉[groups_too_few_clusters], :]
+    rel_cover = rel_cover = rel_cover[:, rel_cover.locations.∈[analysis_layers.UNIQUE_ID]]
+    dhw_ts = dhw_ts[:, dhw_ts.locations.∈[rel_cover.locations]]
 
     mean_dhw_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_mean_dhw");
-        xlabel="mean DHW", ylabel="$(grouping_fn)", overlap = overlap
-    );
+        xlabel="mean DHW", ylabel="$(grouping_fn)", overlap=overlap
+    )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "mean_dhw_$(grouping)_violin.png"), 
-        mean_dhw_violin, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "$(grouping)", "mean_dhw_$(grouping)_violin.png"),
+        mean_dhw_violin,
+        px_per_unit=dpi
     )
 
     dhw_tol_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_mean_DHW_tol");
-        xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap = overlap
+        xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap=overlap
     )
     save(
         joinpath(fig_out_dir, "$(grouping)", "dhw_tolerance_$(grouping)_violin.png"),
         dhw_tol_violin,
-        px_per_unit = dpi
+        px_per_unit=dpi
     )
 
     so_to_si_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, :log_so_to_si;
-        xlabel="Log source to sink ratio", ylabel="$(grouping_fn)", overlap = overlap
-    );
+        xlabel="Log source to sink ratio", ylabel="$(grouping_fn)", overlap=overlap
+    )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "so_to_si_$(grouping)_violin.png"), 
-        so_to_si_violin, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "$(grouping)", "so_to_si_$(grouping)_violin.png"),
+        so_to_si_violin,
+        px_per_unit=dpi
     )
 
     total_strength_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, :log_total_strength;
-        xlabel="Log total connectivity strength", ylabel="$(grouping_fn)", overlap = overlap
-    );
+        xlabel="Log total connectivity strength", ylabel="$(grouping_fn)", overlap=overlap
+    )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "log_total_strength_$(grouping)_violin.png"), 
+        joinpath(fig_out_dir, "$(grouping)", "log_total_strength_$(grouping)_violin.png"),
         total_strength_violin,
-        px_per_unit = dpi
+        px_per_unit=dpi
     )
 
     initial_proportion_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("initial_proportion");
-        xlabel="Initial proportion of habitable area occupied", ylabel="$(grouping_fn)", overlap = overlap
-    );
+        xlabel="Initial proportion of habitable area occupied", ylabel="$(grouping_fn)", overlap=overlap
+    )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "initial_proportion_$(grouping)_violin.png"), 
-        initial_proportion_violin, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "$(grouping)", "initial_proportion_$(grouping)_violin.png"),
+        initial_proportion_violin,
+        px_per_unit=dpi
     )
 
     dhw_cover_cor_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_dhw_cover_cor");
-        xlabel="Total coral cover - DHW correlation", ylabel="$(grouping_fn)", overlap = overlap
-    );
+        xlabel="Total coral cover - DHW correlation", ylabel="$(grouping_fn)", overlap=overlap
+    )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "dhw_cover_cor_$(grouping)_violin.png"), 
-        dhw_cover_cor_violin, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "$(grouping)", "dhw_cover_cor_$(grouping)_violin.png"),
+        dhw_cover_cor_violin,
+        px_per_unit=dpi
     )
 
-    analysis_layers_depth = analysis_layers[analysis_layers.depth_mean .!= 7, :]
+    analysis_layers_depth = analysis_layers[analysis_layers.depth_mean.!=7, :]
     groups_too_few_clusters_depth = grouping_counts(
-        grouping, 
-        analysis_layers_depth, 
-        "$(GCM)_$(grouping)_clusters", 
+        grouping,
+        analysis_layers_depth,
+        "$(GCM)_$(grouping)_clusters",
         3,
         5
     )
     analysis_layers_depth = analysis_layers_depth[
-        analysis_layers_depth[:, grouping] .∉ [groups_too_few_clusters_depth], :
+        analysis_layers_depth[:, grouping].∉[groups_too_few_clusters_depth], :
     ]
 
     depth_median_violin = grouped_cluster_ridgeline_plot(
         analysis_layers_depth,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("depth_med");
-        xlabel="Median Depth [m]", ylabel="$(grouping_fn)", overlap = overlap
-    );
+        xlabel="Median Depth [m]", ylabel="$(grouping_fn)", overlap=overlap
+    )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "depth_$(grouping)_violin.png"), 
-        depth_median_violin, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "$(grouping)", "depth_$(grouping)_violin.png"),
+        depth_median_violin,
+        px_per_unit=dpi
     )
 
     bioregion_grouped_timeseries = grouped_cluster_timeseries_plots(
@@ -616,9 +616,9 @@ function cluster_analysis_plots(
         1:50
     )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "$(grouping)_cover_timeseries.png"), 
-        bioregion_grouped_timeseries, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "$(grouping)", "$(grouping)_cover_timeseries.png"),
+        bioregion_grouped_timeseries,
+        px_per_unit=dpi
     )
 
     bior_reefs_dhw_plot = grouped_cluster_timeseries_plots(
@@ -629,9 +629,9 @@ function cluster_analysis_plots(
         1:50
     )
     save(
-        joinpath(fig_out_dir, "$(grouping)", "grouping_dhw_timeseries.png"), 
-        bior_reefs_dhw_plot, 
-        px_per_unit = dpi
+        joinpath(fig_out_dir, "$(grouping)", "grouping_dhw_timeseries.png"),
+        bior_reefs_dhw_plot,
+        px_per_unit=dpi
     )
 
     return nothing
@@ -664,8 +664,8 @@ in the y direction in figure.
 function grouped_GCM_cluster_timeseries_plots(
     timeseries_array::YAXArray,
     dataframe::DataFrame,
-    cluster_col::Union{String, Symbol},
-    grouping::Union{String, Symbol},
+    cluster_col::Union{String,Symbol},
+    grouping::Union{String,Symbol},
     length_t::UnitRange;
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize
@@ -691,14 +691,14 @@ function grouped_GCM_cluster_timeseries_plots(
 
         # Ensure that relative cover timeseries match the cluster allocations from groupdf
         gcm = first(groupdf.GCM)
-        group_timeseries = timeseries_array[GCM = (timeseries_array.GCM .== gcm)][:, :, 1]
-        group_timeseries = group_timeseries[locations = (group_timeseries.locations .∈ [groupdf.UNIQUE_ID])]
+        group_timeseries = timeseries_array[GCM=(timeseries_array.GCM .== gcm)][:, :, 1]
+        group_timeseries = group_timeseries[locations=(group_timeseries.locations .∈ [groupdf.UNIQUE_ID])]
         group_timeseries = group_timeseries[length_t, indexin(groupdf.UNIQUE_ID, String.(group_timeseries.locations))]
-        
+
         # group_timeseries_less_than_5 = [all(group_timeseries[:, i].data .< 5) for i in 1:size(group_timeseries, 2)]
         # group_timeseries_less_than_5_ind = findall(group_timeseries_less_than_5)
         # group_timeseries = group_timeseries[:, group_timeseries_less_than_5_ind]
-        groupdf = groupdf[groupdf.UNIQUE_ID .∈ [group_timeseries.locations], :]
+        groupdf = groupdf[groupdf.UNIQUE_ID.∈[group_timeseries.locations], :]
 
         clusters = Int64.(groupdf[:, cluster_col])
 
@@ -706,11 +706,11 @@ function grouped_GCM_cluster_timeseries_plots(
             fig[plot_layout_xi...],
             group_timeseries,
             clusters;
-            opts = Dict{Symbol, Any}(:legend => false),
-            axis_opts = Dict(
+            opts=Dict{Symbol,Any}(:legend => false),
+            axis_opts=Dict(
                 :title => labels[xi],
                 # :yticks => [0,2,4],
-                :xticks => ([1,10,20,30,40,50], string.([2025,2035,2045,2055,2065,2075]))
+                :xticks => ([1, 10, 20, 30, 40, 50], string.([2025, 2035, 2045, 2055, 2065, 2075]))
             )
         )
     end
@@ -719,9 +719,9 @@ function grouped_GCM_cluster_timeseries_plots(
     second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
     middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
     axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
-    map(x -> hidexdecorations!(x; grid = false, ticks = false), middle_axes)
-    map(x -> hideydecorations!(x, ticks = false, ticklabels = false, grid = false), axes_after_1)
-    
+    map(x -> hidexdecorations!(x; grid=false, ticks=false), middle_axes)
+    map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), axes_after_1)
+
     # Tweak layout defaults
     # fig.layout.colgap = 5  # Default ~10, reduce to make plots tighter horizontally
     # fig.layout.rowgap = 5  # Same for vertical spacing
@@ -768,16 +768,16 @@ each `carbonate_budget_col` threshold level.
 """
 function carbonate_budget_variable_scatter(
     long_df::DataFrame,
-    color_variable_col::Union{String, Symbol},
-    year_col::Union{String, Symbol},
-    carbonate_budget_col::Union{String, Symbol},
+    color_variable_col::Union{String,Symbol},
+    year_col::Union{String,Symbol},
+    carbonate_budget_col::Union{String,Symbol},
     year_variable_correlation::Dict;
     xlabel::String="Carbonate budget threshold [%] (correlation)",
     ylabel::String="Years above carbonate budget threshold",
     color_label::String="",
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize,
-    alpha::Union{Float64, Int64}=0.5
+    alpha::Union{Float64,Int64}=0.5
 )
     x_fig_size = fig_sizes["carb_width"]
     y_fig_size = fig_sizes["carb_height"]
@@ -793,21 +793,21 @@ function carbonate_budget_variable_scatter(
     transparent_cmap = ColorScheme(transparent_colors)
 
 
-    fig = Figure(size = (x_fig_size, y_fig_size), fontsize = fontsize)
+    fig = Figure(size=(x_fig_size, y_fig_size), fontsize=fontsize)
     ax = Axis(
-        fig[1,1],
-        ylabel = ylabel,
-        xlabel = xlabel,
-        xticks = (1:1:11, labels)
+        fig[1, 1],
+        ylabel=ylabel,
+        xlabel=xlabel,
+        xticks=(1:1:11, labels)
     )
     rain = rainclouds!(
-        long_df[:, carbonate_budget_col], 
+        long_df[:, carbonate_budget_col],
         long_df[:, year_col];
-        color=long_df[:, color_variable_col], 
-        plot_boxplots=false, 
+        color=long_df[:, color_variable_col],
+        plot_boxplots=false,
         clouds=nothing,
-        show_median=false, 
-        markersize=6, 
+        show_median=false,
+        markersize=6,
         jitter_width=1
     )
     rain.plots[1].colormap = transparent_cmap
@@ -818,7 +818,7 @@ function carbonate_budget_variable_scatter(
     #     color=ACCESS_ESM1_5_long.depth_med,
     #     alpha = 0.5
     # )
-    Colorbar(fig[1,2], rain, label = color_label)
+    Colorbar(fig[1, 2], rain, label=color_label)
 
     display(fig)
 
@@ -855,8 +855,8 @@ GCM cluster columns should be in the same order as labels in GCMs vector.
 """
 function gcm_cluster_assignment_heatmap(
     dataframe::DataFrame,
-    grouping::Union{String, Symbol},
-    cluster_cols::Vector{Union{String, Symbol}};
+    grouping::Union{String,Symbol},
+    cluster_cols::Vector{Union{String,Symbol}};
     fig_sizes::Dict=fig_sizes,
     title::String="",
     ylabel::String="",
@@ -889,7 +889,7 @@ function gcm_cluster_assignment_heatmap(
         ax = _setup_grouped_axes(
             fig,
             plot_layout_xi,
-            ([1,2,3,4,5], GCMs);
+            ([1, 2, 3, 4, 5], GCMs);
             ylabel=ylabel,
             xlabel=xlabel,
             title=title,
@@ -907,10 +907,10 @@ function gcm_cluster_assignment_heatmap(
         Label(
             fig[plot_layout_xi..., Top()],
             labels[xi],
-            fontsize = 8pt,
-            font = :bold,
-            padding = (0, 5, 5, 0),
-            halign = :center
+            fontsize=8pt,
+            font=:bold,
+            padding=(0, 5, 5, 0),
+            halign=:center
         )
     end
 
@@ -920,8 +920,8 @@ function gcm_cluster_assignment_heatmap(
         middle_axes = filter(x -> x isa Axis, fig.content)[1:second_last_row]
         # axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
 
-        map(x -> hidexdecorations!(x; grid = false, ticks=false), middle_axes)
-        map(x -> hideydecorations!(x; ticks = false, ticklabels = false, grid = false), filter(x -> x isa Axis, fig.content))
+        map(x -> hidexdecorations!(x; grid=false, ticks=false), middle_axes)
+        map(x -> hideydecorations!(x; ticks=false, ticklabels=false, grid=false), filter(x -> x isa Axis, fig.content))
     end
 
     if grouping == :bioregion
