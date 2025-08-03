@@ -15,17 +15,17 @@ fontsize = 7
 dpi = 400
 
 # Define figure sizing constants for different figure types
-fig_sizes = Dict(
-    violin_width => 17,
-    carb_width => 25,
-    map_height => 18,
-    map_width => 18,
-    ecs_width => 10,
-    ecs_height => 13,
-    timeseries_width => 25,
-    violin_height => 14,
-    carb_height => 17,
-    timeseries_height => 18
+fig_sizes = Dict{String,Real}(
+    "violin_width" => 17,
+    "carb_width" => 25,
+    "map_height" => 18,
+    "map_width" => 18,
+    "ecs_width" => 10,
+    "ecs_height" => 13,
+    "timeseries_width" => 25,
+    "violin_height" => 14,
+    "carb_height" => 17,
+    "timeseries_height" => 18
 )
 
 # Convert figure sizes from cm to pixel measurement
