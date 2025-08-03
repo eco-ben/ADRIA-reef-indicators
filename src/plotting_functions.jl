@@ -5,6 +5,10 @@ File includes the plotting functions for ADRIA-reef-indicators analysis.
 using Printf
 using Colors
 using Random
+using TOML
+
+
+config = TOML.parsefile("config.toml")
 
 # Define figure formatting constants
 fontsize = 7
