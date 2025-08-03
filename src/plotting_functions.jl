@@ -25,7 +25,6 @@ fig_sizes = Dict(
 )
 
 # Convert figure sizes from cm to pixel measurement
-fig_sizes = 
 cm = 37.7952755906 # Size of 1cm in pixels
 map!(x -> x * cm, values(fig_sizes))
 
