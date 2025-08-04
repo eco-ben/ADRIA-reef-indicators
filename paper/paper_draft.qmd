@@ -21,23 +21,23 @@ author:
     attributes:
         corresponding: true
 abstract: |
-    Coral reefs globally face unprecedented threats from climate change, with the Great Barrier 
-    Reef (GBR) experiencing severe declines in coral cover from thermal stress events. 
-    Understanding which reefs exhibit resilience to climate impacts is critical for conservation 
-    planning and intervention strategies. A scenario-based population modelling approach was 
-    adopted with larval connectivity dynamics, thermal adaptation, and environmental factors 
-    to assess coral reef resilience across GBR locations under future climate projections. 
-    Using five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities, 
-    we analysed reef cover timeseries and the ability of reefs to maintain positive carbonate 
-    production budgets under future conditions. Contrary to expectations, larval connectivity 
-    patterns did not correlate with increases in maintainence of positive carbonate budgets. 
-    Instead, reef depth emerged as the primary predictor of cover-timeseries resilience and 
-    maintainence of positive carbonate budgets, with deeper reefs benefiting from thermal 
-    refugia that reduce bleaching impacts. Our findings suggest that depth provides critical 
-    protection against thermal stress, contrasting current restoration practices that primarily 
-    target easily accessible shallow sites. These results have important implications for 
-    reef management, indicating that depth refugia should be prioritized for further 
-    consideration in conservation planning alongside connectivity considerations to maximize 
+    Coral reefs globally face unprecedented threats from climate change, with the Great Barrier
+    Reef (GBR) experiencing severe declines in coral cover from thermal stress events.
+    Understanding which reefs exhibit resilience to climate impacts is critical for conservation
+    planning and intervention strategies. A scenario-based population modelling approach was
+    adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
+    to assess coral reef resilience across GBR locations under future climate projections.
+    Using five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities,
+    we analysed reef cover timeseries and the ability of reefs to maintain positive carbonate
+    production budgets under future conditions. Contrary to expectations, larval connectivity
+    patterns did not correlate with increases in maintainence of positive carbonate budgets.
+    Instead, reef depth emerged as the primary predictor of cover-timeseries resilience and
+    maintainence of positive carbonate budgets, with deeper reefs benefiting from thermal
+    refugia that reduce bleaching impacts. Our findings suggest that depth provides critical
+    protection against thermal stress, contrasting current restoration practices that primarily
+    target easily accessible shallow sites. These results have important implications for
+    reef management, indicating that depth refugia should be prioritized for further
+    consideration in conservation planning alongside connectivity considerations to maximize
     coral survival under continuing climate change.
 keywords:
   - Coral reef
@@ -222,10 +222,15 @@ coral colonies on a reef impacted by high heat stress as depth increases.
 
 \*\* need information on GBR1 connectivity used \*\*
 
-Twenty-four total days of connectivity data were used in this investigation, 2015, 2016,
-2018 and 2019 are represented represented by 3 daily connectivity matrices each, while 2017
-and 2020 are represented with 5 daily matrices each. Connectivity levels are implemented in
-ADRIA - CoralBlox as mean over the 24 days for each location.
+Connectivity data from 24 days in total were used in this investigation. These data span six
+years: 2015, 2016, 2018, and 2019 are each represented by 3 daily connectivity matrices, while
+2017 and 2020 are each represented by 5 daily matrices. Indicative connectivity strengths are
+implemented in ADRIA-CoralBlox as the mean of all available data for each location (i.e.,
+all 24 days). While the connectivity strengths do not vary from year to year within the
+simulation, they do vary between reefs of varying sizes, providing sufficient heterogeneity
+to capture spatial patterns in larval dispersal and settlement dynamics. The spatial
+variability also enables investigations into the influence of connectivity strength and its
+role in driving recovery processes.
 
 ### Depth estimation
 
