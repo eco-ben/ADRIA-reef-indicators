@@ -11,7 +11,7 @@ using TOML
 config = TOML.parsefile("config.toml")
 
 # Define figure formatting constants
-fontsize = 6
+fontsize = 5
 dpi = 300
 
 # Define figure sizing constants for different figure types
@@ -26,7 +26,9 @@ fig_sizes = Dict{String, Union{Float64, Int64}}(
     "timeseries_width" => 15.9,
     "violin_height" => 13,
     "carb_height" => 11,
-    "timeseries_height" => 12
+    "timeseries_height" => 12,
+    "cluster_hm_width" => 15.9,
+    "cluster_hm_height" => 20
 )
 
 # Convert figure sizes from cm to pixel measurement
@@ -885,8 +887,8 @@ function gcm_cluster_assignment_heatmap(
     xlabel::String="",
     GCMs::Vector{String}=GCMs
 )
-    fig_x_size = fig_sizes["timeseries_width"]
-    fig_y_size = fig_sizes["timeseries_height"]
+    fig_x_size = fig_sizes["cluster_hm_width"]
+    fig_y_size = fig_sizes["cluster_hm_height"]
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
     # Prepare plot
     fig, gdf, plot_layout = _setup_grouped_figure(
@@ -902,7 +904,7 @@ function gcm_cluster_assignment_heatmap(
     #labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=17)
     # labels = [first(df[:, :bioregion]) for df in gdf]
     colors = [:green, :orange, :blue]
-    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=17)
+    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=12)
     # xsize, ysize = _axis_size(gdf, fig_x_size, fig_y_size, n_col; y_gap=0.8)
     # xsize, ysize = (50, 50)
 
@@ -918,7 +920,8 @@ function gcm_cluster_assignment_heatmap(
             xsize=nothing,
             ysize=nothing,
             background_color=:white,
-            xticklabelrotation=45.0
+            xticklabelrotation=45.0,
+            spinewidth=0.5
         )
 
         cluster_matrix = Matrix(groupdf[:, [cluster_cols...]])
@@ -931,7 +934,7 @@ function gcm_cluster_assignment_heatmap(
             labels[xi],
             fontsize=8pt,
             font=:bold,
-            padding=(0, 5, 5, 0),
+            padding=(0, 1, 2, 0),
             halign=:center
         )
     end
