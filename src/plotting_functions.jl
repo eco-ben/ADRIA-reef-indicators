@@ -114,14 +114,22 @@ function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=
             fig[legend_position...],
             legend_entries,
             ["Low", "Medium", "High"],
-            nbanks=n_banks
+            nbanks=n_banks,
+            tellwidth = false,
+            padding = (2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
+            labelsize = fontsize,    # smaller font
+            framevisible = false,        # optional: remove box
+            markerlabelgap = 3,          # reduce space between marker and label
+            rowgap = 0,                  # reduce vertical spacing between items
+            colgap = 4,                  # reduce horizontal spacing
+            patchsize = (5, 5)  
         )
     end
 
     return fig, gdf, plot_layout
 end
 
-function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", title="", xsize=220, ysize=150, background_color=:white, xticklabelrotation=0.0)
+function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", title="", xsize=220, ysize=150, background_color=:white, xticklabelrotation=0.0, spinewidth=1.0)
 
     ax = Axis(
         fig[plot_layout_xi...];
@@ -133,6 +141,7 @@ function _setup_grouped_axes(fig, plot_layout_xi, xticks; ylabel="", xlabel="", 
         title=title,
         width=xsize,
         height=ysize,
+        spinewidth=spinewidth,
         xticklabelrotation=xticklabelrotation
     )
     return ax
@@ -714,17 +723,26 @@ function grouped_GCM_cluster_timeseries_plots(
             axis_opts=Dict(
                 :title => labels[xi],
                 # :yticks => [0,2,4],
-                :xticks => ([1, 10, 20, 30, 40, 50], string.([2025, 2035, 2045, 2055, 2065, 2075]))
+                :xticks => ([1, 10, 20, 30, 40, 50], string.([2025, 2035, 2045, 2055, 2065, 2075])),
+                :spinewidth => 0.5,
+                :ylabelpadding => 2,
+                :xlabelpadding => 2,
+                :xticksize => 2,
+                :yticksize => 2
             )
         )
     end
 
     second_row = findfirst(last.(plot_layout) .== n_col) + 1
     second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
-    middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
+    middle_axes = filter(x -> x isa Axis, fig.content)[1:second_last_row]
     axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
+
     map(x -> hidexdecorations!(x; grid=false, ticks=false), middle_axes)
     map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), axes_after_1)
+    map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
+    map(x -> rowsize!(fig.layout, x, Relative(1 / maximum(first.(plot_layout)))), 1:n_col)
+    rowsize!(fig.layout, maximum(first.(plot_layout))+1, Relative(0.03))
 
     # Tweak layout defaults
     # fig.layout.colgap = 5  # Default ~10, reduce to make plots tighter horizontally
