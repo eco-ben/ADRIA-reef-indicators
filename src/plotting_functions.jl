@@ -11,21 +11,22 @@ using TOML
 config = TOML.parsefile("config.toml")
 
 # Define figure formatting constants
-fontsize = 7
-dpi = 400
+fontsize = 6
+dpi = 300
 
 # Define figure sizing constants for different figure types
-fig_sizes = Dict{String,Real}(
-    "violin_width" => 17,
-    "carb_width" => 25,
-    "map_height" => 18,
-    "map_width" => 18,
+# Maximum figure size in word document with 2.54cm margins is 15.9cm (if images are larger, word will shrink them)
+fig_sizes = Dict{String, Union{Float64, Int64}}(
+    "violin_width" => 15.9,
+    "carb_width" => 15.9,
+    "map_height" => 15.9,
+    "map_width" => 15.9,
     "ecs_width" => 10,
     "ecs_height" => 13,
-    "timeseries_width" => 25,
-    "violin_height" => 14,
-    "carb_height" => 17,
-    "timeseries_height" => 18
+    "timeseries_width" => 15.9,
+    "violin_height" => 13,
+    "carb_height" => 11,
+    "timeseries_height" => 12
 )
 
 # Convert figure sizes from cm to pixel measurement
@@ -197,11 +198,11 @@ Create methods publication figure that displays the ECS values for each GCM inve
 and display the likely/very-likely ranges of ECS values from the IPCC.
 """
 function ecs_plot(
-    ecs_values::Vector{Union{Float64,Int64}},
-    low_conf_range::Vector{Float64},
-    high_conf_range::Vector{Float64},
-    GCM_labels::Vector{String};
-    fig_sizes::Dict=fig_sizes,
+    ecs_values::Vector{Union{Float64, Int64}}, 
+    low_conf_range::Vector{Float64}, 
+    high_conf_range::Vector{Float64}, 
+    GCM_labels::Vector{String}; 
+    fig_sizes::Dict=fig_sizes, 
     fontsize=fontsize
 )
     fig_x_size = fig_sizes["ecs_width"]
@@ -667,8 +668,8 @@ in the y direction in figure.
 function grouped_GCM_cluster_timeseries_plots(
     timeseries_array::YAXArray,
     dataframe::DataFrame,
-    cluster_col::Union{String,Symbol},
-    grouping::Union{String,Symbol},
+    cluster_col::Union{String, Symbol},
+    grouping::Union{String, Symbol},
     length_t::UnitRange;
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize
@@ -858,8 +859,8 @@ GCM cluster columns should be in the same order as labels in GCMs vector.
 """
 function gcm_cluster_assignment_heatmap(
     dataframe::DataFrame,
-    grouping::Union{String,Symbol},
-    cluster_cols::Vector{Union{String,Symbol}};
+    grouping::Union{String, Symbol},
+    cluster_cols::Vector{Union{String, Symbol}};
     fig_sizes::Dict=fig_sizes,
     title::String="",
     ylabel::String="",

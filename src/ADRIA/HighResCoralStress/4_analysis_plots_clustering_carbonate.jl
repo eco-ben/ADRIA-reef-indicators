@@ -297,7 +297,7 @@ rstd_conn = std_conn ./ mean_conn .* 100
 
 # rsd_matrix = stdev_matrix ./ mean_matrix .* 100
 rstd_matrix = rstd_conn
-fig = Figure()
+fig = Figure(size = (15.9*cm, 15.9*cm), fontsize=fontsize)
 ax = Axis(
     fig[1,1],
     xlabel="",

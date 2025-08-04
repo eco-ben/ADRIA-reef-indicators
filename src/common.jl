@@ -31,10 +31,12 @@ import GeoFormatTypes as GFT
 import ArchGDAL as AG
 import GeoInterface as GI
 using ADRIA
+using TOML
 
 include("plotting_functions.jl")
 include("ADRIA_DataCube_functions.jl")
 
+config = TOML.parsefile("config.toml")
 gbr_domain_path = config["domain"]["domain_dir"]
 output_path = config["results"]["output_dir"]
 
