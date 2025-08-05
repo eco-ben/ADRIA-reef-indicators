@@ -11,24 +11,24 @@ using TOML
 config = TOML.parsefile("config.toml")
 
 # Define figure formatting constants
-fontsize = 5
+fontsize = 6
 dpi = 300
 
 # Define figure sizing constants for different figure types
 # Maximum figure size in word document with 2.54cm margins is 15.9cm (if images are larger, word will shrink them)
 fig_sizes = Dict{String, Union{Float64, Int64}}(
-    "violin_width" => 15.9,
-    "carb_width" => 15.9,
-    "map_height" => 15.9,
-    "map_width" => 15.9,
+    "violin_width" => 14.82,
+    "carb_width" => 14.82,
+    "map_height" => 14.82,
+    "map_width" => 14.82,
     "ecs_width" => 10,
     "ecs_height" => 13,
-    "timeseries_width" => 15.9,
-    "violin_height" => 13,
+    "timeseries_width" => 14.82,
+    "violin_height" => 12,
     "carb_height" => 11,
     "timeseries_height" => 12,
-    "cluster_hm_width" => 15.9,
-    "cluster_hm_height" => 20
+    "cluster_hm_width" => 14.82,
+    "cluster_hm_height" => 18
 )
 
 # Convert figure sizes from cm to pixel measurement
@@ -320,27 +320,41 @@ function grouped_cluster_timeseries_plots(
                 :xticks => (
                     first(length_t):10:last(length_t),
                     string.(collect((first(timesteps):10:last(timesteps))))
-                )
-                # :height => ysize,
-                # :width => xsize
+                ),
+                :spinewidth => 0.5,
+                :ylabelpadding => 2,
+                :xlabelpadding => 2,
+                :xticksize => 2,
+                :yticksize => 2
             )
         )
     end
 
     if grouping != :gbr
-        second_row = findfirst(last.(plot_layout) .== n_col) + 1
-        second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
-        middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
+        bottom_axes = [last(plot_layout[last.(plot_layout) .== x]) for x in 1:n_col]
+        not_bottom_axes = findall(plot_layout .∉ [bottom_axes])
+        not_bottom_axes = filter(x -> x isa Axis, fig.content)[not_bottom_axes]
+        # second_row = findfirst(last.(plot_layout) .== n_col) + 1
+        # second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
+        # middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
         axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
-
-        map(x -> hidexdecorations!(x; grid=false, ticks=false), middle_axes)
+        map(x -> hidexdecorations!(x; grid=false, ticks=false), not_bottom_axes)
         map(x -> hideydecorations!(x; ticks=false, ticklabels=false, grid=false), axes_after_1)
     end
 
     if grouping == :bioregion
-        rowgap!(fig.layout, 5)
-        colgap!(fig.layout, 5)
         map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
+        map(x -> rowsize!(fig.layout, x, Relative(1 / maximum(first.(plot_layout)))), 1:n_col)
+    end
+
+    last_figure = last(plot_layout)
+    if last(last_figure) > n_col
+        legend_position = (last_figure[1] + 1, 1:n_col)
+        rowsize!(fig.layout, first(legend_position), Relative(0.03))
+    end
+
+    if grouping == :gbr
+        colsize!(fig.layout, 2, Relative(0.1))
     end
 
     # resize_to_layout!(fig)
@@ -680,7 +694,7 @@ function grouped_GCM_cluster_timeseries_plots(
     timeseries_array::YAXArray,
     dataframe::DataFrame,
     cluster_col::Union{String, Symbol},
-    grouping::Union{String, Symbol},
+    grouping::Union{Vector{String}, Vector{Symbol}},
     length_t::UnitRange;
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize
@@ -880,7 +894,7 @@ GCM cluster columns should be in the same order as labels in GCMs vector.
 function gcm_cluster_assignment_heatmap(
     dataframe::DataFrame,
     grouping::Union{String, Symbol},
-    cluster_cols::Vector{Union{String, Symbol}};
+    cluster_cols::Union{Vector{String}, Vector{Symbol}};
     fig_sizes::Dict=fig_sizes,
     title::String="",
     ylabel::String="",
@@ -904,7 +918,7 @@ function gcm_cluster_assignment_heatmap(
     #labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=17)
     # labels = [first(df[:, :bioregion]) for df in gdf]
     colors = [:green, :orange, :blue]
-    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=12)
+    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=10)
     # xsize, ysize = _axis_size(gdf, fig_x_size, fig_y_size, n_col; y_gap=0.8)
     # xsize, ysize = (50, 50)
 
