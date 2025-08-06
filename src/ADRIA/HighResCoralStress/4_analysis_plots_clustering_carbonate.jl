@@ -3,23 +3,13 @@ Create analysis plots for clustering and carbonate budget analyses. Performed fo
 and multi-GCM comparison plot created at end of the script.
 """
 
-using Revise, Infiltrator
-
 include("../../common.jl")
-include("../../plotting_functions.jl")
 
 CairoMakie.activate!()
 
 # # Select the target GCM from
-# dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
-# GCMs = dhw_scenarios.dhw.properties["members"]
-GCMs = [
-    "EC-Earth3-Veg",
-    "ACCESS-ESM1-5",
-    "ACCESS-CM2",
-    "NorESM2-MM",
-    "GFDL-CM4"
-]
+dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
+GCMs = dhw_scenarios.dhw.properties["members"]
 
 context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 context_layers.gbr .= "Great Barrier Reef"
@@ -49,7 +39,6 @@ for (i_gcm, GCM) in enumerate(GCMs)
     fig_out_dir = joinpath(output_path, "figs/$(GCM)")
 
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
-    # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
     threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
 
     dhw_ts = gbr_dom.dhw_scens[:, :, i_gcm]
@@ -269,33 +258,6 @@ all_conn_data = concatenatecubes(all_conn_data, Dim{:conn_name}(conn_names))
 std_conn = mapslices(std, all_conn_data, dims=[:conn_name])
 rstd_conn = std_conn ./ mean_conn .* 100
 
-# fig = Figure()
-# ax = Axis(
-#     fig[1,1],
-#     xlabel="",
-#     ylabel=""
-# )
-# hm = heatmap!(ax, rstd_conn[1:100,1:100])
-# Colorbar(fig[1,2], hm, label="std_conn / mean_conn * 100")
-
-# all_conn_data = readcubedata(all_conn_data)
-# n_boot = 200
-# n_matrices = size(all_conn_data)[3]
-
-# bootstrap_means = Array{Float64, 3}(undef, 3806, 3806, n_boot)
-
-# for b in 1:n_boot
-#     sample_indices = sample(1:n_matrices, n_matrices, replace=true)
-#     sample_matrices = view(all_conn_data, :, :, sample_indices)
-
-#     bootstrap_means[:, :, b] .= dropdims(mean(sample_matrices, dims=3), dims=3)
-# end
-
-# mean_matrix = dropdims(mean(bootstrap_means, dims=3), dims=3)
-# stdev_matrix = dropdims(std(bootstrap_means, dims=3), dims=3)
-# bootstrap_means = nothing
-
-# rsd_matrix = stdev_matrix ./ mean_matrix .* 100
 rstd_matrix = rstd_conn
 fig = Figure(size = (15.9*cm, 15.9*cm), fontsize=fontsize)
 ax = Axis(
@@ -311,6 +273,7 @@ save(
     px_per_unit=dpi
 )
 
+# Plot cluster assignment heatmap for bioregions
 context_no_na = context_layers[context_layers.bioregion .!= "NA", :]
 bioregion_gcm_clusters = gcm_cluster_assignment_heatmap(
     context_no_na,

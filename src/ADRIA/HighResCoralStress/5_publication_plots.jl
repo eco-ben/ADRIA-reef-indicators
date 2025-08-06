@@ -2,12 +2,9 @@
 Script to create additional plots required for publication. E.g. maps and GCM plots.
 """
 
-using Revise, Infiltrator
-
 import GeometryOps as GO
 
 include("../../common.jl")
-include("../../plotting_functions.jl")
 
 CairoMakie.activate!()
 
@@ -44,12 +41,7 @@ bioregion_colors_labels = DataFrame(
     color=distinguishable_colors(length(unique(investigation_reefs.bioregion))),
     label=label_lines.((unique(investigation_reefs.bioregion)); l_length=17)
 )
-# unique_ordered_bioregions = unique(ordered_reefs.bioregion)
-# bioregion_colors =
-# bioregion_col_refs = CategoricalArray(ordered_reefs.bioregion).refs
-# order_indices = indexin(unique_ordered_bioregions, unique(bioregions))
-# ordered_colors = bioregion_colors[order_indices]
-# unique_ordered_bioregions = label_lines.(unique_ordered_bioregions; l_length=17)
+
 ordered_reefs = leftjoin(ordered_reefs, bioregion_colors_labels; on=:bioregion)
 centroids = GO.centroid.(ordered_reefs.geometry)
 
@@ -69,7 +61,6 @@ poly!(regions.SHAPE, color=region_col)
 scatter!(centroids; color=Int64.(ordered_reefs.ref), colormap=unique(ordered_reefs.color), markersize=4)
 lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
 text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
-#poly!(investigation_reefs.geometry, color=bioregions.refs, colormap=ColorSchemes.flag_gs)
 
 Legend(
     fig[2, 1],
@@ -90,12 +81,3 @@ Legend(
     backgroundcolor=bgcol
 )
 save(joinpath(output_path, "figs/region_map.png"), fig, px_per_unit=dpi)
-
-# fig = Figure()
-# ax = Axis(
-#     fig[1,1],
-#     limits = (nothing, (-0.1, 400)),
-#     ylabel="Initial cover",
-#     xlabel="Reefs with <5x initial cover in timeseries"
-# )
-# scatter!((context_layers[:, "ACCESS-ESM1-5_gbr_clusters"] .!= 0.0), context_layers.initial_coral_cover)

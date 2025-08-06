@@ -8,17 +8,20 @@ using ArchGDAL
 
 include("../../common.jl")
 
-change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs
+change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs 
+# (removes parallel processing)
 
 using ADRIA
 
 # Load context layers with bioregions and target reefs
-context_layers = GDF.read("../outputs/ADRIA_results/HighResCoralStress/bellwether_reefs_carbonate.gpkg")
+context_layers = GDF.read(joinpath(output_path, "bellwether_reefs_carbonate.gpkg"))
 
 # GBR wide domain
-gbr_dom = ADRIA.load_domain("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/", "45")
-dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
+gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
+dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
+GCMs = dhw_scenarios.dhw.properties["members"]
 gbr_dom.loc_data.geometry = Vector{ArchGDAL.IGeometry}(gbr_dom.loc_data.geometry) # Need to recast gbr_dom geometry col for ADRIA.run_scenarios(). Possibly issue with GeoDataFrames version.
+
 # 1. Attach connectivity data to context_layers
 connectivity_matrix = gbr_dom.conn
 
@@ -115,10 +118,7 @@ context_layers.initial_proportion = (
 areas = gbr_dom.loc_data.area
 thresholds = 10:1:20
 # Attaching GCM-dependent context layers
-for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
-
-    rs = ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
-    GCM_results = GCM_analysis_results(rs)
+for (i_gcm, GCM) in enumerate(GCMs)
 
     # 3. Calculate number of years each reef is above a carbonate budget threshold
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
@@ -153,8 +153,10 @@ for (i_gcm, GCM) in enumerate(dhw_scenarios.dhw.properties["members"])
     context_layers[!, "$(GCM)_dhw_cover_cor"] = dhw_cover_cor
 
     # 4. Re-run 5 scenarios for each GCM and extract mean DHW tolerance from timeseries
-    scens = rs.inputs[1:4, Not(318)] # Only use 1st 5 scenarios for speed and remove RCP variable in inputs
+    scens = CSV.read(joinpath(output_path, "HighResCoralStress_ADRIA_scens_$(GCM).csv"), DataFrame)
+    scens = scens[1:4, :]
     scens.wave_scenario .= 1.0
+    
     rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
     dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
     dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
@@ -188,6 +190,6 @@ context_layers.total_count .= convert.(Int64, context_layers.total_count)
 context_layers.total_comb .= convert.(Float64, context_layers.total_comb)
 context_layers.so_to_si .= convert.(Float64, context_layers.so_to_si)
 
-GDF.write("../outputs/ADRIA_results/HighResCoralStress/analysis_context_layers_carbonate.gpkg", context_layers; crs=GFT.EPSG(7844), overwrite=true)
+GDF.write(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"), context_layers; crs=GFT.EPSG(7844), overwrite=true)
 
 change_ADRIA_debug(false) # reset ADRIA debug mode to false as required by other scripts

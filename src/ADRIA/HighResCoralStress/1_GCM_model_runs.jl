@@ -1,16 +1,18 @@
-using Revise, Infiltrator
 using YAXArrays, NetCDF
 using ArchGDAL
+using CSV
 
 include("../../common.jl")
+
 change_ADRIA_debug(false) # Ensure ADRIA debug mode is set to false to allow parallel processing.
 
-GBR_domain_path = "../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/"
-dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
+using ADRIA
+
+dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
 gcms = dhw_scenarios.dhw.properties["members"]
 
 # GBR wide domain
-gbr_dom = ADRIA.load_domain(GBR_domain_path, "45")
+gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 context_layers = gbr_dom.loc_data
 gbr_dom.loc_data.geometry = Vector{ArchGDAL.IGeometry}(gbr_dom.loc_data.geometry) # Need to recast gbr_dom geometry col for ADRIA.run_scenarios(). Possibly issue with GeoDataFrames version.
 
@@ -19,8 +21,10 @@ for (g, GCM) in enumerate(gcms)
     # generate 4096 sample scenarios from counterfactual scenarios
     scens = ADRIA.sample_cf(gbr_dom, 4096)
 
-    # change dhw scenarios to GFDL-CM4
+    # change dhw scenarios to selected GCM
     scens[!, :dhw_scenario] .= g
+
+    CSV.write(joinpath(output_path, "HighResCoralStress_ADRIA_scens_$(GCM).csv"), scens)
 
     # Run sampled scenarios for a given RCP
     rs = ADRIA.run_scenarios(gbr_dom, scens, "45")
@@ -30,10 +34,10 @@ end
 
 # Save output absolute median cover to allow for data sharing.
 for GCM in gcms
-    processed_outputs = "../outputs/ADRIA_results/HighResCoralStress/processed_model_outputs/median_cover_$(GCM).nc"
+    processed_outputs = joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")
     if !isfile(processed_outputs)
 
-        rs = ADRIA.load_results("../outputs/ADRIA_results/HighResCoralStress/GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)")
+        rs = ADRIA.load_results(joinpath(output_path, "GBR_2024_10_15_HighResCoralStress__RCPs_45_$(GCM)"))
         scenario_cover = ADRIA.metrics.total_absolute_cover(rs)
         median_cover = ADRIA.metrics.loc_trajectory(median, scenario_cover)
 
