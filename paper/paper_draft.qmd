@@ -180,22 +180,20 @@ was calculated as the mean SST for each month over 1985 to 2012, adjusted to cen
 1988.2857 (see Skirving et al. [-@skirving2020]). The "HotSpot SST Anomaly" [@skirving2020]
 was calculated as the difference between daily SST values and the maxmimum of a pixel's MM
 climatology (maximum monthly mean). DHW values are then calculated as the 12-week rolling
-sum of positive HotSpot SST Anomaly values for a pixel. 
-**\[TI: Could you confirm the above is described correctly?\]**
+sum of positive HotSpot SST Anomaly values for a pixel. **\[TI: Could you confirm the above
+is described correctly?\]**
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
 the IPCC assessed likely range, and GCM development families. The IPCC defines ECS as the
 long term warming caused by a doubling of carbon dioxide above its pre-industrial
 concentration [@forster2021]. The five GCMs therefore allow for a range of possible climate
 futures to be explored, capturing the uncertainty in future responses to CO2 increases
-(@sfig-ecs; [@grose2023; @shepherd2018]).
+(@sfig-ecs; @sfig-methods-dhws; [@grose2023; @shepherd2018]).
 
 Shared Socio-economic Pathway 2 (replacing the older RCP 4.5) was used to represent the
 plausible emission pathway under current emission trajectories, with similar atmospheric CO2
 levels remaining until 2050 [@hausfather2020; IPCC -@climate2023]. \[**TI note: The above
 needs to be expanded a little. IPCC has not been mentioned before at this point either**\]
-
-\[**TI: Needs a figure showing DHW trajectories for GBR!**\]
 
 \[**TI: Needs a table clearly communicating each GCM, ECS value, and what each represent
 (e.g., usual, optimistic scenario, etc)**\]
@@ -628,19 +626,19 @@ whole-ecosystem scales.
 
 # Supplementary Material
 
-```{=html}
-<!-- ![Equilibrium Climate Sensitivity (ECS) values in °C for the GCMs selected (point values).
-The pink - dashed box represents the high-certainty ‘very likely’ range for ECS values and
-the solid red box represents low-certainty ‘likely’ range for ECS values (Forster et al.,
-2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
-width="`{julia} ecs_width`"} -->
-```
-
 ![Equilibrium Climate Sensitivity (ECS) values in °C for the GCMs selected (point values).
 The pink - dashed box represents the high-certainty ‘very likely’ range for ECS values and
 the solid red box represents low-certainty ‘likely’ range for ECS values (Forster et al.,
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
 width="10cm"}
+
+![Degree Heating Week timeseries (in °C - Weeks) for the GCMs selected. Colours represent
+the different management areas across the Great Barrier Reef. Green represents
+Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricorn and red
+represents the Townsville-Whitsunday management area. Solid lines represent the
+management-area median timeseries and bands represent the 2.5 to 97.5 percentile confidence
+intervals.](../outputs/ADRIA_results/HighResCoralStress/figs/methods_dhw_timeseries.png){#sfig-methods-dhws
+width="14.82cm"}
 
 ![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
 Green indicates a low cover cluster assignemnt, orange represents a medium cover assignment

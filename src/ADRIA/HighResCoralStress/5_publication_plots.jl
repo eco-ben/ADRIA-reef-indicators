@@ -81,3 +81,93 @@ Legend(
     backgroundcolor=bgcol
 )
 save(joinpath(output_path, "figs/region_map.png"), fig, px_per_unit=dpi)
+
+# GBR - wide DHW figure
+dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
+GCMs = dhw_scenarios.dhw.properties["members"]
+
+context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
+gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
+
+dhw_arrays = [
+    rebuild(gbr_dom.dhw_scens[:, :, i_gcm], dims=(gbr_dom.dhw_scens.timesteps, Dim{:sites}(context_layers.UNIQUE_ID))) for i_gcm in eachindex(GCMs)
+]
+dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
+dhw_properties = copy(rel_cover_arrays.properties)
+dhw_properties[:is_relative] = false
+dhw_properties[:metric_feature] = "DHW"
+dhw_properties[:metric_unit] = "°C - Weeks"
+dhw_arrays = rebuild(dhw_arrays, metadata = dhw_properties)
+
+context_layers = context_layers[context_layers.management_area .!= "NA", :]
+context_layers = sort(context_layers, :management_area)
+
+dhw_arrays = dhw_arrays[sites=(dhw_arrays.sites .∈ [unique(context_layers.UNIQUE_ID)])]
+
+fig = Figure(
+    size = (fig_sizes["timeseries_width"], fig_sizes["timeseries_height"]),
+    fontsize = fontsize
+)
+plot_layout = [(x, 1) for x in eachindex(GCMs)]
+man_areas_categorical = CategoricalArray(context_layers.management_area)
+for (g, GCM) in enumerate(GCMs)
+    group_timeseries = dhw_arrays[1:50, :, g]
+    plot_layout_xi = plot_layout[g]
+    # ax = _setup_grouped_axes(
+    #         fig,
+    #         plot_layout_xi,
+    #         ([1, 10, 20, 30, 40, 50], string.([2025, 2035, 2045, 2055, 2065, 2075]));
+    #         ylabel="DHW [\u00B0 C]",
+    #         xlabel="",
+    #         title="",
+    #         xsize=nothing,
+    #         ysize=nothing,
+    #         background_color=:white,
+    #         xticklabelrotation=45.0,
+    #         spinewidth=0.5
+    # )
+
+    ADRIA.viz.clustered_scenarios!(
+            fig[plot_layout_xi...],
+            group_timeseries,
+            Vector{Int64}(man_areas_categorical.refs);
+            opts=Dict{Symbol,Any}(:legend => false),
+            axis_opts=Dict(
+                :title => GCM,
+                :xticks => ([1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50], string.([2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070, 2075])),
+                :spinewidth => 0.5,
+                :ylabelpadding => 2,
+                :xlabelpadding => 2,
+                :xticksize => 2,
+                :yticksize => 2
+            )
+        )
+end
+
+axes_above_bottom = filter(x -> x isa Axis, fig.content)[1:end-1]
+map(x -> hidexdecorations!(x; grid=false, ticks=false), axes_above_bottom)
+map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), axes_above_bottom)
+linkaxes!(filter(x -> x isa Axis, fig.content)...)
+
+legend_entries = []
+for (i, col) in enumerate([:green, :orange, :blue, :red])
+    LE = LineElement(; color=col, marker=:circle)
+    push!(legend_entries, [LE])
+end
+
+Legend(
+    fig[length(GCMs)+1,1],
+    legend_entries,
+    levels(man_areas_categorical),
+    nbanks=2,
+    tellwidth = false,
+    padding = (2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
+    labelsize = fontsize,    # smaller font
+    framevisible = false,        # optional: remove box
+    # markerlabelgap = 3,          # reduce space between marker and label
+    rowgap = 0,                  # reduce vertical spacing between items
+    colgap = 4,                  # reduce horizontal spacing
+    patchsize = (5, 5)  
+)
+rowsize!(fig.layout, maximum(first.(plot_layout))+1, Relative(0.03))
+save(joinpath(output_path, "figs/methods_dhw_timeseries.png"), fig, px_per_unit=dpi)
