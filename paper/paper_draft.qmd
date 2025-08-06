@@ -152,37 +152,15 @@ positive carbonate budgets under current projections of climate change.
 
 # Methods
 
-## Environmental modelling context
+## Modelling context
 
 The spatial extent of the GBR reefs represented in this investigation follows the reef
 definitions available via the Great Barrier Reef Marine Park Authority [@greatba2022]. In
-total this covers 3806 reef areas across the GBR marine park. Reefs that are outside the
-GBRMPA management areas or are not associated with a GBRMPA reefal bioregion were removed
-from the investigation, leaving 3531 reefs. Annually and spatially averaged Degree Heating
-Week (DHW) data were used to represent future thermal stress at each reef location.
-
-Statistically downscaled 1km resolution Sea Surface Temperature (SST) data for the GBR were
-obtained from the HighResCoralStress database [@dixon2022; @dixon2023]. Maximum monthly mean
-DHW levels were calculated from the SST data following NOAA methodology [@liu2017;
-@skirving2020]. DHWs were represented by a selection of five Global Climate Models (GCMs)
-from the Sixth Phase of the Coupled Model Intercomparison Project (CMIP6). These five GCMs
-were EC-Earth3-Veg, ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GDFL-CM4, and their inclusion
-were based on evaluation by Grose et al. [-@grose2023]. Grose et al. [-@grose2023] found
-these GCMs to rank highly, among 50 GCMs, in recreation of historical atmospheric
-temperature and precipitation conditions in the Australasian region. While this assessment
-does not consider oceanic data, Grose et al. \[\@-grose2023\] provide a region-specific
-selection mechanism which we use as an indicator of general performance of GCMs for the
-region.
-
-Equilibrium climate sensitivity (ECS) is defined, by the IPCC, as the long term warming
-caused by a doubling of carbon dioxide above its pre-industrial concentration
-[@forster2021]. The five GCMs span a range of ECS values within the IPCC assessed likely
-range, and GCM development families, allowing for a range of possible climate futures to be
-explored, capturing the uncertainty in future responses to CO2 increases (@sfig-ecs;
-[@grose2023; @shepherd2018]). The following analyses were performed using each GCM
-separately. SSP 2-4.5 was used as a plausible emission pathway under current emission
-trajectories, with similar atmospheric CO2 levels remaining until 2050 [@hausfather2020;
-IPCC -@climate2023].
+total, the dataset represents 3806 reef areas across the GBR marine park. Reefs that are
+outside the GBRMPA management areas or are not associated with a GBRMPA reefal bioregion
+were removed from the investigation, leaving 3531 reefs. Annually and spatially averaged
+Degree Heating Week (DHW) data were used to represent future thermal stress at each reef
+location.
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). The green polygon represents the Far Northern management area,
@@ -193,6 +171,42 @@ visual clarity, and is coloured according to its GBRMPA reefal bioregion. An ann
 represents the approximate location of the Australian Institute of Marine Science Townsville
 site at Cape
 Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map}
+
+## Degree Heating Week Trajectories
+
+Future projections of maximum yearly Degree Heating Weeks (DHWs) for each reef were
+estimated from Sea Surface Temperature (SST) data for the GBR. Statistically downscaled 1km
+resolution SST data for five Global Climate Models (GCMs) were obtained from the
+HighResCoralStress database [@dixon2022; @dixon2023]. These five GCMs were EC-Earth3-Veg,
+ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GDFL-CM4 and are a part of the Sixth Phase of the
+Coupled Model Intercomparison Project (CMIP6) based on evaluation conducted by Grose et al.
+[-@grose2023]. These GCMs were found to rank highly in the recreation of historical
+atmospheric temperature and precipitation conditions in the Australasian region. While this
+assessment does not consider oceanic data, Grose et al. [-@grose2023] provide a
+region-specific selection mechanism which we use as an indicator of general performance of
+GCMs for the region.
+
+Maximum monthly mean DHW levels were calculated from the SST data following NOAA methodology
+[@liu2017; @skirving2020], from which maximum yearly DHWs were determined.
+**\[TI: Could you confirm the above is described correctly?\]**
+
+The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
+the IPCC assessed likely range, and GCM development families. The IPCC defines ECS as the
+long term warming caused by a doubling of carbon dioxide above its pre-industrial
+concentration [@forster2021]. The five GCMs therefore allow for a range of possible climate
+futures to be explored, capturing the uncertainty in future responses to CO2 increases
+(@sfig-ecs; [@grose2023; @shepherd2018]).
+
+Shared Socio-economic Pathway 2 (replacing the older RCP 4.5) was used to represent the
+plausible emission pathway under current emission trajectories, with similar atmospheric CO2
+levels remaining until 2050 [@hausfather2020; IPCC -@climate2023].
+\[**TI note: The above needs to be expanded a little.
+IPCC has not been mentioned before at this point either**\]
+
+\[**TI: Needs a figure showing DHW trajectories for GBR!**\]
+
+\[**TI: Needs a table clearly communicating each GCM, ECS value, and what each represent
+(e.g., usual, optimistic scenario, etc)**\]
 
 ## Coral reef ecosystem model - ADRIA-CoralBlox
 
