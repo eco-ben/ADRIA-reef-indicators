@@ -164,49 +164,49 @@ save(
     px_per_unit=dpi
 )
 
-analysis_layers = context_layers[context_layers.UNIQUE_ID.∈[unique(analysis_layers_long.UNIQUE_ID)], :]
-reefs_with_clusters = (
-    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .!= 0) .&
-    (analysis_layers[:, gbr_gcm_cluster_cols[2]] .!= 0) .&
-    (analysis_layers[:, gbr_gcm_cluster_cols[3]] .!= 0) .&
-    (analysis_layers[:, gbr_gcm_cluster_cols[4]] .!= 0) .&
-    (analysis_layers[:, gbr_gcm_cluster_cols[5]] .!= 0)
-)
-analysis_layers = analysis_layers[reefs_with_clusters, :]
-consistent_reefs = (
-    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[2]]) .&
-    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[3]]) .&
-    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[4]]) .&
-    (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[5]])
-)
-sum(consistent_reefs) / length(consistent_reefs)
+# analysis_layers = context_layers[context_layers.UNIQUE_ID.∈[unique(analysis_layers_long.UNIQUE_ID)], :]
+# reefs_with_clusters = (
+#     (analysis_layers[:, gbr_gcm_cluster_cols[1]] .!= 0) .&
+#     (analysis_layers[:, gbr_gcm_cluster_cols[2]] .!= 0) .&
+#     (analysis_layers[:, gbr_gcm_cluster_cols[3]] .!= 0) .&
+#     (analysis_layers[:, gbr_gcm_cluster_cols[4]] .!= 0) .&
+#     (analysis_layers[:, gbr_gcm_cluster_cols[5]] .!= 0)
+# )
+# analysis_layers = analysis_layers[reefs_with_clusters, :]
+# consistent_reefs = (
+#     (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[2]]) .&
+#     (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[3]]) .&
+#     (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[4]]) .&
+#     (analysis_layers[:, gbr_gcm_cluster_cols[1]] .== analysis_layers[:, gbr_gcm_cluster_cols[5]])
+# )
+# sum(consistent_reefs) / length(consistent_reefs)
 
-# Identify how many 'high' cluster reefs move to lower clusters under different GCMs (based on bioregion analyses).
-analysis_layers = context_layers
-reefs_with_clusters = (
-    (analysis_layers[:, bioregion_gcm_cluster_cols[1]] .!= 0) .&
-    (analysis_layers[:, bioregion_gcm_cluster_cols[2]] .!= 0) .&
-    (analysis_layers[:, bioregion_gcm_cluster_cols[3]] .!= 0) .&
-    (analysis_layers[:, bioregion_gcm_cluster_cols[4]] .!= 0) .&
-    (analysis_layers[:, bioregion_gcm_cluster_cols[5]] .!= 0)
-)
-analysis_layers = analysis_layers[reefs_with_clusters, :]
-high_cluster_reefs_any_gcm = analysis_layers[(
-    (analysis_layers[:, bioregion_gcm_cluster_cols[1]] .== 3) .|
-    (analysis_layers[:, bioregion_gcm_cluster_cols[2]] .== 3) .|
-    (analysis_layers[:, bioregion_gcm_cluster_cols[3]] .== 3) .|
-    (analysis_layers[:, bioregion_gcm_cluster_cols[4]] .== 3) .|
-    (analysis_layers[:, bioregion_gcm_cluster_cols[5]] .== 3)
-), :]
-high_to_low_reefs = high_cluster_reefs_any_gcm[(
-    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[1]] .== 1) .|
-    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[2]] .== 1) .|
-    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[3]] .== 1) .|
-    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[4]] .== 1) .|
-    (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[5]] .== 1)
-), :]
+# # Identify how many 'high' cluster reefs move to lower clusters under different GCMs (based on bioregion analyses).
+# analysis_layers = context_layers
+# reefs_with_clusters = (
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[1]] .!= 0) .&
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[2]] .!= 0) .&
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[3]] .!= 0) .&
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[4]] .!= 0) .&
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[5]] .!= 0)
+# )
+# analysis_layers = analysis_layers[reefs_with_clusters, :]
+# high_cluster_reefs_any_gcm = analysis_layers[(
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[1]] .== 3) .|
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[2]] .== 3) .|
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[3]] .== 3) .|
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[4]] .== 3) .|
+#     (analysis_layers[:, bioregion_gcm_cluster_cols[5]] .== 3)
+# ), :]
+# high_to_low_reefs = high_cluster_reefs_any_gcm[(
+#     (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[1]] .== 1) .|
+#     (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[2]] .== 1) .|
+#     (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[3]] .== 1) .|
+#     (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[4]] .== 1) .|
+#     (high_cluster_reefs_any_gcm[:, bioregion_gcm_cluster_cols[5]] .== 1)
+# ), :]
 
-nrow(switching_high_reefs) / nrow(high_cluster_reefs_any_gcm)
+# nrow(switching_high_reefs) / nrow(high_cluster_reefs_any_gcm)
 
 # Identify reefs that have a median depth of 1 to 10m and the proportion of these reefs that are in low-medium cover clusters (based on bioregion analyses).
 analysis_layers_long_bioregion = stack(
