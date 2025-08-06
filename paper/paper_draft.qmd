@@ -64,19 +64,6 @@ editor:
     wrap: 92
 ---
 
-```{julia}
-#| include: false
-cd("../src")
-include("../src/common.jl")
-include("../src/plotting_functions.jl")
-
-map_width = fig_sizes["map_width"]
-ecs_width = fig_sizes["ecs_width"]
-timeseries_width = fig_sizes["timeseries_width"]
-violin_width = fig_sizes["violin_width"]
-carb_width = fig_sizes["carb_width"]
-```
-
 # Introduction
 
 Climate change is impacting species survival, persistence and ecosystem functions globally,
