@@ -26,4 +26,4 @@ data/
 .vscode/
 
 # User created config.toml file
-*config.toml
+config.toml
