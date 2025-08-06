@@ -147,7 +147,8 @@ total, the dataset represents 3806 reef areas across the GBR marine park. Reefs 
 outside the GBRMPA management areas or are not associated with a GBRMPA reefal bioregion
 were removed from the investigation, leaving 3531 reefs. Annually and spatially averaged
 Degree Heating Week (DHW) data were used to represent future thermal stress at each reef
-location.
+location. Code used to calculate DHW data and perform analyses involved in this
+investigation can be found at **insert repo citation**.
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). The green polygon represents the Far Northern management area,
@@ -174,7 +175,12 @@ region-specific selection mechanism which we use as an indicator of general perf
 GCMs for the region.
 
 Maximum monthly mean DHW levels were calculated from the SST data following NOAA methodology
-[@liu2017; @skirving2020], from which maximum yearly DHWs were determined.
+[@liu2017; @skirving2020]. For each pixel of SST data, the monthly mean SST climatoloy (MM)
+was calculated as the mean SST for each month over 1985 to 2012, adjusted to centre at year
+1988.2857 (see Skirving et al. [-@skirving2020]). The "HotSpot SST Anomaly" [@skirving2020]
+was calculated as the difference between daily SST values and the maxmimum of a pixel's MM
+climatology (maximum monthly mean). DHW values are then calculated as the 12-week rolling
+sum of positive HotSpot SST Anomaly values for a pixel. 
 **\[TI: Could you confirm the above is described correctly?\]**
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
@@ -186,9 +192,8 @@ futures to be explored, capturing the uncertainty in future responses to CO2 inc
 
 Shared Socio-economic Pathway 2 (replacing the older RCP 4.5) was used to represent the
 plausible emission pathway under current emission trajectories, with similar atmospheric CO2
-levels remaining until 2050 [@hausfather2020; IPCC -@climate2023].
-\[**TI note: The above needs to be expanded a little.
-IPCC has not been mentioned before at this point either**\]
+levels remaining until 2050 [@hausfather2020; IPCC -@climate2023]. \[**TI note: The above
+needs to be expanded a little. IPCC has not been mentioned before at this point either**\]
 
 \[**TI: Needs a figure showing DHW trajectories for GBR!**\]
 
