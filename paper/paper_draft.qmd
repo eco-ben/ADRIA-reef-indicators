@@ -184,19 +184,37 @@ sum of positive HotSpot SST Anomaly values for a pixel. **\[TI: Could you confir
 is described correctly?\]**
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
-the IPCC assessed likely range, and GCM development families. The IPCC defines ECS as the
-long term warming caused by a doubling of carbon dioxide above its pre-industrial
-concentration [@forster2021]. The five GCMs therefore allow for a range of possible climate
-futures to be explored, capturing the uncertainty in future responses to CO2 increases
-(@sfig-ecs; @sfig-methods-dhws; [@grose2023; @shepherd2018]).
+the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and GCM
+development families. The IPCC defines ECS as the long term warming caused by a doubling of
+carbon dioxide above its pre-industrial concentration [@forster2021]. The five GCMs
+therefore allow for a range of possible climate futures to be explored, capturing the
+uncertainty in future responses to CO2 increases (@sfig-ecs; @sfig-methods-dhws;
+[@grose2023; @shepherd2018]).
 
-Shared Socio-economic Pathway 2 (replacing the older RCP 4.5) was used to represent the
-plausible emission pathway under current emission trajectories, with similar atmospheric CO2
-levels remaining until 2050 [@hausfather2020; IPCC -@climate2023]. \[**TI note: The above
-needs to be expanded a little. IPCC has not been mentioned before at this point either**\]
+Shared Socio-economic Pathway 2-4.5 (approximate to the previously used RCP 4.5) was used to
+represent the plausible emission pathway under current emission trajectories, with similar
+atmospheric CO2 levels to present day remaining until 2050 [@hausfather2020; IPCC
+-@climate2023]. This SSP trajectory estimates 2.7°C of global atmospheric warming in the
+2081-2100 period relative to 1850-1900.
 
-\[**TI: Needs a table clearly communicating each GCM, ECS value, and what each represent
-(e.g., usual, optimistic scenario, etc)**\]
+\[**TI note: The above needs to be expanded a little. IPCC has not been mentioned before at this point either**\]
+
+\[**TI: Needs a table clearly communicating each GCM, ECS value, and what each represent (e.g., usual, optimistic scenario, etc)**\]
+
+| Global Climate Model source | ECS value (°C) | Interpreted relative severity | Individual results displayed |
+|----|----|----|----|
+| EC-Earth3-Veg | 4.31 | High | Supplementary |
+| ACCESS-ESM1-5 | 3.87 | Intermediate | Supplementary |
+| ACCESS-CM2 | 4.72 | High | Main text |
+| GFDL-CM4 | 2.9 | Low | Supplementary |
+| NorESM2-MM | 2.5 | Low | Supplementary |
+
+: Table 1: Information for each GCM used in this investigation including ECS value,
+interpreted relative severity and where results are individual GCM results are displayed. GCMs in context with assessed plausible ranges of ECS values are displayed in [@fig-ecs].
+ACCESS-ESM1-5 is taken as an intermediate model based on the range of ECS values, thus
+results are displayed in the main text. ECS value sources: .
+
+\[**BG: Need to add my ECS value sources to table caption. (And also cite GCM paper sources).**\]
 
 ## Coral reef ecosystem model - ADRIA-CoralBlox
 
@@ -283,8 +301,6 @@ adopted as reef depth and connectivity strength distributions are expected to be
 and highly skewed. Furthermore, reefs are naturally of different types and experience
 different conditions, and so the monotonic trends (whether the relationship consistently
 increase or decrease) rather than the exact quantative relationship is of interest.
-
-<!-- Split and move below to results/discussion -->
 
 ### Timeseries clustering
 
