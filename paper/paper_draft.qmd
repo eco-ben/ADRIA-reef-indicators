@@ -355,48 +355,41 @@ to 1. The carbonate budget thresholds assessed range from 10 to 20% of total ree
 Bracketed x-axis values represent the Spearman's correlation between reef depth and the
 number of years cover exceeds the carbonate budget threshold. Point colour represents the
 median reef depth level in metres. Displays results from median timeseries using
-ACCESS-ESM1-5.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate width=14.82cm}
+ACCESS-ESM1-5.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate
+width="14.82cm"}
 
-## Global Climate Model future trajectories
+## Future DHW trajectories
 
-Each GCM shows similar relationships between reef clusters and contextual analysis factors,
-thus further comparisons of these clusters for each analysis factor are only shown for
-ACCESS-ESM1-5 (intermediate ECS scenario). Results for the additional GCMs are displayed in
-the supplementary material. However, there are substantial differences in the longevity of
-reef resilience and maintenance of coral cover post 2030 between the GCMs, thus coral cover
-timeseries are displayed for each GCM (displayed clustered at management-area scale to
-preserve coarse spatial differences in coral trajectories) (@fig-gcm-cover-trajectories).
+Each Global Climate Model (GCM) shows similar relationships between reef clusters and
+contextual analysis factors, thus further comparisons of these clusters for each analysis
+factor are only shown for ACCESS-ESM1-5 (an intermediate Equilibrium Climate Sensitivity
+scenario). Results for the additional GCMs are displayed in the supplementary material.
+However, there are substantial differences in the longevity of reef resilience and
+maintenance of coral cover post 2030 between the GCMs, thus coral cover timeseries are
+displayed for each GCM (displayed clustered at management-area scale to preserve coarse
+spatial differences in coral trajectories) (@fig-gcm-cover-trajectories).
 
 NorESM2-MM has the lowest Equilibrium Climate Sensitivity (2.5°C) and reefs exhibit
 continuing recovery and decline dynamics up to 2075 under this possible climate future.
-While recovery phases are predominantly seen in the ‘high’ cover cluster, the ‘medium’
-cluster, and to a lesser degree the ‘low’ cluster, also exhibit periods of recovery and
-increasing proportions of coral cover up to 2045. Under NorESM2-MM the Far Northern
-management area does not see coral cover maintenance as high as the three remaining
-management regions. Under the second lowest ECS projection (GFDL-CM4, 2.9°C) all clusters in
-each management area exhibit largely declining future trajectories with periods of recovery
-from 2030 to 2040. ACCESS-ESM1-5 has an intermediate ECS value of 3.87°C which results in
-intermediate levels of coral cover maintenance (between those of lower and higher ECS GCMs).
-In Townsville/Whitsunday and Far Northern management areas reefs in the high cluster are
-able to maintain coral cover levels around 20% to 2050 under ACCESS-ESM1-5. Under ACCESS-CM2
-(4.72°C) and EC-Earth3-Veg (4.31°C) GCMs cover trajectories are largely declining in all
-management areas.
+Recovery phases are predominantly seen in the ‘high’ cover cluster. The ‘medium’ cluster,
+and to a lesser degree the ‘low’ cluster, also exhibit periods of recovery and increasing
+proportions of coral cover up to 2045. Under NorESM2-MM the Far Northern management area
+does not see coral cover maintenance as high as the other management regions \[**TI:**
+**Quantify this! How did you determine this and how large/small are the difference in coral
+cover maintenance?**\]. Under the second lowest ECS projection (GFDL-CM4, 2.9°C) all
+clusters in each management area exhibit largely declining future trajectories with periods
+of recovery from 2030 to 2040. ACCESS-ESM1-5 has an intermediate ECS value of 3.87°C which
+results in intermediate levels of coral cover maintenance (between those of lower and higher
+ECS GCMs). In Townsville-Whitsunday and Far Northern management areas, reefs in the high
+cluster are able to maintain coral cover levels around 20% to 2050 under ACCESS-ESM1-5.
+Under ACCESS-CM2 (4.72°C) and EC-Earth3-Veg (4.31°C) GCMs cover trajectories are largely
+declining in all management areas.
 
 Under each GCM, in all management areas, low, medium and high cluster reefs have low
-differences between DHW trajectories (@fig-gcm-dhw-trajectories). The highest peak DHW
-levels occur under GFDL-CM4 between 2045 and 2050, while greater increases in overall DHW
-timeseries occur under ACCESS-CM2.
-
-![Reef area-relative coral cover timeseries clustered within each management area, for each
-GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
-between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with
-intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
-clusters (blue) are clusters with the highest median area-relative cover between 2030 and
-2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
-represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
-represented five times (for each GCM), with each GCM displayed
-horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
-width=14.82cm}
+differences between DHW trajectories (@fig-gcm-dhw-trajectories) \[**TI:** **I don't
+understand this sentence - what is meant by reefs have low differences?**\]. The highest
+peak DHW levels occur under GFDL-CM4 between 2045 and 2050, while greater increases in
+overall DHW timeseries occur under ACCESS-CM2.
 
 ![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
 analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
@@ -407,7 +400,18 @@ clusters (blue) are clusters with the highest median area-relative cover between
 represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
 represented five times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#fig-gcm-dhw-trajectories
-width=14.82cm}
+width="14.82cm"}
+
+![Reef area-relative coral cover timeseries clustered within each management area, for each
+GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
+between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with
+intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
+clusters (blue) are clusters with the highest median area-relative cover between 2030 and
+2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
+represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
+represented five times (for each GCM), with each GCM displayed
+horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
+width="14.82cm"}
 
 Comparing across GCMs, it is common for reefs to switch cluster level, including from low to
 high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment). This is
