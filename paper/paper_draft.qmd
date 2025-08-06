@@ -223,14 +223,14 @@ coral colonies on a reef impacted by high heat stress as depth increases.
 \*\* need information on GBR1 connectivity used \*\*
 
 Connectivity data from 24 days in total were used in this investigation. These data span six
-years: 2015, 2016, 2018, and 2019 are each represented by 3 daily connectivity matrices, while
-2017 and 2020 are each represented by 5 daily matrices. Indicative connectivity strengths are
-implemented in ADRIA-CoralBlox as the mean of all available data for each location (i.e.,
-all 24 days). While the connectivity strengths do not vary from year to year within the
-simulation, they do vary between reefs of varying sizes, providing sufficient heterogeneity
-to capture spatial patterns in larval dispersal and settlement dynamics. The spatial
-variability also enables investigations into the influence of connectivity strength and its
-role in driving recovery processes.
+years: 2015, 2016, 2018, and 2019 are each represented by 3 daily connectivity matrices,
+while 2017 and 2020 are each represented by 5 daily matrices. Indicative connectivity
+strengths are implemented in ADRIA-CoralBlox as the mean of all available data for each
+location (i.e., all 24 days). While the connectivity strengths do not vary from year to year
+within the simulation, they do vary between reefs of varying sizes, providing sufficient
+heterogeneity to capture spatial patterns in larval dispersal and settlement dynamics. The
+spatial variability also enables investigations into the influence of connectivity strength
+and its role in driving recovery processes.
 
 ### Depth estimation
 
