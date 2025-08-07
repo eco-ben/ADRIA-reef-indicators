@@ -211,7 +211,7 @@ Create methods publication figure that displays the ECS values for each GCM inve
 and display the likely/very-likely ranges of ECS values from the IPCC.
 """
 function ecs_plot(
-    ecs_values::Vector{Union{Float64, Int64}}, 
+    ecs_values::Vector{Float64}, 
     low_conf_range::Vector{Float64}, 
     high_conf_range::Vector{Float64}, 
     GCM_labels::Vector{String}; 

@@ -210,7 +210,7 @@ atmospheric CO2 levels to present day remaining until 2050 [@hausfather2020; IPC
 | NorESM2-MM | 2.5 | Low | Supplementary |
 
 : Table 1: Information for each GCM used in this investigation including ECS value,
-interpreted relative severity and where results are individual GCM results are displayed. GCMs in context with assessed plausible ranges of ECS values are displayed in [@fig-ecs].
+interpreted relative severity and where results are individual GCM results are displayed. GCMs in context with assessed plausible ranges of ECS values are displayed in [@sfig-ecs].
 ACCESS-ESM1-5 is taken as an intermediate model based on the range of ECS values, thus
 results are displayed in the main text. ECS value sources: .
 
