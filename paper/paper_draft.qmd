@@ -179,9 +179,10 @@ Maximum monthly mean DHW levels were calculated from the SST data following NOAA
 was calculated as the mean SST for each month over 1985 to 2012, adjusted to centre at year
 1988.2857 (see Skirving et al. [-@skirving2020]). The "HotSpot SST Anomaly" [@skirving2020]
 was calculated as the difference between daily SST values and the maxmimum of a pixel's MM
-climatology (maximum monthly mean). DHW values are then calculated as the 12-week rolling
-sum of positive HotSpot SST Anomaly values for a pixel. **\[TI: Could you confirm the above
-is described correctly?\]**
+climatology (maximum monthly mean). DHW values were then calculated as the 12-week rolling
+sum of positive HotSpot SST Anomaly values for a pixel. Within each year the maximum of
+monthly mean DHW values was calculated. Reef scale DHW timeseries were extracted by taking
+the average DHW level over pixels touching a reef.
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
 the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and GCM
@@ -205,11 +206,11 @@ this point either**\]
 
 | Global Climate Model source | ECS value (°C) | Interpreted relative severity | Individual results displayed |
 |-----------------------|-----------------------|-----------------------|-----------------------|
-| EC-Earth3-Veg | 4.31 | High | Supplementary |
-| ACCESS-CM2 | 4.72 | High | Supplementary |
+| EC-Earth3-Veg | 4.31 | High | **insert repo citation** |
+| ACCESS-CM2 | 4.72 | High | **insert repo citation** |
 | ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
-| GFDL-CM4 | 2.9 | Low | Supplementary |
-| NorESM2-MM | 2.5 | Low | Supplementary |
+| GFDL-CM4 | 2.9 | Low | **insert repo citation** |
+| NorESM2-MM | 2.5 | Low | **insert repo citation** |
 
 : Table 1: Information for each GCM used in this investigation including ECS value,
 interpreted relative severity and where results are individual GCM results are displayed.
@@ -620,6 +621,8 @@ capability of ADRIA-CoralBlox could be further expanded by incorporating the imp
 waves, cyclones, CoTS and currents into future resilience investigations [@lin2023;
 @mcclanahan2005; @grimaldi2022; @liu2024]. Additionally, the investigation could be enhanced
 by incorporating ocean acidification projections into analyses of coral carbonate budgets.
+
+# Conclusion
 
 In conclusion, our results suggest that when modelled as part of a large and complex
 ecosystem, reef depth is a key factor contributing to ongoing reef resilience. We provide
