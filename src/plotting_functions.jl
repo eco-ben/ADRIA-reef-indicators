@@ -32,7 +32,11 @@ fig_sizes = Dict{String, Union{Float64, Int64}}(
 )
 
 # Convert figure sizes from cm to pixel measurement
-cm = 37.7952755906 # Size of 1cm in pixels
+
+# Size of 1cm in pixels relative to 1 CSS px, see:
+# - https://docs.makie.org/dev/how-to/match-figure-size-font-sizes-and-dpi
+# - https://docs.makie.org/dev/explanations/figure#Figure-size-and-resolution
+cm = 37.7952755906
 map!(x -> x * cm, values(fig_sizes))
 
 # Convert fontsize to pixel measurement
