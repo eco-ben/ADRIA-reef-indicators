@@ -158,8 +158,7 @@ Mackay/Capricorn management area. The centroid of each reef is represented as a 
 visual clarity, and is coloured according to its GBRMPA reefal bioregion. An annotation
 represents the approximate location of the Australian Institute of Marine Science Townsville
 site at Cape
-Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map
-alt="Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all considered reefs (points). The green polygon represents the Far Northern management area, the yellow polygon represents the Cairns/Cooktown management area, the pink polygon represents the Townsville/Whitsunday management area and the blue polygon represents the Mackay/Capricorn management area. The centroid of each reef is represented as a point for visual clarity, and is coloured according to its GBRMPA reefal bioregion. An annotation represents the approximate location of the Australian Institute of Marine Science Townsville site at Cape Cleveland."}
+Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map}
 
 ## Degree Heating Week trajectories
 
