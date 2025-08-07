@@ -93,11 +93,7 @@ dhw_arrays = [
     rebuild(gbr_dom.dhw_scens[:, :, i_gcm], dims=(gbr_dom.dhw_scens.timesteps, Dim{:sites}(context_layers.UNIQUE_ID))) for i_gcm in eachindex(GCMs)
 ]
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
-dhw_properties = copy(rel_cover_arrays.properties)
-dhw_properties[:is_relative] = false
-dhw_properties[:metric_feature] = "DHW"
-dhw_properties[:metric_unit] = "°C - Weeks"
-dhw_arrays = rebuild(dhw_arrays, metadata = dhw_properties)
+dhw_arrays = rebuild(dhw_arrays, metadata=dhw_timeseries_properties)
 
 context_layers = context_layers[context_layers.management_area .!= "NA", :]
 context_layers = sort(context_layers, :management_area)
@@ -105,7 +101,7 @@ context_layers = sort(context_layers, :management_area)
 dhw_arrays = dhw_arrays[sites=(dhw_arrays.sites .∈ [unique(context_layers.UNIQUE_ID)])]
 
 fig = Figure(
-    size = (fig_sizes["timeseries_width"], fig_sizes["timeseries_height"]),
+    size = (fig_sizes["grouped_timeseries_width"], fig_sizes["grouped_timeseries_height"]),
     fontsize = fontsize
 )
 plot_layout = [(x, 1) for x in eachindex(GCMs)]
