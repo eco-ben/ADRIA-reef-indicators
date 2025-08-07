@@ -19,7 +19,7 @@ ecs_values = Dict(
     "NorESM2-MM" => 2.5
 )
 ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys(ecs_values)))
-save(joinpath(output_path, "figs/ecs_plot.png"), ecs, pt_per_unit=1)
+save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit=dpi)
 
 # GBR map plot - methods
 investigation_reefs = context_layers[
@@ -143,7 +143,7 @@ end
 
 axes_above_bottom = filter(x -> x isa Axis, fig.content)[1:end-1]
 map(x -> hidexdecorations!(x; grid=false, ticks=false), axes_above_bottom)
-map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), axes_above_bottom)
+map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), filter(x -> x isa Axis, fig.content))
 linkaxes!(filter(x -> x isa Axis, fig.content)...)
 
 legend_entries = []
@@ -167,4 +167,12 @@ Legend(
     patchsize=(5, 5)
 )
 rowsize!(fig.layout, maximum(first.(plot_layout)) + 1, Relative(0.03))
+feat = dhw_arrays.properties[:metric_feature]
+unit_text = dhw_arrays.properties[:metric_unit]
+Label(
+    fig[:, 0], "$feat [$unit_text]",
+    rotation=π / 2,  # Rotate 90 degrees
+    tellheight=false,
+    tellwidth=true
+)
 save(joinpath(output_path, "figs/methods_dhw_timeseries.png"), fig, px_per_unit=dpi)
