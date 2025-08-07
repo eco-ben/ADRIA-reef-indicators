@@ -42,7 +42,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
 
     dhw_ts = gbr_dom.dhw_scens[:, :, i_gcm]
-    dhw_ts = rebuild(dhw_ts, dims=threshold_cover.axes)
+    dhw_ts = rebuild(dhw_ts, dims=threshold_cover.axes, metadata=dhw_timeseries_properties)
 
     # Subset layers to remove reefs that start with very low coral cover
     analysis_layers = context_layers[(context_layers.management_area.!="NA").&(context_layers.bioregion.!="NA"), :]
@@ -128,11 +128,7 @@ dhw_arrays = [
     rebuild(gbr_dom.dhw_scens[:, :, i_gcm], dims=rel_cover_arrays.axes[1:2]) for i_gcm in eachindex(GCMs)
 ]
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
-dhw_properties = copy(rel_cover_arrays.properties)
-dhw_properties[:is_relative] = false
-dhw_properties[:metric_feature] = "Degree Heating Weeks"
-dhw_properties[:metric_unit] = "°C"
-dhw_arrays = rebuild(dhw_arrays, metadata = dhw_properties)
+dhw_arrays = rebuild(dhw_arrays, metadata = dhw_timeseries_properties)
 
 analysis_layers_long = analysis_layers_long[analysis_layers_long.management_area.!="NA", :]
 rel_cover_arrays = rel_cover_arrays[locations=(rel_cover_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]

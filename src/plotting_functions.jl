@@ -23,12 +23,14 @@ fig_sizes = Dict{String, Union{Float64, Int64}}(
     "map_width" => 14.82,
     "ecs_width" => 10,
     "ecs_height" => 13,
-    "timeseries_width" => 14.82,
+    "gcm_timeseries_width" => 14.82,
     "violin_height" => 12,
     "carb_height" => 11,
-    "timeseries_height" => 12,
+    "gcm_timeseries_height" => 12,
     "cluster_hm_width" => 14.82,
-    "cluster_hm_height" => 18
+    "cluster_hm_height" => 18,
+    "grouped_timeseries_width" => 14.82,
+    "grouped_timeseries_height" => 14.82
 )
 
 # Convert figure sizes from cm to pixel measurement
@@ -284,8 +286,8 @@ function grouped_cluster_timeseries_plots(
     fontsize=fontsize,
     ytitle::String=""
 )
-    fig_x_size = fig_sizes["timeseries_width"]
-    fig_y_size = fig_sizes["timeseries_height"]
+    fig_x_size = fig_sizes["grouped_timeseries_width"]
+    fig_y_size = fig_sizes["grouped_timeseries_height"]
     n_col = optimum_columns(length(unique(dataframe[:, grouping])))
     fig, gdf, plot_layout = _setup_grouped_figure(
         dataframe,
@@ -699,8 +701,8 @@ function grouped_GCM_cluster_timeseries_plots(
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize
 )
-    fig_x_size = fig_sizes["timeseries_width"]
-    fig_y_size = fig_sizes["timeseries_height"]
+    fig_x_size = fig_sizes["gcm_timeseries_width"]
+    fig_y_size = fig_sizes["gcm_timeseries_height"]
     n_col = optimum_columns(size(unique(dataframe[:, grouping]), 1))
     fig, gdf, plot_layout = _setup_grouped_figure(
         dataframe,

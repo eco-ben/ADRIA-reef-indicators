@@ -621,3 +621,12 @@ function percentage_cover_timeseries(areas, cover_timeseries)
 
     return percentage_cover
 end
+
+dhw_timeseries_properties = Dict{Symbol, Any}(
+    :metric_feature => "Degree Heating Weeks", 
+    :axes_names => ["timesteps", "locations"], 
+    :metric_name => "Degree Heating Weeks", 
+    :axes_units => ["years", ""], 
+    :is_relative => true, 
+    :metric_unit => "\u00B0C - Weeks"
+)
