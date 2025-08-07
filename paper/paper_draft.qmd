@@ -139,7 +139,7 @@ positive carbonate budgets under current projections of climate change.
 
 # Methods
 
-## Modelling context
+## Reef representations
 
 The spatial extent of the GBR reefs represented in this investigation follows the reef
 definitions available via the Great Barrier Reef Marine Park Authority [@greatba2022]. In
@@ -158,9 +158,10 @@ Mackay/Capricorn management area. The centroid of each reef is represented as a 
 visual clarity, and is coloured according to its GBRMPA reefal bioregion. An annotation
 represents the approximate location of the Australian Institute of Marine Science Townsville
 site at Cape
-Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map}
+Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map
+alt="Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all considered reefs (points). The green polygon represents the Far Northern management area, the yellow polygon represents the Cairns/Cooktown management area, the pink polygon represents the Townsville/Whitsunday management area and the blue polygon represents the Mackay/Capricorn management area. The centroid of each reef is represented as a point for visual clarity, and is coloured according to its GBRMPA reefal bioregion. An annotation represents the approximate location of the Australian Institute of Marine Science Townsville site at Cape Cleveland."}
 
-## Degree Heating Week Trajectories
+## Degree Heating Week trajectories
 
 Future projections of maximum yearly Degree Heating Weeks (DHWs) for each reef were
 estimated from Sea Surface Temperature (SST) data for the GBR. Statistically downscaled 1km
