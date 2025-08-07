@@ -188,7 +188,7 @@ the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and 
 development families. The IPCC defines ECS as the long term warming caused by a doubling of
 carbon dioxide above its pre-industrial concentration [@forster2021]. The five GCMs
 therefore allow for a range of possible climate futures to be explored, capturing the
-uncertainty in future responses to CO2 increases (@sfig-ecs; @sfig-methods-dhws;
+uncertainty in future responses to CO2 increases (@sfig-ecs; @fig-methods-dhws;
 [@grose2023; @shepherd2018]).
 
 Shared Socio-economic Pathway 2-4.5 (approximate to the previously used RCP 4.5) was used to
@@ -219,6 +219,14 @@ results are displayed in the main text. ECS value sources: .
 
 \[**BG: Need to add my ECS value sources to table caption. (And also cite GCM paper
 sources).**\]
+
+![Degree Heating Week timeseries (in °C - Weeks) for the GCMs selected. Colours represent
+the different management areas across the Great Barrier Reef. Green represents
+Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricorn and red
+represents the Townsville-Whitsunday management area. Solid lines represent the
+management-area median timeseries and bands represent the 2.5 to 97.5 percentile confidence
+intervals.](../outputs/ADRIA_results/HighResCoralStress/figs/methods_dhw_timeseries.png){#fig-methods-dhws
+width="14.82cm"}
 
 ## Depth estimation
 
@@ -413,21 +421,10 @@ Under ACCESS-CM2 (4.72°C) and EC-Earth3-Veg (4.31°C) GCMs cover trajectories a
 declining in all management areas.
 
 Under each GCM, in all management areas, low, medium and high cluster reefs have low
-differences between DHW trajectories (@fig-gcm-dhw-trajectories) \[**TI:** **I don't
+differences between DHW trajectories (@sfig-gcm-dhw-trajectories) \[**TI:** **I don't
 understand this sentence - what is meant by reefs have low differences?**\]. The highest
 peak DHW levels occur under GFDL-CM4 between 2045 and 2050, while greater increases in
 overall DHW timeseries occur under ACCESS-CM2.
-
-![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
-analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
-between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with
-intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
-clusters (blue) are clusters with the highest median area-relative cover between 2030 and
-2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
-represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
-represented five times (for each GCM), with each GCM displayed
-horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#fig-gcm-dhw-trajectories
-width="14.82cm"}
 
 ![Reef area-relative coral cover timeseries clustered within each management area, for each
 GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
@@ -664,12 +661,15 @@ the solid red box represents low-certainty ‘likely’ range for ECS values (Fo
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
 width="10cm"}
 
-![Degree Heating Week timeseries (in °C - Weeks) for the GCMs selected. Colours represent
-the different management areas across the Great Barrier Reef. Green represents
-Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricorn and red
-represents the Townsville-Whitsunday management area. Solid lines represent the
-management-area median timeseries and bands represent the 2.5 to 97.5 percentile confidence
-intervals.](../outputs/ADRIA_results/HighResCoralStress/figs/methods_dhw_timeseries.png){#sfig-methods-dhws
+![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
+analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
+between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with
+intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
+clusters (blue) are clusters with the highest median area-relative cover between 2030 and
+2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
+represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
+represented five times (for each GCM), with each GCM displayed
+horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#sfig-gcm-dhw-trajectories
 width="14.82cm"}
 
 ![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
@@ -681,7 +681,7 @@ ACCESS-CM2, NorESM2-MM and
 GFDL-CM4).](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_bioregion_cluster_assignments.png){#sfig-gcm-bioregion-cluster-assignment
 width="14.82cm"}
 
-![Heatmaps indicating reef connectivity relative standard deviation (RSD %). Reef
+![Heatmap indicating reef connectivity relative standard deviation (RSD %). Reef
 connectivity relative standard deviation represents the reef standard deviation connection
 strength as a percentage of reef mean connection strength. Lighter colours indicate higher
 RSD %
