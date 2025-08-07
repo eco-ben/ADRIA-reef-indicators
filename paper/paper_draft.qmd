@@ -267,6 +267,8 @@ to varying degrees of alignment between bathymetry data and the defined outlines
 reefs, reefs with less than 5% coverage of valid bathymetry data were removed from analyses
 involving depth as a resilience factor.
 
+\[**TI:** **For Takuya to flesh out**\]
+
 ## Timeseries analysis
 
 ADRIA-CoralBlox was run for 4096 **sampled** scenarios for each of the five GCMs (20,480
