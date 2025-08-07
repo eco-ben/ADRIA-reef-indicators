@@ -697,10 +697,15 @@ function grouped_GCM_cluster_timeseries_plots(
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize
 )
-    fig_x_size = fig_sizes["gcm_timeseries_width"]
-    fig_y_size = fig_sizes["gcm_timeseries_height"]
+    # Adjust width and height just for the aspect ratio
+    # Doesn't seem to affect the word doc output
+    fig_x_size = fig_sizes["timeseries_width"] * 1.2
+    fig_y_size = fig_sizes["timeseries_height"] * 0.95
     n_col = optimum_columns(size(unique(dataframe[:, grouping]), 1))
-    fig, gdf, plot_layout = _setup_grouped_figure(
+
+    # Calculate layout scheme and grouped dataframe, but ignore figure.
+    # It sets a legend using predetermined row numbers but we want more flexibility
+    _, gdf, plot_layout = _setup_grouped_figure(
         dataframe,
         grouping;
         x_fig_size=fig_x_size,
@@ -709,10 +714,16 @@ function grouped_GCM_cluster_timeseries_plots(
         order=[:management_area, :GCM]
     )
 
-    labels = label_lines.("$(first(df.management_area)) - $(first(df.GCM))" for df in gdf; l_length=15)
+    mgmt_area = [first(df.management_area) for df in gdf]
+    mgmt_area = unique(replace.(mgmt_area, " Management Area" => ""))
+    gcm_header = unique([first(df.GCM) for df in gdf])
 
+    # Create custom figure
+    fig = Figure(size=(fig_x_size, fig_y_size), fontsize=fontsize)
+
+    current_row = 0
+    current_col = 0
     for (xi, groupdf) in enumerate(gdf)
-        # println("$(xi)")
         plot_layout_xi = plot_layout[xi]
         groupdf = sort(groupdf, cluster_col)
 
@@ -722,11 +733,7 @@ function grouped_GCM_cluster_timeseries_plots(
         group_timeseries = group_timeseries[locations=(group_timeseries.locations .∈ [groupdf.UNIQUE_ID])]
         group_timeseries = group_timeseries[length_t, indexin(groupdf.UNIQUE_ID, String.(group_timeseries.locations))]
 
-        # group_timeseries_less_than_5 = [all(group_timeseries[:, i].data .< 5) for i in 1:size(group_timeseries, 2)]
-        # group_timeseries_less_than_5_ind = findall(group_timeseries_less_than_5)
-        # group_timeseries = group_timeseries[:, group_timeseries_less_than_5_ind]
         groupdf = groupdf[groupdf.UNIQUE_ID.∈[group_timeseries.locations], :]
-
         clusters = Int64.(groupdf[:, cluster_col])
 
         ADRIA.viz.clustered_scenarios!(
@@ -735,9 +742,10 @@ function grouped_GCM_cluster_timeseries_plots(
             clusters;
             opts=Dict{Symbol,Any}(:legend => false),
             axis_opts=Dict(
-                :title => labels[xi],
-                # :yticks => [0,2,4],
-                :xticks => ([1, 10, 20, 30, 40, 50], string.([2025, 2035, 2045, 2055, 2065, 2075])),
+                :xticks => (
+                    [1, 10, 20, 30, 40, 50],
+                    string.([2025, 2035, 2045, 2055, 2065, 2075])
+                ),
                 :spinewidth => 0.5,
                 :ylabelpadding => 2,
                 :xlabelpadding => 2,
@@ -745,18 +753,31 @@ function grouped_GCM_cluster_timeseries_plots(
                 :yticksize => 2
             )
         )
+
+        # Add shared row labels (management area names)
+        if plot_layout_xi[1] != current_row
+            current_row = plot_layout_xi[1]
+            Label(
+                fig[plot_layout_xi[1], 0],
+                mgmt_area[plot_layout_xi[1]],
+                tellheight=false,
+                tellwidth=true,
+                fontsize=6
+            )
+        end
+
+        # Add shared column labels (GCM names)
+        if current_col != plot_layout_xi[2]
+            Label(
+                fig[0, plot_layout_xi[2]],
+                gcm_header[plot_layout_xi[2]],
+                tellheight=true,
+                tellwidth=false,
+                fontsize=6
+            )
+            current_col = plot_layout_xi[2]
+        end
     end
-
-    second_row = findfirst(last.(plot_layout) .== n_col) + 1
-    second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
-    middle_axes = filter(x -> x isa Axis, fig.content)[1:second_last_row]
-    axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
-
-    map(x -> hidexdecorations!(x; grid=false, ticks=false), middle_axes)
-    map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), axes_after_1)
-    map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
-    map(x -> rowsize!(fig.layout, x, Relative(1 / maximum(first.(plot_layout)))), 1:n_col)
-    rowsize!(fig.layout, maximum(first.(plot_layout))+1, Relative(0.03))
 
     # Tweak layout defaults
     # fig.layout.colgap = 5  # Default ~10, reduce to make plots tighter horizontally
@@ -764,7 +785,66 @@ function grouped_GCM_cluster_timeseries_plots(
     # fig.layout.outerpadding = 5  # Reduce space around the entire figure
 
     linkaxes!(filter(x -> x isa Axis, fig.content)...)
-    display(fig)
+
+    # Add figure y-axis label
+    feat = timeseries_array.properties[:metric_feature]
+    unit_text = timeseries_array.properties[:metric_unit]
+    Label(
+        fig[:, -1], "$feat [$unit_text]",
+        rotation=π / 2,  # Rotate 90 degrees
+        tellheight=false,
+        tellwidth=true
+    )
+
+    n_row, n_col = size(fig.layout)
+
+    # Add figure x-axis label
+    Label(
+        fig[n_row+1, 3], "Year",
+        tellheight=false,
+        tellwidth=false
+    )
+
+    # Add legend
+    legend_entries = []
+    for col in [:green, :orange, :blue]
+        push!(legend_entries, LineElement(; color=col, marker=:circle))
+    end
+    Legend(
+        fig[n_row+2, 3],
+        legend_entries,
+        ["Low", "Medium", "High"],
+        nbanks=3,
+        tellheight=true,
+        tellwidth=false,
+        padding=(1.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
+        labelsize=fontsize,    # smaller font
+        framevisible=false,        # optional: remove box
+        markerlabelgap=3,          # reduce space between marker and label
+        rowgap=0,                  # reduce vertical spacing between items
+        colgap=4,                  # reduce horizontal spacing
+        patchsize=(5, 5)
+    )
+
+    second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
+    all_axes = filter(x -> x isa Axis, fig.content)
+    middle_axes = all_axes[1:second_last_row]
+    last_axes_row = all_axes[second_last_row+1:end]
+
+    # Hide x/y axis details
+    map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), all_axes)
+    map(x -> hidexdecorations!(x; grid=false, ticks=false), middle_axes)
+    map(x -> hidexdecorations!(x; grid=false, ticks=false, ticklabels=false), last_axes_row)
+
+    # Tweak height/width of rows/columns
+    n_row, n_col = size(fig.layout)
+    map(x -> colsize!(fig.layout, x, Auto(1.1)), -1:n_col-2)
+    map(x -> rowsize!(fig.layout, x, Auto(1.1)), 0:n_row-1)
+    rowsize!(fig.layout, n_row - 2, Auto(0.05))  # Year label
+    rowsize!(fig.layout, n_row - 1, Auto(0.25))  # Legend
+
+    # Clear out empty space
+    Makie.trim!(fig.layout)
 
     return fig
 end
