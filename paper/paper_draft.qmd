@@ -176,7 +176,7 @@ region-specific selection mechanism which we use as an indicator of general perf
 GCMs for the region.
 
 Maximum monthly mean DHW levels were calculated from the SST data following NOAA methodology
-[@liu2017; @skirving2020]. For each pixel of SST data, the monthly mean SST climatoloy (MM)
+[@liu2017; @skirving2020]. For each pixel of SST data, the monthly mean SST climatology (MM)
 was calculated as the mean SST for each month over 1985 to 2012, adjusted to centre at year
 1988.2857 (see Skirving et al. [-@skirving2020]). The "HotSpot SST Anomaly" [@skirving2020]
 was calculated as the difference between daily SST values and the maxmimum of a pixel's MM
