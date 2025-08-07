@@ -689,8 +689,8 @@ in the y direction in figure.
 function grouped_GCM_cluster_timeseries_plots(
     timeseries_array::YAXArray,
     dataframe::DataFrame,
-    cluster_col::Union{String, Symbol},
-    grouping::Union{Vector{String}, Vector{Symbol}},
+    cluster_col::Union{String,Symbol},
+    grouping::Union{Vector{String},Vector{Symbol}},
     length_t::UnitRange;
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize
