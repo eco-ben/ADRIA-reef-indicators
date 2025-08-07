@@ -16,7 +16,7 @@ dpi = 300
 
 # Define figure sizing constants for different figure types
 # Maximum figure size in word document with 2.54cm margins is 15.9cm (if images are larger, word will shrink them)
-fig_sizes = Dict{String, Union{Float64, Int64}}(
+fig_sizes = Dict{String,Union{Float64,Int64}}(
     "violin_width" => 14.82,
     "carb_width" => 14.82,
     "map_height" => 14.82,
@@ -121,14 +121,14 @@ function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=
             legend_entries,
             ["Low", "Medium", "High"],
             nbanks=n_banks,
-            tellwidth = false,
-            padding = (2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
-            labelsize = fontsize,    # smaller font
-            framevisible = false,        # optional: remove box
-            markerlabelgap = 3,          # reduce space between marker and label
-            rowgap = 0,                  # reduce vertical spacing between items
-            colgap = 4,                  # reduce horizontal spacing
-            patchsize = (5, 5)  
+            tellwidth=false,
+            padding=(2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
+            labelsize=fontsize,    # smaller font
+            framevisible=false,        # optional: remove box
+            markerlabelgap=3,          # reduce space between marker and label
+            rowgap=0,                  # reduce vertical spacing between items
+            colgap=4,                  # reduce horizontal spacing
+            patchsize=(5, 5)
         )
     end
 
@@ -213,11 +213,11 @@ Create methods publication figure that displays the ECS values for each GCM inve
 and display the likely/very-likely ranges of ECS values from the IPCC.
 """
 function ecs_plot(
-    ecs_values::Vector{Union{Float64, Int64}}, 
-    low_conf_range::Vector{Float64}, 
-    high_conf_range::Vector{Float64}, 
-    GCM_labels::Vector{String}; 
-    fig_sizes::Dict=fig_sizes, 
+    ecs_values::Vector{Union{Float64,Int64}},
+    low_conf_range::Vector{Float64},
+    high_conf_range::Vector{Float64},
+    GCM_labels::Vector{String};
+    fig_sizes::Dict=fig_sizes,
     fontsize=fontsize
 )
     fig_x_size = fig_sizes["ecs_width"]
@@ -335,7 +335,7 @@ function grouped_cluster_timeseries_plots(
     end
 
     if grouping != :gbr
-        bottom_axes = [last(plot_layout[last.(plot_layout) .== x]) for x in 1:n_col]
+        bottom_axes = [last(plot_layout[last.(plot_layout).==x]) for x in 1:n_col]
         not_bottom_axes = findall(plot_layout .∉ [bottom_axes])
         not_bottom_axes = filter(x -> x isa Axis, fig.content)[not_bottom_axes]
         # second_row = findfirst(last.(plot_layout) .== n_col) + 1
@@ -897,8 +897,8 @@ GCM cluster columns should be in the same order as labels in GCMs vector.
 """
 function gcm_cluster_assignment_heatmap(
     dataframe::DataFrame,
-    grouping::Union{String, Symbol},
-    cluster_cols::Union{Vector{String}, Vector{Symbol}};
+    grouping::Union{String,Symbol},
+    cluster_cols::Union{Vector{String},Vector{Symbol}};
     fig_sizes::Dict=fig_sizes,
     title::String="",
     ylabel::String="",
