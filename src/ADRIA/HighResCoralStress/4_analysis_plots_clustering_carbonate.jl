@@ -34,7 +34,7 @@ reefs_long = stack(
 
 for (i_gcm, GCM) in enumerate(GCMs)
     # Select GCM and load relevant results
-    @info "analysing reef clustering for $(GCM)"
+    @info "Analysing reef clustering for $(GCM)"
 
     fig_out_dir = joinpath(output_path, "figs/$(GCM)")
 
@@ -132,7 +132,7 @@ dhw_properties = copy(rel_cover_arrays.properties)
 dhw_properties[:is_relative] = false
 dhw_properties[:metric_feature] = "Degree Heating Weeks"
 dhw_properties[:metric_unit] = "°C"
-dhw_arrays = rebuild(dhw_arrays, metadata = dhw_properties)
+dhw_arrays = rebuild(dhw_arrays, metadata=dhw_properties)
 
 analysis_layers_long = analysis_layers_long[analysis_layers_long.management_area.!="NA", :]
 rel_cover_arrays = rel_cover_arrays[locations=(rel_cover_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
@@ -236,12 +236,12 @@ mean_conn = gbr_dom.conn
 function read_conn_file(fn)
     return Matrix(
         CSV.read(
-            fn, 
-            DataFrame; 
+            fn,
+            DataFrame;
             comment="#",
             missingstring="NA",
             transpose=false,
-            types=Float64, 
+            types=Float64,
             drop=[1]
         )
     )
@@ -259,14 +259,14 @@ std_conn = mapslices(std, all_conn_data, dims=[:conn_name])
 rstd_conn = std_conn ./ mean_conn .* 100
 
 rstd_matrix = rstd_conn
-fig = Figure(size = (15.9*cm, 15.9*cm), fontsize=fontsize)
+fig = Figure(size=(15.9 * cm, 15.9 * cm), fontsize=fontsize)
 ax = Axis(
-    fig[1,1],
+    fig[1, 1],
     xlabel="",
     ylabel=""
 )
 hm = heatmap!(ax, rstd_matrix)
-Colorbar(fig[1,2], hm, label="Relative standard deviation connection strength [%]")
+Colorbar(fig[1, 2], hm, label="Relative standard deviation connection strength [%]")
 save(
     joinpath(output_path, "figs/connectivity_rsd_percent.png"),
     fig,
@@ -274,7 +274,7 @@ save(
 )
 
 # Plot cluster assignment heatmap for bioregions
-context_no_na = context_layers[context_layers.bioregion .!= "NA", :]
+context_no_na = context_layers[context_layers.bioregion.!="NA", :]
 bioregion_gcm_clusters = gcm_cluster_assignment_heatmap(
     context_no_na,
     :bioregion,
