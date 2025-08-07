@@ -566,15 +566,16 @@ challenging decision making process [@anthony2020], and our results suggest that
 site depth is an important factor to consider when assessing the long-term resilience of
 deployment sites.
 
-Overall, our findings do not suggest that reefs in ‘high’ cover clusters have greater
-thermal tolerance than reefs in lower coral cover clusters. This is in contrast with
-literature suggesting corals have the capacity to adapt to increasing climate change
-pressures [@humanes2022; @lachs2024], including the investigation by Bairos-Novak et al.
+Our findings do not suggest that reefs in ‘high’ cover clusters have greater thermal
+tolerance than reefs in lower coral cover clusters. This is in contrast with literature
+suggesting corals have the capacity to adapt to increasing climate change pressures
+[@humanes2022; @lachs2024], including the investigation by Bairos-Novak et al.
 [-@bairos-novak2021] that revealed high heritability of bleaching and survival response
 traits, used to inform thermal tolerance trait distributions in this investigation. The lack
 of influence of thermal tolerance on reef outcomes is likely due to reefs being impacted by
-high levels of thermal stress early in timeseries and being unable to build thermal
-tolerance to DHW levels greater than 9°C-weeks.
+high levels of thermal stress early in projected conditions and being unable to build
+thermal tolerance to DHW levels greater than 9°C-weeks. **\[TI note: This paragraph needs to
+be revisited\]**
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the degree of larval connectivity between reefs and the supply of recruits that a reef
