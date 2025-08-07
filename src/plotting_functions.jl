@@ -249,8 +249,6 @@ function ecs_plot(
 
     fig[2, 1] = Legend(fig, ax, "ECS assessed range", framevisible=false, nbanks=2)
 
-    display(fig)
-
     return fig
 end
 
@@ -360,9 +358,6 @@ function grouped_cluster_timeseries_plots(
     if grouping == :gbr
         colsize!(fig.layout, 2, Relative(0.1))
     end
-
-    # resize_to_layout!(fig)
-    display(fig)
 
     return fig
 end
@@ -499,9 +494,6 @@ function grouped_cluster_ridgeline_plot(
         ["Low", "Medium", "High"],
         nbanks=1
     )
-
-
-    display(fig)
 
     return fig
 end
@@ -862,8 +854,6 @@ function carbonate_budget_variable_scatter(
     # )
     Colorbar(fig[1, 2], rain, label=color_label)
 
-    display(fig)
-
     return fig
 end
 
@@ -972,8 +962,6 @@ function gcm_cluster_assignment_heatmap(
         map(x -> rowsize!(fig.layout, x, Relative(1 / n_row)), 1:n_row)
         map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
     end
-
-    display(fig)
 
     return fig
 end
