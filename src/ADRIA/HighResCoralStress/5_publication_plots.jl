@@ -95,14 +95,14 @@ dhw_arrays = [
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
 dhw_arrays = rebuild(dhw_arrays, metadata=dhw_timeseries_properties)
 
-context_layers = context_layers[context_layers.management_area .!= "NA", :]
+context_layers = context_layers[context_layers.management_area.!="NA", :]
 context_layers = sort(context_layers, :management_area)
 
 dhw_arrays = dhw_arrays[sites=(dhw_arrays.sites .∈ [unique(context_layers.UNIQUE_ID)])]
 
 fig = Figure(
-    size = (fig_sizes["grouped_timeseries_width"], fig_sizes["grouped_timeseries_height"]),
-    fontsize = fontsize
+    size=(fig_sizes["timeseries_width"], fig_sizes["timeseries_height"]),
+    fontsize=fontsize
 )
 plot_layout = [(x, 1) for x in eachindex(GCMs)]
 man_areas_categorical = CategoricalArray(context_layers.management_area)
@@ -124,20 +124,21 @@ for (g, GCM) in enumerate(GCMs)
     # )
 
     ADRIA.viz.clustered_scenarios!(
-            fig[plot_layout_xi...],
-            group_timeseries,
-            Vector{Int64}(man_areas_categorical.refs);
-            opts=Dict{Symbol,Any}(:legend => false),
-            axis_opts=Dict(
-                :title => GCM,
-                :xticks => ([1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50], string.([2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070, 2075])),
-                :spinewidth => 0.5,
-                :ylabelpadding => 2,
-                :xlabelpadding => 2,
-                :xticksize => 2,
-                :yticksize => 2
-            )
+        fig[plot_layout_xi...],
+        group_timeseries,
+        Vector{Int64}(man_areas_categorical.refs);
+        opts=Dict{Symbol,Any}(:legend => false),
+        axis_opts=Dict(
+            :title => GCM,
+            :xticks => ([1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50], string.([2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070, 2075])),
+            :spinewidth => 0.5,
+            :ylabelpadding => 2,
+            :xlabelpadding => 2,
+            :xticksize => 2,
+            :yticksize => 2,
+            # :ylabel => ""
         )
+    )
 end
 
 axes_above_bottom = filter(x -> x isa Axis, fig.content)[1:end-1]
@@ -152,18 +153,18 @@ for (i, col) in enumerate([:green, :orange, :blue, :red])
 end
 
 Legend(
-    fig[length(GCMs)+1,1],
+    fig[length(GCMs)+1, 1],
     legend_entries,
     levels(man_areas_categorical),
     nbanks=2,
-    tellwidth = false,
-    padding = (2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
-    labelsize = fontsize,    # smaller font
-    framevisible = false,        # optional: remove box
+    tellwidth=false,
+    padding=(2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
+    labelsize=fontsize,    # smaller font
+    framevisible=false,        # optional: remove box
     # markerlabelgap = 3,          # reduce space between marker and label
-    rowgap = 0,                  # reduce vertical spacing between items
-    colgap = 4,                  # reduce horizontal spacing
-    patchsize = (5, 5)  
+    rowgap=0,                  # reduce vertical spacing between items
+    colgap=4,                  # reduce horizontal spacing
+    patchsize=(5, 5)
 )
-rowsize!(fig.layout, maximum(first.(plot_layout))+1, Relative(0.03))
+rowsize!(fig.layout, maximum(first.(plot_layout)) + 1, Relative(0.03))
 save(joinpath(output_path, "figs/methods_dhw_timeseries.png"), fig, px_per_unit=dpi)
