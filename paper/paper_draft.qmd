@@ -492,14 +492,14 @@ strength (@sfig-access-esm1-5-bioregion-totalconnectivity;
 
 # Discussion
 
-Under all GCMs most reefs are projected to suffer substantial declines in coral cover from
-2025 levels. NorESM2-MM and ACCESS-ESM1-5 GCMs convey the most coral cover maintanance into
-the future. Differences between low, medium and high reef clusters in cover timeseries are
-most notable under these two GCMs. Maintainance of coral cover into the future is not
-clearly linked to the Equilibrium Climate Sensitivity of each GCM used as ACCESS-ESM1-5 has
-a higher ECS value than GFDL-CM4, with reefs experiencing large continuous declines under
-GFDL-CM4. These large declines are likely due to the high peak thermal stress levels above
-10°C-weeks experienced in the first ten years of the timeseries under GFDL-CM4.
+Under all GCMs most reefs are projected to suffer substantial declines in coral cover
+relative to 2025 levels. NorESM2-MM and ACCESS-ESM1-5 GCMs convey the most coral cover
+maintenance into the future. Differences between low, medium and high reef clusters in cover
+timeseries are most notable under these two GCMs. Maintainance of coral cover into the
+future is not clearly linked to the Equilibrium Climate Sensitivity of each GCM used as
+ACCESS-ESM1-5 has a higher ECS value than GFDL-CM4, with reefs experiencing large continuous
+declines under GFDL-CM4. These large declines are likely due to the high peak thermal stress
+levels above 10°C-weeks experienced in the first ten years of the timeseries under GFDL-CM4.
 
 The large differences in cover timeseries seen across the GCMs suggest that it is important
 to consider this uncertainty in future conditions when assessing possible biological
