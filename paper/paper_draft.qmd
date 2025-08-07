@@ -197,15 +197,17 @@ atmospheric CO2 levels to present day remaining until 2050 [@hausfather2020; IPC
 -@climate2023]. This SSP trajectory estimates 2.7°C of global atmospheric warming in the
 2081-2100 period relative to 1850-1900.
 
-\[**TI note: The above needs to be expanded a little. IPCC has not been mentioned before at this point either**\]
+\[**TI note: The above needs to be expanded a little. IPCC has not been mentioned before at
+this point either**\]
 
-\[**TI: Needs a table clearly communicating each GCM, ECS value, and what each represent (e.g., usual, optimistic scenario, etc)**\]
+\[**TI: Needs a table clearly communicating each GCM, ECS value, and what each represent
+(e.g., usual, optimistic scenario, etc)**\]
 
 | Global Climate Model source | ECS value (°C) | Interpreted relative severity | Individual results displayed |
-|----|----|----|----|
+|-----------------------|-----------------------|-----------------------|-----------------------|
 | EC-Earth3-Veg | 4.31 | High | Supplementary |
-| ACCESS-ESM1-5 | 3.87 | Intermediate | Supplementary |
-| ACCESS-CM2 | 4.72 | High | Main text |
+| ACCESS-CM2 | 4.72 | High | Supplementary |
+| ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
 | GFDL-CM4 | 2.9 | Low | Supplementary |
 | NorESM2-MM | 2.5 | Low | Supplementary |
 
