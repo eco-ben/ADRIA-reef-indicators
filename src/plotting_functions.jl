@@ -699,8 +699,8 @@ function grouped_GCM_cluster_timeseries_plots(
 )
     # Adjust width and height just for the aspect ratio
     # Doesn't seem to affect the word doc output
-    fig_x_size = fig_sizes["timeseries_width"] * 1.2
-    fig_y_size = fig_sizes["timeseries_height"] * 0.95
+    fig_x_size = fig_sizes["gcm_timeseries_width"] * 1.2
+    fig_y_size = fig_sizes["gcm_timeseries_height"] * 0.95
     n_col = optimum_columns(size(unique(dataframe[:, grouping]), 1))
 
     # Calculate layout scheme and grouped dataframe, but ignore figure.

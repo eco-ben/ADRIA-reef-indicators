@@ -101,7 +101,7 @@ context_layers = sort(context_layers, :management_area)
 dhw_arrays = dhw_arrays[sites=(dhw_arrays.sites .∈ [unique(context_layers.UNIQUE_ID)])]
 
 fig = Figure(
-    size=(fig_sizes["timeseries_width"], fig_sizes["timeseries_height"]),
+    size=(fig_sizes["gcm_timeseries_width"], fig_sizes["gcm_timeseries_height"]),
     fontsize=fontsize
 )
 plot_layout = [(x, 1) for x in eachindex(GCMs)]
