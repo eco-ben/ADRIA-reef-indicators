@@ -221,7 +221,32 @@ results are displayed in the main text. ECS value sources: .
 \[**BG: Need to add my ECS value sources to table caption. (And also cite GCM paper
 sources).**\]
 
-## Coral reef ecosystem model - ADRIA-CoralBlox
+## Depth estimation
+
+Median depths for each reef location were extracted from satellite derived bathymetry data
+for the Great Barrier Reef (GBRMPA [-@gbr10gb2020]) (see discussion for more details). Due
+to varying degrees of alignment between bathymetry data and the defined outlines for GBR
+reefs, reefs with less than 5% coverage of valid bathymetry data were removed from analyses
+involving depth as a resilience factor.
+
+\[**TI:** **For Takuya to flesh out**\]
+
+\[Below moved from discussion - to be reworked for flow\]
+
+These data (GBRMPA [-@gbr10gb2020]) are derived from satellite imagery and can be limited in
+their alignment with the established GBRMPA reef outlines used in the investigation to
+characterise reef locations. As a result, 842 reefs (22% of 3806 reefs) were removed from
+the depth-related analyses due to having less than 5% coverage of depth data. **\[TI to BG:
+is this number of reefs consistent?\]**
+
+Additionally, deriving estimates of depth from satellite imagery is prone to high degrees of
+uncertainty. Data adopted for the given assessment are said to be accurate up to 15m from
+Mean Sea Level [@gbr10gb2020]. Furthermore, an estimated median depth is determined for each
+reef, using the established GBRMPA reef outlines to provide an indication of “true” reef
+extent. Therefore, the estimates of reef depths are taken as a useful indication rather than
+an accurate and precise report of reef depths across the GBR.
+
+## ADRIA-CoralBlox modelling
 
 ADRIA.jl is a decision support platform that combines scenario analysis with biotic and
 abiotic processes such as bleaching responses, thermal tolerance and flows of larvae between
@@ -258,16 +283,6 @@ within the simulation, they do vary between reefs of varying sizes, providing su
 heterogeneity to capture spatial patterns in larval dispersal and settlement dynamics. The
 spatial variability also enables investigations into the influence of connectivity strength
 and its role in driving recovery processes.
-
-### Depth estimation
-
-Median depths for each reef location were extracted from satellite derived bathymetry data
-for the Great Barrier Reef (GBRMPA [-@gbr10gb2020]) (see discussion for more details). Due
-to varying degrees of alignment between bathymetry data and the defined outlines for GBR
-reefs, reefs with less than 5% coverage of valid bathymetry data were removed from analyses
-involving depth as a resilience factor.
-
-\[**TI:** **For Takuya to flesh out**\]
 
 ## Timeseries analysis
 
@@ -527,22 +542,16 @@ algae driven production, or to bioerosion dominated systems with rapid erosion o
 reef frameworks [@dudgeon2010; @perry2008]. While reefs at increased depths may be able to
 maintain coral driven CaCO~3~ production and accumulation into the future for longer.
 
-Overall, these findings support the hypothesis that reefs at greater depths will experience
-refugia benefits and more prolonged resilience under climate change compared to shallower
-reefs. Additionally, Lui, Callaghanand Baldock [-@liu2024] suggest that rubble instability
-is inversely correlated with reef depth, possibly limiting the juvenile recruitment capacity
-of shallow reefs. A caveat to these depth-resilience findings is the quality of the
-bathymetry data used to calculate median reef depth. These data (GBRMPA [-@gbr10gb2020]) are
-derived from satellite imagery and are limited in their alignment with the established
-GBRMPA reef outlines used in the investigation to characterise reef locations. As a result,
-842 reefs (22% of 3806 reefs) were removed from the depth-related analyses due to having
-less than 5% coverage of depth data. Additionally, deriving estimates of depth from
-satellite imagery is prone to high degrees of uncertainty. Data adopted for the given
-assessment are said to be accurate up to 15m from Mean Sea Level [@gbr10gb2020].
-Furthermore, an estimated median depth is determined for each reef, using the established
-GBRMPA reef outlines to provide an indication of “true” reef extent. Therefore, the
-estimates of reef depths are taken as a useful indication rather than an accurate and
-precise report of reef depths across the GBR.
+These findings support the hypothesis that reefs at greater depths will exhibit
+characteristics of refugia and more prolonged structural resilience under climate change
+compared to shallower reefs. Additionally, Lui, Callaghan and Baldock [-@liu2024] suggest
+that rubble instability is inversely correlated with reef depth, possibly limiting the
+juvenile recruitment capacity of shallow reefs. A caveat to these depth-resilience findings
+is the quality of the bathymetry data used to calculate median reef depth. As detailed
+previously, estimates of median reef depth are derived from satellite imagery (at $10m^2$
+resolution) which can be subject to high degrees of uncertainty, both in terms of the
+estimated depth at for each pixel as well as their alignment to the established GBRMPA reef
+outlines.
 
 Current reef restoration and intervention-investigation efforts on the GBR, such as
 deployment of coral seeding and fragment devices, target reefs with suitable restoration
