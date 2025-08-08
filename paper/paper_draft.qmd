@@ -142,12 +142,14 @@ positive carbonate budgets under current projections of climate change.
 ## Reef representations
 
 The spatial extent of the GBR reefs represented in this investigation follows the reef
-definitions available via the Great Barrier Reef Marine Park Authority [@greatba2022]. In
-total, the dataset represents 3806 reef areas across the GBR marine park. Reefs that are
-outside the GBRMPA management areas or are not associated with a GBRMPA reefal bioregion
-were removed from the investigation, leaving 3531 reefs. Annually and spatially averaged
-Degree Heating Week (DHW) data were used to represent future thermal stress at each reef
-location. Code used to calculate DHW data and perform analyses involved in this
+definitions available via the Great Barrier Reef Marine Park Authority [@greatba2022]. An
+indicative map of the GBR marine park including the Marine Park regions and which bioregion
+each reef belongs to is shown in @fig-region-map. In total, the dataset represents 3806 reef
+areas across the GBR marine park. Reefs that are outside the GBRMPA management areas or are
+not associated with a GBRMPA reefal bioregion **\[TI: Ben, cite the bioregion data
+source\]** were removed from the investigation, leaving 3531 reefs. Annually and spatially
+averaged Degree Heating Week (DHW) data were used to represent future thermal stress at each
+reef location. Code used to calculate DHW data and perform analyses involved in this
 investigation can be found at **insert repo citation**.
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
