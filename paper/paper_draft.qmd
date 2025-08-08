@@ -298,6 +298,12 @@ simulates groups of corals growing in diameter and competing for limited space o
 the GBR. Details on how coral demographic processes are implemented in ADRIA - CoralBlox can
 be found in the supplementary material.
 
+### TODO: Section on scenario modelling
+
+**[TI and BG to flesh out]**
+
+For each GCM, ran 4096 reference scenarios ("counterfactuals")...
+
 ### Factors influencing bleaching mortality
 
 In ADRIA we track the thermal tolerance of each functional group and size class as a
