@@ -21,6 +21,8 @@ gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
 GCMs = dhw_scenarios.dhw.properties["members"]
 gbr_dom.loc_data.geometry = Vector{ArchGDAL.IGeometry}(gbr_dom.loc_data.geometry) # Need to recast gbr_dom geometry col for ADRIA.run_scenarios(). Possibly issue with GeoDataFrames version.
+gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
+filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
 
 # 1. Attach connectivity data to context_layers
 connectivity_matrix = gbr_dom.conn
@@ -106,22 +108,23 @@ end
 context_layers = leftjoin(context_layers, source_to_sink; on=:UNIQUE_ID, order=:left)
 
 context_layers.initial_coral_cover = vec(
-    sum(gbr_dom.init_coral_cover; dims=1).data' .*
-    gbr_dom.loc_data.area .*
-    gbr_dom.loc_data.k
+    sum(gbr_dom.init_coral_cover[locations=At(context_layers.UNIQUE_ID)]; dims=1).data' .*
+    gbr_dom_filtered.area .*
+    gbr_dom_filtered.k
 )
 context_layers.initial_proportion = (
     context_layers.initial_coral_cover ./
     (context_layers.area .* context_layers.k)
 )
 
-areas = gbr_dom.loc_data.area
+areas = gbr_dom_filtered.area
 thresholds = 10:1:20
 # Attaching GCM-dependent context layers
 for (i_gcm, GCM) in enumerate(GCMs)
 
     # 3. Calculate number of years each reef is above a carbonate budget threshold
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
+    absolute_cover = absolute_cover[locations=At(context_layers.UNIQUE_ID)]
     @floop for threshold in thresholds
         t_threshold = threshold / 100
         reef_thresholds = context_layers.area .* t_threshold
@@ -133,7 +136,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     # 3. Attach DHW data to context_layers
     # mean DHW data for sites
 
-    dhw_time = gbr_dom.dhw_scens[:, :, i_gcm]
+    dhw_time = gbr_dom.dhw_scens[:, filtered_indices, i_gcm]
     dhw_locs = Float64.(mapslices(mean, dhw_time[1:30, :], dims=[:timesteps]))
 
     context_layers[:, "$(GCM)_mean_dhw"] = dhw_locs
@@ -161,7 +164,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
     dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
 
-    context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean
+    context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean[filtered_indices]
 end
 
 # 5. Calculate the number of reefs in each bioregion

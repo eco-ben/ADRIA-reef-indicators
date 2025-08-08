@@ -20,6 +20,13 @@ rename!(context_layers, :area_ID => :bioregion)
 context_layers.bioregion .= ifelse.(ismissing.(context_layers.bioregion), "NA", context_layers.bioregion)
 context_layers.bioregion = convert.(String, context_layers.bioregion)
 
+context_layers.inclusion_flag = (
+    (context_layers.management_area .!= "NA") .&
+    (context_layers.bioregion .!= "NA") .&
+    (context_layers.depth_qc .== 0)
+)
+context_layers = context_layers[context_layers.inclusion_flag, :]
+
 n_clusters = 3
 
 areas = gbr_dom.loc_data.area
@@ -33,6 +40,7 @@ for GCM in GCMs
 
     # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
     percentage_cover = percentage_cover_timeseries(areas, absolute_cover)
+    percentage_cover = percentage_cover[locations=At(context_layers.UNIQUE_ID)]
 
     (bioregion_clusters, bioregion_cluster_cats) = grouped_timeseries_clustering(percentage_cover.data, context_layers.bioregion; n_clusters=n_clusters, length_t=1:50)
     (man_region_clusters, man_region_cluster_cats) = grouped_timeseries_clustering(percentage_cover, context_layers.management_area; n_clusters=n_clusters, length_t=1:50)

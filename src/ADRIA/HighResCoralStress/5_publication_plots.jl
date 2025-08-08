@@ -22,9 +22,7 @@ ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys
 save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit=dpi)
 
 # GBR map plot - methods
-investigation_reefs = context_layers[
-    (context_layers.management_area.!="NA").&(context_layers.bioregion.!="NA"),
-    :]
+investigation_reefs = context_layers
 regions = GDF.read("../data/GBRMPA_Management_Areas.gpkg")
 regions.region_name = ["Mackay/Capricorn", "Cairns/Cooktown", "Far Northern", "Townsville Whitsunday"]
 qld = GDF.read("../data/GBRMPA_Reef_Features.gpkg")
@@ -88,17 +86,18 @@ GCMs = dhw_scenarios.dhw.properties["members"]
 
 context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
+gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
+filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
 
 dhw_arrays = [
-    rebuild(gbr_dom.dhw_scens[:, :, i_gcm], dims=(gbr_dom.dhw_scens.timesteps, Dim{:sites}(context_layers.UNIQUE_ID))) for i_gcm in eachindex(GCMs)
+    rebuild(gbr_dom.dhw_scens[:, filtered_indices, i_gcm], dims=(gbr_dom.dhw_scens.timesteps, Dim{:sites}(context_layers.UNIQUE_ID))) for i_gcm in eachindex(GCMs)
 ]
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
 dhw_arrays = rebuild(dhw_arrays, metadata=dhw_timeseries_properties)
 
-context_layers = context_layers[context_layers.management_area.!="NA", :]
 context_layers = sort(context_layers, :management_area)
 
-dhw_arrays = dhw_arrays[sites=(dhw_arrays.sites .∈ [unique(context_layers.UNIQUE_ID)])]
+dhw_arrays = dhw_arrays[sites=At(context_layers.UNIQUE_ID)]
 
 fig = Figure(
     size=(fig_sizes["gcm_timeseries_width"], fig_sizes["gcm_timeseries_height"]),

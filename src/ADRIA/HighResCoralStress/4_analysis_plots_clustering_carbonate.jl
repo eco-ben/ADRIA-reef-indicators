@@ -17,7 +17,10 @@ context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
-areas = gbr_dom.loc_data.area
+gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
+filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
+
+areas = context_layers.area
 
 thresholds = 10:1:20
 year_cols = Vector{String}()
@@ -40,12 +43,10 @@ for (i_gcm, GCM) in enumerate(GCMs)
 
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
     threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
+    threshold_cover = threshold_cover[locations=At(context_layers.UNIQUE_ID)]
 
-    dhw_ts = gbr_dom.dhw_scens[:, :, i_gcm]
+    dhw_ts = gbr_dom.dhw_scens[:, filtered_indices, i_gcm]
     dhw_ts = rebuild(dhw_ts, dims=threshold_cover.axes, metadata=dhw_timeseries_properties)
-
-    # Subset layers to remove reefs that start with very low coral cover
-    analysis_layers = context_layers[(context_layers.management_area.!="NA").&(context_layers.bioregion.!="NA"), :]
 
     # Analysing clusters identified at bioregion level
     cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :bioregion, fig_out_dir)
@@ -54,20 +55,17 @@ for (i_gcm, GCM) in enumerate(GCMs)
 
     gcm_reefs_long = reefs_long[contains.(reefs_long.variable, GCM), :]
     gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
-    gcm_reefs_long_depth = gcm_reefs_long[
-        gcm_reefs_long.UNIQUE_ID.∈[context_layers[context_layers.depth_qc.==0, :UNIQUE_ID]],
-        :]
 
     depth_year_correlation = Dict([
         (thresh, corspearman(
-            gcm_reefs_long_depth[gcm_reefs_long_depth.variable.==thresh, :value],
-            gcm_reefs_long_depth[gcm_reefs_long_depth.variable.==thresh, :depth_med]
+            gcm_reefs_long[gcm_reefs_long.variable.==thresh, :value],
+            gcm_reefs_long[gcm_reefs_long.variable.==thresh, :depth_med]
         ))
         for thresh in string.(thresholds)
     ])
 
     depth_carbonate_scatter = carbonate_budget_variable_scatter(
-        gcm_reefs_long_depth,
+        gcm_reefs_long,
         :depth_med,
         :value,
         :variable,
@@ -101,7 +99,6 @@ for (i_gcm, GCM) in enumerate(GCMs)
         total_connectivity_carbonate_scatter,
         px_per_unit=dpi
     )
-
 end
 
 man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM in GCMs]
@@ -130,9 +127,8 @@ dhw_arrays = [
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
 dhw_arrays = rebuild(dhw_arrays, metadata = dhw_timeseries_properties)
 
-analysis_layers_long = analysis_layers_long[analysis_layers_long.management_area.!="NA", :]
-rel_cover_arrays = rel_cover_arrays[locations=(rel_cover_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
-dhw_arrays = dhw_arrays[locations=(dhw_arrays.locations .∈ [unique(analysis_layers_long.UNIQUE_ID)])]
+rel_cover_arrays = rel_cover_arrays[locations=At(context_layers.UNIQUE_ID)]
+dhw_arrays = dhw_arrays[locations=At(context_layers.UNIQUE_ID)]
 
 GCM_comparison_cover_plot = grouped_GCM_cluster_timeseries_plots(
     rel_cover_arrays,
@@ -211,7 +207,7 @@ analysis_layers_long_bioregion = stack(
 )
 
 reefs_1_to_10 = context_layers[
-    (context_layers.depth_qc.==0).&(context_layers.depth_med.>=1).&(context_layers.depth_med.<=10), :]
+    (context_layers.depth_med.>=1).&(context_layers.depth_med.<=10), :]
 reefs_1_to_10.low_medium_clusters .= 0
 reefs_1_to_10_clusters = analysis_layers_long_bioregion[analysis_layers_long_bioregion.UNIQUE_ID.∈[reefs_1_to_10.UNIQUE_ID], :]
 reefs_1_to_10_clusters = reefs_1_to_10_clusters[reefs_1_to_10_clusters.variable.!=0.0, :]
@@ -250,6 +246,7 @@ all_conn_data = [
     ) for c_file in conn_files
 ]
 all_conn_data = concatenatecubes(all_conn_data, Dim{:conn_name}(conn_names))
+all_conn_data = all_conn_data[Source=At(context_layers.UNIQUE_ID), Sink=At(context_layers.UNIQUE_ID)]
 
 std_conn = mapslices(std, all_conn_data, dims=[:conn_name])
 rstd_conn = std_conn ./ mean_conn .* 100
@@ -270,9 +267,8 @@ save(
 )
 
 # Plot cluster assignment heatmap for bioregions
-context_no_na = context_layers[context_layers.bioregion.!="NA", :]
 bioregion_gcm_clusters = gcm_cluster_assignment_heatmap(
-    context_no_na,
+    context_layers,
     :bioregion,
     bioregion_gcm_cluster_cols
 )
