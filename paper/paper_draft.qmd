@@ -260,28 +260,33 @@ width="14.82cm"}
 
 ## Depth estimation
 
-Median depths for each reef location were extracted from satellite derived bathymetry data
-for the Great Barrier Reef (GBRMPA [-@gbr10gb2020]) (see discussion for more details). Due
-to varying degrees of alignment between bathymetry data and the defined outlines for GBR
-reefs, reefs with less than 5% coverage of valid bathymetry data were removed from analyses
-involving depth as a resilience factor.
+Reef depth characteristics were extracted using 10m resolution bathymetry data from the
+Great Barrier Reef Marine Park Authority (GBRMPA [-@gbr10gb2020]). For each reef, bathymetry
+data (in raster format) were spatially matched with reef polygon features through geometric
+intersection analysis. Depth values within each reef polygon were summarized using zonal
+statistics to calculate minimum, mean, median, maximum, and standard deviation of depth
+values. All depth values were converted to positive values (depths below sea level). The
+median depth was used to provide an indicative depth value for each reef.
 
-\[**TI:** **For Takuya to flesh out**\]
+As bathymetry data are derived from satellite imagery they can be limited in their alignment
+with the established GBRMPA reef outlines used in the investigation to characterise reef
+locations. Quality control flags were assigned to identify potential data limitations: reefs
+with no overlapping bathymetry data, reefs with minimum depth values above sea level
+(indicating potential data artifacts), and reefs where bathymetry pixels covered less than
+5% of the reef polygon area. These reefs with insufficient data coverage were removed from
+analyses (842 reefs of 3806 reefs, or 22%) **\[TI: BG to update\]**.
 
-\[Below moved from discussion - to be reworked for flow\]
+While data adopted for the given assessment are said to be accurate up to 15m from Mean Sea
+Level [@gbr10gb2020], there are many sources of uncertainty in the depth estimates used for
+this study. There is potential misalignment between GBRMPA reef outlines, as well as the
+usual challenges of deriving data from satellite imagery. In the case of bathymetry,
+estimates are subject to different bottom types (rock, sand, seagrass, etc) and how these
+affect reflectance, the water penetration depth of satellite sensors, influence of local
+conditions (e.g., turbidity and wave activity), and many other factors. The resulting depth
+estimates are therefore highly uncertain themselves and are only adopted as a useful
+indication rather than an accurate and precise report of reef depths across the GBR.
 
-These data (GBRMPA [-@gbr10gb2020]) are derived from satellite imagery and can be limited in
-their alignment with the established GBRMPA reef outlines used in the investigation to
-characterise reef locations. As a result, 842 reefs (22% of 3806 reefs) were removed from
-the depth-related analyses due to having less than 5% coverage of depth data. **\[TI to BG:
-is this number of reefs consistent?\]**
-
-Additionally, deriving estimates of depth from satellite imagery is prone to high degrees of
-uncertainty. Data adopted for the given assessment are said to be accurate up to 15m from
-Mean Sea Level [@gbr10gb2020]. Furthermore, an estimated median depth is determined for each
-reef, using the established GBRMPA reef outlines to provide an indication of “true” reef
-extent. Therefore, the estimates of reef depths are taken as a useful indication rather than
-an accurate and precise report of reef depths across the GBR.
+**\[TI: TODO cite Canonical Reefs repository\]**
 
 ## ADRIA-CoralBlox modelling
 
