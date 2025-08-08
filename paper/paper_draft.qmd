@@ -168,59 +168,84 @@ Future projections of maximum yearly Degree Heating Weeks (DHWs) for each reef w
 estimated from Sea Surface Temperature (SST) data for the GBR. Statistically downscaled 1km
 resolution SST data for five Global Climate Models (GCMs) were obtained from the
 HighResCoralStress database [@dixon2022; @dixon2023]. These five GCMs were EC-Earth3-Veg,
-ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GDFL-CM4 and are a part of the Sixth Phase of the
+ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GFDL-CM4 and are a part of the Sixth Phase of the
 Coupled Model Intercomparison Project (CMIP6) based on evaluation conducted by Grose et al.
 [-@grose2023]. These GCMs were found to rank highly in the recreation of historical
 atmospheric temperature and precipitation conditions in the Australasian region. While this
 assessment does not consider oceanic data, Grose et al. [-@grose2023] provide a
 region-specific selection mechanism which we use as an indicator of general performance of
-GCMs for the region.
-
-Maximum monthly mean DHW levels were calculated from the SST data following NOAA methodology
-[@liu2017; @skirving2020]. For each pixel of SST data, the monthly mean SST climatology (MM)
-was calculated as the mean SST for each month over 1985 to 2012, adjusted to centre at year
-1988.2857 (see Skirving et al. [-@skirving2020]). The "HotSpot SST Anomaly" [@skirving2020]
-was calculated as the difference between daily SST values and the maxmimum of a pixel's MM
-climatology (maximum monthly mean). DHW values were then calculated as the 12-week rolling
-sum of positive HotSpot SST Anomaly values for a pixel. Within each year the maximum of
-monthly mean DHW values was calculated. Reef scale DHW timeseries were extracted by taking
-the average DHW level over pixels touching a reef.
+GCMs for the region. An overview of the selected GCMs are provided in @tbl-gcms. The process
+described herein was conducted for all reefs within the GBR Marine Park to create DHW
+projections spanning from 2025 to 2075.
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
 the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and GCM
-development families. The IPCC defines ECS as the long term warming caused by a doubling of
-carbon dioxide above its pre-industrial concentration [@forster2021]. The five GCMs
-therefore allow for a range of possible climate futures to be explored, capturing the
-uncertainty in future responses to CO2 increases (@sfig-ecs; @fig-methods-dhws; [@grose2023;
-@shepherd2018]).
+development families \[**TI: Ben, what does "GCM development families" mean?**\]. The IPCC
+defines ECS as the long term warming caused by a doubling of carbon dioxide above its
+pre-industrial concentration [@forster2021]. The five GCMs therefore allow for a range of
+possible climate futures to be explored, capturing the uncertainty in future responses to
+CO2 increases (@fig-ecs; @sfig-methods-dhws; [@grose2023; @shepherd2018]) **\[TI: Missing
+figure reference?\]**. Projections using Shared Socio-economic Pathway (SSP) 2-4.5 was used
+to represent the plausible emission pathway. It represents a moderate emissions scenario
+with continued CO2 emissions comparable to present day until 2050, after which emissions
+gradually decline. Under this scenario, atmospheric concentrations approximately reach
+540ppm by 2100 [@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to
+4.31°C of global atmospheric warming in the 2081-2100 period relative to 1850-1900.
 
-Shared Socio-economic Pathway 2-4.5 (approximate to the previously used RCP 4.5) was used to
-represent the plausible emission pathway under current emission trajectories, with similar
-atmospheric CO2 levels to present day remaining until 2050 [@hausfather2020; IPCC
--@climate2023]. This SSP trajectory estimates 2.7°C of global atmospheric warming in the
-2081-2100 period relative to 1850-1900.
+DHW climatological baselines were calculated from the SST data following NOAA methodology
+[@liu2017; @skirving2020]. For each pixel of SST data, the Monthly Mean SST climatology was
+calculated by computing the mean SST value for each calendar month (January through
+December) across the 28-year baseline period from 1985 to 2012. This climatological baseline
+was then temporally adjusted to center at year 1988.2857, which represents the midpoint of
+the reference period and accounts for any long-term trends within the baseline years
+themselves. The adjustment ensures that the climatology represents conditions at a specific
+temporal reference point rather than being influenced by gradual warming or cooling trends
+that may have occurred during the 1985-2012 period. The resulting monthly climatologies
+serve as a standardized reference against which current SST conditions can be compared to
+identify thermal anomalies and assess coral bleaching risk, following the methodology
+established by Skirving et al. [-@skirving2020].
 
-\[**TI note: The above needs to be expanded a little. IPCC has not been mentioned before at
-this point either**\]
+**\[TI: Ben, could you provide more details in the paragraph above please? What resolution
+is the data in? 10m\^2?\]**
 
-\[**TI: Needs a table clearly communicating each GCM, ECS value, and what each represent
-(e.g., usual, optimistic scenario, etc)**\]
+Degree Heating Weeks (DHWs) were then derived using the "HotSpot SST Anomaly" approach
+[@skirving2020]. The "HotSpot SST Anomaly" represents the thermal stress experienced by
+coral reefs and is calculated as the difference between daily SST values and the maximum of
+a pixel's monthly mean climatology across all twelve months (i.e., the maximum monthly mean
+temperature). This approach uses the annual maximum temperature as the baseline because
+corals are adapted to withstand their local warmest conditions under normal seasonal cycles.
+When temperatures exceed this seasonal maximum, corals experience thermal stress that can
+lead to bleaching. Only positive anomalies are considered relevant for coral stress, as
+temperatures below the seasonal maximum do not contribute to bleaching risk.
 
-| Global Climate Model source | ECS value (°C) | Interpreted relative severity | Individual results displayed |
-|-----------------------|-----------------------|-----------------------|-----------------------|
-| EC-Earth3-Veg | 4.31 | High | **insert repo citation** |
-| ACCESS-CM2 | 4.72 | High | **insert repo citation** |
-| ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
-| GFDL-CM4 | 2.9 | Low | **insert repo citation** |
-| NorESM2-MM | 2.5 | Low | **insert repo citation** |
+DHW values on a per-pixel basis were then calculated as the 12-week rolling sum of positive
+HotSpot SST Anomaly values, expressed in units of °C-weeks. The 12-week accumulation period
+reflects the cumulative nature of coral thermal stress. Brief temperature spikes may be
+tolerable, but sustained or repeated exposure to elevated temperatures causes progressively
+greater physiological stress and bleaching severity. DHW values integrate both the magnitude
+and duration of thermal stress: a moderate anomaly (e.g., 1°C) sustained for 12 weeks
+produces the same DHW value as a severe anomaly (e.g., 3°C) lasting 4 weeks, though the
+biological impacts may differ. DHW estimates for each indicative reef (see @greatba2022)
+were then determined by taking the mean DHW value for all pixels within each reef outline.
 
-: Table 1: Information for each GCM used in this investigation including ECS value,
-interpreted relative severity and where results are individual GCM results are displayed.
-GCMs in context with assessed plausible ranges of ECS values are displayed in [@fig-ecs].
-ACCESS-ESM1-5 is taken as an intermediate model based on the range of ECS values, when
-assessing factors impacting reef resilience these results are indicative of results from all
-GCMs assessed. Therefore, inidividual results for other GCMs are available at **insert repo
-citation**. ECS value sources: .
+**\[TI: Ben, I did my best to expand on DHW calculations and detail HotSpot SST anomaly,
+could you please check?\]**
+
+::: {#tbl-gcms}
+| Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
+|-----------------------------|----------------|-------------------------------|------------------|
+| EC-Earth3-Veg               | 4.31           | High                          | **insert repo citation**    |
+| ACCESS-CM2                  | 4.72           | High                          | **insert repo citation**    |
+| ACCESS-ESM1-5               | 3.87           | Intermediate                  | Main text        |
+| GFDL-CM4                    | 2.9            | Low                           | **insert repo citation**    |
+| NorESM2-MM                  | 2.5            | Low                           | **insert repo citation**    |
+
+: Information for each GCM used in this investigation including ECS value, interpreted
+relative severity and where results are individual GCM results are found. GCMs in context
+with assessed plausible ranges of ECS values are displayed in [@sfig-ecs] **\[TI: Missing
+figure?\]**. ACCESS-ESM1-5 is taken as an intermediate model based on the range of ECS
+values, thus results are displayed in the main text. ECS value sources: .
+:::
 
 \[**BG: Need to add my ECS value sources to table caption. (And also cite GCM paper
 sources).**\]
@@ -426,10 +451,21 @@ Under ACCESS-CM2 (4.72°C) and EC-Earth3-Veg (4.31°C) GCMs cover trajectories a
 declining in all management areas.
 
 Under each GCM, in all management areas, low, medium and high cluster reefs have low
-differences between DHW trajectories (@sfig-gcm-dhw-trajectories) \[**TI:** **I don't
+differences between DHW trajectories (@fig-gcm-dhw-trajectories) \[**TI:** **I don't
 understand this sentence - what is meant by reefs have low differences?**\]. The highest
 peak DHW levels occur under GFDL-CM4 between 2045 and 2050, while greater increases in
 overall DHW timeseries occur under ACCESS-CM2.
+
+![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
+analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
+between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with
+intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
+clusters (blue) are clusters with the highest median area-relative cover between 2030 and
+2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
+represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
+represented five times (for each GCM), with each GCM displayed
+horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#fig-gcm-dhw-trajectories
+width="14.82cm"}
 
 ![Reef area-relative coral cover timeseries clustered within each management area, for each
 GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
@@ -585,7 +621,7 @@ connectivity may not be suitable for capturing the seasonal - ecological time sc
 connectivity between locations due to high daily variability in connectivity data. This is
 supported by the connectivity data used in our investigation, which have large relative
 standard deviations for connectivity between reefs over the 24 days used
-(@sfig-connectivity-rsd). Using alternative summarisation methods that capture
+[@sfig-connectivity-rsd]. Using alternative summarisation methods that capture
 ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
 connectivity [@vogt-vincent2023], future investigations may find increased importance of
 both depth and reef connectivity for resilience, in line with other investigations
