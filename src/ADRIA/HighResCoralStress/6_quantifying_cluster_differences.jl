@@ -1,6 +1,7 @@
 include("../../common.jl")
 
 context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
+context_layers = context_layers[context_layers.management_area .!= "NA", :]
 
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
 GCMs = dhw_scenarios.dhw.properties["members"]
@@ -11,7 +12,7 @@ areas = gbr_dom.loc_data.area
 all_levels = vec(collect(Iterators.product(GCMs, unique(context_layers.management_area))))
 distances = DataFrame(GCM = first.(all_levels), management_area = last.(all_levels), CID_cover = zeros(length(all_levels)), CID_dhw = zeros(length(all_levels)))
 
-for GCM in GCMs
+for (i_gcm, GCM) in enumerate(GCMs)
 
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
     relative_cover = percentage_cover_timeseries(areas, absolute_cover)[1:50, :]
@@ -42,13 +43,14 @@ for GCM in GCMs
         distances[
             (distances.GCM .== GCM) .& 
             (distances.management_area .== man_area),
-        :CID_cover] .= man_area_cid_cover 
+        :CID_cover] .= round(man_area_cid_cover, digits=2) 
 
         distances[
             (distances.GCM .== GCM) .& 
             (distances.management_area .== man_area),
-        :CID_dhw] .= man_area_cid_dhw
+        :CID_dhw] .= round(man_area_cid_dhw, digits=2)
     end
 end
 
 sort!(distances, [:management_area, :GCM])
+distances.management_area = replace.(distances.management_area, ["Management Area" => ""])

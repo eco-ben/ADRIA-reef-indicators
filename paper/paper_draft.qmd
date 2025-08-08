@@ -494,6 +494,27 @@ high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment
 expected as spatial differences in GCM DHW timeseries result in reefs being impacted in
 different magnitudes relative to other reefs in their bioregion.
 
+```{julia}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+#| label: tbl-cluster-cid
+#| tbl-cap: Complexity invariant distance (CID) between low and high cluster median timeseries in each management area under each GCM. CID values are calculated for percentage cover timeseries (@fig-gcm-cover-trajectories) and Degree Heating Week (DHW) timeseries (@fig-gcm-dhw-trajectories). Complexity invariant distance represents the euclidean distance between timeseries, corrected by the complexity of the two timeseries. CID values for percentage cover and DHW timeseries are not directly comparable as the timeseries use different units.
+
+using PrettyTables, Markdown
+cd("../src")
+include("../src/ADRIA/HighResCoralStress/6_quantifying_cluster_differences.jl"); # Quantify low-high cluster differences using CID metric.
+
+io = IOBuffer()
+
+header = ["GCM", "Management area", "CID - cover", "CID - DHW"]
+pretty_table(io, distances, backend = Val(:markdown), header = header)
+
+md_string = (String(take!(io)))
+Markdown.parse(md_string)
+```
+
 ## Bioregion scale clustering
 
 Across many bioregions timeseries clustering identified a ‘low’ cluster containing reefs
