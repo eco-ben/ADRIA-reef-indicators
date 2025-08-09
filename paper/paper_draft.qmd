@@ -179,13 +179,12 @@ described herein was conducted for all reefs within the GBR Marine Park to creat
 projections spanning from 2025 to 2075.
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
-the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and GCM
+the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and a range of  GCM
 development families \[**TI: Ben, what does "GCM development families" mean?**\]. The IPCC
 defines ECS as the long term warming caused by a doubling of carbon dioxide above its
 pre-industrial concentration [@forster2021]. The five GCMs therefore allow for a range of
 possible climate futures to be explored, capturing the uncertainty in future responses to
-CO2 increases (@fig-ecs; @sfig-methods-dhws; [@grose2023; @shepherd2018]) **\[TI: Missing
-figure reference?\]**. Projections using Shared Socio-economic Pathway (SSP) 2-4.5 was used
+CO2 increases (@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]). Projections using Shared Socio-economic Pathway (SSP) 2-4.5 was used
 to represent the plausible emission pathway. It represents a moderate emissions scenario
 with continued CO2 emissions comparable to present day until 2050, after which emissions
 gradually decline. Under this scenario, atmospheric concentrations approximately reach
@@ -242,8 +241,7 @@ could you please check?\]**
 
 : Information for each GCM used in this investigation including ECS value, interpreted
 relative severity and where results are individual GCM results are found. GCMs in context
-with assessed plausible ranges of ECS values are displayed in [@sfig-ecs] **\[TI: Missing
-figure?\]**. ACCESS-ESM1-5 is taken as an intermediate model based on the range of ECS
+with assessed plausible ranges of ECS values are displayed in [@sfig-ecs]. ACCESS-ESM1-5 is taken as an intermediate model based on the range of ECS
 values, thus results are displayed in the main text. ECS value sources: .
 :::
 
