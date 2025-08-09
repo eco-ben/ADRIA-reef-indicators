@@ -67,7 +67,7 @@ ADRIA-reef-indicators/outputs/
 
 ### Analysis scripts - `src/ADRIA/HighResCoralStress/`
 
-Note that scripts 1, 2 and 3 are only required to be run if creating model outputs from scratch. 
+Note that scripts 1, 2 and 3 are only required to be run if creating model outputs from scratch.
 If median cover timeseries and `analysis_context_layers_carbonate.gpkg` are already available in the relevant output structure, then scripts 4 and 5 can be run immediately.
 If figures are already available, then the paper.qmd document can be rendered immediately.
 
@@ -116,11 +116,11 @@ Timeseris clustering analyses are performed at bioregion, management area and GB
 
 ### Timeseries clustering
 
-Timeseries are clustered based on their complexity invariant distance (CID). The CID 
+Timeseries are clustered based on their complexity invariant distance (CID). The CID
 corrects the Euclidean distance between pairs of timeseries (which accounts for magnitude
-differences) with the complexity of each timeseries (obtained through a measure of their 
-variability) to ensure reefs are clustered based on their underlying temporal dynamics 
-rather than simply their average coral cover. 
+differences) with the complexity of each timeseries (obtained through a measure of their
+variability) to ensure reefs are clustered based on their underlying temporal dynamics
+rather than simply their average coral cover.
 Reefs are clustered into 3 clusters based on these values, with clusters being assigned a
 low, medium or high value based on their median-cluster coral cover from 2030-2050.
 
@@ -131,5 +131,5 @@ carbonate budget means that carbonate accumulation processes outweigh erosion an
 can build the skeletal structures important to ecosystem functioning. We can estimate the
 number of years a reef is predicted to have a positive carbonate budget but assuming a
 live-coral-cover threshold above which a reef has a positive carbonate budget.
-As this threshold is uncertain we explore a range of values and compare the results in 
+As this threshold is uncertain we explore a range of values and compare the results in
 analyses.
