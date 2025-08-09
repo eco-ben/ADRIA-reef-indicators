@@ -4,7 +4,8 @@ using CSV
 
 include("../../common.jl")
 
-change_ADRIA_debug(false) # Ensure ADRIA debug mode is set to false to allow parallel processing.
+# Ensure ADRIA debug mode is set to false to allow parallel processing.
+change_ADRIA_debug(false)
 
 using ADRIA
 
@@ -14,7 +15,10 @@ gcms = dhw_scenarios.dhw.properties["members"]
 # GBR wide domain
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 context_layers = gbr_dom.loc_data
-gbr_dom.loc_data.geometry = Vector{ArchGDAL.IGeometry}(gbr_dom.loc_data.geometry) # Need to recast gbr_dom geometry col for ADRIA.run_scenarios(). Possibly issue with GeoDataFrames version.
+
+# Need to recast gbr_dom geometry col for ADRIA.run_scenarios().
+# Possibly issue with GeoDataFrames version.
+gbr_dom.loc_data.geometry = Vector{ArchGDAL.IGeometry}(gbr_dom.loc_data.geometry)
 
 for (g, GCM) in enumerate(gcms)
 
