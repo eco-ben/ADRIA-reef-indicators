@@ -334,6 +334,15 @@ function grouped_cluster_timeseries_plots(
         )
     end
 
+    feat = timeseries_array.properties[:metric_feature]
+    unit_text = timeseries_array.properties[:metric_unit]
+    Label(
+        fig[:, -1], "$feat [$unit_text]",
+        rotation=π / 2,  # Rotate 90 degrees
+        tellheight=false,
+        tellwidth=true
+    )
+
     if grouping != :gbr
         bottom_axes = [last(plot_layout[last.(plot_layout).==x]) for x in 1:n_col]
         not_bottom_axes = findall(plot_layout .∉ [bottom_axes])
@@ -341,10 +350,11 @@ function grouped_cluster_timeseries_plots(
         # second_row = findfirst(last.(plot_layout) .== n_col) + 1
         # second_last_row = findfirst(x -> first(x) == maximum(first.(plot_layout)), plot_layout) - 1
         # middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
-        axes_after_1 = filter(x -> x isa Axis, fig.content)[2:end]
         map(x -> hidexdecorations!(x; grid=false, ticks=false), not_bottom_axes)
-        map(x -> hideydecorations!(x; ticks=false, ticklabels=false, grid=false), axes_after_1)
     end
+        
+    axes = filter(x -> x isa Axis, fig.content)
+    map(x -> hideydecorations!(x; ticks=false, ticklabels=false, grid=false), axes)
 
     if grouping == :bioregion
         map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
@@ -360,6 +370,7 @@ function grouped_cluster_timeseries_plots(
     if grouping == :gbr
         colsize!(fig.layout, 2, Relative(0.1))
     end
+    Makie.trim!(fig.layout)
 
     return fig
 end

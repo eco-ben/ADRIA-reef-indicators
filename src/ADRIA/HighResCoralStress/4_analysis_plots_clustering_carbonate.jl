@@ -20,8 +20,6 @@ gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
 filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
 
-areas = gbr_dom.loc_data.area[filtered_indices]
-
 thresholds = 10:1:20
 year_cols = Vector{String}()
 for GCM in GCMs
@@ -42,16 +40,16 @@ for (i_gcm, GCM) in enumerate(GCMs)
     fig_out_dir = joinpath(output_path, "figs/$(GCM)")
 
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
-    threshold_cover = percentage_cover_timeseries(areas, absolute_cover)
-    threshold_cover = threshold_cover[locations=At(context_layers.UNIQUE_ID)]
+    absolute_cover = absolute_cover[locations=At(context_layers.UNIQUE_ID)]
+    percentage_cover = percentage_cover_timeseries(context_layers.area, absolute_cover)
 
     dhw_ts = gbr_dom.dhw_scens[:, filtered_indices, i_gcm]
-    dhw_ts = rebuild(dhw_ts, dims=threshold_cover.axes, metadata=dhw_timeseries_properties)
+    dhw_ts = rebuild(dhw_ts, dims=percentage_cover.axes, metadata=dhw_timeseries_properties)
 
     # Analysing clusters identified at bioregion level
-    cluster_analysis_plots(GCM, context_layers, threshold_cover, dhw_ts, :bioregion, fig_out_dir)
-    cluster_analysis_plots(GCM, context_layers, threshold_cover, dhw_ts, :management_area, fig_out_dir)
-    cluster_analysis_plots(GCM, context_layers, threshold_cover, dhw_ts, :gbr, fig_out_dir)
+    cluster_analysis_plots(GCM, context_layers, percentage_cover, dhw_ts, :bioregion, fig_out_dir)
+    cluster_analysis_plots(GCM, context_layers, percentage_cover, dhw_ts, :management_area, fig_out_dir)
+    cluster_analysis_plots(GCM, context_layers, percentage_cover, dhw_ts, :gbr, fig_out_dir)
 
     gcm_reefs_long = reefs_long[contains.(reefs_long.variable, GCM), :]
     gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
