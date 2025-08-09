@@ -258,7 +258,7 @@ sources).**\]
 the different management areas across the Great Barrier Reef. Green represents
 Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricorn and red
 represents the Townsville-Whitsunday management area. Solid lines represent the
-management-area median timeseries and bands represent the 2.5 to 97.5 percentile confidence
+management-area median timeseries and bands represent the 95th percentile confidence
 intervals.](../outputs/ADRIA_results/HighResCoralStress/figs/methods_dhw_timeseries.png){#fig-methods-dhws
 width="14.82cm"}
 
@@ -480,8 +480,8 @@ between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are 
 intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
 clusters (blue) are clusters with the highest median area-relative cover between 2030 and
 2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
-represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
-represented five times (for each GCM), with each GCM displayed
+represent the 95th percentile confidence intervals. Each management area is represented five
+times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#fig-gcm-dhw-trajectories
 width="14.82cm"}
 
@@ -491,8 +491,8 @@ between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are 
 intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
 clusters (blue) are clusters with the highest median area-relative cover between 2030 and
 2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
-represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
-represented five times (for each GCM), with each GCM displayed
+represent the 95th percentile confidence intervals. Each management area is represented five
+times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
 width="14.82cm"}
 
