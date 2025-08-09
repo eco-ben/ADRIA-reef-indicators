@@ -165,8 +165,8 @@ Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fi
 ## Degree Heating Week trajectories
 
 Future projections of maximum yearly Degree Heating Weeks (DHWs) for each reef were
-estimated from Sea Surface Temperature (SST) data for the GBR. Statistically downscaled 1km
-resolution SST data for five Global Climate Models (GCMs) were obtained from the
+estimated from Sea Surface Temperature (SST) data for the GBR. Statistically downscaled
+1km^2^ resolution SST data for five Global Climate Models (GCMs) were obtained from the
 HighResCoralStress database [@dixon2022; @dixon2023]. These five GCMs were EC-Earth3-Veg,
 ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GFDL-CM4 and are a part of the Sixth Phase of the
 Coupled Model Intercomparison Project (CMIP6) based on evaluation conducted by Grose et al.
@@ -179,60 +179,56 @@ described herein was conducted for all reefs within the GBR Marine Park to creat
 projections spanning from 2025 to 2075.
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
-the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and a range of  GCM
-development families \[**TI: Ben, what does "GCM development families" mean?**\]. The IPCC
-defines ECS as the long term warming caused by a doubling of carbon dioxide above its
+the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and a range of
+GCM development families \[**TI: Ben, what does "GCM development families" mean?**\]. The
+IPCC defines ECS as the long term warming caused by a doubling of carbon dioxide above its
 pre-industrial concentration [@forster2021]. The five GCMs therefore allow for a range of
 possible climate futures to be explored, capturing the uncertainty in future responses to
-CO2 increases (@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]). Projections using Shared Socio-economic Pathway (SSP) 2-4.5 was used
-to represent the plausible emission pathway. It represents a moderate emissions scenario
-with continued CO2 emissions comparable to present day until 2050, after which emissions
-gradually decline. Under this scenario, atmospheric concentrations approximately reach
-540ppm by 2100 [@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to
-4.31°C of global atmospheric warming in the 2081-2100 period relative to 1850-1900.
+CO2 increases (@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]). Projections using
+Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the plausible emission
+pathway. It represents a moderate emissions scenario with continued CO2 emissions comparable
+to present day until 2050, after which emissions gradually decline. Under this scenario,
+atmospheric concentrations approximately reach 540ppm by 2100 [@hausfather2020; IPCC
+-@climate2023]. The selected GCMs represent 2.5°C to 4.31°C of global atmospheric warming in
+the 2081-2100 period relative to 1850-1900.
 
-DHW climatological baselines were calculated from the SST data following NOAA methodology
-[@liu2017; @skirving2020]. For each pixel of SST data, the Monthly Mean SST climatology was
-calculated by computing the mean SST value for each calendar month (January through
-December) across the 28-year baseline period from 1985 to 2012. This climatological baseline
-was then temporally adjusted to center at year 1988.2857, which represents the midpoint of
-the reference period and accounts for any long-term trends within the baseline years
-themselves. The adjustment ensures that the climatology represents conditions at a specific
-temporal reference point rather than being influenced by gradual warming or cooling trends
-that may have occurred during the 1985-2012 period. The resulting monthly climatologies
-serve as a standardized reference against which current SST conditions can be compared to
-identify thermal anomalies and assess coral bleaching risk, following the methodology
-established by Skirving et al. [-@skirving2020].
-
-**\[TI: Ben, could you provide more details in the paragraph above please? What resolution
-is the data in? 10m\^2?\]**
+Monthly mean SST climatological baselines, for each 1km^2^ pixel, were calculated from the
+daily SST data following NOAA methodology [@liu2017; @skirving2020]. For each pixel of SST
+data, the Monthly Mean SST climatology was calculated by computing the mean SST value for
+each calendar month (January through December) across the 28-year baseline period from 1985
+to 2012. For each month separately, this climatological baseline was then adjusted to center
+at year 1988.2857, which attempts to account for any long-term trends within the baseline
+years themselves (see Skirving et al. [@skirving2020]). The adjustment ensures that the
+climatology represents conditions at a specific temporal reference point rather than being
+influenced by gradual warming or cooling trends that may have occurred during the 1985-2012
+period. The resulting monthly climatologies serve as a standardized reference against which
+current SST conditions can be compared to identify thermal anomalies and assess coral
+bleaching risk, following the methodology established by Skirving et al. [-@skirving2020].
 
 Degree Heating Weeks (DHWs) were then derived using the "HotSpot SST Anomaly" approach
 [@skirving2020]. The "HotSpot SST Anomaly" represents the thermal stress experienced by
 coral reefs and is calculated as the difference between daily SST values and the maximum of
 a pixel's monthly mean climatology across all twelve months (i.e., the maximum monthly mean
-temperature). This approach uses the annual maximum temperature as the baseline because
-corals are adapted to withstand their local warmest conditions under normal seasonal cycles.
-When temperatures exceed this seasonal maximum, corals experience thermal stress that can
-lead to bleaching. Only positive anomalies are considered relevant for coral stress, as
-temperatures below the seasonal maximum do not contribute to bleaching risk.
+SST). This approach uses the annual maximum temperature as the baseline because corals are
+adapted to withstand their local warmest conditions under normal seasonal cycles. When
+temperatures exceed this seasonal maximum, corals experience thermal stress that can lead to
+bleaching. Only positive anomalies are considered relevant for coral stress, as temperatures
+below the seasonal maximum do not contribute to bleaching risk.
 
-DHW values on a per-pixel basis were then calculated as the 12-week rolling sum of positive
-HotSpot SST Anomaly values, expressed in units of °C-weeks. The 12-week accumulation period
-reflects the cumulative nature of coral thermal stress. Brief temperature spikes may be
-tolerable, but sustained or repeated exposure to elevated temperatures causes progressively
-greater physiological stress and bleaching severity. DHW values integrate both the magnitude
-and duration of thermal stress: a moderate anomaly (e.g., 1°C) sustained for 12 weeks
-produces the same DHW value as a severe anomaly (e.g., 3°C) lasting 4 weeks, though the
-biological impacts may differ. DHW estimates for each indicative reef (see @greatba2022)
-were then determined by taking the mean DHW value for all pixels within each reef outline.
-
-**\[TI: Ben, I did my best to expand on DHW calculations and detail HotSpot SST anomaly,
-could you please check?\]**
+DHW values on a per-pixel basis at 1km^2^ resolution were then calculated as the 12-week
+rolling sum of positive HotSpot SST Anomaly values, expressed in units of °C-weeks. The
+12-week accumulation period reflects the cumulative nature of coral thermal stress. Brief
+temperature spikes may be tolerable, but sustained or repeated exposure to elevated
+temperatures causes progressively greater physiological stress and bleaching severity. DHW
+values integrate both the magnitude and duration of thermal stress: a moderate anomaly
+(e.g., 1°C) sustained for 12 weeks produces the same DHW value as a severe anomaly (e.g.,
+3°C) lasting 4 weeks, though the biological impacts may differ. DHW estimates for each
+indicative reef (see @greatba2022) were then determined by taking the mean DHW value for all
+pixels touching each reef outline.
 
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
-|-------------------------|--------------------|---------------------------|--------------------|
+|------------------------|----------------------|--------------------------|----------------------|
 | EC-Earth3-Veg | 4.31 | High | **insert repo citation** |
 | ACCESS-CM2 | 4.72 | High | **insert repo citation** |
 | ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
@@ -241,8 +237,9 @@ could you please check?\]**
 
 : Information for each GCM used in this investigation including ECS value, interpreted
 relative severity and where results are individual GCM results are found. GCMs in context
-with assessed plausible ranges of ECS values are displayed in [@sfig-ecs]. ACCESS-ESM1-5 is taken as an intermediate model based on the range of ECS
-values, thus results are displayed in the main text. ECS value sources: .
+with assessed plausible ranges of ECS values are displayed in [@sfig-ecs]. ACCESS-ESM1-5 is
+taken as an intermediate model based on the range of ECS values, thus results are displayed
+in the main text. ECS value sources: .
 :::
 
 \[**BG: Need to add my ECS value sources to table caption. (And also cite GCM paper
@@ -513,6 +510,8 @@ md_string = (String(take!(io)))
 Markdown.parse(md_string)
 ```
 
+\[**BG: Need to add quantification results to text for timeseries differences.**\]
+
 ## Bioregion scale clustering
 
 Across many bioregions timeseries clustering identified a ‘low’ cluster containing reefs
@@ -565,6 +564,8 @@ pretty_table(io, cluster_regression, backend = Val(:markdown), header = header)
 md_string = (String(take!(io)))
 Markdown.parse(md_string)
 ```
+
+\[**BG: Need to add quantification results to text for regressions.**\]
 
 In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW timeseries
 correlation levels, while reefs in 'high' clusters have the highest correlation levels
