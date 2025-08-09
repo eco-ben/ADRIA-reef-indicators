@@ -55,4 +55,4 @@ for (i_gcm, GCM) in enumerate(GCMs)
 end
 
 sort!(distances, [:management_area, :GCM])
-distances.management_area = replace.(distances.management_area, ["Management Area" => ""])
+distances.management_area = replace.(distances.management_area, [" Management Area" => ""])

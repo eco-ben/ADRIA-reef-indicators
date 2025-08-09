@@ -233,12 +233,12 @@ could you please check?\]**
 
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
-|-----------------------------|----------------|-------------------------------|------------------|
-| EC-Earth3-Veg               | 4.31           | High                          | **insert repo citation**    |
-| ACCESS-CM2                  | 4.72           | High                          | **insert repo citation**    |
-| ACCESS-ESM1-5               | 3.87           | Intermediate                  | Main text        |
-| GFDL-CM4                    | 2.9            | Low                           | **insert repo citation**    |
-| NorESM2-MM                  | 2.5            | Low                           | **insert repo citation**    |
+|-------------------------|--------------------|---------------------------|--------------------|
+| EC-Earth3-Veg | 4.31 | High | **insert repo citation** |
+| ACCESS-CM2 | 4.72 | High | **insert repo citation** |
+| ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
+| GFDL-CM4 | 2.9 | Low | **insert repo citation** |
+| NorESM2-MM | 2.5 | Low | **insert repo citation** |
 
 : Information for each GCM used in this investigation including ECS value, interpreted
 relative severity and where results are individual GCM results are found. GCMs in context
@@ -300,7 +300,7 @@ be found in the supplementary material.
 
 ### TODO: Section on scenario modelling
 
-**[TI and BG to flesh out]**
+**\[TI and BG to flesh out\]**
 
 For each GCM, ran 4096 reference scenarios ("counterfactuals")...
 
@@ -536,6 +536,37 @@ between 2030 and 2040 within each bioregion. Solid lines represent the median de
 cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 width="14.82cm"}
+
+```{julia}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: asis
+#| label: tbl-access-esm1-5-bioregion-regression
+#| tbl-cap: Multinomial logistic regression coefficients for the statistical model containing median reef depth, natural-log total connectivity strength, natural-log source-to-sink ratio and ACCESS-ESM1-5 mean timeseries DHW value as predictor variables. ACCESS-ESM1-5 bioregion scale reef cluster assignment is the response variable with three levels, 'low' (regression reference level), 'medium' and 'high'.
+
+using PrettyTables, Markdown
+cd("../src")
+
+include("../src/common.jl")
+
+cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/ACCESS-ESM1-5_bioregion_cluster_regression_coefficients.csv"), DataFrame)
+cluster_regression.Name = replace.(cluster_regression.Name, ["ACCESS-ESM1-5_bioregion_cluster_cats: " => "Cluster "])
+
+for name in names(cluster_regression)
+    if isa(cluster_regression[:, name], Vector{Float64})
+        cluster_regression[:, name] = round.(cluster_regression[:, name]; sigdigits=2)
+    end
+end
+
+io = IOBuffer()
+
+header = ["Response level ~ Term", "β estimate", "SE", "t-value", "Pr > |t|", "2.5%", "97.5%"]
+pretty_table(io, cluster_regression, backend = Val(:markdown), header = header)
+
+md_string = (String(take!(io)))
+Markdown.parse(md_string)
+```
 
 In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW timeseries
 correlation levels, while reefs in 'high' clusters have the highest correlation levels
