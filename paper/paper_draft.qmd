@@ -142,25 +142,32 @@ positive carbonate budgets under current projections of climate change.
 ## Reef representations
 
 The spatial extent of the GBR reefs represented in this investigation follows the reef
-definitions available via the Great Barrier Reef Marine Park Authority [@greatba2022]. An
-indicative map of the GBR marine park including the Marine Park regions and which bioregion
-each reef belongs to is shown in @fig-region-map. In total, the dataset represents 3806 reef
-areas across the GBR marine park. Reefs that are outside the GBRMPA management areas or are
-not associated with a GBRMPA reefal bioregion **\[TI: Ben, cite the bioregion data
-source\]** were removed from the investigation, leaving 3531 reefs. Annually and spatially
-averaged Degree Heating Week (DHW) data were used to represent future thermal stress at each
-reef location. Code used to calculate DHW data and perform analyses involved in this
-investigation can be found at **insert repo citation**.
+definitions available via the Great Barrier Reef Marine Park Authority (GBRMPA)
+[@GBRMPA2022]. An indicative map of the GBR marine park including the Marine Park
+management regions and which reefal bioregion each reef belongs to is shown in
+@fig-region-map [@GBRMPA2024; @GBRMPA2001]. This investigation adopts the GBR reef definition
+used in Bozec et al. [-@bozec2025], which includes 3806 reefs across the GBR. Reefs that are not
+associated with GBRMPA management areas or reefal bioregions were removed from the
+investigation. Additionally, reefs with poor quality bathymetry data coverage or fewer than
+three reefs per bioregion were removed from analyses (see Methods - Depth estimation). As a
+result, a total of 2429 individual reefs were included in this investigation. Annually and
+spatially averaged Degree Heating Week (DHW) data were used to represent future thermal
+stress at each reef location. Code used to calculate DHW data and perform analyses involved
+in this investigation can be found at **insert repo citation**.
+
+\[**BG: Updated number of reefs and introduced original set of reefs with 3806 to set scene for justified removal of reefs.**\]
+
+\[**BG: I am having issues with citations not appearing for datasets like GBRMPA ones.**\]
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). The green polygon represents the Far Northern management area,
 the yellow polygon represents the Cairns/Cooktown management area, the pink polygon
 represents the Townsville/Whitsunday management area and the blue polygon represents the
-Mackay/Capricorn management area. The centroid of each reef is represented as a point for
-visual clarity, and is coloured according to its GBRMPA reefal bioregion. An annotation
-represents the approximate location of the Australian Institute of Marine Science Townsville
-site at Cape
-Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map}
+Mackay/Capricorn management area [@GBRMPA2024]. The centroid of each reef is represented as a
+point for visual clarity, and is coloured according to its GBRMPA reefal bioregion
+[@GBRMPA2001]. All 2429 reefs included in this investigation are represented in this figure. An
+annotation represents the approximate location of the Australian Institute of Marine Science
+Townsville site at Cape Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map}
 
 ## Degree Heating Week trajectories
 
@@ -175,8 +182,8 @@ atmospheric temperature and precipitation conditions in the Australasian region.
 assessment does not consider oceanic data, Grose et al. [-@grose2023] provide a
 region-specific selection mechanism which we use as an indicator of general performance of
 GCMs for the region. An overview of the selected GCMs are provided in @tbl-gcms. The process
-described herein was conducted for all reefs within the GBR Marine Park to create DHW
-projections spanning from 2025 to 2075.
+described herein was conducted for all 2429 reefs to create DHW projections spanning from
+2025 to 2075.
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
 the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and a range of
@@ -223,12 +230,12 @@ temperatures causes progressively greater physiological stress and bleaching sev
 values integrate both the magnitude and duration of thermal stress: a moderate anomaly
 (e.g., 1°C) sustained for 12 weeks produces the same DHW value as a severe anomaly (e.g.,
 3°C) lasting 4 weeks, though the biological impacts may differ. DHW estimates for each
-indicative reef (see @greatba2022) were then determined by taking the mean DHW value for all
+indicative reef (see @GBRMPA2022) were then determined by taking the mean DHW value for all
 pixels touching each reef outline.
 
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
-|------------------------|----------------------|--------------------------|----------------------|
+|-----------------------|-----------------------|-------------------------|-----------------------|
 | EC-Earth3-Veg | 4.31 | High | **insert repo citation** |
 | ACCESS-CM2 | 4.72 | High | **insert repo citation** |
 | ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
@@ -256,7 +263,7 @@ width="14.82cm"}
 ## Depth estimation
 
 Reef depth characteristics were extracted using 10m resolution bathymetry data from the
-Great Barrier Reef Marine Park Authority (GBRMPA [-@gbr10gb2020]). For each reef, bathymetry
+Great Barrier Reef Marine Park Authority (GBRMPA [-@GBRMPA2020]). For each reef, bathymetry
 data (in raster format) were spatially matched with reef polygon features through geometric
 intersection analysis. Depth values within each reef polygon were summarized using zonal
 statistics to calculate minimum, mean, median, maximum, and standard deviation of depth
@@ -269,10 +276,12 @@ locations. Quality control flags were assigned to identify potential data limita
 with no overlapping bathymetry data, reefs with minimum depth values above sea level
 (indicating potential data artifacts), and reefs where bathymetry pixels covered less than
 5% of the reef polygon area. These reefs with insufficient data coverage were removed from
-analyses (842 reefs of 3806 reefs, or 22%) **\[TI: BG to update\]**.
+analyses (842, or 22%, reefs of original 3806 reefs used in Bozec et al. [@bozec2025]). 
+
+**\[BG: I have updated now, does it make sense referring to the original 3806 reefs (I have referred to this 3806 set of reefs in the first paragraph of the methods)?\]**
 
 While data adopted for the given assessment are said to be accurate up to 15m from Mean Sea
-Level [@gbr10gb2020], there are many sources of uncertainty in the depth estimates used for
+Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimates used for
 this study. There is potential misalignment between GBRMPA reef outlines, as well as the
 usual challenges of deriving data from satellite imagery. In the case of bathymetry,
 estimates are subject to different bottom types (rock, sand, seagrass, etc) and how these
@@ -639,13 +648,13 @@ deployment of coral seeding and fragment devices, target reefs with suitable res
 sites in the 1-10m depth range [@howlett2021; @randall2021; @whitman2024]. One of the main
 constraints on deployment depth is visual identification of target sites from the surface
 for deployment and ongoing monitoring, in combination with factors such as deployment method
-and tourism return value. Our results suggest that of the reefs analysed within the 1-10m
-depth range (1800 reefs), 74% (1328) of reefs fall into the low and medium clusters (across
-all GCMs at the GBRMPA management region scale), with many unable to maintain positive
-carbonate budgets under future conditions. Reef intervention planning is a complex and
-challenging decision making process [@anthony2020], and our results suggest that deployment
-site depth is an important factor to consider when assessing the long-term resilience of
-deployment sites.
+and tourism return value. Our results suggest that of the assessed reefs ocurring within the
+1-10m depth range (1736 reefs), 62% (1082) of reefs fall into the low and medium clusters
+(across all GCMs at the GBRMPA management region scale), with many unable to maintain
+positive carbonate budgets under future conditions. Reef intervention planning is a complex
+and challenging decision making process [@anthony2020], and our results suggest that
+deployment site depth is an important factor to consider when assessing the long-term
+resilience of deployment sites.
 
 Our findings do not suggest that reefs in ‘high’ cover clusters have greater thermal
 tolerance than reefs in lower coral cover clusters. This is in contrast with literature
