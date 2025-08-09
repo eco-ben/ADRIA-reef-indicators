@@ -28,6 +28,10 @@ context_layers.inclusion_flag = (
 context_layers = context_layers[context_layers.inclusion_flag, :]
 
 n_clusters = 3
+bioregion_numbers = combine(groupby(context_layers, :bioregion), nrow => :nrow)
+removed_bioregions = bioregion_numbers[bioregion_numbers.nrow .< n_clusters, :bioregion]
+context_layers.inclusion_flag = (context_layers.inclusion_flag) .& (context_layers.bioregion .∉ [removed_bioregions])
+context_layers = context_layers[context_layers.inclusion_flag, :]
 
 areas = gbr_dom.loc_data.area
 

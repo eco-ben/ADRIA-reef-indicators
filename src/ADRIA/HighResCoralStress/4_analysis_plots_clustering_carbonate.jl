@@ -20,7 +20,7 @@ gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
 filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
 
-areas = context_layers.area
+areas = gbr_dom.loc_data.area[filtered_indices]
 
 thresholds = 10:1:20
 year_cols = Vector{String}()
@@ -49,9 +49,9 @@ for (i_gcm, GCM) in enumerate(GCMs)
     dhw_ts = rebuild(dhw_ts, dims=threshold_cover.axes, metadata=dhw_timeseries_properties)
 
     # Analysing clusters identified at bioregion level
-    cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :bioregion, fig_out_dir)
-    cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :management_area, fig_out_dir)
-    cluster_analysis_plots(GCM, analysis_layers, threshold_cover, dhw_ts, :gbr, fig_out_dir)
+    cluster_analysis_plots(GCM, context_layers, threshold_cover, dhw_ts, :bioregion, fig_out_dir)
+    cluster_analysis_plots(GCM, context_layers, threshold_cover, dhw_ts, :management_area, fig_out_dir)
+    cluster_analysis_plots(GCM, context_layers, threshold_cover, dhw_ts, :gbr, fig_out_dir)
 
     gcm_reefs_long = reefs_long[contains.(reefs_long.variable, GCM), :]
     gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
@@ -247,6 +247,7 @@ all_conn_data = [
 ]
 all_conn_data = concatenatecubes(all_conn_data, Dim{:conn_name}(conn_names))
 all_conn_data = all_conn_data[Source=At(context_layers.UNIQUE_ID), Sink=At(context_layers.UNIQUE_ID)]
+mean_conn = mean_conn[Source=At(context_layers.UNIQUE_ID), Sink=At(context_layers.UNIQUE_ID)]
 
 std_conn = mapslices(std, all_conn_data, dims=[:conn_name])
 rstd_conn = std_conn ./ mean_conn .* 100
