@@ -772,7 +772,7 @@ horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseri
 width="14.82cm"}
 
 ![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
-Green indicates a low cover cluster assignemnt, orange represents a medium cover assignment
+Green indicates a low cover cluster assignment, orange represents a medium cover assignment
 and blue represents assignment of a reef to a high coral cover cluster. The vertical width
 of reef elements varies depending on the number of reefs within the bioregion (displayed in
 the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCESS-ESM1-5,
@@ -820,10 +820,10 @@ monitoring data from the Ecological Intelligence for Reef Restoration Program (E
 
 ![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
 2099. The carbonate budget thresholds assessed range from 10 to 20% of total reef area.
-Bracketed x-axis values represent the Spearman's correlation between reef log (natural)
+Bracketed x-axis values represent the Spearman's correlation between reef natural log of
 total connectivity strength and the number of years cover exceeds the carbonate budget
-threshold. Point colour represents log (natural) scaled reef total connectivity strength.
-Displays results from median timeseries using
+threshold. Colour of each point represents the natural log of scaled reef total connectivity
+strength. Displays results from median timeseries using
 ACCESS-ESM1-5.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/log_total_strength_carbonate_scatter.png){#sfig-access-esm1-5-conn-carbonate
 width="14.82cm"}
 
@@ -834,8 +834,8 @@ width="14.82cm"}
 each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median
 area-relative cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are
 clusters with the highest median area-relative cover between 2030 and 2040 within each
-bioregion. Solid lines represent the cluster median timeseries and bands represent the 2.5
-to 97.5 percentile confidence intervals. Displays results for ACCESS-ESM1-5
+bioregion. Solid lines represent the cluster median timeseries and bands represent the 95th
+percentile confidence intervals. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/bioregion_cover_timeseries.png){#sfig-access-esm1-5-bioregion-timeseries
 width="14.82cm"}
 
@@ -881,26 +881,26 @@ results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/initial_proportion_bioregion_violin.png){#sfig-access-esm1-5-bioregion-initialproportion
 width="14.82cm"}
 
-![Log (natural) source – to – sink connectivity ratios for reefs within each bioregion,
+![Source-to-sink connectivity ratios (in natural log scale) for reefs within each bioregion,
 separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2040 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with
 the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid
-lines within each violin represent the median log (natural) source – to – sink ratio for
-each cluster and grey points represent the ratio value for each reef. Vertical grey lines
-represent a log (natural) source – to – sink ratio of 0 indicating equal outgoing and
-incoming connectivity levels. Displays results for ACCESS-ESM1-5
+lines within each violin represent the median source-to-sink ratio for each cluster and grey
+points represent the ratio value for each reef. Vertical grey lines represent a
+source-to-sink ratio of 0 (in natural log scale) indicating equal outgoing and incoming
+connectivity levels. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-access-esm1-5-bioregion-logsosi
 width="14.82cm"}
 
-![Log (natural) total connectivity strength for reefs within each bioregion, separated into
-clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
-lowest median area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’
-clusters (orange) are clusters with intermediate median area-relative cover between 2030 and
-2040 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
-area-relative cover between 2030 and 2040 within each bioregion. Solid lines within each
-violin represent the median log (natural) total connectivity strength for each cluster.
-Displays results for ACCESS-ESM1-5
+![Total connectivity strength (in natural log scale) for reefs within each bioregion,
+separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
+clusters with the lowest median area-relative cover between 2030 and 2040 within each
+bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
+cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with
+the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid
+lines within each violin represent the median natural log of total connectivity strength for
+each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/log_total_strength_bioregion_violin.png){#sfig-access-esm1-5-bioregion-totalconnectivity
 width="14.82cm"}
