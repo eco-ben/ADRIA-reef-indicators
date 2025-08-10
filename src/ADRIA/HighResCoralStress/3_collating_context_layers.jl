@@ -204,7 +204,7 @@ context_layers.total_strength .= convert.(Float64, context_layers.total_strength
 context_layers.total_count .= convert.(Int64, context_layers.total_count)
 context_layers.total_comb .= convert.(Float64, context_layers.total_comb)
 context_layers.so_to_si .= convert.(Float64, context_layers.so_to_si)
-context_layers.man_area_consistent_reefs .= convert.(String, context_layers.so_to_si)
+context_layers.man_area_consistent_reefs .= convert.(String, context_layers.man_area_consistent_reefs)
 
 GDF.write(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"), context_layers; crs=GFT.EPSG(7844), overwrite=true)
 

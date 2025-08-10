@@ -333,10 +333,7 @@ sampling methods can be found in [@kucherenko2015].
 
 For the purpose of scenario assessment, the resulting timeseries for each model run were
 scaled by the total area of the reef to represent cover as a percentage of the total
-estimated reef area. The proportion of each functional group occupying the reef (group
-evenness) was also investigated as a metric for timeseries analysis, but was found to not
-sufficiently capture the declined condition of reefs suffering from very low absolute coral
-cover **\[TI: Ben, is the sentence here really important to include?\]**. These timeseries
+estimated reef area. These timeseries
 of coral cover were then clustered based on their temporal behaviour.
 
 ### Timeseries clustering
@@ -512,7 +509,7 @@ their management area across GCMs.
 #| message: false
 #| results: asis
 #| label: tbl-cluster-cid
-#| tbl-cap: Complexity invariant distance (CID) between low and high cluster median timeseries in each management area under each GCM. CID values are calculated for percentage cover timeseries (@fig-gcm-cover-trajectories) and Degree Heating Week (DHW) timeseries (@fig-gcm-dhw-trajectories). Complexity invariant distance represents the euclidean distance between timeseries, corrected by the complexity of the two timeseries. CID values are used to quantify overall differences between these two cluster levels at management area and GCM levels. CID values for percentage cover and DHW timeseries are not directly comparable as the timeseries use different units.
+#| tbl-cap: Complexity invariant distance (CID) between low and high cluster median timeseries in each management area under each GCM. CID values are calculated for percentage cover timeseries (@fig-gcm-cover-trajectories) and Degree Heating Week (DHW) timeseries (@sfig-gcm-dhw-trajectories). Complexity invariant distance represents the euclidean distance between timeseries, corrected by the complexity of the two timeseries. CID values are used to quantify overall differences between these two cluster levels at management area and GCM levels. CID values for percentage cover and DHW timeseries are not directly comparable as the timeseries use different units.
 
 using PrettyTables, Markdown
 cd("../src")
@@ -557,27 +554,27 @@ fig-align="center" width="14.82cm"}
 #| label: tbl-access-esm1-5-bioregion-regression
 #| tbl-cap: Multinomial logistic regression coefficients for the statistical model containing median reef depth, natural-log total connectivity strength, natural-log source-to-sink ratio and ACCESS-ESM1-5 mean timeseries DHW value as predictor variables. ACCESS-ESM1-5 bioregion scale reef cluster assignment is the response variable with three levels, 'low' (regression reference level), 'medium' and 'high'.
 
-using PrettyTables, Markdown
-cd("../src")
+# using PrettyTables, Markdown
+# cd("../src")
 
-include("../src/common.jl")
+# include("../src/common.jl")
 
-cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/ACCESS-ESM1-5_bioregion_cluster_regression_coefficients.csv"), DataFrame)
-cluster_regression.Name = replace.(cluster_regression.Name, ["ACCESS-ESM1-5_bioregion_cluster_cats: " => "Cluster "])
+# cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/ACCESS-ESM1-5_bioregion_cluster_regression_coefficients.csv"), DataFrame)
+# cluster_regression.Name = replace.(cluster_regression.Name, ["ACCESS-ESM1-5_bioregion_cluster_cats: " => "Cluster "])
 
-for name in names(cluster_regression)
-    if isa(cluster_regression[:, name], Vector{Float64})
-        cluster_regression[:, name] = round.(cluster_regression[:, name]; sigdigits=2)
-    end
-end
+# for name in names(cluster_regression)
+#     if isa(cluster_regression[:, name], Vector{Float64})
+#         cluster_regression[:, name] = round.(cluster_regression[:, name]; sigdigits=2)
+#     end
+# end
 
-io = IOBuffer()
+# io = IOBuffer()
 
-header = ["Response level ~ Term", "β estimate", "SE", "t-value", "Pr > |t|", "2.5%", "97.5%"]
-pretty_table(io, cluster_regression, backend=Val(:markdown), header=header)
+# header = ["Response level ~ Term", "β estimate", "SE", "t-value", "Pr > |t|", "2.5%", "97.5%"]
+# pretty_table(io, cluster_regression, backend=Val(:markdown), header=header)
 
-md_string = (String(take!(io)))
-Markdown.parse(md_string)
+# md_string = (String(take!(io)))
+# Markdown.parse(md_string)
 ```
 
 \[**BG: Need to add quantification results to text for regressions.**\]
@@ -666,14 +663,14 @@ and challenging decision making process [@anthony2020], and our results suggest 
 deployment site depth is an important factor to consider when assessing the long-term
 resilience of deployment sites.
 
-Our findings do not suggest that reefs in ‘high’ cover clusters have greater thermal
+Our findings suggest that reefs in ‘high’ cover clusters do not have greater thermal
 tolerance than reefs in lower coral cover clusters. This is in contrast with literature
 suggesting corals have the capacity to adapt to increasing climate change pressures
 [@humanes2022; @lachs2024], including the investigation by Bairos-Novak et al.
 [-@bairos-novak2021] that revealed high heritability of bleaching and survival response
 traits, used to inform thermal tolerance trait distributions in this investigation. The lack
 of influence of thermal tolerance on reef outcomes is likely due to reefs being impacted by
-high levels of thermal stress early in projected conditions and being unable to build
+high levels of thermal stress early in projected timeseries and being unable to build
 thermal tolerance to DHW levels greater than 9°C-weeks. **\[TI note: This paragraph needs to
 be revisited\]**
 
@@ -689,7 +686,7 @@ generation connectivity modelling is able to identify reefs that are important f
 processes, with findings dependent on the larval connectivity model used. These
 investigations were performed using prior generations of larval connectivity models
 parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods. Using
-updated 1km resolution larval connectivity across the whole GBR, with a limited temporal
+updated 1km^2^ resolution larval connectivity across the whole GBR, with a limited temporal
 sample of particle flows, our results suggest that larval connectivity alone is not as
 important for reef resilience and recovery as environmental refugia such as depth.
 
@@ -794,7 +791,7 @@ the solid red box represents low-certainty ‘likely’ range for ECS values (Fo
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
 fig-align="center" width="10cm"}
 
-![Depth cutoff for reefs](images/reef_depth_included_cutoff.png){#sfig-depth-cutoff
+![Depth cutoff for reefs](../outputs/ADRIA_results/HighResCoralStress/figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
 ![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
@@ -823,7 +820,7 @@ location of the Australian Institute of Marine Science Townsville site at Cape
 Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/gcm_cluster_assignment_map.png){#sfig-gcm-cluster-map
 fig-align="center" width="14.82cm"}
 
-![![](images/paste-1.png)Heatmaps indicating reef cluster assignments within each bioregion
+![Heatmaps indicating reef cluster assignments within each bioregion
 across the five GCMs. Green indicates a low cover cluster assignment, orange represents a
 medium cover assignment and blue represents assignment of a reef to a high coral cover
 cluster. The vertical width of reef elements varies depending on the number of reefs within
