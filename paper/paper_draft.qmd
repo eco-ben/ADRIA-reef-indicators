@@ -524,7 +524,7 @@ include("../src/ADRIA/HighResCoralStress/6_quantifying_cluster_differences.jl");
 io = IOBuffer()
 
 header = ["GCM", "Management area", "CID - cover", "CID - DHW"]
-pretty_table(io, distances, backend = Val(:markdown), header = header)
+pretty_table(io, distances, backend=Val(:markdown), header=header)
 
 md_string = (String(take!(io)))
 Markdown.parse(md_string)
@@ -579,7 +579,7 @@ end
 io = IOBuffer()
 
 header = ["Response level ~ Term", "β estimate", "SE", "t-value", "Pr > |t|", "2.5%", "97.5%"]
-pretty_table(io, cluster_regression, backend = Val(:markdown), header = header)
+pretty_table(io, cluster_regression, backend=Val(:markdown), header=header)
 
 md_string = (String(take!(io)))
 Markdown.parse(md_string)
@@ -766,7 +766,10 @@ whole-ecosystem scales.
 The pink - dashed box represents the high-certainty ‘very likely’ range for ECS values and
 the solid red box represents low-certainty ‘likely’ range for ECS values (Forster et al.,
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
-width="10cm"}
+fig-align="center" width="10cm"}
+
+![Depth cutoff for reefs](images/reef_depth_included_cutoff.png){#sfig-depth-cutoff
+fig-align="center" width="14.8cm" height="9.5cm"}
 
 ![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
 analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
@@ -777,23 +780,23 @@ clusters (blue) are clusters with the highest median area-relative cover between
 represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
 represented five times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#sfig-gcm-dhw-trajectories
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
-![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
-Green indicates a low cover cluster assignment, orange represents a medium cover assignment
-and blue represents assignment of a reef to a high coral cover cluster. The vertical width
-of reef elements varies depending on the number of reefs within the bioregion (displayed in
-the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCESS-ESM1-5,
-ACCESS-CM2, NorESM2-MM and
+![![](images/paste-1.png)Heatmaps indicating reef cluster assignments within each bioregion
+across the five GCMs. Green indicates a low cover cluster assignment, orange represents a
+medium cover assignment and blue represents assignment of a reef to a high coral cover
+cluster. The vertical width of reef elements varies depending on the number of reefs within
+the bioregion (displayed in the y axis). The x axis represents the different GCM levels
+(EC-Earth3-Veg, ACCESS-ESM1-5, ACCESS-CM2, NorESM2-MM and
 GFDL-CM4).](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_bioregion_cluster_assignments.png){#sfig-gcm-bioregion-cluster-assignment
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Heatmap indicating reef connectivity relative standard deviation (RSD %). Reef
 connectivity relative standard deviation represents the reef standard deviation connection
 strength as a percentage of reef mean connection strength. Lighter colours indicate higher
 RSD %
 values.](../outputs/ADRIA_results/HighResCoralStress/figs/connectivity_rsd_percent.png){#sfig-connectivity-rsd
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ## ADRIA - CoralBlox
 
@@ -833,7 +836,7 @@ total connectivity strength and the number of years cover exceeds the carbonate 
 threshold. Colour of each point represents the natural log of scaled reef total connectivity
 strength. Displays results from median timeseries using
 ACCESS-ESM1-5.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/log_total_strength_carbonate_scatter.png){#sfig-access-esm1-5-conn-carbonate
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ### Bioregion scale clustering
 
@@ -845,7 +848,7 @@ clusters with the highest median area-relative cover between 2030 and 2040 withi
 bioregion. Solid lines represent the cluster median timeseries and bands represent the 95th
 percentile confidence intervals. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/bioregion_cover_timeseries.png){#sfig-access-esm1-5-bioregion-timeseries
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Total coral cover – DHW Pearson’s correlation levels for reefs within each bioregion,
 separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
@@ -856,7 +859,7 @@ the highest median area-relative cover between 2030 and 2040 within each bioregi
 lines represent the median cover – DHW correlation level for each cluster. Displays results
 for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/dhw_cover_cor_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwcor
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Mean timeseries DHW values for reefs within each bioregion, separated into clusters
 assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest
@@ -866,7 +869,7 @@ within each bioregion. ‘High’ clusters (blue) are clusters with the highest 
 area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
 median DHW level for each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/mean_dhw_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwmean
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Mean timeseries DHW tolerance value for reefs within each bioregion, separated into
 clusters assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the
@@ -876,7 +879,7 @@ clusters (orange) are clusters with intermediate median area-relative cover betw
 area-relative cover between 2030 and 2040 within each bioregion. Solid lines represent the
 median DHW tolerance value for each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwtol
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
 bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
@@ -887,7 +890,7 @@ the highest median area-relative cover between 2030 and 2040 within each bioregi
 lines represent the median proportion of habitable area occupied for each cluster. Displays
 results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/initial_proportion_bioregion_violin.png){#sfig-access-esm1-5-bioregion-initialproportion
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Source-to-sink connectivity ratios (in natural log scale) for reefs within each bioregion,
 separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
@@ -900,7 +903,7 @@ points represent the ratio value for each reef. Vertical grey lines represent a
 source-to-sink ratio of 0 (in natural log scale) indicating equal outgoing and incoming
 connectivity levels. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-access-esm1-5-bioregion-logsosi
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Total connectivity strength (in natural log scale) for reefs within each bioregion,
 separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
@@ -911,4 +914,4 @@ the highest median area-relative cover between 2030 and 2040 within each bioregi
 lines within each violin represent the median natural log of total connectivity strength for
 each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/log_total_strength_bioregion_violin.png){#sfig-access-esm1-5-bioregion-totalconnectivity
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
