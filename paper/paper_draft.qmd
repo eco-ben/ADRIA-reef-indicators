@@ -162,14 +162,15 @@ Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimate
 this study. These are outlined further in the Discussion. Notably, the adopted depth
 estimates were derived from bathymetries based on satellite imagery. Available data can be
 limited in their alignment with the established GBRMPA reef outlines used to characterise
-reef locations. Quality control flags were assigned to identify potential data limitations:
-reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
-(indicating potential data artifacts), and reefs where bathymetry pixels covered less than
-5% of the reef polygon area. This removed 842 reefs, or 22%, from the initial set of 3806
-reefs. Furthermore, reefs that are not associated with GBRMPA management areas [@GBRMPA2024]
-or reefal bioregions [@GBRMPA2001] were also removed from the investigation. Bioregions
-which contained fewer than three reefs were also excluded. As a result, 1377 reefs were
-excluded (36%), leaving a total of 2429 remaining for the purpose of this investigation.
+reef locations and their areal extent. Quality control flags were assigned to identify
+potential data limitations: reefs with no overlapping bathymetry data, reefs with minimum
+depth values above sea level (indicating potential data artifacts), and reefs where
+bathymetry pixels covered less than 5% of the reef polygon area. This removed 842 reefs, or
+22%, from the initial set of 3806 reefs. Furthermore, reefs that are not associated with
+GBRMPA management areas [@GBRMPA2024] or reefal bioregions [@GBRMPA2001] were also removed
+from the investigation. Bioregions which contained fewer than three reefs were also
+excluded. As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining for
+the purpose of this investigation.
 
 \[**BG: I am having issues with citations not appearing for datasets like GBRMPA ones.**\]
 
@@ -547,7 +548,7 @@ bioregion. ‘High’ clusters (blue) are clusters with the highest median area-
 between 2030 and 2040 within each bioregion. Solid lines represent the median depth for each
 cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ```{julia}
 #| echo: false
