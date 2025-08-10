@@ -30,24 +30,30 @@ qld = qld[qld.FEAT_NAME.=="Mainland", :SHAPE]
 
 map_width = fig_sizes["map_width"]
 map_height = fig_sizes["map_height"]
-region_col = tuple.(Makie.wong_colors()[1:4], repeat([0.3], 4)) # Manually set alpha value to 0.3
+region_col = tuple.(Makie.wong_colors()[1:4], fill(0.3, 4)) # Manually set alpha value to 0.3
 
 ordered_reefs = sort(investigation_reefs, :bioregion_average_latitude; rev=true)
+
+reef_colors = distinguishable_colors(length(unique(investigation_reefs.bioregion)))
+reef_colors = tuple.(reef_colors, fill(0.4, length(reef_colors)))
+
 bioregion_colors_labels = DataFrame(
     bioregion=unique(investigation_reefs.bioregion),
     ref=1:length(unique(investigation_reefs.bioregion)),
-    color=distinguishable_colors(length(unique(investigation_reefs.bioregion))),
+    color=reef_colors,
     label=label_lines.((unique(investigation_reefs.bioregion)); l_length=17)
 )
 
 ordered_reefs = leftjoin(ordered_reefs, bioregion_colors_labels; on=:bioregion)
 centroids = GO.centroid.(ordered_reefs.geometry)
 
+# GeoMakie currently has a bug where x/y labels never display.
+# We adjust map size to roughly align with the correct projection.
 bgcol = :gray90
-fig = Figure(size=(map_width, map_height), fontsize=fontsize, backgroundcolor=bgcol)
+fig = Figure(size=(map_width + 75, map_height), fontsize=fontsize, backgroundcolor=bgcol)
 ax = Axis(
     fig[1, 1],
-    width=map_width - 350,
+    width=map_width - 275,
     height=map_height - 100,
     xgridvisible=false,
     ygridvisible=false,
@@ -56,9 +62,26 @@ ax = Axis(
 )
 poly!(qld; color=:darkgray)
 poly!(regions.SHAPE, color=region_col)
-scatter!(centroids; color=Int64.(ordered_reefs.ref), colormap=unique(ordered_reefs.color), markersize=4)
-lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
-text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
+
+scatter!(centroids; color=ordered_reefs.color, markersize=4)
+ax.ylabel = "Latitude"
+ax.xlabel = "Longitude"
+
+# Note key cities/towns for reference
+scatter!((145.754120, -16.925491); color=:black)
+text!((144.754120, -16.925491); text="Cairns", align=(:center, :top))
+
+scatter!((146.8057, -19.2664); color=:black)
+text!((145.50, -19.2664); text="Townsville", align=(:center, :top))
+
+scatter!((149.182147, -21.142496); color=:black)
+text!((148.182147, -21.142496); text="Mackay", align=(:center, :top))
+
+scatter!((150.733333, -23.133333); color=:black)
+text!((149.733333, -23.133333); text="Yeppoon", align=(:center, :top))
+
+# lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
+# text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
 
 Legend(
     fig[2, 1],
@@ -86,7 +109,7 @@ GCMs = dhw_scenarios.dhw.properties["members"]
 
 context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
-gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
+gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID.∈[context_layers.UNIQUE_ID], :]
 filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
 
 dhw_arrays = [
