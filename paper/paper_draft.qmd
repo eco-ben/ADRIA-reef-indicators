@@ -503,9 +503,11 @@ horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_cover_timese
 fig-align="center" width="14.82cm"}
 
 Comparing across GCMs, it is common for reefs to switch cluster level, including from low to
-high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment). This is
-expected as spatial differences in GCM DHW timeseries result in reefs being impacted at
-different relative magnitudes within their management area across GCMs.
+high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment). Of 2429
+reefs, 20% (503) of reefs have consistent management area scale cluster assignment across
+all GCMs. This high assignment variability across GCMs is expected as spatial differences in
+GCM DHW timeseries result in reefs being impacted at different relative magnitudes within
+their management area across GCMs.
 
 ```{julia}
 #| echo: false
@@ -527,6 +529,9 @@ pretty_table(io, distances, backend=Val(:markdown), header=header)
 md_string = (String(take!(io)))
 Markdown.parse(md_string)
 ```
+
+\[**BG: Need to ensure that methods explain why I use CID here to quantify differences
+between low and high cluster median timeseries.**\]
 
 ## Bioregion scale clustering
 
