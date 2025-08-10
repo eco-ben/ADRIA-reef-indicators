@@ -442,7 +442,7 @@ Bracketed x-axis values represent the Spearman's correlation between reef depth 
 number of years cover exceeds the carbonate budget threshold. Point colour represents the
 median reef depth level in metres. Displays results from median timeseries using
 ACCESS-ESM1-5.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ## Future DHW trajectories
 
@@ -486,7 +486,7 @@ clusters (blue) are clusters with the highest median area-relative cover between
 represent the 95th percentile confidence intervals. Each management area is represented five
 times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#fig-gcm-dhw-trajectories
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 ![Reef area-relative coral cover timeseries clustered within each management area, for each
 GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
@@ -497,7 +497,7 @@ clusters (blue) are clusters with the highest median area-relative cover between
 represent the 95th percentile confidence intervals. Each management area is represented five
 times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 Comparing across GCMs, it is common for reefs to switch cluster level, including from low to
 high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment). This is
