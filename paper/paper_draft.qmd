@@ -559,7 +559,7 @@ cd("../src")
 
 include("../src/common.jl")
 
-cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/ACCESS-ESM1-5_bioregion_cluster_regression_coefficients.csv"), DataFrame)
+cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/bioregion_cluster_regression_coefficients.csv"), DataFrame)
 cluster_regression.Name = replace.(cluster_regression.Name, ["ACCESS-ESM1-5_bioregion_cluster_cats: " => "Cluster "])
 
 for name in names(cluster_regression)
