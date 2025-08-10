@@ -211,8 +211,7 @@ possible climate futures to be explored, capturing the uncertainty in future res
 CO2 increases (@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]). Projections using
 Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the plausible emission
 pathway. It represents a moderate emissions scenario with continued CO2 emissions comparable
-to present day until 2050, after which emissions gradually decline. Under this scenario,
-atmospheric concentrations approximately reach 540ppm by 2100 [@hausfather2020; IPCC
+to present day until 2050, after which emissions gradually decline [@hausfather2020; IPCC
 -@climate2023]. The selected GCMs represent 2.5°C to 4.31°C of global atmospheric warming in
 the 2081-2100 period relative to 1850-1900.
 
