@@ -276,3 +276,13 @@ save(
     bioregion_gcm_clusters,
     px_per_unit=dpi
 )
+
+# Reefs removed - Indicate cutoff based on depth
+per_pct_count = [count((i - 0.01) .<= gbr_dom.loc_data.depth_rast_prop .<= i) for i in 0.01:0.01:1.0] ./ length(gbr_dom.loc_data.depth_rast_prop) * 100.0
+f, ax, sp = barplot(per_pct_count)
+vlines!(ax, 5; color=(:red, 0.5))
+text!((10.0, 2.0); text="Cutoff", align=(:center, :bottom))
+ax.ylabel = "Proportion of Reefs [%]"
+ax.xlabel = "Bathymetry data coverage [%]"
+
+save(joinpath(output_path, "figs/reef_depth_included_cutoff.png"), f, px_per_unit=dpi)
