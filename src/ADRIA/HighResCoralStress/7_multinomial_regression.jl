@@ -87,9 +87,9 @@ using Turing, Distributions, StatsFuns, LinearAlgebra
 """
 @model function ordinal_random_intercepts(y, X, grp1, grp2, n_grp1, n_grp2)
     N, p = size(X)
-    @assert p == 4
+    # @assert p == 4
 
-    # --- FIXED EFFECTS ---
+    # priors for fixed effects
     # weakly-informative prior on beta
     # β ~ MvNormal(zeros(p), 5.0^2 * I)
     β ~ filldist(Normal(0, 5), p)
@@ -106,7 +106,7 @@ using Turing, Distributions, StatsFuns, LinearAlgebra
     u1 = σ1 .* z1
     u2 = σ2 .* z2
 
-    # --- CUTPOINTS ---
+    # estimates for cutpoints - required for ordinal bayesian model to separate the 3 levels of response variable
     c_raw ~ filldist(Normal(0, 5), 2)
     c = sort(c_raw)  # c[1] < c[2]
 
@@ -139,8 +139,8 @@ K = length(unique(reef_properties.cluster))
 
 # Design matrix (without intercept — model will handle that)
 predictors = [:depth_med, :log_total_strength, :log_so_to_si, :mean_dhw]
+predictors = [:depth_med, :log_total_strength]
 X = Matrix(DataFrames.select(reef_properties, predictors))
-N, P = size(X)
 
 model = ordinal_random_intercepts(
     y, 
@@ -151,3 +151,5 @@ model = ordinal_random_intercepts(
     n_GCMs
 )
 chain = sample(model, NUTS(), MCMCThreads(), 2000, 4)  # 4 chains using Threads, 2000 samples each
+
+small_chain = sample(model, NUTS(), 150; warmup=100, chains=1)
