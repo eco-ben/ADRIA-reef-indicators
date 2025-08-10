@@ -69,16 +69,16 @@ ax.xlabel = "Longitude"
 
 # Note key cities/towns for reference
 scatter!((145.754120, -16.925491); color=:black)
-text!((144.754120, -16.925491); text="Cairns", align=(:center, :top))
+text!((145.1, -16.925491); text="Cairns", align=(:center, :top))
 
 scatter!((146.8057, -19.2664); color=:black)
-text!((145.50, -19.2664); text="Townsville", align=(:center, :top))
+text!((146.0, -19.2664); text="Townsville", align=(:center, :top))
 
 scatter!((149.182147, -21.142496); color=:black)
-text!((148.182147, -21.142496); text="Mackay", align=(:center, :top))
+text!((148.432147, -21.142496); text="Mackay", align=(:center, :top))
 
 scatter!((150.733333, -23.133333); color=:black)
-text!((149.733333, -23.133333); text="Yeppoon", align=(:center, :top))
+text!((150.0, -23.133333); text="Yeppoon", align=(:center, :top))
 
 # lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
 # text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
