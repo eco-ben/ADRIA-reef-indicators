@@ -274,7 +274,7 @@ Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricor
 represents the Townsville-Whitsunday management area. Solid lines represent the
 management-area median timeseries and bands represent the 95th percentile confidence
 intervals.](../outputs/ADRIA_results/HighResCoralStress/figs/methods_dhw_timeseries.png){#fig-methods-dhws
-width="14.82cm"}
+fig-align="center" width="14.82cm"}
 
 **\[TI: Ben, best to use the same colours consistently for each management region. Blue,
 yellow/orange, green and pink were used in for the map.\]**
@@ -567,7 +567,7 @@ cd("../src")
 
 include("../src/common.jl")
 
-cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/bioregion_cluster_regression_coefficients.csv"), DataFrame)
+cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/ACCESS-ESM1-5_bioregion_cluster_regression_coefficients.csv"), DataFrame)
 cluster_regression.Name = replace.(cluster_regression.Name, ["ACCESS-ESM1-5_bioregion_cluster_cats: " => "Cluster "])
 
 for name in names(cluster_regression)
@@ -825,7 +825,7 @@ RSD %
 values.](../outputs/ADRIA_results/HighResCoralStress/figs/connectivity_rsd_percent.png){#sfig-connectivity-rsd
 fig-align="center" width="14.82cm"}
 
-## ADRIA - CoralBlox
+## ADRIA-CoralBlox
 
 CoralBlox model incorporates linear extension (growth) and background mortality rates that
 are dependent on the size and functional group of a coral colony. Environmental disturbances
