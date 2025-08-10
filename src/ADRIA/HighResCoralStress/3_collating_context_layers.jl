@@ -181,6 +181,18 @@ rename!(bioregion_average_latitude, :x1 => :bioregion_average_latitude)
 bioregion_average_latitude = Dict(tuple.(bioregion_average_latitude.bioregion, bioregion_average_latitude.bioregion_average_latitude))
 context_layers.bioregion_average_latitude = [bioregion_average_latitude[bior] for bior in context_layers.bioregion]
 
+# 7. Check for reef cluster consistency across GCMs at management area scale
+man_area_gcm_cols = ["$(GCM)_management_area_cluster_cats" for GCM in GCMs]
+context_layers.man_area_consistent_reefs = Vector{Any}([allequal(row) for row in eachrow(context_layers[:, man_area_gcm_cols])])
+
+for reef in eachrow(context_layers)
+    if reef.man_area_consistent_reefs
+        reef.man_area_consistent_reefs = unique(reef[man_area_gcm_cols])[1]
+    else
+        reef.man_area_consistent_reefs = "variable"
+    end
+end
+
 # Format columns for writing to geopackage
 context_layers.income_strength = Float64.(context_layers.income_strength)
 context_layers.income_count .= convert.(Int64, context_layers.income_count)
@@ -192,6 +204,7 @@ context_layers.total_strength .= convert.(Float64, context_layers.total_strength
 context_layers.total_count .= convert.(Int64, context_layers.total_count)
 context_layers.total_comb .= convert.(Float64, context_layers.total_comb)
 context_layers.so_to_si .= convert.(Float64, context_layers.so_to_si)
+context_layers.man_area_consistent_reefs .= convert.(String, context_layers.so_to_si)
 
 GDF.write(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"), context_layers; crs=GFT.EPSG(7844), overwrite=true)
 

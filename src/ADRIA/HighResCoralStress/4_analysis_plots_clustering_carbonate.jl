@@ -286,3 +286,11 @@ ax.ylabel = "Proportion of Reefs [%]"
 ax.xlabel = "Bathymetry data coverage [%]"
 
 save(joinpath(output_path, "figs/reef_depth_included_cutoff.png"), f, px_per_unit=dpi)
+
+# Plot a map of reef cluster assignments across GCMs at management area scale:
+consistent_reefs_colors = [:gray, :green, :orange, :blue];
+order = Dict("variable" => 1, "low" => 2, "medium" => 3, "high" => 4)
+sorted_vals = sort(context_layers, :man_area_consistent_reefs, by = x -> order[x])
+gbr_assignment_map = map_gbr_reefs(sorted_vals, :man_area_consistent_reefs, consistent_reefs_colors, "Cluster assignment across GCMs")
+
+save(joinpath(output_path, "figs/gcm_cluster_assignment_map.png"), gbr_assignment_map, px_per_unit=dpi)

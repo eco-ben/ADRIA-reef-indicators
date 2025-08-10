@@ -21,89 +21,13 @@ ecs_values = Dict(
 ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys(ecs_values)))
 save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit=dpi)
 
-# GBR map plot - methods
-investigation_reefs = context_layers
-regions = GDF.read("../data/GBRMPA_Management_Areas.gpkg")
-regions.region_name = ["Mackay/Capricorn", "Cairns/Cooktown", "Far Northern", "Townsville Whitsunday"]
-qld = GDF.read("../data/GBRMPA_Reef_Features.gpkg")
-qld = qld[qld.FEAT_NAME.=="Mainland", :SHAPE]
-
-map_width = fig_sizes["map_width"]
-map_height = fig_sizes["map_height"]
-region_col = tuple.(Makie.wong_colors()[1:4], fill(0.3, 4)) # Manually set alpha value to 0.3
-
-ordered_reefs = sort(investigation_reefs, :bioregion_average_latitude; rev=true)
-
 reef_colors = distinguishable_colors(length(unique(investigation_reefs.bioregion)))
-reef_colors = tuple.(reef_colors, fill(0.4, length(reef_colors)))
 
-bioregion_colors_labels = DataFrame(
-    bioregion=unique(investigation_reefs.bioregion),
-    ref=1:length(unique(investigation_reefs.bioregion)),
-    color=reef_colors,
-    label=label_lines.((unique(investigation_reefs.bioregion)); l_length=17)
-)
+# GBR map plot - methods
+bioregion_colors = distinguishable_colors(length(unique(context_layers.bioregion)));
+gbr_methods_map = map_gbr_reefs(context_layers, :bioregion, bioregion_colors)
 
-ordered_reefs = leftjoin(ordered_reefs, bioregion_colors_labels; on=:bioregion)
-centroids = GO.centroid.(ordered_reefs.geometry)
-
-# GeoMakie currently has a bug where x/y labels never display.
-# We adjust map size to roughly align with the correct projection.
-bgcol = :gray90
-fig = Figure(size=(map_width + 75, map_height), fontsize=fontsize, backgroundcolor=bgcol)
-ax = Axis(
-    fig[1, 1],
-    width=map_width - 275,
-    height=map_height - 120,
-    xgridvisible=false,
-    ygridvisible=false,
-    limits=((142.5, 154.1), (-25, -10)),
-    backgroundcolor=bgcol
-)
-poly!(qld; color=:darkgray)
-poly!(regions.SHAPE, color=region_col)
-
-scatter!(centroids; color=ordered_reefs.color, markersize=4)
-ax.ylabel = "Latitude"
-ax.xlabel = "Longitude"
-
-# Note key cities/towns for reference
-scatter!((145.754120, -16.925491); color=:black)
-text!((145.1, -16.925491); text="Cairns", align=(:center, :top))
-
-scatter!((146.8057, -19.2664); color=:black)
-text!((146.0, -19.2664); text="Townsville", align=(:center, :top))
-
-scatter!((149.182147, -21.142496); color=:black)
-text!((148.432147, -21.142496); text="Mackay", align=(:center, :top))
-
-scatter!((150.733333, -23.133333); color=:black)
-text!((150.0, -23.133333); text="Yeppoon", align=(:center, :top))
-
-# lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
-# text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
-
-Legend(
-    fig[2, 1],
-    [PolyElement(color=col, alpha=0.3) for col in region_col],
-    regions.region_name,
-    "Management regions",
-    nbanks=2,
-    patchsize=(10, 10),
-    colgap=8,
-    backgroundcolor=bgcol
-)
-Legend(
-    fig[1, 2],
-    [MarkerElement(color=bioregion_color, marker=:circle) for bioregion_color in unique(ordered_reefs.color)],
-    unique(ordered_reefs.label),
-    "Bioregions",
-    nbanks=2,
-    colgap=6,
-    rowgap=1,
-    backgroundcolor=bgcol
-)
-save(joinpath(output_path, "figs/region_map.png"), fig, px_per_unit=dpi)
+save(joinpath(output_path, "figs/region_map.png"), gbr_methods_map, px_per_unit=dpi)
 
 # GBR - wide DHW figure
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
