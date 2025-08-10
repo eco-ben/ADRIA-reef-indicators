@@ -256,23 +256,22 @@ indicative reef (see @GBRMPA2022) were then determined by taking the mean DHW va
 pixels touching each reef outline.
 
 ::: {#tbl-gcms}
-| Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
+| Global Climate Model source | ECS value (K) | Interpreted relative severity | Results found in |
 |-----------------------|-----------------------|------------------------|-----------------------|
-| EC-Earth3-Veg | 4.31 | High | **insert repo citation** |
-| ACCESS-CM2 | 4.72 | High | **insert repo citation** |
+| EC-Earth3-Veg | 4.30 | High | **insert repo citation** |
+| ACCESS-CM2 | 4.66 | High | **insert repo citation** |
+| GFDL-CM4 | 4.1 | High | **insert repo citation** |
 | ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
-| GFDL-CM4 | 2.9 | Low | **insert repo citation** |
 | NorESM2-MM | 2.5 | Low | **insert repo citation** |
 
-: Information for each GCM used in this investigation including ECS value, interpreted
-relative severity and where results are individual GCM results are found. GCMs in context
-with assessed plausible ranges of ECS values are displayed in [@sfig-ecs]. ACCESS-ESM1-5 is
-taken as an intermediate model based on the range of ECS values, thus results are displayed
-in the main text. ECS value sources: .
+: Information for each GCM used in this investigation including Equilibrium Climate
+Sensitivity (ECS) value, interpreted relative severity and where results are individual GCM
+results are found. GCMs in context with assessed plausible ranges of ECS values are
+displayed in [@sfig-ecs]. ACCESS-ESM1-5 has an ECS closest to the midpoint of the
+very-likely ECS range and was taken as an intermediate model with results displayed in the
+main text. ECS values obtained from: [@sentman2025; @grose2023; @seland2020; @ziehn2020;
+@wyser2020].
 :::
-
-\[**BG: Need to add my ECS value sources to table caption. (And also cite GCM paper
-sources).**\]
 
 ![Degree Heating Week timeseries (in °C - Weeks) for the GCMs selected. Colours represent
 the different management areas across the Great Barrier Reef. Green represents

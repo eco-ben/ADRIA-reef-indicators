@@ -231,7 +231,7 @@ function ecs_plot(
     fig = Figure(size=(fig_x_size, fig_y_size), fontsize=fontsize)
     ax = Axis(
         fig[1, 1],
-        ylabel="Equilibrium Climate Sensitivity (°C)",
+        ylabel="Equilibrium Climate Sensitivity (K)",
         height=10cm,
         width=8cm
     )
