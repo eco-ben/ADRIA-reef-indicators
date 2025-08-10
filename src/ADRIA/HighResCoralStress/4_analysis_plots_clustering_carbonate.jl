@@ -294,3 +294,9 @@ sorted_vals = sort(context_layers, :man_area_consistent_reefs, by = x -> order[x
 gbr_assignment_map = map_gbr_reefs(sorted_vals, :man_area_consistent_reefs, consistent_reefs_colors, "Cluster assignment across GCMs")
 
 save(joinpath(output_path, "figs/gcm_cluster_assignment_map.png"), gbr_assignment_map, px_per_unit=dpi)
+
+n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs .!="variable", :], :management_area), nrow => :nrow)
+n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reefs.nrow) .* 100
+
+n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs .!="variable", :], :man_area_consistent_reefs), nrow => :nrow)
+n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reefs.nrow) .* 100

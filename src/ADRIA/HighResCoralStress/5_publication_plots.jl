@@ -21,11 +21,9 @@ ecs_values = Dict(
 ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys(ecs_values)))
 save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit=dpi)
 
-reef_colors = distinguishable_colors(length(unique(investigation_reefs.bioregion)))
-
 # GBR map plot - methods
 bioregion_colors = distinguishable_colors(length(unique(context_layers.bioregion)));
-gbr_methods_map = map_gbr_reefs(context_layers, :bioregion, bioregion_colors)
+gbr_methods_map = map_gbr_reefs(context_layers, :bioregion, bioregion_colors, "Bioregions")
 
 save(joinpath(output_path, "figs/region_map.png"), gbr_methods_map, px_per_unit=dpi)
 

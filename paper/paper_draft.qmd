@@ -176,8 +176,8 @@ the purpose of this investigation.
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). Colour-coded areas outline GBR marine park management regions,
-where green represents the Far Northern management region, yellow represents
-Cairns/Cooktown, pink covers Townsville/Whitsunday and blue covers Mackay/Capricorn
+where orange represents the Far Northern management region, green represents
+Cairns/Cooktown, red covers Townsville/Whitsunday and blue covers Mackay/Capricorn
 [@GBRMPA2024]. Reef centroids are marked individually for visual clarity, and are coloured
 according to its bioregion [@GBRMPA2001]. All 2429 reefs included in this investigation are
 represented in this figure. An annotation represents the approximate location of the
@@ -281,9 +281,6 @@ management-area median timeseries and bands represent the 95th percentile confid
 intervals.](../outputs/ADRIA_results/HighResCoralStress/figs/methods_dhw_timeseries.png){#fig-methods-dhws
 fig-align="center" width="14.82cm"}
 
-**\[TI: Ben, best to use the same colours consistently for each management region. Blue,
-yellow/orange, green and pink were used in for the map.\]**
-
 ## Assessment framework
 
 An exploratory scenario modelling approach is adopted for this investigation. The method
@@ -355,11 +352,18 @@ their average coral cover. The process creates a distance matrix of n \* n dimen
 n is the number of timeseries in the group) that is clustered using a k-medoids clustering
 algorithm [cf. @steinmann2020].
 
-Timeseries clustering analyses were performed at the reefal bioregion scale (defined in
-GBRMPA [-@GBRMPA2001]). Additional analyses were also performed at larger spatial scales,
-such as the GBRMPA management regions and whole-of-GBR scale. These were found to lead to
-identical conclusions and so are not shown here. Results of these analyses can be found at
-\[**insert citation for repository**\] for those interested.
+Timeseries clustering analyses were performed at the management area and reefal bioregion
+scale (defined in GBRMPA [-@GBRMPA2001]). Additional analyses were also performed at the
+whole-of-GBR scale. These were found to lead to identical conclusions and so are not shown
+here. To compare timeseries clustering results across GCMs, management area scale clustering
+results are used to preserve coarse scale latitudinal differences between regions, while
+maintaining ease of comparison and visualisation. These comparisons include quantification
+of differences between low and high cover clusters across management regions under each GCM
+using the Complexity-Invariant Distance between cluster median timeseries. To assess how
+different reef characteristics influence timeseries clustering at a finer scale, bioregion
+results are used to capture patterns occurring within individual clusters of reefs. Results
+of all analyses at all clustering scales can be found at \[**insert citation for
+repository**\] for those interested.
 
 Reefs in each timeseries cluster were compared to identify characteristics that differ
 between low, medium and high coral cover clusters. These characteristics include reef median
@@ -476,20 +480,9 @@ GFDL-CM4 (4.1K) GCMs cover trajectories are largely declining in all management 
 reflected in lower CID distance values than other GCMs [@tbl-cluster-cid].
 
 Under each GCM, in all management areas, low, medium and high cluster reefs have low levels
-of distinction between DHW trajectories (@fig-gcm-dhw-trajectories). The highest peak DHW
+of distinction between DHW trajectories (@sfig-gcm-dhw-trajectories). The highest peak DHW
 levels occur under GFDL-CM4 between 2045 and 2050, while greater increases in overall DHWs
 timeseries occur under ACCESS-CM2 [@fig-methods-dhws].
-
-![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
-analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
-between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange) are clusters with
-intermediate median area-relative cover between 2030 and 2040 within each bioregion. ‘High’
-clusters (blue) are clusters with the highest median area-relative cover between 2030 and
-2040 within each bioregion. Solid lines represent the cluster median timeseries and bands
-represent the 95th percentile confidence intervals. Each management area is represented five
-times (for each GCM), with each GCM displayed
-horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#fig-gcm-dhw-trajectories
-fig-align="center" width="14.82cm"}
 
 ![Reef area-relative coral cover timeseries clustered within each management area, for each
 GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
@@ -505,7 +498,11 @@ fig-align="center" width="14.82cm"}
 Comparing across GCMs, it is common for reefs to switch cluster level, including from low to
 high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment). Of 2429
 reefs, 20% (503) of reefs have consistent management area scale cluster assignment across
-all GCMs. This high assignment variability across GCMs is expected as spatial differences in
+all GCMs. Of the 503 consistently assigned reefs, 49% are within the Far Northern management
+area, with 7, 13 and 31% occurring in the Cairns/Cooktown, Townsville/Whitsunday and
+Mackay/Capricorn management areas respectively [@sfig-gcm-cluster-map]. Of the 503
+consistently assigned reefs, 32, 7 and 61% are clustered into low, medium and high clusters
+respectively. High assignment variability across GCMs is expected as spatial differences in
 GCM DHW timeseries result in reefs being impacted at different relative magnitudes within
 their management area across GCMs.
 
@@ -529,9 +526,6 @@ pretty_table(io, distances, backend=Val(:markdown), header=header)
 md_string = (String(take!(io)))
 Markdown.parse(md_string)
 ```
-
-\[**BG: Need to ensure that methods explain why I use CID here to quantify differences
-between low and high cluster median timeseries.**\]
 
 ## Bioregion scale clustering
 
@@ -611,14 +605,15 @@ and total connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity
 
 Under all GCMs many reefs are projected to suffer substantial declines in coral cover
 relative to 2025 levels, with an average of 38% of reefs (924 reefs) clustered into the
-lowest cover level cluster across GCMs. NorESM2-MM and ACCESS-ESM1-5 GCMs convey the most
-coral cover maintenance into the future. Differences between low, medium and high reef
-clusters in cover timeseries are most notable under these two GCMs [@tbl-cluster-cid;
-@fig-gcm-cover-trajectories]. Maintainance of coral cover into the future is linked to the
-Equilibrium Climate Sensitivity of the GCM used as levels of future recovery and timespan of
-cover maintainance increase as GCM ECS increases [@fig-gcm-cover-trajectories]. Under
-high-ECS GCMs (GFDL-CM4, EC-Earth3-Veg and ACCESS-CM2) large declines and lower rates of
-recovery in high cover clusters are common compared to lower-ECS GCMs.
+lowest cover level cluster at the management area scale across GCMs. NorESM2-MM and
+ACCESS-ESM1-5 GCMs convey the most coral cover maintenance into the future. Differences
+between low, medium and high reef clusters in cover timeseries are most notable under these
+two GCMs [@tbl-cluster-cid; @fig-gcm-cover-trajectories]. Maintainance of coral cover into
+the future is linked to the Equilibrium Climate Sensitivity of the GCM used as levels of
+future recovery and timespan of cover maintainance increase as GCM ECS increases
+[@fig-gcm-cover-trajectories]. Under high-ECS GCMs (GFDL-CM4, EC-Earth3-Veg and ACCESS-CM2)
+large declines and lower rates of recovery in high cover clusters are common compared to
+lower-ECS GCMs.
 
 The large differences in cover timeseries seen across the GCMs suggest that it is important
 to consider uncertainty in future conditions when assessing possible biological responses to
@@ -811,6 +806,21 @@ clusters (blue) are clusters with the highest median area-relative cover between
 represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
 represented five times (for each GCM), with each GCM displayed
 horizontally.](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_dhw_timeseries_plot.png){#sfig-gcm-dhw-trajectories
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by management area scale cluster assignment.
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2024]. Reef centroids are
+marked individually for visual clarity. Reefs that do not have a consistent cluster
+assignment level across all GCMs at mangement area scale are gray. All consistently
+clustered reefs are coloured according to their management area scale cluster assignment.
+Green represents reefs in the low cover cluster, orange represents reefs in the medium cover
+cluster and blue represents reefs in the high cover cluster. All 2429 reefs included in this
+investigation are represented in this figure. An annotation represents the approximate
+location of the Australian Institute of Marine Science Townsville site at Cape
+Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/gcm_cluster_assignment_map.png){#sfig-gcm-cluster-map
 fig-align="center" width="14.82cm"}
 
 ![![](images/paste-1.png)Heatmaps indicating reef cluster assignments within each bioregion
