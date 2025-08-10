@@ -276,8 +276,8 @@ management-area median timeseries and bands represent the 95th percentile confid
 intervals.](../outputs/ADRIA_results/HighResCoralStress/figs/methods_dhw_timeseries.png){#fig-methods-dhws
 width="14.82cm"}
 
-## Depth estimation
-
+**\[TI: Ben, best to use the same colours consistently for each management region. Blue,
+yellow/orange, green and pink were used in for the map.\]**
 Reef depth characteristics were extracted using 10m resolution bathymetry data from the
 Great Barrier Reef Marine Park Authority (GBRMPA [-@GBRMPA2020]). For each reef, bathymetry
 data (in raster format) were spatially matched with reef polygon features through geometric
