@@ -17,7 +17,7 @@ context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
-gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
+gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID.∈[context_layers.UNIQUE_ID], :]
 filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
 
 thresholds = 10:1:20
@@ -123,7 +123,7 @@ dhw_arrays = [
     rebuild(gbr_dom.dhw_scens[:, :, i_gcm], dims=rel_cover_arrays.axes[1:2]) for i_gcm in eachindex(GCMs)
 ]
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
-dhw_arrays = rebuild(dhw_arrays, metadata = dhw_timeseries_properties)
+dhw_arrays = rebuild(dhw_arrays, metadata=dhw_timeseries_properties)
 
 rel_cover_arrays = rel_cover_arrays[locations=At(context_layers.UNIQUE_ID)]
 dhw_arrays = dhw_arrays[locations=At(context_layers.UNIQUE_ID)]
