@@ -203,17 +203,23 @@ to 2075. Code used to calculate DHW data and perform analyses involved in this i
 can be found at **insert repo citation**.
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
-the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and a range of
-GCM development families \[**TI: Ben, what does "GCM development families" mean?**\]. The
-IPCC defines ECS as the long term warming caused by a doubling of carbon dioxide above its
-pre-industrial concentration [@forster2021]. The five GCMs therefore allow for a range of
-possible climate futures to be explored, capturing the uncertainty in future responses to
-CO2 increases (@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]). Projections using
-Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the plausible emission
-pathway. It represents a moderate emissions scenario with continued CO2 emissions comparable
-to present day until 2050, after which emissions gradually decline [@hausfather2020; IPCC
--@climate2023]. The selected GCMs represent 2.5°C to 4.31°C of global atmospheric warming in
-the 2081-2100 period relative to 1850-1900.
+the Intergovernmental Panel on Climate Change (IPCC) assessed likely range. The IPCC defines
+ECS as the long term warming caused by a doubling of carbon dioxide above its pre-industrial
+concentration [@forster2021]. GCM development institutions regularly share aspects of model
+development. Brunner et al. [-@brunner2020] assessed the independence of 33 models,
+quantitatively classifying models into 'model development families' based on patterns in
+atmospheric temperature and sea level pressure. By selecting five GCMs for investigation
+that span a range of four 'model development families' [@brunner2020] (note: we assume
+GFDL-CM4 aligns with GFDL-ESM4; ACCESS-ESM1-5 and ACCESS-CM2 occupy the same family), we are
+able to assess climate projections over a broad range of independently derived futures
+[@abramowitz2019]. The selected GCMs therefore allow for a range of possible climate futures
+to be explored, capturing the uncertainty in future responses to CO2 increases (@sfig-ecs;
+@fig-methods-dhws; [@grose2023; @shepherd2018]). Projections using Shared Socio-economic
+Pathway (SSP) 2-4.5 was used to represent the plausible emission pathway. It represents a
+moderate emissions scenario with continued CO2 emissions comparable to present day until
+2050, after which emissions gradually decline [@hausfather2020; IPCC -@climate2023]. The
+selected GCMs represent 2.5°C to 4.31°C of global atmospheric warming in the 2081-2100
+period relative to 1850-1900.
 
 Monthly mean SST climatological baselines, for each 1km^2^ pixel, were calculated from the
 daily SST data following NOAA methodology [@liu2017; @skirving2020]. For each pixel of SST
@@ -351,11 +357,10 @@ n is the number of timeseries in the group) that is clustered using a k-medoids 
 algorithm [cf. @steinmann2020].
 
 Timeseries clustering analyses were performed at the reefal bioregion scale (defined in
-\[https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::reefal-marine-bioregions/about\]).
-Additional analyses were also performed at larger spatial scales, such as the GBRMPA
-management regions and whole-of-GBR scale. These were found to lead to identical conclusions
-and so are not shown here. Results of these analyses can be found at \[**insert citation for
-repository**\] for those interested.
+GBRMPA [-@GBRMPA2001]). Additional analyses were also performed at larger spatial scales,
+such as the GBRMPA management regions and whole-of-GBR scale. These were found to lead to
+identical conclusions and so are not shown here. Results of these analyses can be found at
+\[**insert citation for repository**\] for those interested.
 
 Reefs in each timeseries cluster were compared to identify characteristics that differ
 between low, medium and high coral cover clusters. These characteristics include reef median
