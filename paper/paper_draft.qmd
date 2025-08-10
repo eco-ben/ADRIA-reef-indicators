@@ -609,10 +609,11 @@ and total connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity
 
 # Discussion
 
-Under all GCMs most reefs are projected to suffer substantial declines in coral cover
-relative to 2025 levels. NorESM2-MM and ACCESS-ESM1-5 GCMs convey the most coral cover
-maintenance into the future. Differences between low, medium and high reef clusters in cover
-timeseries are most notable under these two GCMs [@tbl-cluster-cid;
+Under all GCMs many reefs are projected to suffer substantial declines in coral cover
+relative to 2025 levels, with an average of 38% of reefs (924 reefs) clustered into the
+lowest cover level cluster across GCMs. NorESM2-MM and ACCESS-ESM1-5 GCMs convey the most
+coral cover maintenance into the future. Differences between low, medium and high reef
+clusters in cover timeseries are most notable under these two GCMs [@tbl-cluster-cid;
 @fig-gcm-cover-trajectories]. Maintainance of coral cover into the future is linked to the
 Equilibrium Climate Sensitivity of the GCM used as levels of future recovery and timespan of
 cover maintainance increase as GCM ECS increases [@fig-gcm-cover-trajectories]. Under
