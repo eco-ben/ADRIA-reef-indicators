@@ -278,48 +278,42 @@ width="14.82cm"}
 
 **\[TI: Ben, best to use the same colours consistently for each management region. Blue,
 yellow/orange, green and pink were used in for the map.\]**
-Reef depth characteristics were extracted using 10m resolution bathymetry data from the
-Great Barrier Reef Marine Park Authority (GBRMPA [-@GBRMPA2020]). For each reef, bathymetry
-data (in raster format) were spatially matched with reef polygon features through geometric
-intersection analysis. Depth values within each reef polygon were summarized using zonal
-statistics to calculate minimum, mean, median, maximum, and standard deviation of depth
-values. All depth values were converted to positive values (depths below sea level). The
-median depth was used to provide an indicative depth value for each reef.
 
-As bathymetry data are derived from satellite imagery they can be limited in their alignment
-with the established GBRMPA reef outlines used in the investigation to characterise reef
-locations. Quality control flags were assigned to identify potential data limitations: reefs
-with no overlapping bathymetry data, reefs with minimum depth values above sea level
-(indicating potential data artifacts), and reefs where bathymetry pixels covered less than
-5% of the reef polygon area. These reefs with insufficient data coverage were removed from
-analyses (842, or 22%, reefs of original 3806 reefs used in Bozec et al. [@bozec2025]).
+## Assessment framework
 
-**\[BG: I have updated now, does it make sense referring to the original 3806 reefs (I have
-referred to this 3806 set of reefs in the first paragraph of the methods)?\]**
+An exploratory scenario modelling approach is adopted for this investigation. The method
+involves exploring a wide range of plausible futures under different assumptions of
+environmental (climatic) conditions and ecological factors. Exploratory scenario modelling
+embraces uncertainty as an inherent characteristic of complex environmental systems
+[@lempert2010] and is a core methodology underpinning the development of robust and adaptive
+management strategies [@haasnoot2013].
 
-While data adopted for the given assessment are said to be accurate up to 15m from Mean Sea
-Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimates used for
-this study. There is potential misalignment between GBRMPA reef outlines, as well as the
-usual challenges of deriving data from satellite imagery. In the case of bathymetry,
-estimates are subject to different bottom types (rock, sand, seagrass, etc) and how these
-affect reflectance, the water penetration depth of satellite sensors, influence of local
-conditions (e.g., turbidity and wave activity), and many other factors. The resulting depth
-estimates are therefore highly uncertain themselves and are only adopted as a useful
-indication rather than an accurate and precise report of reef depths across the GBR.
+Exploratory modelling approaches have gained favour in recent years as precise long-term
+predictions of future conditions are often impossible in complex systems like coral reefs.
+Multiple interacting and compounding sources of uncertainty, and a lack of broad agreement
+as to their likelihood, create inherently uncertain outcomes. Rather than attempting to
+forecast specific outcomes, exploratory modelling aims to systematically explore many
+possible futures to identify patterns and, in management contexts, robust strategies that
+perform well across those diverse conditions, as well as conditions in which such strategies
+may fail. Such an exploratory approach lends itself well to the purpose of the
+investigation. Specifically, to assess the role of DHW, connectivity, and depth to identify
+the environmental and reef characteristics that support structural resilience.
 
-**\[TI: TODO cite Canonical Reefs repository\]**
+To apply exploratory scenario modelling, the approach employed a modelling framework
+involving two separate systems: ADRIA (the Adaptive Dynamic Reef Interventin Algorithms
+platform) and CoralBlox. ADRIA is a multi-criteria decision support platform designed to
+help reef managers address climate change challenges in coral reef systems [@iwanaga2023].
+The ADRIA platform provides functionality for scenario generation and analysis as well as
+providing the technical infrastructure to couple environmental and ecosystem
+representations.
 
-## ADRIA-CoralBlox modelling
+CoralBlox is a computationally efficient coral population model. It simulates
+functional/morphological groups of corals over its life cycle, competing for available space
+over time [@ribeirodealmeida2024]. The coupled framework is referred to as ADRIA-CoralBlox.
+The coral demographic representation and associated model implementation are further
+detailed in the supplementary material.
 
-ADRIA.jl is a decision support platform that combines scenario analysis with biotic and
-abiotic processes such as bleaching responses, thermal tolerance and flows of larvae between
-reefs [@iwanaga2023]. CoralBlox.jl is a coral population growth and mortality model that
-simulates groups of corals growing in diameter and competing for limited space over time
-[@ribeirodealmeida2024]. We combine these tools to model the populations of corals across
-the GBR. Details on how coral demographic processes are implemented in ADRIA - CoralBlox can
-be found in the supplementary material.
-
-### TODO: Section on scenario modelling
+### Scenario modelling
 
 **\[TI and BG to flesh out\]**
 
