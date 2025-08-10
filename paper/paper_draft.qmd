@@ -139,37 +139,50 @@ positive carbonate budgets under current projections of climate change.
 
 # Methods
 
-## Reef representations
+## Reef definitions
 
 The spatial extent of the GBR reefs represented in this investigation follows the reef
 definitions available via the Great Barrier Reef Marine Park Authority (GBRMPA)
 [@GBRMPA2022]. An indicative map of the GBR marine park including the Marine Park management
-regions and which reefal bioregion each reef belongs to is shown in [@fig-region-map;
-@GBRMPA2024; @GBRMPA2001]. This investigation adopts the GBR reef definition used in Bozec
-et al. [-@bozec2025], which includes 3806 reefs across the GBR. Reefs that are not
-associated with GBRMPA management areas or reefal bioregions were removed from the
-investigation. Additionally, reefs with poor quality bathymetry data coverage or fewer than
-three reefs per bioregion were removed from analyses (see Methods - Depth estimation). As a
-result, a total of 2429 individual reefs were included in this investigation. Annually and
-spatially averaged Degree Heating Week (DHW) data were used to represent future thermal
-stress at each reef location. Code used to calculate DHW data and perform analyses involved
-in this investigation can be found at **insert repo citation**.
+areas [@GBRMPA2024] and the corresponding bioregion for each reef is shown in
+[@fig-region-map; @GBRMPA2001]. This investigation adopts the GBR reef outlines as published
+by GBRMPA [-@GBRMPA2022], which defines 3806 reefs across the GBR.
 
-\[**BG: Updated number of reefs and introduced original set of reefs with 3806 to set scene
-for justified removal of reefs.**\]
+Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
+available in GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched
+with the 3806 reef outlines through geometric intersection analysis. Depth values within
+each reef polygon were summarized using zonal statistics to calculate minimum, mean, median,
+maximum, and standard deviation of depth values. All depth values were converted to positive
+values (depths below sea level). The median depth was used to provide an indicative depth
+value for each reef. Code, and the resulting depth estimates, are available at **\[cite
+Canonical Reefs repo\]**.
+
+While data adopted for the given assessment are said to be accurate up to 15m from Mean Sea
+Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimates used for
+this study. These are outlined further in the Discussion. Notably, the adopted depth
+estimates were derived from bathymetries based on satellite imagery. Available data can be
+limited in their alignment with the established GBRMPA reef outlines used to characterise
+reef locations. Quality control flags were assigned to identify potential data limitations:
+reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
+(indicating potential data artifacts), and reefs where bathymetry pixels covered less than
+5% of the reef polygon area. This removed 842 reefs, or 22%, from the initial set of 3806
+reefs. Furthermore, reefs that are not associated with GBRMPA management areas [@GBRMPA2024]
+or reefal bioregions [@GBRMPA2001] were also removed from the investigation. Bioregions
+which contained fewer than three reefs were also excluded. As a result, 1377 reefs were
+excluded (36%), leaving a total of 2429 remaining for the purpose of this investigation.
 
 \[**BG: I am having issues with citations not appearing for datasets like GBRMPA ones.**\]
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
-considered reefs (points). The green polygon represents the Far Northern management area,
-the yellow polygon represents the Cairns/Cooktown management area, the pink polygon
-represents the Townsville/Whitsunday management area and the blue polygon represents the
-Mackay/Capricorn management area [@GBRMPA2024]. The centroid of each reef is represented as
-a point for visual clarity, and is coloured according to its GBRMPA reefal bioregion
-[@GBRMPA2001]. All 2429 reefs included in this investigation are represented in this figure.
-An annotation represents the approximate location of the Australian Institute of Marine
-Science Townsville site at Cape
-Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map}
+considered reefs (points). Colour-coded areas outline GBR marine park management regions,
+where green represents the Far Northern management region, yellow represents
+Cairns/Cooktown, pink covers Townsville/Whitsunday and blue covers Mackay/Capricorn
+[@GBRMPA2024]. Reef centroids are marked individually for visual clarity, and are coloured
+according to its bioregion [@GBRMPA2001]. All 2429 reefs included in this investigation are
+represented in this figure. An annotation represents the approximate location of the
+Australian Institute of Marine Science Townsville site at Cape
+Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map
+fig-align="center" width="14.8cm"}
 
 ## Degree Heating Week trajectories
 
