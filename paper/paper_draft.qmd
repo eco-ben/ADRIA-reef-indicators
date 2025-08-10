@@ -197,8 +197,9 @@ atmospheric temperature and precipitation conditions in the Australasian region.
 assessment does not consider oceanic data, Grose et al. [-@grose2023] provide a
 region-specific selection mechanism which we use as an indicator of general performance of
 GCMs for the region. An overview of the selected GCMs are provided in @tbl-gcms. The process
-described herein was conducted for all 2429 reefs to create DHW projections spanning from
-2025 to 2075.
+described here was conducted for all 2429 reefs to create DHW projections spanning from 2025
+to 2075. Code used to calculate DHW data and perform analyses involved in this investigation
+can be found at **insert repo citation**.
 
 The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
 the Intergovernmental Panel on Climate Change (IPCC) assessed likely range, and a range of
