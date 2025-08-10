@@ -710,6 +710,8 @@ both depth and reef connectivity for resilience, in line with other investigatio
 [@hock2017; @torres2024]. Further improvements and research in connectivity modelling are
 necessary to provide a robust comparison of all factors influencing reef resilience.
 
+## Limitations
+
 There are multiple caveats in how coral ecosystem dynamics are modelled in this
 investigation. We model coral colonies as circular diameter values and track these diameters
 over timesteps through growth. Due to the availability of quality future projected data we
@@ -725,6 +727,31 @@ a wider Australian dataset [@dixon2022] developed using statistical downscaling.
 investigate a range of future climate responses, thermal projections and ecological
 parameterisations of ADRIA - CoralBlox to account for many possible futures, and our results
 suggest the factors that influence reef resilience are consistent across these scenarios.
+
+Additionally, it is currently not possible to obtain highly accurate and precise estimates
+of reef depth at the GBR-scale. Data adopted for the given assessment are said to be
+accurate up to 15m from Mean Sea Level [@GBRMPA2020], however there are many sources of
+uncertainty in the depth estimates used for this study. Satellite-derived estimates are
+subject to different bottom types (rock, sand, seagrass, etc) and how these affect
+reflectance, the water penetration depth of satellite sensors, influence of local conditions
+(e.g., turbidity and wave activity), among many other factors.
+
+In addition to the usual challenges of deriving data from satellite imagery, it is
+acknowledged that there is high potential for misalignment between the bathymetry data and
+GBRMPA reef outlines. Hammerton and Lawrey [-@hammerton], for example, identified 120 false
+positives, where features identified as reefs were in actuality sand banks or rocky reefs
+(rather than coral reefs). Reefs with bathymetry data of less than 5% of its indicative area
+were excluded from analysis to ensure analyses were not conducted on reefs with no data
+coverage (see @sfig-depth-cutoff). The existing GBRMPA reef outlines were adopted to align
+with other ongoing modelling and analyses conducted as part of the Reef Restoration and
+Adaptation Program (RRAP; <https://gbrrestoration.org>) **\[TODO: PROPER CITATION OF
+RRAP\]**. The median depths for each indicative reef area were extracted from bathymetry
+data using zonal statistics and depth values beyond the 15m range were included. The
+resulting depth estimates are therefore highly uncertain and are only adopted as a useful
+indication for the purpose of the presented analysis. They are not intended to be an
+accurate and precise report of reef depths across the GBR.
+
+**\[TODO - rewrite/expand paragraphs below for flow\]**
 
 ADRIA - CoralBlox has not been calibrated or validated at the GBR-wide scale. Accordingly,
 the purpose of this investigation is to assess the relative influence of reef
