@@ -629,7 +629,7 @@ have often focussed on the potential of mesophotic reefs (\> 30m deep) as therma
 found no association between depth and the alleviation of heat stress across a range of
 shallow reefs in the Pacific. Reefs at shallow depths experience no, or few, years with
 coral cover exceeding levels likely required to maintain positive carbonate budgets.
-Movement of shallow reefs towards negative cabonate budgets in the future may contribute to
+Movement of shallow reefs towards negative carbonate budgets in the future may contribute to
 phase shifts in reef dominant CaCO~3~ production. Shifting from coral driven to encrusting
 algae driven production, or to bioerosion dominated systems with rapid erosion of physical
 reef frameworks [@dudgeon2010; @perry2008]. While reefs at increased depths may be able to
