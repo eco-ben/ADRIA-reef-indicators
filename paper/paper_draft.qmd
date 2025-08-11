@@ -91,11 +91,12 @@ The Great Barrier Reef (GBR) is the world's largest coral reef ecosystem consist
 thousands of individual reefs. They are interconnected through coral and fish larval
 dispersal patterns mediated by hydrodynamic, spatial, and ecological processes
 [@grimaldi2022]. The GBR faces severe projected coral cover declines under climate change
-[@bozec2022]. These coral cover declines will be compounded by ocean acidification,
-intensifying tropical cyclones, and crown-of-thorns starfish outbreaks [@death2012;
-@fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. The 2023-24 Summer mass
-bleaching event may be signalling a shift towards this reef future, with some level of
-bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs) [@cantin2024].
+[@bozec2025; @bozec2022]. These coral cover declines will be compounded by ocean
+acidification, intensifying tropical cyclones, and crown-of-thorns starfish outbreaks
+[@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. The 2023-24
+Summer mass bleaching event may be signalling a shift towards this reef future, with some
+level of bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs)
+[@cantin2024].
 
 At the individual coral scale, survival during thermal stress events depends on both
 environmental and biological factors. Environmental factors can either amplify or reduce
@@ -144,8 +145,8 @@ positive carbonate budgets under current projections of climate change.
 The spatial extent of the GBR reefs represented in this investigation follows the reef
 definitions available via the Great Barrier Reef Marine Park Authority (GBRMPA)
 [@GBRMPA2022]. An indicative map of the GBR marine park including the Marine Park management
-areas [@GBRMPA2024] and the corresponding bioregion for each reef is shown in
-[@fig-region-map; @GBRMPA2001]. This investigation adopts the GBR reef outlines as published
+areas [@GBRMPA2007] and the corresponding bioregion for each reef is shown in
+(@fig-region-map; [@GBRMPA2024]). This investigation adopts the GBR reef outlines as published
 by GBRMPA [-@GBRMPA2022], which defines 3806 reefs across the GBR.
 
 Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
@@ -167,7 +168,7 @@ potential data limitations: reefs with no overlapping bathymetry data, reefs wit
 depth values above sea level (indicating potential data artifacts), and reefs where
 bathymetry pixels covered less than 5% of the reef polygon area. This removed 842 reefs, or
 22%, from the initial set of 3806 reefs. Furthermore, reefs that are not associated with
-GBRMPA management areas [@GBRMPA2024] or reefal bioregions [@GBRMPA2001] were also removed
+GBRMPA management areas [@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were also removed
 from the investigation. Bioregions which contained fewer than three reefs were also
 excluded. As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining for
 the purpose of this investigation.
@@ -178,8 +179,8 @@ the purpose of this investigation.
 considered reefs (points). Colour-coded areas outline GBR marine park management regions,
 where orange represents the Far Northern management region, green represents
 Cairns/Cooktown, red covers Townsville/Whitsunday and blue covers Mackay/Capricorn
-[@GBRMPA2024]. Reef centroids are marked individually for visual clarity, and are coloured
-according to its bioregion [@GBRMPA2001]. All 2429 reefs included in this investigation are
+[@GBRMPA2007]. Reef centroids are marked individually for visual clarity, and are coloured
+according to its bioregion [@GBRMPA2024]. All 2429 reefs included in this investigation are
 represented in this figure. An annotation represents the approximate location of the
 Australian Institute of Marine Science Townsville site at Cape
 Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/region_map.png){#fig-region-map
@@ -333,8 +334,8 @@ sampling methods can be found in [@kucherenko2015].
 
 For the purpose of scenario assessment, the resulting timeseries for each model run were
 scaled by the total area of the reef to represent cover as a percentage of the total
-estimated reef area. These timeseries
-of coral cover were then clustered based on their temporal behaviour.
+estimated reef area. These timeseries of coral cover were then clustered based on their
+temporal behaviour.
 
 ### Timeseries clustering
 
@@ -350,7 +351,7 @@ n is the number of timeseries in the group) that is clustered using a k-medoids 
 algorithm [cf. @steinmann2020].
 
 Timeseries clustering analyses were performed at the management area and reefal bioregion
-scale (defined in GBRMPA [-@GBRMPA2001]). Additional analyses were also performed at the
+scale (defined in GBRMPA [-@GBRMPA2024]). Additional analyses were also performed at the
 whole-of-GBR scale. These were found to lead to identical conclusions and so are not shown
 here. To compare timeseries clustering results across GCMs, management area scale clustering
 results are used to preserve coarse scale latitudinal differences between regions, while
@@ -740,7 +741,7 @@ positives, where features identified as reefs were in actuality sand banks or ro
 were excluded from analysis to ensure analyses were not conducted on reefs with no data
 coverage (see @sfig-depth-cutoff). The existing GBRMPA reef outlines were adopted to align
 with other ongoing modelling and analyses conducted as part of the Reef Restoration and
-Adaptation Program (RRAP; <https://gbrrestoration.org>) **\[TODO: PROPER CITATION OF
+Adaptation Program \[RRAP; <https://gbrrestoration.org>\] **\[TODO: PROPER CITATION OF
 RRAP\]**. The median depths for each indicative reef area were extracted from bathymetry
 data using zonal statistics and depth values beyond the 15m range were included. The
 resulting depth estimates are therefore highly uncertain and are only adopted as a useful
@@ -762,8 +763,9 @@ the investigation of different reef characteristics to be targetted in decision 
 models the evolving outcomes as a result of interventions at various locations. The
 capability of ADRIA-CoralBlox could be further expanded by incorporating the impacts of
 waves, cyclones, CoTS and currents into future resilience investigations [@lin2023;
-@mcclanahan2005; @grimaldi2022; @liu2024]. Additionally, the investigation could be enhanced
-by incorporating ocean acidification projections into analyses of coral carbonate budgets.
+@mcclanahan2005; @grimaldi2023; @grimaldi2022; @liu2024]. Additionally, the investigation
+could be enhanced by incorporating ocean acidification projections into analyses of coral
+carbonate budgets.
 
 # Conclusion
 
@@ -791,7 +793,8 @@ the solid red box represents low-certainty ‘likely’ range for ECS values (Fo
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
 fig-align="center" width="10cm"}
 
-![Depth cutoff for reefs](../outputs/ADRIA_results/HighResCoralStress/figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
+![Depth cutoff for
+reefs](../outputs/ADRIA_results/HighResCoralStress/figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
 ![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
@@ -809,7 +812,7 @@ fig-align="center" width="14.82cm"}
 considered reefs (points), coloured by management area scale cluster assignment.
 Colour-coded areas outline GBR marine park management regions, where orange represents the
 Far Northern management region, green represents Cairns/Cooktown, red covers
-Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2024]. Reef centroids are
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
 marked individually for visual clarity. Reefs that do not have a consistent cluster
 assignment level across all GCMs at mangement area scale are gray. All consistently
 clustered reefs are coloured according to their management area scale cluster assignment.
@@ -820,12 +823,12 @@ location of the Australian Institute of Marine Science Townsville site at Cape
 Cleveland.](../outputs/ADRIA_results/HighResCoralStress/figs/gcm_cluster_assignment_map.png){#sfig-gcm-cluster-map
 fig-align="center" width="14.82cm"}
 
-![Heatmaps indicating reef cluster assignments within each bioregion
-across the five GCMs. Green indicates a low cover cluster assignment, orange represents a
-medium cover assignment and blue represents assignment of a reef to a high coral cover
-cluster. The vertical width of reef elements varies depending on the number of reefs within
-the bioregion (displayed in the y axis). The x axis represents the different GCM levels
-(EC-Earth3-Veg, ACCESS-ESM1-5, ACCESS-CM2, NorESM2-MM and
+![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
+Green indicates a low cover cluster assignment, orange represents a medium cover assignment
+and blue represents assignment of a reef to a high coral cover cluster. The vertical width
+of reef elements varies depending on the number of reefs within the bioregion (displayed in
+the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCESS-ESM1-5,
+ACCESS-CM2, NorESM2-MM and
 GFDL-CM4).](../outputs/ADRIA_results/HighResCoralStress/figs/GCM_bioregion_cluster_assignments.png){#sfig-gcm-bioregion-cluster-assignment
 fig-align="center" width="14.82cm"}
 
