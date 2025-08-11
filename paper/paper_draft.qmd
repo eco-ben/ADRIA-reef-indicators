@@ -146,8 +146,8 @@ The spatial extent of the GBR reefs represented in this investigation follows th
 definitions available via the Great Barrier Reef Marine Park Authority (GBRMPA)
 [@GBRMPA2022]. An indicative map of the GBR marine park including the Marine Park management
 areas [@GBRMPA2007] and the corresponding bioregion for each reef is shown in
-(@fig-region-map; [@GBRMPA2024]). This investigation adopts the GBR reef outlines as published
-by GBRMPA [-@GBRMPA2022], which defines 3806 reefs across the GBR.
+(@fig-region-map; [@GBRMPA2024]). This investigation adopts the GBR reef outlines as
+published by GBRMPA [-@GBRMPA2022], which defines 3806 reefs across the GBR.
 
 Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
 available in GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched
@@ -172,8 +172,6 @@ GBRMPA management areas [@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were al
 from the investigation. Bioregions which contained fewer than three reefs were also
 excluded. As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining for
 the purpose of this investigation.
-
-\[**BG: I am having issues with citations not appearing for datasets like GBRMPA ones.**\]
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). Colour-coded areas outline GBR marine park management regions,
@@ -669,11 +667,12 @@ tolerance than reefs in lower coral cover clusters. This is in contrast with lit
 suggesting corals have the capacity to adapt to increasing climate change pressures
 [@humanes2022; @lachs2024], including the investigation by Bairos-Novak et al.
 [-@bairos-novak2021] that revealed high heritability of bleaching and survival response
-traits, used to inform thermal tolerance trait distributions in this investigation. The lack
-of influence of thermal tolerance on reef outcomes is likely due to reefs being impacted by
-high levels of thermal stress early in projected timeseries and being unable to build
-thermal tolerance to DHW levels greater than 9°C-weeks. **\[TI note: This paragraph needs to
-be revisited\]**
+traits, used to inform thermal tolerance trait distributions in this investigation. The low
+importance of thermal tolerance on cover outcomes may be due to reefs experiencing high
+levels of thermal stress early in projected timeseries. High - early timeseries thermal
+stress events may prevent the intergenerational adaptation of corals to thermal stress and
+prevent thermal tolerance from reaching levels greater than 9°C-weeks. **\[TI note: This
+paragraph needs to be revisited\]**
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the degree of larval connectivity between reefs and the supply of recruits that a reef
@@ -748,24 +747,25 @@ resulting depth estimates are therefore highly uncertain and are only adopted as
 indication for the purpose of the presented analysis. They are not intended to be an
 accurate and precise report of reef depths across the GBR.
 
-**\[TODO - rewrite/expand paragraphs below for flow\]**
-
-ADRIA - CoralBlox has not been calibrated or validated at the GBR-wide scale. Accordingly,
-the purpose of this investigation is to assess the relative influence of reef
-characteristics on future resilience and highlight possible outcomes under uncertain future
-scenarios. We do not aim to provide spatially explicit predictions of future resilience.
-
-Further analyses could build on the findings of this study by analysing the impacts of
-prioritising reef depth in restoration intervention decision making. The ADRIA platform is
-developed as a modelling tool to incorporate multi-criteria decision analysis (MCDA) and
-ecosystem scenario modelling into reef restoration decision support. The platform allows for
-the investigation of different reef characteristics to be targetted in decision making and
-models the evolving outcomes as a result of interventions at various locations. The
-capability of ADRIA-CoralBlox could be further expanded by incorporating the impacts of
-waves, cyclones, CoTS and currents into future resilience investigations [@lin2023;
-@mcclanahan2005; @grimaldi2023; @grimaldi2022; @liu2024]. Additionally, the investigation
-could be enhanced by incorporating ocean acidification projections into analyses of coral
-carbonate budgets.
+**\[TODO - rewrite/expand paragraphs below for flow\]** 
+As ADRIA - CoralBlox has not been
+validated at the GBR-wide scale, we aim to assess the relative influence of reef
+characteristics on resilience under future change rather than provide spatially explicit
+predictions of reef outcomes into the future. Using this approach we suggest that median
+reef depth is an important factor for reef resilience under thermal stress. Improvements in
+remote sensing approaches for broad scale bathymetry measurement, and understanding of how
+depth impacts experienced thermal stress on reefs will further enhance investigations of
+depth as a critical factor for reef resilience. Additional analyses could build on the
+findings of this study by assessing the impacts of prioritising reef depth in reef
+restoration decision making. The ADRIA platform is developed as a modelling tool to
+incorporate multi-criteria decision analysis (MCDA) and ecosystem scenario modelling into
+reef restoration decision support. This platform allows for different intervention
+priorities to be dynamically targetted in decision making, while modelling the evolving
+outcomes as a result of interventions. The capability of ADRIA-CoralBlox could be further
+expanded by incorporating the impacts of waves, cyclones, CoTS and currents into future
+resilience investigations [@lin2023; @mcclanahan2005; @grimaldi2023; @grimaldi2022;
+@liu2024]. Additionally, the investigation could be enhanced by incorporating ocean
+acidification projections into analyses of coral carbonate budgets [@eyre2018].
 
 # Conclusion
 
