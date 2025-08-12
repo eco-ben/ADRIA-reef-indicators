@@ -3,15 +3,18 @@ using CSV
 using CategoricalArrays
 using StatsModels
 using Turing, Distributions, StatsFuns, LinearAlgebra
+using MLDataUtils: shuffleobs, stratifiedobs, rescale!
 
 include("../../common.jl")
 
 context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
+context_layers.log_area = log10.(context_layers.area)
 
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
 GCMs = dhw_scenarios.dhw.properties["members"]
+GCMs = ["EC-Earth3-Veg", "ACCESS-ESM1-5", "ACCESS-CM2", "NorESM2-MM", "GFDL-CM4"]
 
 # Prepare long-form of data to support multinomial analysis.
 # Each row should be unique attribute combination of reef properties:
@@ -21,7 +24,7 @@ gcm_dhw_cols = [Symbol("$(GCM)_mean_dhw") for GCM in GCMs]
 gcm_bioregion_cluster_cols = [Symbol("$(GCM)_bioregion_cluster_cats") for GCM in GCMs]
 
 collated_reef_properties = Vector{DataFrame}(undef, length(GCMs))
-target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :log_total_strength, :log_so_to_si, :bioregion]
+target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :log_total_strength, :log_so_to_si, :bioregion, :log_area]
 reef_properties = context_layers[:, target_cols]
 for (i, GCM) in enumerate(GCMs)
     dhw_col = Symbol("$(GCM)_mean_dhw")
@@ -83,7 +86,7 @@ reef_properties.bioregion .= categorical(reef_properties.bioregion)
 - `n_grp1` : Number of unique levels in grp1
 - `n_grp2` : Number of unique levels in grp2
 """
-@model function ordinal_random_intercepts(y::Vector{Integer}, X::Matrix{Float64}, grp1::Vector{Integer}, grp2::Vector{Integer}, n_grp1::Int64, n_grp2::Int64)
+@model function ordinal_random_intercepts(y::Vector{UInt32}, X::Matrix{Float64}, grp1::Vector{UInt32}, grp2::Vector{UInt32}, n_grp1::Int64, n_grp2::Int64)
     N, p = size(X)
     # @assert p == 4
 
@@ -131,7 +134,7 @@ reef_properties.bioregion .= categorical(reef_properties.bioregion)
     ps ./= sum(ps, dims=2)
 
     for i in 1:N
-        y[i] ~ Categorical(vec(ps[i, :]))
+        y[i] ~ Distributions.Categorical(vec(ps[i, :]))
     end
     # y ~ arraydist([Categorical(ps[i, :]) for i in 1:N])
 end
@@ -147,24 +150,63 @@ n_GCMs = length(levels(reef_properties.GCM))
 n_bioregions = length(levels(reef_properties.bioregion))
 
 # Encode response levels as increasing integers
-y = categorical(reef_properties.cluster).refs
+reef_properties.cluster_vals = categorical(reef_properties.cluster; ordered=true, levels=["low", "medium", "high"]).refs
 K = length(unique(reef_properties.cluster))
+reef_properties.row_n = 1:nrow(reef_properties)
 
 # Design matrix (without intercept — model will handle that)
-predictors = [:depth_med, :log_total_strength, :log_so_to_si, :mean_dhw]
-# predictors = [:depth_med, :log_total_strength]
-X = Matrix(DataFrames.select(reef_properties, predictors))
+predictors = [:depth_med, :log_total_strength, :log_so_to_si, :mean_dhw, :log_area]
+
+function split_data(df, target; at=0.70)
+    shuffled = shuffleobs(df)
+    return trainset, testset = stratifiedobs(row -> row[target], shuffled; p=at)
+end
+
+target = :cluster_vals
+
+trainset, testset = split_data(reef_properties, target; at=0.50)
+for feature in predictors
+    μ, σ = rescale!(trainset[!, feature]; obsdim=1)
+    rescale!(testset[!, feature], μ, σ; obsdim=1)
+end
+
+train_idx = indexin(trainset.row_n, reef_properties.row_n)
+test_idx = indexin(testset.row_n, reef_properties.row_n)
+
+# Turing requires data in matrix form, not dataframe
+train = Matrix(trainset[:, predictors])
+test = Matrix(testset[:, predictors])
+train_cluster = trainset[:, target]
+test_cluster = testset[:, target];
+train_GCM = GCM_idx[train_idx]
+train_bioregion = bioregion_idx[train_idx]
+test_GCM = GCM_idx[test_idx]
+test_bioregion = bioregion_idx[test_idx]
 
 model = ordinal_random_intercepts(
-    y, 
-    X, 
-    bioregion_idx, 
-    GCM_idx,
+    train_cluster, 
+    train, 
+    train_bioregion, 
+    train_GCM,
     n_bioregions, 
     n_GCMs
 )
-chain = sample(model, NUTS(), MCMCThreads(), 2000, 4)  # 4 chains using Threads, 2000 samples each
+# chain = sample(model, NUTS(), MCMCThreads(), 1500, 4)  # 4 chains using Threads, 2000 samples each
 
-StatsPlots.plot(chain)
+# StatsPlots.plot(chain)
 
 small_chain = sample(model, NUTS(), 150; warmup=100, chains=1)
+
+description = describe(small_chain)
+
+summary = leftjoin(DataFrame(summarize(small_chain)), DataFrame(quantile(small_chain)), on=:parameters)
+
+beta_params = summary[1:5, :]
+fig = Figure()
+ax = Axis(fig[1,1], ylabel = "Parameter", xlabel = "Estimates mean (2.5-97.5% quantiles)",
+    yticks = (1:5, String.(predictors)))
+Makie.scatter!(ax, beta_params.mean, 1:5; color=:blue)
+lines_x = [[beta_params[x, "2.5%"], beta_params[x, "97.5%"]] for x in 1:5]
+lines_y = [[x, x] for x in 1:5]
+
+Makie.lines!.(lines_x, lines_y)
