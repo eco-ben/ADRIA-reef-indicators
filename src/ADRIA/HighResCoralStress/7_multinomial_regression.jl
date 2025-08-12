@@ -2,7 +2,7 @@
 using CSV
 using CategoricalArrays
 using StatsModels
-using MixedModels
+using Turing, Distributions, StatsFuns, LinearAlgebra
 
 include("../../common.jl")
 
@@ -72,8 +72,6 @@ reef_properties.bioregion .= categorical(reef_properties.bioregion)
 # )
 # CSV.write(regression_save_path, coeftab)
 
-using Turing, Distributions, StatsFuns, LinearAlgebra
-
 """
     ordinal_random_intercepts(y, X, grp1, grp2, n_grp1, n_grp2)
 
@@ -123,6 +121,7 @@ using Turing, Distributions, StatsFuns, LinearAlgebra
     #     y[i] ~ Distributions.Categorical(ps)
     # end
 
+    # Likelihood
     η = X * β .+ u1[grp1] .+ u2[grp2]
     p1 = cdf.(Normal(), c[1] .- η)
     p2 = cdf.(Normal(), c[2] .- η)
