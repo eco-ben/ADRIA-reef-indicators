@@ -209,12 +209,12 @@ fundamental representation of the physical climate system.
 Projections using Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the
 plausible emission pathway. It represents a moderate emissions scenario with continued CO2
 emissions comparable to present day until 2050, after which emissions gradually decline
-[@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to 4.31°C of global atmospheric warming in the 2081-2100 period relative to
-1850-1900. The use of this range of GCMs therefore allow for a range of possible climate
-futures to be explored, capturing the uncertainty in future responses to CO2 increases
-(@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]) and enables the assessment of
-model projected coral reef behaviour over a broad range of independently derived climate
-futures [@abramowitz2019].
+[@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to 4.31°C of global
+atmospheric warming in the 2081-2100 period relative to 1850-1900. The use of this range of
+GCMs therefore allow for a range of possible climate futures to be explored, capturing the
+uncertainty in future responses to CO2 increases (@sfig-ecs; @fig-methods-dhws; [@grose2023;
+@shepherd2018]) and enables the assessment of model projected coral reef behaviour over a
+broad range of independently derived climate futures [@abramowitz2019].
 
 Monthly mean SST climatological baselines, for each 1km^2^ pixel, were calculated from the
 daily SST data following NOAA methodology [@liu2017; @skirving2020]. For each pixel of SST
@@ -256,11 +256,11 @@ citation\]**.
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
 |-----------------------|-----------------------|------------------------|-----------------------|
-| ACCESS-CM2 | 4.66 [@grose2023]| High | **insert repo citation** |
-| EC-Earth3-Veg | 4.30 [@wyser2020]| High | **insert repo citation** |
-| GFDL-CM4 | 4.1 [@sentman2025]| High | **insert repo citation** |
-| ACCESS-ESM1-5 | 3.87 [@ziehn2020]| Intermediate | Main text |
-| NorESM2-MM | 2.5 [@seland2020]| Low | **insert repo citation** |
+| ACCESS-CM2 | 4.66 [@grose2023] | High | **insert repo citation** |
+| EC-Earth3-Veg | 4.30 [@wyser2020] | High | **insert repo citation** |
+| GFDL-CM4 | 4.1 [@sentman2025] | High | **insert repo citation** |
+| ACCESS-ESM1-5 | 3.87 [@ziehn2020] | Intermediate | Main text |
+| NorESM2-MM | 2.5 [@seland2020] | Low | **insert repo citation** |
 
 : Information for each GCM used in this investigation including Equilibrium Climate
 Sensitivity (ECS) value, interpreted relative severity and where results are individual GCM
@@ -707,20 +707,23 @@ necessary to provide a robust comparison of all factors influencing reef resilie
 ## Limitations
 
 There are multiple caveats in how coral ecosystem dynamics are modelled in this
-investigation. We model coral colonies as circular diameter values and track these diameters
-over timesteps through growth. Due to the availability of quality future projected data we
-do not consider the impacts of waves, cyclones, currents and Crown of Thorns Starfish (CoTS)
-on coral colony survival and bleaching [@massel1993; @deaker2022]. Uncertainty in
-connectivity modelling outputs, satellite-derived bathymetry data and future thermal stress
-projections are likely to influence the results obtained in this investigation.
-Incorporating further improvements in connectivity modelling and understanding of the
-influence of climate change on reef connectivity would improve the comparison of
-connectivity as an important factor for reef resilience. The DHW data used in this
-investigation have not been bias corrected for the Great Barrier Reef region and are part of
-a wider Australian dataset [@dixon2022] developed using statistical downscaling. We
-investigate a range of future climate responses, thermal projections and ecological
-parameterisations of ADRIA - CoralBlox to account for many possible futures, and our results
-suggest the factors that influence reef resilience are consistent across these scenarios.
+investigation. We model coral colonies as circular diameter values that are tracked over
+timesteps through growth. Due to the availability of quality future projected data we do not
+consider the impacts of waves, cyclones, currents and Crown of Thorns Starfish (CoTS) on
+coral colony survival and bleaching [@massel1993; @deaker2022]. Uncertainty in connectivity
+modelling outputs, satellite-derived bathymetry data and future thermal stress projections
+are likely to influence the results obtained in this investigation. While the resolution of
+connectivity data used in this investigation improves upon data used in comparable studies
+[@bozec2025], the time-mean implementation used may not effectively capture long term
+patterns [@vogt-vincent2023]. Using alternative connectivity implementation methods that
+better capture the ecological-timescale trends in reef connections rather than the high
+daily variability, would improve confidence in the connectivity findings of this
+investigation [@vogt-vincent2023]. The DHW data used in this investigation have not been
+bias corrected for the Great Barrier Reef region and are part of a wider Australian dataset
+[@dixon2022] developed using statistical downscaling. We investigate a range of future
+climate responses, thermal projections and ecological parameterisations of ADRIA - CoralBlox
+to account for many possible futures, and our results suggest the factors that influence
+reef resilience are consistent across these scenarios.
 
 Additionally, it is currently not possible to obtain highly accurate and precise estimates
 of reef depth at the GBR-scale. Data adopted for the given assessment are said to be
