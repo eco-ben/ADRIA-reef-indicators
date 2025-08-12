@@ -1,7 +1,7 @@
 
 using CSV
 using CategoricalArrays
-using Econometrics, StatsModels
+using StatsModels
 using MixedModels
 
 include("../../common.jl")
@@ -18,14 +18,14 @@ GCMs = dhw_scenarios.dhw.properties["members"]
 # reef, depth, connectivity, dhw, cluster and GCM
 
 gcm_dhw_cols = [Symbol("$(GCM)_mean_dhw") for GCM in GCMs]
-gcm_bioregion_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
+gcm_bioregion_cluster_cols = [Symbol("$(GCM)_bioregion_cluster_cats") for GCM in GCMs]
 
 collated_reef_properties = Vector{DataFrame}(undef, length(GCMs))
 target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :log_total_strength, :log_so_to_si, :bioregion]
 reef_properties = context_layers[:, target_cols]
 for (i, GCM) in enumerate(GCMs)
     dhw_col = Symbol("$(GCM)_mean_dhw")
-    bio_cluster_col = Symbol("$(GCM)_bioregion_clusters")
+    bio_cluster_col = Symbol("$(GCM)_bioregion_cluster_cats")
 
     bio_cluster_details = context_layers[:, [dhw_col, bio_cluster_col]]
     rename!(bio_cluster_details, dhw_col => :mean_dhw, bio_cluster_col => :cluster)
@@ -85,7 +85,7 @@ using Turing, Distributions, StatsFuns, LinearAlgebra
 - `n_grp1` : Number of unique levels in grp1
 - `n_grp2` : Number of unique levels in grp2
 """
-@model function ordinal_random_intercepts(y, X, grp1, grp2, n_grp1, n_grp2)
+@model function ordinal_random_intercepts(y::Vector{Integer}, X::Matrix{Float64}, grp1::Vector{Integer}, grp2::Vector{Integer}, n_grp1::Int64, n_grp2::Int64)
     N, p = size(X)
     # @assert p == 4
 
@@ -110,17 +110,31 @@ using Turing, Distributions, StatsFuns, LinearAlgebra
     c_raw ~ filldist(Normal(0, 5), 2)
     c = sort(c_raw)  # c[1] < c[2]
 
-    # Likelihood
-    for i in 1:N
-        η = dot(X[i, :], β) + u1[grp1[i]] + u2[grp2[i]]
-        p1 = cdf(Normal(), c[1] - η)
-        p2 = cdf(Normal(), c[2] - η)
-        ps = [p1, p2 - p1, 1 - p2]  # probabilities for categories 1,2,3
-        ps = clamp.(ps, 1e-10, 1.0) # Prevent errors if probabilities appear as 0 or -ve
-        ps ./= sum(ps)
 
-        y[i] ~ Distributions.Categorical(ps)
-    end
+    # Likelihood
+    # for i in 1:N
+    #     η = dot(X[i, :], β) + u1[grp1[i]] + u2[grp2[i]]
+    #     p1 = cdf(Normal(), c[1] - η)
+    #     p2 = cdf(Normal(), c[2] - η)
+    #     ps = [p1, p2 - p1, 1 - p2]  # probabilities for categories 1,2,3
+    #     ps = clamp.(ps, 1e-10, 1.0) # Prevent errors if probabilities appear as 0 or -ve
+    #     ps ./= sum(ps)
+
+    #     y[i] ~ Distributions.Categorical(ps)
+    # end
+
+    η = X * β .+ u1[grp1] .+ u2[grp2]
+    p1 = cdf.(Normal(), c[1] .- η)
+    p2 = cdf.(Normal(), c[2] .- η)
+
+    ps = hcat(p1, p2 .- p1, 1 .- p2)
+    ps = clamp.(ps, 1e-10, 1.0)
+    ps ./= sum(ps, dims=2)
+
+    # for i in 1:N
+    #     y[i] ~ Categorical(vec(ps[i, :]))
+    # end
+    y ~ arraydist([Categorical(ps[i, :]) for i in 1:N])
 end
 
 reef_properties.GCM = categorical(reef_properties.GCM)
@@ -134,12 +148,12 @@ n_GCMs = length(levels(reef_properties.GCM))
 n_bioregions = length(levels(reef_properties.bioregion))
 
 # Encode response levels as increasing integers
-y = reef_properties.cluster
+y = categorical(reef_properties.cluster).refs
 K = length(unique(reef_properties.cluster))
 
 # Design matrix (without intercept — model will handle that)
 predictors = [:depth_med, :log_total_strength, :log_so_to_si, :mean_dhw]
-predictors = [:depth_med, :log_total_strength]
+# predictors = [:depth_med, :log_total_strength]
 X = Matrix(DataFrames.select(reef_properties, predictors))
 
 model = ordinal_random_intercepts(
@@ -151,5 +165,7 @@ model = ordinal_random_intercepts(
     n_GCMs
 )
 chain = sample(model, NUTS(), MCMCThreads(), 2000, 4)  # 4 chains using Threads, 2000 samples each
+
+StatsPlots.plot(chain)
 
 small_chain = sample(model, NUTS(), 150; warmup=100, chains=1)
