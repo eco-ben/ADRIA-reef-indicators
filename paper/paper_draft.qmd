@@ -209,8 +209,7 @@ fundamental representation of the physical climate system.
 Projections using Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the
 plausible emission pathway. It represents a moderate emissions scenario with continued CO2
 emissions comparable to present day until 2050, after which emissions gradually decline
-[@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to 4.31°C **\[TI:
-Use K or Celcius?\]** of global atmospheric warming in the 2081-2100 period relative to
+[@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to 4.31°C of global atmospheric warming in the 2081-2100 period relative to
 1850-1900. The use of this range of GCMs therefore allow for a range of possible climate
 futures to be explored, capturing the uncertainty in future responses to CO2 increases
 (@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]) and enables the assessment of
@@ -255,22 +254,20 @@ and perform analyses involved in this investigation can be found at **\[insert r
 citation\]**.
 
 ::: {#tbl-gcms}
-| Global Climate Model source | ECS value (K) | Interpreted relative severity | Results found in |
+| Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
 |-----------------------|-----------------------|------------------------|-----------------------|
-| EC-Earth3-Veg | 4.30 | High | **insert repo citation** |
-| ACCESS-CM2 | 4.66 | High | **insert repo citation** |
-| GFDL-CM4 | 4.1 | High | **insert repo citation** |
-| ACCESS-ESM1-5 | 3.87 | Intermediate | Main text |
-| NorESM2-MM | 2.5 | Low | **insert repo citation** |
+| ACCESS-CM2 | 4.66 [@grose2023]| High | **insert repo citation** |
+| EC-Earth3-Veg | 4.30 [@wyser2020]| High | **insert repo citation** |
+| GFDL-CM4 | 4.1 [@sentman2025]| High | **insert repo citation** |
+| ACCESS-ESM1-5 | 3.87 [@ziehn2020]| Intermediate | Main text |
+| NorESM2-MM | 2.5 [@seland2020]| Low | **insert repo citation** |
 
 : Information for each GCM used in this investigation including Equilibrium Climate
 Sensitivity (ECS) value, interpreted relative severity and where results are individual GCM
 results are found. GCMs in context with assessed plausible ranges of ECS values are
 displayed in [@sfig-ecs]. ACCESS-ESM1-5 has an ECS closest to the midpoint of the
 very-likely ECS range and was taken as an intermediate model with results displayed in the
-main text. ECS values obtained from: [@sentman2025; @grose2023; @seland2020; @ziehn2020;
-@wyser2020]. **\[TI: Ben, I would add this to the table directly in the ECS value column
-(ECS value and source). The table should also be ordered by ECS value (high to low)\]**
+main text.
 :::
 
 ![Degree Heating Week timeseries (in °C - Weeks) for the GCMs selected. Colours represent
@@ -472,8 +469,8 @@ results in intermediate levels of coral cover maintenance (between those of lowe
 ECS GCMs) [@fig-gcm-cover-trajectories], reflected in intermediate CID distance values
 within most management areas [@tbl-cluster-cid]. In Townsville-Whitsunday and Far Northern
 management areas, reefs in the high cluster are able to maintain coral cover levels around
-20% to 2050 under ACCESS-ESM1-5. Under ACCESS-CM2 (4.66K), EC-Earth3-Veg (4.30K) and
-GFDL-CM4 (4.1K) GCMs cover trajectories are largely declining in all management areas,
+20% to 2050 under ACCESS-ESM1-5. Under ACCESS-CM2 (4.66°C), EC-Earth3-Veg (4.30°C) and
+GFDL-CM4 (4.1°C) GCMs cover trajectories are largely declining in all management areas,
 reflected in lower CID distance values than other GCMs [@tbl-cluster-cid].
 
 Under each GCM, in all management areas, low, medium and high cluster reefs have low levels
