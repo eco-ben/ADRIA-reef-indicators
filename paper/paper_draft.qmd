@@ -144,10 +144,10 @@ positive carbonate budgets under current projections of climate change.
 
 The spatial extent of the GBR reefs represented in this investigation follows the reef
 definitions available via the Great Barrier Reef Marine Park Authority (GBRMPA)
-[@GBRMPA2022]. An indicative map of the GBR marine park including the Marine Park management
+[@GBRMPA2022]. The reef definitions define 3806 reefs across the GBR.
+An indicative map of the GBR marine park including the Marine Park management
 areas [@GBRMPA2007] and the corresponding bioregion for each reef is shown in
-(@fig-region-map; [@GBRMPA2024]). This investigation adopts the GBR reef outlines as
-published by GBRMPA [-@GBRMPA2022], which defines 3806 reefs across the GBR.
+(@fig-region-map; [@GBRMPA2024]).
 
 Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
 available in GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched
@@ -747,7 +747,7 @@ resulting depth estimates are therefore highly uncertain and are only adopted as
 indication for the purpose of the presented analysis. They are not intended to be an
 accurate and precise report of reef depths across the GBR.
 
-**\[TODO - rewrite/expand paragraphs below for flow\]** 
+**\[TODO - rewrite/expand paragraphs below for flow\]**
 As ADRIA - CoralBlox has not been
 validated at the GBR-wide scale, we aim to assess the relative influence of reef
 characteristics on resilience under future change rather than provide spatially explicit
