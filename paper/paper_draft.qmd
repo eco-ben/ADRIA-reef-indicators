@@ -188,35 +188,34 @@ Future projections of maximum yearly Degree Heating Weeks (DHWs) for each reef w
 estimated from Sea Surface Temperature (SST) data for the GBR. Statistically downscaled
 1km^2^ resolution SST data for five Global Climate Models (GCMs) were obtained from the
 HighResCoralStress database [@dixon2022; @dixon2023]. These five GCMs were EC-Earth3-Veg,
-ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GFDL-CM4 and are a part of the Sixth Phase of the
-Coupled Model Intercomparison Project (CMIP6) based on evaluation conducted by Grose et al.
-[-@grose2023]. These GCMs were found to rank highly in the recreation of historical
-atmospheric temperature and precipitation conditions in the Australasian region. While this
-assessment does not consider oceanic data, Grose et al. [-@grose2023] provide a
-region-specific selection mechanism which we use as an indicator of general performance of
-GCMs for the region. An overview of the selected GCMs are provided in @tbl-gcms. The process
-described here was conducted for all 2429 reefs to create DHW projections spanning from 2025
-to 2075. Code used to calculate DHW data and perform analyses involved in this investigation
-can be found at **insert repo citation**.
+ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GFDL-CM4. The selected GCMs are a part of the
+Sixth Phase of the Coupled Model Intercomparison Project (CMIP6), spanning four 'model
+development families' as defined by Brunner et al., [-@brunner2020].
 
-The five selected GCMs span a range of Equilibrium Climate Sensitivity (ECS) values within
-the Intergovernmental Panel on Climate Change (IPCC) assessed likely range. The IPCC defines
-ECS as the long term warming caused by a doubling of carbon dioxide above its pre-industrial
-concentration [@forster2021]. GCM development institutions regularly share aspects of model
-development. Brunner et al. [-@brunner2020] assessed the independence of 33 models,
-quantitatively classifying models into 'model development families' based on patterns in
-atmospheric temperature and sea level pressure. By selecting five GCMs for investigation
-that span a range of four 'model development families' [@brunner2020] (note: we assume
-GFDL-CM4 aligns with GFDL-ESM4; ACCESS-ESM1-5 and ACCESS-CM2 occupy the same family), we are
-able to assess climate projections over a broad range of independently derived futures
-[@abramowitz2019]. The selected GCMs therefore allow for a range of possible climate futures
-to be explored, capturing the uncertainty in future responses to CO2 increases (@sfig-ecs;
-@fig-methods-dhws; [@grose2023; @shepherd2018]). Projections using Shared Socio-economic
-Pathway (SSP) 2-4.5 was used to represent the plausible emission pathway. It represents a
-moderate emissions scenario with continued CO2 emissions comparable to present day until
-2050, after which emissions gradually decline [@hausfather2020; IPCC -@climate2023]. The
-selected GCMs represent 2.5°C to 4.31°C of global atmospheric warming in the 2081-2100
-period relative to 1850-1900.
+These GCMs were selected based on based on evaluation conducted by Grose et al.,
+[-@grose2023], indicating their ability to recreate historical atmospheric temperature and
+precipitation conditions in the Australasian region. They span a range of Equilibrium
+Climate Sensitivity (ECS) values within the Intergovernmental Panel on Climate Change (IPCC)
+assessed likely range. The IPCC defines ECS as the long term warming caused by a doubling of
+carbon dioxide above its pre-industrial concentration [@forster2021]. While this assessment
+does not consider oceanic data, Grose et al. [-@grose2023] provide a region-specific
+selection mechanism which we use as an indicator of general performance of GCMs for the
+region. An overview of the selected GCMs are provided in @tbl-gcms. Note here that Grose et
+al., [-@grose2023] assessed GFDL-ESM4, whereas Dixon et al., [-@dixon2022; -@dixon2023]
+provides data based on GFDL-CM4. Similarly, data for ACCESS-CM2 was used as a stand-in for
+ACCESS-ESM1-5. These substitutions are assumed appropriate given they share the same
+fundamental representation of the physical climate system.
+
+Projections using Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the
+plausible emission pathway. It represents a moderate emissions scenario with continued CO2
+emissions comparable to present day until 2050, after which emissions gradually decline
+[@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to 4.31°C **\[TI:
+Use K or Celcius?\]** of global atmospheric warming in the 2081-2100 period relative to
+1850-1900. The use of this range of GCMs therefore allow for a range of possible climate
+futures to be explored, capturing the uncertainty in future responses to CO2 increases
+(@sfig-ecs; @fig-methods-dhws; [@grose2023; @shepherd2018]) and enables the assessment of
+model projected coral reef behaviour over a broad range of independently derived climate
+futures [@abramowitz2019].
 
 Monthly mean SST climatological baselines, for each 1km^2^ pixel, were calculated from the
 daily SST data following NOAA methodology [@liu2017; @skirving2020]. For each pixel of SST
@@ -250,7 +249,10 @@ values integrate both the magnitude and duration of thermal stress: a moderate a
 (e.g., 1°C) sustained for 12 weeks produces the same DHW value as a severe anomaly (e.g.,
 3°C) lasting 4 weeks, though the biological impacts may differ. DHW estimates for each
 indicative reef (see @GBRMPA2022) were then determined by taking the mean DHW value for all
-pixels touching each reef outline.
+pixels touching each reef outline. The process described here was conducted for all 2429
+reefs to create DHW projections spanning from 2025 to 2075. Code used to calculate DHW data
+and perform analyses involved in this investigation can be found at **\[insert repo
+citation\]**.
 
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (K) | Interpreted relative severity | Results found in |
