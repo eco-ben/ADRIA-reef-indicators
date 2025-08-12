@@ -144,34 +144,32 @@ positive carbonate budgets under current projections of climate change.
 
 The spatial extent of the GBR reefs represented in this investigation follows the reef
 definitions available via the Great Barrier Reef Marine Park Authority (GBRMPA)
-[@GBRMPA2022]. The reef definitions define 3806 reefs across the GBR.
-An indicative map of the GBR marine park including the Marine Park management
-areas [@GBRMPA2007] and the corresponding bioregion for each reef is shown in
-(@fig-region-map; [@GBRMPA2024]).
+[@GBRMPA2022]. The reef definitions define 3806 reefs across the GBR. An indicative map of
+the GBR marine park including the Marine Park management areas [@GBRMPA2007] and the
+corresponding bioregion for each reef is shown in (@fig-region-map; [@GBRMPA2024]).
 
 Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
 available in GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched
 with the 3806 reef outlines through geometric intersection analysis. Depth values within
-each reef polygon were summarized using zonal statistics to calculate minimum, mean, median,
-maximum, and standard deviation of depth values. All depth values were converted to positive
-values (depths below sea level). The median depth was used to provide an indicative depth
-value for each reef. Code, and the resulting depth estimates, are available at **\[cite
-Canonical Reefs repo\]**.
+each reef polygon were summarized using zonal statistics. All depth values were converted to
+positive values (depths below sea level). The median depth was used to provide an indicative
+depth value for each reef. Code, and the resulting depth estimates, are available at
+**\[cite Canonical Reefs repo\]**.
 
-While data adopted for the given assessment are said to be accurate up to 15m from Mean Sea
-Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimates used for
-this study. These are outlined further in the Discussion. Notably, the adopted depth
-estimates were derived from bathymetries based on satellite imagery. Available data can be
-limited in their alignment with the established GBRMPA reef outlines used to characterise
-reef locations and their areal extent. Quality control flags were assigned to identify
-potential data limitations: reefs with no overlapping bathymetry data, reefs with minimum
-depth values above sea level (indicating potential data artifacts), and reefs where
-bathymetry pixels covered less than 5% of the reef polygon area. This removed 842 reefs, or
-22%, from the initial set of 3806 reefs. Furthermore, reefs that are not associated with
-GBRMPA management areas [@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were also removed
-from the investigation. Bioregions which contained fewer than three reefs were also
-excluded. As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining for
-the purpose of this investigation.
+While the bathymetry data adopted for the given assessment are said to be accurate up to 15m
+from Mean Sea Level [@GBRMPA2020], there are many sources of uncertainty in the depth
+estimates used for this study. These are outlined further in the Discussion. Notably, the
+adopted depth estimates were derived from bathymetries based on satellite imagery. The
+bathymetry data can be limited in their alignment with the established GBRMPA reef outlines
+used to characterise reef locations and their areal extent. A Quality Assessment and Control
+process identified reefs with potential data limitations: reefs with no overlapping
+bathymetry data, reefs with minimum depth values above sea level (indicating potential data
+artifacts), and reefs where bathymetry pixels covered less than 5% of the reef polygon area.
+This process removed 842 reefs, or 22%, from the initial set of 3806 reefs. Furthermore,
+reefs that are not associated with GBRMPA management areas [@GBRMPA2007] or reefal
+bioregions [@GBRMPA2024] were also removed from the investigation. Bioregions which
+contained fewer than three reefs were also excluded. As a result, 1377 reefs were excluded
+(36%), leaving a total of 2429 remaining for the purpose of this investigation.
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points). Colour-coded areas outline GBR marine park management regions,
