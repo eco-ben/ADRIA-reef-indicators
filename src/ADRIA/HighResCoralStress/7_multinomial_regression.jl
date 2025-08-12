@@ -130,10 +130,10 @@ reef_properties.bioregion .= categorical(reef_properties.bioregion)
     ps = clamp.(ps, 1e-10, 1.0)
     ps ./= sum(ps, dims=2)
 
-    # for i in 1:N
-    #     y[i] ~ Categorical(vec(ps[i, :]))
-    # end
-    y ~ arraydist([Categorical(ps[i, :]) for i in 1:N])
+    for i in 1:N
+        y[i] ~ Categorical(vec(ps[i, :]))
+    end
+    # y ~ arraydist([Categorical(ps[i, :]) for i in 1:N])
 end
 
 reef_properties.GCM = categorical(reef_properties.GCM)
