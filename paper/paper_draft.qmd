@@ -731,7 +731,12 @@ accurate up to 15m from Mean Sea Level [@GBRMPA2020], however there are many sou
 uncertainty in the depth estimates used for this study. Satellite-derived estimates are
 subject to different bottom types (rock, sand, seagrass, etc) and how these affect
 reflectance, the water penetration depth of satellite sensors, influence of local conditions
-(e.g., turbidity and wave activity), among many other factors.
+(e.g., turbidity and wave activity), among many other factors. The median depths for each
+indicative reef area were extracted from bathymetry data using zonal statistics and depth
+values beyond the stated 15m accuracy threshold [@GBRMPA2020] were included. The resulting
+depth estimates are therefore highly uncertain and are only adopted as a useful indication
+for the purpose of the presented analysis. They are not intended to be an accurate and
+precise report of reef depths across the GBR.
 
 In addition to the usual challenges of deriving data from satellite imagery, it is
 acknowledged that there is high potential for misalignment between the bathymetry data and
@@ -742,30 +747,28 @@ were excluded from analysis to ensure analyses were not conducted on reefs with 
 coverage (see @sfig-depth-cutoff). The existing GBRMPA reef outlines were adopted to align
 with other ongoing modelling and analyses conducted as part of the Reef Restoration and
 Adaptation Program \[RRAP; <https://gbrrestoration.org>\] **\[TODO: PROPER CITATION OF
-RRAP\]**. The median depths for each indicative reef area were extracted from bathymetry
-data using zonal statistics and depth values beyond the 15m range were included. The
-resulting depth estimates are therefore highly uncertain and are only adopted as a useful
-indication for the purpose of the presented analysis. They are not intended to be an
-accurate and precise report of reef depths across the GBR.
+RRAP\]**.
 
-**\[TODO - rewrite/expand paragraphs below for flow\]** As ADRIA-CoralBlox has not been
-validated at the GBR-wide scale, we aim to assess the relative influence of reef
-characteristics on resilience under future change rather than provide spatially explicit
-predictions of reef outcomes into the future. Using this approach we suggest that median
-reef depth is an important factor for reef resilience under thermal stress. Improvements in
-remote sensing approaches for broad scale bathymetry measurement, and understanding of how
-depth impacts experienced thermal stress on reefs will further enhance investigations of
-depth as a critical factor for reef resilience. Additional analyses could build on the
-findings of this study by assessing the impacts of prioritising reef depth in reef
-restoration decision making. The ADRIA platform is developed as a modelling tool to
-incorporate multi-criteria decision analysis (MCDA) and ecosystem scenario modelling into
-reef restoration decision support. This platform allows for different intervention
-priorities to be dynamically targetted in decision making, while modelling the evolving
-outcomes as a result of interventions. The capability of ADRIA-CoralBlox could be further
-expanded by incorporating the impacts of waves, cyclones, CoTS and currents into future
-resilience investigations [@lin2023; @mcclanahan2005; @grimaldi2023; @grimaldi2022;
-@liu2024]. Additionally, the investigation could be enhanced by incorporating ocean
-acidification projections into analyses of coral carbonate budgets [@eyre2018].
+The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
+one, a formal mechanistic and spatial validation of the model represents an area for future
+refinement, and is the focus of a future publication. Indicative results are included in the
+supplementary **\[TI: For Pedro to include! :`D`\].** The consistency of projected patterns
+with known coral-climate relationships and reef characteristics provides confidence in the
+model's ability to meaningfully capture ecological signals at the GBR-scale. The mechanistic
+basis of the model, combined with qualitative assessment of model behavior, supports the
+robustness of our findings for understanding broad-scale coral cover responses to climatic
+drivers. The aim here, however, was to assess the relative influence of reef characteristics
+on structural resilience under future conditions, rather than provide spatially explicit and
+highly accurate and precise predictions of reef outcomes. Using this approach we suggest
+that reef depths is an important factor for reef resilience under thermal stress.
+
+Improvements in remote sensing approaches for broad scale bathymetry measurement, and
+understanding of how depth impacts experienced thermal stress on reefs will further enhance
+investigations of depth as a critical factor for reef resilience. Additional analyses could
+build on the findings of this study by assessing the impacts of prioritising reef depth in
+reef restoration decision making. Future analyses could incorporate further environmental
+and ecological stressors such as wave activity, ocean acidification, and Crown-of-Thorn
+Starfish [@lin2023; @mcclanahan2005; @grimaldi2023; @grimaldi2022; @liu2024; @eyre2018].
 
 # Conclusion
 
