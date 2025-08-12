@@ -269,7 +269,8 @@ results are found. GCMs in context with assessed plausible ranges of ECS values 
 displayed in [@sfig-ecs]. ACCESS-ESM1-5 has an ECS closest to the midpoint of the
 very-likely ECS range and was taken as an intermediate model with results displayed in the
 main text. ECS values obtained from: [@sentman2025; @grose2023; @seland2020; @ziehn2020;
-@wyser2020].
+@wyser2020]. **\[TI: Ben, I would add this to the table directly in the ECS value column
+(ECS value and source). The table should also be ordered by ECS value (high to low)\]**
 :::
 
 ![Degree Heating Week timeseries (in °C - Weeks) for the GCMs selected. Colours represent
@@ -747,8 +748,7 @@ resulting depth estimates are therefore highly uncertain and are only adopted as
 indication for the purpose of the presented analysis. They are not intended to be an
 accurate and precise report of reef depths across the GBR.
 
-**\[TODO - rewrite/expand paragraphs below for flow\]**
-As ADRIA - CoralBlox has not been
+**\[TODO - rewrite/expand paragraphs below for flow\]** As ADRIA-CoralBlox has not been
 validated at the GBR-wide scale, we aim to assess the relative influence of reef
 characteristics on resilience under future change rather than provide spatially explicit
 predictions of reef outcomes into the future. Using this approach we suggest that median
