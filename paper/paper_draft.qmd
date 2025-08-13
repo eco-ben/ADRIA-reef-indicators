@@ -416,6 +416,12 @@ first four scenarios for each GCM (four from 4096 scenarios per GCM) due to comp
 restraints, and then used to calculate an overall mean DHW – tolerance value for each reef
 under each GCM.
 
+To quantify the influence of reef characteristics on cluster assignment we used a Bayesian
+ordinal mixed regression approach. Using Turing.jl [@fjelde2025] we model the influence of
+five predictors, median depth, log total connectivity strength, log source to sink ratio,
+mean DHW, log reef area and mean DHW tolerance level on cluster assignment, including random
+intercepts for levels of **bioregion** and GCM identity.
+
 # Results
 
 ## Reef carbonate budget
@@ -432,7 +438,7 @@ with the number of years a reef maintains coral cover above the required thresho
 [@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintainence correlation
 decreases as $\beta_{0}$ increases. This is likely due to an increasing number of reefs
 being unable to maintain coral cover above threshold levels as the threshold increases, with
-values becoming increasingly right-skewed. The natural log of total connectivity strength
+values becoming increasingly right-skewed. The base-10 log of total connectivity strength
 was found to have no correlation with the number of years a reef maintains cover above the
 required thresholds [@sfig-access-esm1-5-conn-carbonate]. Log connectivity strength -
 carbonate budget maintainence correlation slightly decreases as the required carbonate
@@ -549,7 +555,7 @@ fig-align="center" width="14.82cm"}
 #| message: false
 #| results: asis
 #| label: tbl-access-esm1-5-bioregion-regression
-#| tbl-cap: Multinomial logistic regression coefficients for the statistical model containing median reef depth, natural-log total connectivity strength, natural-log source-to-sink ratio and ACCESS-ESM1-5 mean timeseries DHW value as predictor variables. ACCESS-ESM1-5 bioregion scale reef cluster assignment is the response variable with three levels, 'low' (regression reference level), 'medium' and 'high'.
+#| tbl-cap: Multinomial logistic regression coefficients for the statistical model containing median reef depth, base-10-log total connectivity strength, base-10-log source-to-sink ratio and ACCESS-ESM1-5 mean timeseries DHW value as predictor variables. ACCESS-ESM1-5 bioregion scale reef cluster assignment is the response variable with three levels, 'low' (regression reference level), 'medium' and 'high'.
 
 # using PrettyTables, Markdown
 # cd("../src")
@@ -892,9 +898,9 @@ Starting distributions for thermal tolerance levels are informed by Bairos-Novak
 
 ![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
 2099. The carbonate budget thresholds assessed range from 10 to 20% of total reef area.
-Bracketed x-axis values represent the Spearman's correlation between reef natural log of
+Bracketed x-axis values represent the Spearman's correlation between reef base-10 log of
 total connectivity strength and the number of years cover exceeds the carbonate budget
-threshold. Colour of each point represents the natural log of scaled reef total connectivity
+threshold. Colour of each point represents the base-10 log of scaled reef total connectivity
 strength. Displays results from median timeseries using
 ACCESS-ESM1-5.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/log_total_strength_carbonate_scatter.png){#sfig-access-esm1-5-conn-carbonate
 fig-align="center" width="14.82cm"}
@@ -953,7 +959,7 @@ results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/initial_proportion_bioregion_violin.png){#sfig-access-esm1-5-bioregion-initialproportion
 fig-align="center" width="14.82cm"}
 
-![Source-to-sink connectivity ratios (in natural log scale) for reefs within each bioregion,
+![Source-to-sink connectivity ratios (in base-10 log scale) for reefs within each bioregion,
 separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2040 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
@@ -961,18 +967,18 @@ cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) ar
 the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid
 lines within each violin represent the median source-to-sink ratio for each cluster and grey
 points represent the ratio value for each reef. Vertical grey lines represent a
-source-to-sink ratio of 0 (in natural log scale) indicating equal outgoing and incoming
+source-to-sink ratio of 0 (in base-10 log scale) indicating equal outgoing and incoming
 connectivity levels. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-access-esm1-5-bioregion-logsosi
 fig-align="center" width="14.82cm"}
 
-![Total connectivity strength (in natural log scale) for reefs within each bioregion,
+![Total connectivity strength (in base-10 log scale) for reefs within each bioregion,
 separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2040 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2040 within each bioregion. ‘High’ clusters (blue) are clusters with
 the highest median area-relative cover between 2030 and 2040 within each bioregion. Solid
-lines within each violin represent the median natural log of total connectivity strength for
+lines within each violin represent the median base-10 log of total connectivity strength for
 each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/log_total_strength_bioregion_violin.png){#sfig-access-esm1-5-bioregion-totalconnectivity
 fig-align="center" width="14.82cm"}
