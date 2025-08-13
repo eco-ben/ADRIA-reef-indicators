@@ -352,25 +352,25 @@ and its role in driving recovery processes.
 Using median coral cover timeseries for each reef we calculated the number of years each
 reef maintains coral cover above a given percent threshold. The threshold represents the
 level of live coral cover necessary to maintain a positive carbonate budget (denoted here as
-$\beta_{0}$ to indicate the budget equilibrium). Greater number of years above $\beta_{0}$
+$\theta_{0}$ to indicate the budget equilibrium). Greater number of years above $\theta_{0}$
 therefore suggests greater resilience and opportunity for recovery.
 
 Recent analyses suggest a general threshold of \~17% live coral cover in the case of the GBR
 [@desbiens2021]. Given in situ carbonate budgets are influenced by (1) a range of processes;
 (2) the variety of approaches that could be used to measure those processes; and (3) the
 uncertainty surrounding these, it would be unreasonable to assume all reefs adhere to a
-single precise $\beta_{0}$ value. Concurrently, it is difficult to ascertain a suitable
-$\beta_{0}$ value for each individual reef.
+single precise $\theta_{0}$ value. Concurrently, it is difficult to ascertain a suitable
+$\theta_{0}$ value for each individual reef.
 
 Given the uncertainties present, the proportion of modelled reefs that display capacity to
-maintain coral cover above a given $\beta_{0}$ threshold is examined. An indicative range of
-10 to 20% is used (inclusive, with a step size of 1%). The range was informed by Perry et
+maintain coral cover above a given $\theta_{0}$ threshold is examined. An indicative range
+of 10 to 20% is used (inclusive, with a step size of 1%). The range was informed by Perry et
 al., [-@perry2015] and Desbians et al., [-@desbiens2021] providing plausible indications of
 the lower and upper bounds respectively. Robustness of the conclusions drawn to the
-uncertainty in the precise value of $\beta_{0}$ for all reefs can then be assessed by using
+uncertainty in the precise value of $\theta_{0}$ for all reefs can then be assessed by using
 the indicative range.
 
-The relationship between the number of years above $\beta_{0}$ and median reef depth was
+The relationship between the number of years above $\theta_{0}$ and median reef depth was
 then assessed with Spearman's rank correlation. Spearman's correlation coefficient was
 adopted as reef depth and connectivity strength distributions are expected to be non-normal
 and highly skewed. Furthermore, reefs are naturally of different types and experience
@@ -382,14 +382,18 @@ analysis.
 
 To identify groups of reefs that are resilient, intermediate, and non-resilient, we
 clustered reefs into three clusters based on their temporal behaviour as indicated by coral
-cover over time. The Complexity-Invariant Distance (CID) between each timeseries was
-calculated to identify timeseries that behave similarly [@batista2014]. The CID corrects the
-Euclidean distance between pairs of timeseries (which accounts for magnitude differences)
-with the complexity of each timeseries (obtained through a measure of their variability) to
-ensure reefs are clustered based on their underlying temporal dynamics rather than simply
-their average coral cover. The process creates a distance matrix of n \* n dimensions (where
-n is the number of timeseries in the group) that is clustered using a k-medoids clustering
-algorithm [cf. @steinmann2020].
+cover over time, using timeseries from 2025-2075. The Complexity-Invariant Distance (CID)
+between each timeseries was calculated to identify timeseries that behave similarly
+[@batista2014]. The CID corrects the Euclidean distance between pairs of timeseries (which
+accounts for magnitude differences) with the complexity of each timeseries (obtained through
+a measure of their variability) to ensure reefs are clustered based on their underlying
+temporal dynamics rather than simply their average coral cover. The process creates a
+distance matrix of n \* n dimensions (where n is the number of timeseries in the group) that
+is clustered using a k-medoids clustering algorithm [cf. @steinmann2020]. The three reef
+clusters are assigned a qualitative level from "low", "medium" and "high" based on their
+relative median timeseries over the 2030-2050 period. Assigning cluster labels based on this
+period prevents cluster labels being assigned during the steeply declining period from
+2025-2030 and during the post-2050 period when many reefs have cover below 5% of their area.
 
 Timeseries clustering analyses were performed at the management area and reefal bioregion
 scale (defined in GBRMPA [-@GBRMPA2024]). Additional analyses were also performed at the
@@ -416,18 +420,22 @@ first four scenarios for each GCM (four from 4096 scenarios per GCM) due to comp
 restraints, and then used to calculate an overall mean DHW – tolerance value for each reef
 under each GCM.
 
-To quantify the influence of reef characteristics on cluster assignment we used a Bayesian
-ordinal mixed regression approach. Using Turing.jl [@fjelde2025] we model the influence of
-five predictors, median depth, log total connectivity strength, log source to sink ratio,
-mean DHW, log reef area and mean DHW tolerance level on cluster assignment, including random
-intercepts for levels of **bioregion** and GCM identity.
+We used a Bayesian ordinal hierarchical regression model to quantify the influence of reef
+characteristics on reef cluster assignment. Using Turing.jl [@fjelde2025] we model the
+influence of five predictors, median depth, log total connectivity strength, log source to
+sink ratio, mean DHW, log reef area and mean DHW tolerance level on cluster assignment,
+including random intercepts for levels of **bioregion** and GCM identity. Based on initial
+analyses suggesting higher cover clusters have reefs with greater depths, we constrain the
+$\beta_{depth}$ coefficient prior to positive values. Similarly, we constrain the
+$\beta_{DHW}$ coefficient prior to negative values as we do not expect increasing DHW levels to
+increase cluster assignment level.
 
 # Results
 
 ## Reef carbonate budget
 
-As one might expect, the number of years experience cover above $\beta_{0}$ (the assumed
-positive carbonate budget threshold) substantially decreases as $\beta_{0}$ increases. The
+As one might expect, the number of years experience cover above $\theta_{0}$ (the assumed
+positive carbonate budget threshold) substantially decreases as $\theta_{0}$ increases. The
 distribution of number of years above carbonate-cover thresholds is right-skewed, with many
 reefs experiencing low numbers of years above thresholds.
 
@@ -436,7 +444,7 @@ budget levels for a longer time frame compared to reefs with shallower median de
 [@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate positive correlation
 with the number of years a reef maintains coral cover above the required threshold
 [@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintainence correlation
-decreases as $\beta_{0}$ increases. This is likely due to an increasing number of reefs
+decreases as $\theta_{0}$ increases. This is likely due to an increasing number of reefs
 being unable to maintain coral cover above threshold levels as the threshold increases, with
 values becoming increasingly right-skewed. The base-10 log of total connectivity strength
 was found to have no correlation with the number of years a reef maintains cover above the
