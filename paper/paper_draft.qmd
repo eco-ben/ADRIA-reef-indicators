@@ -608,22 +608,16 @@ fig-align="center" width="14.82cm"}
 
 In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW timeseries
 correlation levels, while reefs in 'high' clusters have the highest correlation levels
-(@sfig-access-esm1-5-bioregion-dhwcor).
-
-Conversely, there are no consistent patterns across bioregions in reef area-relative cover
-and mean timeseries DHW levels, with clusters having similar mean DHW levels in many
-bioregions (@sfig-access-esm1-5-bioregion-dhwmean).
-
+(@sfig-access-esm1-5-bioregion-dhwcor). Conversely, there are no consistent patterns across
+bioregions in reef area-relative cover and mean timeseries DHW levels, with clusters having
+similar mean DHW levels in many bioregions (@sfig-access-esm1-5-bioregion-dhwmean).
 Similarly, there are no substantial differences between reef clusters in mean thermal
-tolerance levels (@sfig-access-esm1-5-bioregion-dhwtol).
-
-There are no consistent differences across bioregions and GCMs between clusters in their
-reefs' initial proportion of habitable area occupied by corals
-(@sfig-access-esm1-5-bioregion-initialproportion).
-
-Across most bioregions there are not consistent differences between clusters in connectivity
-metrics such as source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi)
-and total connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
+tolerance levels @sfig-access-esm1-5-bioregion-dhwtol). There are no consistent differences
+across bioregions and GCMs between clusters in their reefs' initial proportion of habitable
+area occupied by corals (@sfig-access-esm1-5-bioregion-initialproportion). Across most
+bioregions there are not consistent differences between clusters in connectivity metrics
+such as source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and total
+connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
 
 # Discussion
 
