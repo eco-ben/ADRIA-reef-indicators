@@ -17,10 +17,17 @@ deps/src/
 docs/build/
 docs/site/
 
-outputs/
-figs/
 data/
+outputs/
 
 # word document files rendered by quarto
 *.docx
 .vscode/
+
+*.nc
+*.csv
+*.gpkg
+*.jls
+*.jlso
+
+

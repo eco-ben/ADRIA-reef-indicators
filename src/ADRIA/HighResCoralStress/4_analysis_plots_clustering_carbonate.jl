@@ -37,7 +37,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     # Select GCM and load relevant results
     @info "Analysing reef clustering for $(GCM)"
 
-    fig_out_dir = joinpath(output_path, "figs/$(GCM)")
+    fig_out_dir = joinpath(figs_path, "$(GCM)")
 
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
     absolute_cover = absolute_cover[locations=At(context_layers.UNIQUE_ID)]
@@ -113,7 +113,7 @@ analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_
 # Collate all cover timeseries and plot them grouped by management area
 rel_cover_arrays = [
     percentage_cover_timeseries(
-        areas,
+        gbr_dom.loc_data.area,
         readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
     ) for GCM in GCMs
 ]
@@ -136,7 +136,7 @@ GCM_comparison_cover_plot = grouped_GCM_cluster_timeseries_plots(
     1:50
 )
 save(
-    joinpath(output_path, "figs/GCM_cover_timeseries_plot.png"),
+    joinpath(figs_path, "GCM_cover_timeseries_plot.png"),
     GCM_comparison_cover_plot,
     px_per_unit=dpi
 )
@@ -149,7 +149,7 @@ GCM_comparison_dhw_plot = grouped_GCM_cluster_timeseries_plots(
     1:50
 )
 save(
-    joinpath(output_path, "figs/GCM_dhw_timeseries_plot.png"),
+    joinpath(figs_path, "GCM_dhw_timeseries_plot.png"),
     GCM_comparison_dhw_plot,
     px_per_unit=dpi
 )
@@ -260,7 +260,7 @@ ax = Axis(
 hm = heatmap!(ax, rstd_matrix)
 Colorbar(fig[1, 2], hm, label="Relative standard deviation connection strength [%]")
 save(
-    joinpath(output_path, "figs/connectivity_rsd_percent.png"),
+    joinpath(figs_path, "connectivity_rsd_percent.png"),
     fig,
     px_per_unit=dpi
 )
@@ -272,7 +272,7 @@ bioregion_gcm_clusters = gcm_cluster_assignment_heatmap(
     bioregion_gcm_cluster_cols
 )
 save(
-    joinpath(output_path, "figs/GCM_bioregion_cluster_assignments.png"),
+    joinpath(figs_path, "GCM_bioregion_cluster_assignments.png"),
     bioregion_gcm_clusters,
     px_per_unit=dpi
 )
@@ -285,7 +285,7 @@ text!((10.0, 2.0); text="Cutoff", align=(:center, :bottom))
 ax.ylabel = "Proportion of Reefs [%]"
 ax.xlabel = "Bathymetry data coverage [%]"
 
-save(joinpath(output_path, "figs/reef_depth_included_cutoff.png"), f, px_per_unit=dpi)
+save(joinpath(figs_path, "reef_depth_included_cutoff.png"), f, px_per_unit=dpi)
 
 # Plot a map of reef cluster assignments across GCMs at management area scale:
 consistent_reefs_colors = [:gray, :green, :orange, :blue];
@@ -293,7 +293,7 @@ order = Dict("variable" => 1, "low" => 2, "medium" => 3, "high" => 4)
 sorted_vals = sort(context_layers, :man_area_consistent_reefs, by = x -> order[x])
 gbr_assignment_map = map_gbr_reefs(sorted_vals, :man_area_consistent_reefs, consistent_reefs_colors, "Cluster assignment across GCMs")
 
-save(joinpath(output_path, "figs/gcm_cluster_assignment_map.png"), gbr_assignment_map, px_per_unit=dpi)
+save(joinpath(figs_path, "gcm_cluster_assignment_map.png"), gbr_assignment_map, px_per_unit=dpi)
 
 n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs .!="variable", :], :management_area), nrow => :nrow)
 n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reefs.nrow) .* 100

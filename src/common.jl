@@ -39,6 +39,7 @@ include("ADRIA_DataCube_functions.jl")
 config = TOML.parsefile("config.toml")
 gbr_domain_path = config["domain"]["domain_dir"]
 output_path = config["results"]["output_dir"]
+figs_path = "../figs"
 
 """
     find_intersections(

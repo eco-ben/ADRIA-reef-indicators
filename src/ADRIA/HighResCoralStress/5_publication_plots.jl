@@ -2,8 +2,6 @@
 Script to create additional plots required for publication. E.g. maps and GCM plots.
 """
 
-import GeometryOps as GO
-
 include("../../common.jl")
 
 CairoMakie.activate!()
@@ -19,13 +17,13 @@ ecs_values = Dict(
     "NorESM2-MM" => 2.5 # Seland et al. (2020). Overview of the Norwegian Earth System Model (NorESM2) and key climate response of CMIP6 DECK, historical, and scenario simulations
 )
 ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys(ecs_values)))
-save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit=dpi)
+save(joinpath(figs_path, "ecs_plot.png"), ecs, px_per_unit=dpi)
 
 # GBR map plot - methods
 bioregion_colors = distinguishable_colors(length(unique(context_layers.bioregion)));
 gbr_methods_map = map_gbr_reefs(context_layers, :bioregion, bioregion_colors, "Bioregions")
 
-save(joinpath(output_path, "figs/region_map.png"), gbr_methods_map, px_per_unit=dpi)
+save(joinpath(figs_path, "region_map.png"), gbr_methods_map, px_per_unit=dpi)
 
 # GBR - wide DHW figure
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
@@ -121,4 +119,4 @@ Label(
     tellheight=false,
     tellwidth=true
 )
-save(joinpath(output_path, "figs/methods_dhw_timeseries.png"), fig, px_per_unit=dpi)
+save(joinpath(figs_path, "methods_dhw_timeseries.png"), fig, px_per_unit=dpi)
