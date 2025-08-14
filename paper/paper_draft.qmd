@@ -23,7 +23,7 @@ author:
 abstract: |
     Coral reefs globally face unprecedented threats from climate change, with the Great Barrier
     Reef (GBR) experiencing severe declines in coral cover from thermal stress events.
-    Understanding which reefs exhibit resilience to climate impacts is critical for conservation
+    Understanding drivers behind reef resilience to climate impacts is critical for conservation
     planning and intervention strategies. A scenario-based population modelling approach was
     adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
     to assess coral reef resilience across GBR locations under future climate projections.
@@ -421,9 +421,9 @@ restraints, and then used to calculate an overall mean DHW – tolerance value f
 under each GCM.
 
 We used a multinomial linear regression model to quantify the influence of reef
-characteristics on reef cluster assignment. We model the
-influence of seven predictors, median depth, log total connectivity strength, log source to
-sink ratio, mean DHW, log reef area, mean DHW tolerance level and GCM on cluster assignment.
+characteristics on reef cluster assignment. We model the influence of seven predictors,
+median depth, log total connectivity strength, log source to sink ratio, mean DHW, log reef
+area, mean DHW tolerance level and GCM on cluster assignment.
 
 # Results
 
@@ -781,16 +781,16 @@ Starfish [@lin2023; @mcclanahan2005; @grimaldi2023; @grimaldi2022; @liu2024; @ey
 
 # Conclusion
 
-The results presented herein suggest that when modelled as part of a large and complex
-ecosystem, reef depth is a key factor contributing to ongoing reef resilience. We provide
-evidence in support of depth as a form of thermal refugia for shallow-water reefs on the
-GBR. While protecting ‘key node’ reefs in larval connectivity networks is an important
-consideration for reef restoration efforts [@anthony2020; @hock2017], our results suggest
-that current connectivity modelling methods are not able to generate connectivity that
-contributes to reef resilience under projected conditions **\[TI: TO BE REVISITED\]**. We
-suggest further analyses that investigate the benefits of incorporating depth-based
-resilience into reef decision making, as well as further research and development in
-connectivity modelling methods for whole-ecosystem scales.
+The results presented suggest that when modelled as part of a large and complex ecosystem,
+reef depth is a key factor contributing to ongoing reef resilience. We provide evidence in
+support of depth as a form of thermal refugia for shallow-water reefs on the GBR. While
+protecting ‘key node’ reefs in larval connectivity networks is an important consideration
+for reef restoration efforts [@anthony2020; @hock2017], current connectivity modelling
+methods, and our modelling framework, suggest that connectivity may not be as important for
+reef resilience under projected conditions as factors such as depth **\[TI: TO BE
+REVISITED\]**. We suggest further analyses that investigate the benefits of incorporating
+depth-based resilience into reef intervention decision making, as well as further research
+and development in connectivity modelling methods for whole-ecosystem scales.
 
 # References
 
@@ -805,8 +805,9 @@ the solid red box represents low-certainty ‘likely’ range for ECS values (Fo
 2021).](../outputs/ADRIA_results/HighResCoralStress/figs/ecs_plot.png){#sfig-ecs
 fig-align="center" width="10cm"}
 
-![Depth cutoff for
-reefs](../outputs/ADRIA_results/HighResCoralStress/figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
+![Distribution of depth data coverage levels across 3806 possible reefs. Reefs below the 5%
+data coverage threshold (represented by the red vertical line) were removed from the
+investigation.](../outputs/ADRIA_results/HighResCoralStress/figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
 ![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
