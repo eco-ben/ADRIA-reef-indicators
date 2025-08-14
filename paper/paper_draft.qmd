@@ -250,16 +250,16 @@ estimates for each indicative reef (see @GBRMPA2022) were then determined by tak
 DHW value for all pixels touching each reef outline. The process described here was
 conducted for all 2429 reefs to create DHW projections spanning from 2025 to 2075. Code used
 to calculate DHW data and perform analyses involved in this investigation can be found at
-**\[insert repo citation\]**.
+Grier and Iwanaga [-@grier2025].
 
 ::: {#tbl-gcms}
-| Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
+| Global Climate Model source | ECS value (°C)     | Interpreted relative severity | Results found in |
 |-----------------------|-----------------------|------------------------|-----------------------|
-| ACCESS-CM2 | 4.66 [@grose2023] | High | **insert repo citation** |
-| EC-Earth3-Veg | 4.30 [@wyser2020] | High | **insert repo citation** |
-| GFDL-CM4 | 4.1 [@sentman2025] | High | **insert repo citation** |
-| ACCESS-ESM1-5 | 3.87 [@ziehn2020] | Intermediate | Main text |
-| NorESM2-MM | 2.5 [@seland2020] | Low | **insert repo citation** |
+| ACCESS-CM2                  | 4.66 [@grose2023]  | High                          | [@grier2025]     |
+| EC-Earth3-Veg               | 4.30 [@wyser2020]  | High                          | [@grier2025]     |
+| GFDL-CM4                    | 4.1 [@sentman2025] | High                          | [@grier2025]     |
+| ACCESS-ESM1-5               | 3.87 [@ziehn2020]  | Intermediate                  | Main text        |
+| NorESM2-MM                  | 2.5 [@seland2020]  | Low                           | [@grier2025]     |
 
 : Information for each GCM used in this investigation including Equilibrium Climate
 Sensitivity (ECS) value, interpreted relative severity and where results are individual GCM
@@ -404,8 +404,8 @@ of differences between low and high cover clusters across management regions und
 using the Complexity-Invariant Distance between cluster median timeseries. To assess how
 different reef characteristics influence timeseries clustering at a finer scale, bioregion
 results are used to capture patterns occurring within individual clusters of reefs. Results
-of all analyses at all clustering scales can be found at \[**insert citation for
-repository**\] for those interested.
+of all analyses at all clustering scales can be found at Grier and Iwanaga [-@grier2025] for
+those interested.
 
 Reefs in each timeseries cluster were compared to identify characteristics that differ
 between low, medium and high coral cover clusters. These characteristics include reef median
@@ -481,9 +481,9 @@ fig-align="center" width="14.82cm"}
 Each Global Climate Model (GCM) shows similar relationships between reef clusters and
 contextual analysis factors, thus further comparisons of these clusters for each analysis
 factor are only shown for ACCESS-ESM1-5 (an intermediate Equilibrium Climate Sensitivity
-scenario [@sfig-ecs]). Results for the additional GCMs can be found at \[**BG: Insert
-repository citation.**\]. However, there are substantial differences in the longevity of
-reef resilience and maintenance of coral cover post 2030 between the GCMs, thus coral cover
+scenario [@sfig-ecs]). Results for the additional GCMs can be found at Grier and Iwanaga
+[-@grier2025]. However, there are substantial differences in the longevity of reef
+resilience and maintenance of coral cover post 2030 between the GCMs, thus coral cover
 timeseries are displayed for each GCM (displayed clustered at management-area scale to
 preserve coarse spatial differences in cover trajectories) (@fig-gcm-cover-trajectories).
 
@@ -681,8 +681,8 @@ and tourism return value. Our results suggest that of the assessed reefs ocurrin
 (across all GCMs at the GBRMPA management region scale), with many unable to maintain
 positive carbonate budgets under future conditions. Reef intervention planning is a complex
 and challenging decision making process [@anthony2020], and our results suggest that
-deployment site depth may be an important factor to additionally consider when assessing the long-term
-resilience of deployment sites.
+deployment site depth may be an important factor to additionally consider when assessing the
+long-term resilience of deployment sites.
 
 Our findings suggest that reefs in ‘high’ cover clusters do not have greater thermal
 tolerance than reefs in lower coral cover clusters. This is in contrast with literature
@@ -905,14 +905,12 @@ define the distributions of these parameters, and the size classes based on ecol
 monitoring data from the Ecological Intelligence for Reef Restoration Program (EcoRRAP)
 ([@australianinstituteofmarinescience2025; @ribeirodealmeida2024]).
 
-**Bleaching mortality**
-**\[BG: Has this section been completed?\]**
-In ADRIA we track the thermal tolerance of each functional group and size class as a
-truncated normal distribution that is updated in each timestep following growth and
-recruitment. This distribution determines the proportion of the population on a reef that is
-susceptible to bleaching (i.e. has a thermal threshold below the experienced DHW value).
-Starting distributions for thermal tolerance levels are informed by Bairos-Novak et al.
-[-@bairos-novak2021].
+**Bleaching mortality** **\[BG: Has this section been completed?\]** In ADRIA we track the
+thermal tolerance of each functional group and size class as a truncated normal distribution
+that is updated in each timestep following growth and recruitment. This distribution
+determines the proportion of the population on a reef that is susceptible to bleaching (i.e.
+has a thermal threshold below the experienced DHW value). Starting distributions for thermal
+tolerance levels are informed by Bairos-Novak et al. [-@bairos-novak2021].
 
 ## ACCESS-ESM1-5
 
