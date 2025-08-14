@@ -179,8 +179,7 @@ Cairns/Cooktown, red covers Townsville/Whitsunday and blue covers Mackay/Caprico
 according to its bioregion [@GBRMPA2024]. All 2429 reefs included in this investigation are
 represented in this figure. An annotation represents the approximate location of the
 Australian Institute of Marine Science Townsville site at Cape
-Cleveland.](../figs/region_map.png){#fig-region-map
-fig-align="center" width="14.8cm"}
+Cleveland.](../figs/region_map.png){#fig-region-map fig-align="center" width="14.8cm"}
 
 ## Degree Heating Week trajectories
 
@@ -275,8 +274,8 @@ the different management areas across the Great Barrier Reef. Green represents
 Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricorn and red
 represents the Townsville-Whitsunday management area. Solid lines represent the
 management-area median timeseries and bands represent the 95th percentile confidence
-intervals.](../figs/methods_dhw_timeseries.png){#fig-methods-dhws
-fig-align="center" width="14.82cm"}
+intervals.](../figs/methods_dhw_timeseries.png){#fig-methods-dhws fig-align="center"
+width="14.82cm"}
 
 ## Assessment framework
 
@@ -413,12 +412,33 @@ between low, medium and high coral cover clusters. These characteristics include
 depth, mean timeseries DHW, mean timeseries DHW – tolerance level, Pearson’s correlation
 between total coral cover and inversed DHW timeseries, proportion of coral habitable area
 occupied by corals in the first timestep, ratio of source-to-sink larval connectivity and
-total strength of larval connections between reefs. To analyse the DHW - tolerance levels of
-reefs, heritable DHW – tolerance values were tracked over timeseries in a timestep \* taxa
-\* reef \* scenario matrix. The mean timeseries DHW - tolerance was calculated over the
-first four scenarios for each GCM (four from 4096 scenarios per GCM) due to computational
-restraints, and then used to calculate an overall mean DHW – tolerance value for each reef
-under each GCM.
+total strength of all larval connections between reefs. To analyse the DHW - tolerance
+levels of reefs, heritable DHW – tolerance values were tracked over timeseries in a timestep
+\* taxa \* reef \* scenario matrix. The mean timeseries DHW - tolerance was calculated over
+the first four scenarios for each GCM (four from 4096 scenarios per GCM) due to
+computational restraints, and then used to calculate an overall mean DHW – tolerance value
+for each reef under each GCM.
+
+The ratio of source-to-sink connectivity for a target reef is calculated using @eq-so-to-si,
+and represents the strength of the reef's outgoing larval flow relative to it's incoming
+larval flow. Incoming connections in this calculation, do not directly represent the larval
+supply gained as the population from which connections are coming from is not represented. A
+source-to-sink ratio greater than 1 (a value greater than 0 on a log scale) indicates a reef
+has greater outgoing than incoming larval flow.
+
+$$
+O:I = \frac{\frac{S_O}{N_O}}{\frac{S_I}{N_I}}
+$$ {#eq-so-to-si}
+
+Where:
+
+-   $S$ denotes the total strength of connections.
+
+-   $N$ denotes the number of connections.
+
+-   $O$ denotes outgoing (source) connections from the target reef.
+
+-   $I$ denotes incoming (sink) connections to the target reef.
 
 We used a multinomial linear regression model to quantify the influence of reef
 characteristics on reef cluster assignment. We model the influence of seven predictors,
@@ -802,8 +822,7 @@ and development in connectivity modelling methods for whole-ecosystem scales.
 ![Equilibrium Climate Sensitivity (ECS) values in °C for the GCMs selected (point values).
 The pink - dashed box represents the high-certainty ‘very likely’ range for ECS values and
 the solid red box represents low-certainty ‘likely’ range for ECS values (Forster et al.,
-2021).](../figs/ecs_plot.png){#sfig-ecs
-fig-align="center" width="10cm"}
+2021).](../figs/ecs_plot.png){#sfig-ecs fig-align="center" width="10cm"}
 
 ![Distribution of depth data coverage levels across 3806 possible reefs. Reefs below the 5%
 data coverage threshold (represented by the red vertical line) were removed from the
@@ -833,8 +852,8 @@ Green represents reefs in the low cover cluster, orange represents reefs in the 
 cluster and blue represents reefs in the high cover cluster. All 2429 reefs included in this
 investigation are represented in this figure. An annotation represents the approximate
 location of the Australian Institute of Marine Science Townsville site at Cape
-Cleveland.](../figs/gcm_cluster_assignment_map.png){#sfig-gcm-cluster-map
-fig-align="center" width="14.82cm"}
+Cleveland.](../figs/gcm_cluster_assignment_map.png){#sfig-gcm-cluster-map fig-align="center"
+width="14.82cm"}
 
 ![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
 Green indicates a low cover cluster assignment, orange represents a medium cover assignment
@@ -848,8 +867,7 @@ fig-align="center" width="14.82cm"}
 ![Heatmap indicating reef connectivity relative standard deviation (RSD %). Reef
 connectivity relative standard deviation represents the reef standard deviation connection
 strength as a percentage of reef mean connection strength. Lighter colours indicate higher
-RSD %
-values.](../figs/connectivity_rsd_percent.png){#sfig-connectivity-rsd
+RSD % values.](../figs/connectivity_rsd_percent.png){#sfig-connectivity-rsd
 fig-align="center" width="14.82cm"}
 
 ## ADRIA-CoralBlox
