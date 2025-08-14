@@ -681,7 +681,7 @@ and tourism return value. Our results suggest that of the assessed reefs ocurrin
 (across all GCMs at the GBRMPA management region scale), with many unable to maintain
 positive carbonate budgets under future conditions. Reef intervention planning is a complex
 and challenging decision making process [@anthony2020], and our results suggest that
-deployment site depth is an important factor to consider when assessing the long-term
+deployment site depth may be an important factor to additionally consider when assessing the long-term
 resilience of deployment sites.
 
 Our findings suggest that reefs in ‘high’ cover clusters do not have greater thermal
