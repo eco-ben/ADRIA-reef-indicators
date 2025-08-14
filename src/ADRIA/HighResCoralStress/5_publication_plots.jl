@@ -2,19 +2,7 @@
 Script to create additional plots required for publication. E.g. maps and GCM plots.
 """
 
-using Revise, Infiltrator
-
-using GLMakie, GeoMakie, GraphMakie
-using Statistics
-using YAXArrays
-using CairoMakie
-
-using ADRIA
-
-import GeometryOps as GO
-
 include("../../common.jl")
-include("../../plotting_functions.jl")
 
 CairoMakie.activate!()
 
@@ -22,88 +10,113 @@ context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbona
 
 # ECS plot - methods
 ecs_values = Dict(
-    "EC-Earth3-Veg" => 4.31,
-    "ACCESS-ESM1-5" => 3.87,
-    "ACCESS-CM2" => 4.72,
-    "GFDL-CM4" => 2.9,
-    "NorESM2-MM" => 2.5
+    "EC-Earth3-Veg" => 4.30, # Wyser et al. (2020). On the increased climate sensitivity in the EC-Earth model from CMIP5 to CMIP6
+    "ACCESS-ESM1-5" => 3.87, # Ziehn et al. (2020). The Australian Earth System Model: ACCESS-ESM1.5
+    "ACCESS-CM2" => 4.66, # Grose et al. (2020). A CMIP6-based multi-model downscaling ensemble to underpin climate change services in Australia
+    "GFDL-CM4" => 4.1, # Sentman et al. (2025). Quantifying Equilibrium Climate Sensitivity to Atmospheric Chemistry and Composition Representations in GFDL-CM4.0 and GFDL-ESM4.1 
+    "NorESM2-MM" => 2.5 # Seland et al. (2020). Overview of the Norwegian Earth System Model (NorESM2) and key climate response of CMIP6 DECK, historical, and scenario simulations
 )
-ecs = ecs_plot(collect(values(ecs_values)), [2.5,5.1], [2.1,7.7], collect(keys(ecs_values)))
-save(joinpath(output_path, "figs/ecs_plot.png"), ecs, px_per_unit = 300/inch)
+ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys(ecs_values)))
+save(joinpath(figs_path, "ecs_plot.png"), ecs, px_per_unit=dpi)
 
 # GBR map plot - methods
-investigation_reefs = context_layers[
-    (context_layers.management_area .!= "NA") .& 
-    (context_layers.bioregion .!= "NA"),
-:]
-regions = GDF.read("../data/GBRMPA_Management_Areas.gpkg")
-regions.region_name = ["Mackay/Capricorn", "Cairns/Cooktown", "Far Northern", "Townsville Whitsunday"]
-qld = GDF.read("../data/GBRMPA_Reef_Features.gpkg")
-qld = qld[qld.FEAT_NAME .== "Mainland", :SHAPE]
+bioregion_colors = distinguishable_colors(length(unique(context_layers.bioregion)));
+gbr_methods_map = map_gbr_reefs(context_layers, :bioregion, bioregion_colors, "Bioregions")
 
-map_width = fig_sizes["map_width"]
-map_height = fig_sizes["map_height"]
-region_col = tuple.(Makie.wong_colors()[1:4], repeat([0.3], 4)) # Manually set alpha value to 0.3
+save(joinpath(figs_path, "region_map.png"), gbr_methods_map, px_per_unit=dpi)
 
-ordered_reefs = sort(investigation_reefs, :bioregion_average_latitude; rev=true)
-bioregion_colors_labels = DataFrame(
-    bioregion = unique(investigation_reefs.bioregion),
-    ref = 1:length(unique(investigation_reefs.bioregion)),
-    color = distinguishable_colors(length(unique(investigation_reefs.bioregion))),
-    label = label_lines.((unique(investigation_reefs.bioregion)); l_length=17)
+# GBR - wide DHW figure
+dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
+GCMs = dhw_scenarios.dhw.properties["members"]
+
+context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
+gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
+gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID.∈[context_layers.UNIQUE_ID], :]
+filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
+
+dhw_arrays = [
+    rebuild(gbr_dom.dhw_scens[:, filtered_indices, i_gcm], dims=(gbr_dom.dhw_scens.timesteps, Dim{:sites}(context_layers.UNIQUE_ID))) for i_gcm in eachindex(GCMs)
+]
+dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
+dhw_arrays = rebuild(dhw_arrays, metadata=dhw_timeseries_properties)
+
+context_layers = sort(context_layers, :management_area)
+
+dhw_arrays = dhw_arrays[sites=At(context_layers.UNIQUE_ID)]
+
+fig = Figure(
+    size=(fig_sizes["gcm_timeseries_width"], fig_sizes["gcm_timeseries_height"]),
+    fontsize=fontsize
 )
-# unique_ordered_bioregions = unique(ordered_reefs.bioregion)
-# bioregion_colors = 
-# bioregion_col_refs = CategoricalArray(ordered_reefs.bioregion).refs
-# order_indices = indexin(unique_ordered_bioregions, unique(bioregions))
-# ordered_colors = bioregion_colors[order_indices]
-# unique_ordered_bioregions = label_lines.(unique_ordered_bioregions; l_length=17)
-ordered_reefs = leftjoin(ordered_reefs, bioregion_colors_labels; on = :bioregion)
-centroids = GO.centroid.(ordered_reefs.geometry)
+plot_layout = [(x, 1) for x in eachindex(GCMs)]
+man_areas_categorical = CategoricalArray(context_layers.management_area)
+for (g, GCM) in enumerate(GCMs)
+    group_timeseries = dhw_arrays[1:50, :, g]
+    plot_layout_xi = plot_layout[g]
+    # ax = _setup_grouped_axes(
+    #         fig,
+    #         plot_layout_xi,
+    #         ([1, 10, 20, 30, 40, 50], string.([2025, 2035, 2045, 2055, 2065, 2075]));
+    #         ylabel="DHW [\u00B0 C]",
+    #         xlabel="",
+    #         title="",
+    #         xsize=nothing,
+    #         ysize=nothing,
+    #         background_color=:white,
+    #         xticklabelrotation=45.0,
+    #         spinewidth=0.5
+    # )
 
-bgcol = :gray90
-fig = Figure(size = (map_width, map_height), fontsize = fontsize, backgroundcolor=bgcol)
-ax = Axis(
-    fig[1,1],
-    width=map_width-350,
-    height=map_height-100,
-    xgridvisible=false,
-    ygridvisible=false,
-    limits=((142.5, 154.1), (-25, -10)),
-    backgroundcolor=bgcol
-)
-poly!(qld; color=:darkgray)
-poly!(regions.SHAPE, color=region_col)
-scatter!(centroids; color=Int64.(ordered_reefs.ref), colormap=unique(ordered_reefs.color), markersize=4)
-lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
-text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
-#poly!(investigation_reefs.geometry, color=bioregions.refs, colormap=ColorSchemes.flag_gs)
+    ADRIA.viz.clustered_scenarios!(
+        fig[plot_layout_xi...],
+        group_timeseries,
+        Vector{Int64}(man_areas_categorical.refs);
+        opts=Dict{Symbol,Any}(:legend => false),
+        axis_opts=Dict(
+            :title => GCM,
+            :xticks => ([1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50], string.([2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070, 2075])),
+            :spinewidth => 0.5,
+            :ylabelpadding => 2,
+            :xlabelpadding => 2,
+            :xticksize => 2,
+            :yticksize => 2,
+            # :ylabel => ""
+        )
+    )
+end
+
+axes_above_bottom = filter(x -> x isa Axis, fig.content)[1:end-1]
+map(x -> hidexdecorations!(x; grid=false, ticks=false), axes_above_bottom)
+map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), filter(x -> x isa Axis, fig.content))
+linkaxes!(filter(x -> x isa Axis, fig.content)...)
+
+legend_entries = []
+for (i, col) in enumerate([:green, :orange, :blue, :red])
+    LE = LineElement(; color=col, marker=:circle)
+    push!(legend_entries, [LE])
+end
 
 Legend(
-    fig[2,1],
-    [PolyElement(color=col, alpha=0.3) for col in region_col],
-    regions.region_name,
+    fig[length(GCMs)+1, 1],
+    legend_entries,
+    levels(man_areas_categorical),
     nbanks=2,
-    patchsize=(10,10),
-    colgap=8,
-    backgroundcolor=bgcol
+    tellwidth=false,
+    padding=(2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
+    labelsize=fontsize,    # smaller font
+    framevisible=false,        # optional: remove box
+    # markerlabelgap = 3,          # reduce space between marker and label
+    rowgap=0,                  # reduce vertical spacing between items
+    colgap=4,                  # reduce horizontal spacing
+    patchsize=(5, 5)
 )
-Legend(
-    fig[1,2],
-    [MarkerElement(color=bioregion_color, marker=:circle) for bioregion_color in unique(ordered_reefs.color)],
-    unique(ordered_reefs.label),
-    nbanks=2,
-    colgap=6,
-    rowgap=1,
-    backgroundcolor=bgcol
+rowsize!(fig.layout, maximum(first.(plot_layout)) + 1, Relative(0.03))
+feat = dhw_arrays.properties[:metric_feature]
+unit_text = dhw_arrays.properties[:metric_unit]
+Label(
+    fig[:, 0], "$feat [$unit_text]",
+    rotation=π / 2,  # Rotate 90 degrees
+    tellheight=false,
+    tellwidth=true
 )
-save(joinpath(output_path, "figs/region_map.png"), fig, px_per_unit = 300/inch)
-
-# fig = Figure()
-# ax = Axis(
-#     fig[1,1],
-#     limits = (nothing, (-0.1, 400)),
-#     ylabel="Initial cover",
-#     xlabel="Reefs with <5x initial cover in timeseries"
-# )
-# scatter!((context_layers[:, "ACCESS-ESM1-5_gbr_clusters"] .!= 0.0), context_layers.initial_coral_cover)
+save(joinpath(figs_path, "methods_dhw_timeseries.png"), fig, px_per_unit=dpi)

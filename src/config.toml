@@ -1,25 +1,10 @@
+[domain]
+domain_dir = "../data/GBR_2024_10_15_HighResCoralStress/"
+
 [operation]
 num_cores = 6
 threshold = 1.0e-8
-debug = false
+debug = true
 
 [results]
 output_dir = "../outputs/ADRIA_results/HighResCoralStress"
-
-[domain]
-domain_dir = "../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/"
-
-[fig_fontsize]
-fontsize = 6
-
-[fig_formats_cm]
-violin_width = 17
-map_height = 18
-map_width = 18
-ecs_width = 10
-ecs_height = 13
-timeseries_width = 24
-violin_height = 14
-timeseries_height = 17
-carb_width = 18
-carb_height = 16

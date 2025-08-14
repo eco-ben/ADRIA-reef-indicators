@@ -3,23 +3,13 @@ Cluster reef cover timeseries at three different scales across the GBR. For clus
 reef cover as a percentage of total reef area is used.
 """
 
-using Revise, Infiltrator
-
-using GLMakie, GeoMakie, GraphMakie
-using Statistics
-using YAXArrays
-import GeoDataFrames as GDF
-
-using ADRIA
-
 include("../../common.jl")
-includet("../../plotting_functions.jl")
 
 # Select the target GCM from
-dhw_scenarios = open_dataset("../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/DHWs/dhwRCP45.nc")
+dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
+GCMs = dhw_scenarios.dhw.properties["members"]
 
-GBR_domain_path = "../../ADRIA Domains/GBR_2024_10_15_HighResCoralStress/"
-gbr_dom = ADRIA.load_domain(GBR_domain_path, "45")
+gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 context_layers = gbr_dom.loc_data
 
 # Attach bioregion level data to context_layers
@@ -30,19 +20,31 @@ rename!(context_layers, :area_ID => :bioregion)
 context_layers.bioregion .= ifelse.(ismissing.(context_layers.bioregion), "NA", context_layers.bioregion)
 context_layers.bioregion = convert.(String, context_layers.bioregion)
 
+context_layers.inclusion_flag = (
+    (context_layers.management_area .!= "NA") .&
+    (context_layers.bioregion .!= "NA") .&
+    (context_layers.depth_qc .== 0)
+)
+context_layers = context_layers[context_layers.inclusion_flag, :]
+
 n_clusters = 3
+bioregion_numbers = combine(groupby(context_layers, :bioregion), nrow => :nrow)
+removed_bioregions = bioregion_numbers[bioregion_numbers.nrow .< n_clusters, :bioregion]
+context_layers.inclusion_flag = (context_layers.inclusion_flag) .& (context_layers.bioregion .∉ [removed_bioregions])
+context_layers = context_layers[context_layers.inclusion_flag, :]
 
 areas = gbr_dom.loc_data.area
 
-for GCM in dhw_scenarios.dhw.properties["members"]
-    
+for GCM in GCMs
+
     # Select GCM and load relevant results
     @info "Performing timeseries clustering for $(GCM)"
 
-    absolute_cover = open_dataset("../outputs/ADRIA_results/HighResCoralStress/processed_model_outputs/median_cover_$(GCM).nc").layer
+    absolute_cover = open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer
 
     # threshold_cover = threshold_cover_timeseries(areas, absolute_cover, 0.17)
     percentage_cover = percentage_cover_timeseries(areas, absolute_cover)
+    percentage_cover = percentage_cover[locations=At(context_layers.UNIQUE_ID)]
 
     (bioregion_clusters, bioregion_cluster_cats) = grouped_timeseries_clustering(percentage_cover.data, context_layers.bioregion; n_clusters=n_clusters, length_t=1:50)
     (man_region_clusters, man_region_cluster_cats) = grouped_timeseries_clustering(percentage_cover, context_layers.management_area; n_clusters=n_clusters, length_t=1:50)
@@ -57,4 +59,4 @@ for GCM in dhw_scenarios.dhw.properties["members"]
 
 end
 
-GDF.write("../outputs/ADRIA_results/HighResCoralStress/bellwether_reefs_carbonate.gpkg", context_layers)
+GDF.write(joinpath(output_path, "bellwether_reefs_carbonate.gpkg"), context_layers)
