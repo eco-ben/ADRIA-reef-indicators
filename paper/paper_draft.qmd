@@ -235,22 +235,22 @@ a pixel's monthly mean climatology across all twelve months (i.e., the maximum m
 SST). This approach uses the annual maximum temperature as the baseline because corals are
 adapted to withstand their local warmest conditions under normal seasonal cycles. When
 temperatures exceed this seasonal maximum, corals experience thermal stress that can lead to
-bleaching. Only positive anomalies are considered relevant for coral stress, as temperatures
-below the seasonal maximum do not contribute to bleaching risk.
+bleaching. Only positive anomalies, greater than 1°C, are considered relevant for coral
+stress, as temperatures below the seasonal maximum do not contribute to bleaching risk.
 
 DHW values on a per-pixel basis at 1km^2^ resolution were then calculated as the 12-week
-rolling sum of positive HotSpot SST Anomaly values, expressed in units of °C-weeks. The
-12-week accumulation period reflects the cumulative nature of coral thermal stress. Brief
-temperature spikes may be tolerable, but sustained or repeated exposure to elevated
-temperatures causes progressively greater physiological stress and bleaching severity. DHW
-values integrate both the magnitude and duration of thermal stress: a moderate anomaly
-(e.g., 1°C) sustained for 12 weeks produces the same DHW value as a severe anomaly (e.g.,
-3°C) lasting 4 weeks, though the biological impacts may differ. DHW estimates for each
-indicative reef (see @GBRMPA2022) were then determined by taking the mean DHW value for all
-pixels touching each reef outline. The process described here was conducted for all 2429
-reefs to create DHW projections spanning from 2025 to 2075. Code used to calculate DHW data
-and perform analyses involved in this investigation can be found at **\[insert repo
-citation\]**.
+rolling sum of positive HotSpot SST Anomaly values that are greater than 1°C, expressed in
+units of °C-weeks. The 12-week accumulation period reflects the cumulative nature of coral
+thermal stress. Brief temperature spikes may be tolerable, but sustained or repeated
+exposure to elevated temperatures causes progressively greater physiological stress and
+bleaching severity. DHW values integrate both the magnitude and duration of thermal stress:
+a moderate anomaly (e.g., 1°C) sustained for 12 weeks produces the same DHW value as a
+severe anomaly (e.g., 3°C) lasting 4 weeks, though the biological impacts may differ. DHW
+estimates for each indicative reef (see @GBRMPA2022) were then determined by taking the mean
+DHW value for all pixels touching each reef outline. The process described here was
+conducted for all 2429 reefs to create DHW projections spanning from 2025 to 2075. Code used
+to calculate DHW data and perform analyses involved in this investigation can be found at
+**\[insert repo citation\]**.
 
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C) | Interpreted relative severity | Results found in |
