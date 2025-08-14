@@ -419,12 +419,13 @@ the first four scenarios for each GCM (four from 4096 scenarios per GCM) due to
 computational restraints, and then used to calculate an overall mean DHW – tolerance value
 for each reef under each GCM.
 
-The ratio of source-to-sink connectivity for a target reef is calculated using @eq-so-to-si,
-and represents the strength of the reef's outgoing larval flow relative to it's incoming
-larval flow. Incoming connections in this calculation, do not directly represent the larval
-supply gained as the population from which connections are coming from is not represented. A
-source-to-sink ratio greater than 1 (a value greater than 0 on a log scale) indicates a reef
-has greater outgoing than incoming larval flow.
+The ratio of source-to-sink connectivity ($O:I$) for a target reef is calculated using
+@eq-so-to-si, and represents the strength of the reef's outgoing larval flow relative to
+it's incoming larval flow. If a reef has no incoming connections, the $O:I$ equals the
+$\frac{S_O}{N_O}$ value. Incoming connections in this calculation, do not directly represent
+the larval supply gained as the population from which connections are coming from is not
+represented. A source-to-sink ratio greater than 1 (a value greater than 0 on a log scale)
+indicates a reef has greater outgoing than incoming larval flow.
 
 $$
 O:I = \frac{\frac{S_O}{N_O}}{\frac{S_I}{N_I}}
