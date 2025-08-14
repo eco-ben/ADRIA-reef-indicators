@@ -1,5 +1,7 @@
 # ADRIA-reef-indicators
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16878443.svg)](https://doi.org/10.5281/zenodo.16878443)
+
 Time series analyses for GBR resilience using ADRIA - CoralBlox reef ecosystem modelling suite.
 - Clustering reef timeseries to identify what characteristics define resilient clusters.
 - Assessing the characteristics that influence positive carbonate budget maintainence into the future.
