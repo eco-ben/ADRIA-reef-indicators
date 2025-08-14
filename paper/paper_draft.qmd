@@ -687,7 +687,7 @@ resilience of deployment sites.
 Our findings suggest that reefs in ‘high’ cover clusters do not have greater thermal
 tolerance than reefs in lower coral cover clusters. This is in contrast with literature
 suggesting corals have the capacity to adapt to increasing climate change pressures
-[@humanes2022; @lachs2024], including the investigation by Bairos-Novak et al.
+[@humanes2022; @lachs2024; @lachs2023], including the investigation by Bairos-Novak et al.
 [-@bairos-novak2021] that revealed high heritability of bleaching and survival response
 traits, used to inform thermal tolerance trait distributions in this investigation. The low
 importance of thermal tolerance on cover outcomes may be due to reefs experiencing high
@@ -744,7 +744,10 @@ better capture the ecological-timescale trends in reef connections rather than t
 daily variability, would improve confidence in the connectivity findings of this
 investigation [@vogt-vincent2023]. The DHW data used in this investigation have not been
 bias corrected for the Great Barrier Reef region and are part of a wider Australian dataset
-[@dixon2022] developed using statistical downscaling. We investigate a range of future
+[@dixon2022] developed using statistical downscaling. Additionally, Lachs et al.
+[@lachs2021] suggest the utility of DHW levels for prediction of coral bleaching can be
+improved by reducing the threshold for HotSpot Anomaly values from MMM +1 to MMM, and
+reducing the accumulation window from 12 weeks to 8 weeks. We investigate a range of future
 climate responses, thermal projections and ecological parameterisations of ADRIA - CoralBlox
 to account for many possible futures, and our results suggest the factors that influence
 reef resilience are consistent across these scenarios.
@@ -903,7 +906,7 @@ monitoring data from the Ecological Intelligence for Reef Restoration Program (E
 ([@australianinstituteofmarinescience2025; @ribeirodealmeida2024]).
 
 **Bleaching mortality**
-
+**\[BG: Has this section been completed?\]**
 In ADRIA we track the thermal tolerance of each functional group and size class as a
 truncated normal distribution that is updated in each timestep following growth and
 recruitment. This distribution determines the proportion of the population on a reef that is
