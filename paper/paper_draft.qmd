@@ -420,15 +420,10 @@ first four scenarios for each GCM (four from 4096 scenarios per GCM) due to comp
 restraints, and then used to calculate an overall mean DHW – tolerance value for each reef
 under each GCM.
 
-We used a Bayesian ordinal hierarchical regression model to quantify the influence of reef
-characteristics on reef cluster assignment. Using Turing.jl [@fjelde2025] we model the
-influence of five predictors, median depth, log total connectivity strength, log source to
-sink ratio, mean DHW, log reef area and mean DHW tolerance level on cluster assignment,
-including random intercepts for levels of **bioregion** and GCM identity. Based on initial
-analyses suggesting higher cover clusters have reefs with greater depths, we constrain the
-$\beta_{depth}$ coefficient prior to positive values. Similarly, we constrain the
-$\beta_{DHW}$ coefficient prior to negative values as we do not expect increasing DHW levels to
-increase cluster assignment level.
+We used a multinomial linear regression model to quantify the influence of reef
+characteristics on reef cluster assignment. We model the
+influence of seven predictors, median depth, log total connectivity strength, log source to
+sink ratio, mean DHW, log reef area, mean DHW tolerance level and GCM on cluster assignment.
 
 # Results
 
@@ -543,20 +538,6 @@ clusters, a ‘medium’ cluster with intermediate levels of coral cover, and a 
 with greater levels of cover recovery, with persistence to 2050 in some bioregions
 (@sfig-access-esm1-5-bioregion-timeseries).
 
-In many bioregions, median reef depth decreases as cluster coral cover decreases, with reefs
-within the ‘high’ cluster commonly having the greatest median reef depths within the
-bioregion (@fig-access-esm1-5-bioregion-depth).
-
-![Median depth for reefs within each bioregion, separated into clusters assigned by
-timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median
-area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange)
-are clusters with intermediate median area-relative cover between 2030 and 2040 within each
-bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover
-between 2030 and 2040 within each bioregion. Solid lines represent the median depth for each
-cluster. Displays results for ACCESS-ESM1-5
-GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
-fig-align="center" width="14.82cm"}
-
 ```{julia}
 #| echo: false
 #| warning: false
@@ -589,6 +570,20 @@ fig-align="center" width="14.82cm"}
 ```
 
 \[**BG: Need to add quantification results to text for regressions.**\]
+
+In many bioregions, median reef depth decreases as cluster coral cover decreases, with reefs
+within the ‘high’ cluster commonly having the greatest median reef depths within the
+bioregion (@fig-access-esm1-5-bioregion-depth).
+
+![Median depth for reefs within each bioregion, separated into clusters assigned by
+timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median
+area-relative cover between 2030 and 2040 within each bioregion. ‘Medium’ clusters (orange)
+are clusters with intermediate median area-relative cover between 2030 and 2040 within each
+bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover
+between 2030 and 2040 within each bioregion. Solid lines represent the median depth for each
+cluster. Displays results for ACCESS-ESM1-5
+GCM.](../outputs/ADRIA_results/HighResCoralStress/figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
+fig-align="center" width="14.82cm"}
 
 In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW timeseries
 correlation levels, while reefs in 'high' clusters have the highest correlation levels
