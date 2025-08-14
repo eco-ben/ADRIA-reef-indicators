@@ -141,7 +141,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
 
     context_layers[:, "$(GCM)_mean_dhw"] = dhw_locs
 
-    threshold_cover = percentage_cover_timeseries(areas, absolute_cover)[1:30, :]
+    threshold_cover = percentage_cover_timeseries(context_layers.area, absolute_cover)[1:30, :]
     negative_normal_dhw = -normalise(dhw_time[:, :], (0, 1))
 
     dhw_cover_cor = zeros(Float64, length(context_layers.RME_UNIQUE_ID))
@@ -162,9 +162,15 @@ for (i_gcm, GCM) in enumerate(GCMs)
     
     rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
     dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
-    dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
 
+    dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
     context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean[filtered_indices]
+
+    context_layers[:, "$(GCM)_DHW_tol_rate"] .= 0.0
+    for (r, reef) in enumerate(eachrow(context_layers))
+        tol_rate = (maximum(dhw_tol_log[:, r].data) - minimum(dhw_tol_log[:, r].data)) / (size(dhw_tol_log, 1) / 10)
+        reef["$(GCM)_DHW_tol_rate"] = tol_rate
+    end
 end
 
 # 5. Calculate the number of reefs in each bioregion
