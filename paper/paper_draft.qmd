@@ -898,11 +898,14 @@ value.
 
 ### Model parameterisation
 
-CoralBlox uses user-defined size classes that influence size-dependent growth and mortality
-rates, through which the coral colonies progress as they grow in diameter. Within ADRIA, we
-define the distributions of these parameters, and the size classes based on ecological
-monitoring data from the Ecological Intelligence for Reef Restoration Program (EcoRRAP)
-([@australianinstituteofmarinescience2025; @ribeirodealmeida2024]).
+In this investigation we model five functional groups common to the GBR, tabular Acropora,
+corymbose Acropora, corymbose non-Acropora, small massives and large massives. We do not
+model arborscent Acropora forms due to their distinct life history from other morphological
+groups. CoralBlox uses user-defined size classes that influence size-dependent growth and
+mortality rates, through which the coral colonies progress as they grow in diameter. Within
+ADRIA, we define the distributions of these parameters, and the size classes based on
+ecological monitoring data from the Ecological Intelligence for Reef Restoration Program
+(EcoRRAP) ([@australianinstituteofmarinescience2025; @ribeirodealmeida2024]).
 
 **Bleaching mortality** **\[BG: Has this section been completed?\]** In ADRIA we track the
 thermal tolerance of each functional group and size class as a truncated normal distribution
