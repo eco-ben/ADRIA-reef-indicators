@@ -767,14 +767,13 @@ precise report of reef depths across the GBR.
 
 In addition to the usual challenges of deriving data from satellite imagery, it is
 acknowledged that there is high potential for misalignment between the bathymetry data and
-GBRMPA reef outlines. Hammerton and Lawrey [-@hammerton], for example, identified 120 false
-positives, where features identified as reefs were in actuality sand banks or rocky reefs
-(rather than coral reefs). Reefs with bathymetry data of less than 5% of its indicative area
-were excluded from analysis to ensure analyses were not conducted on reefs with no data
-coverage (see @sfig-depth-cutoff). The existing GBRMPA reef outlines were adopted to align
-with other ongoing modelling and analyses conducted as part of the Reef Restoration and
-Adaptation Program \[RRAP; <https://gbrrestoration.org>\] **\[TODO: PROPER CITATION OF
-RRAP\]**.
+GBRMPA reef outlines. Hammerton and Lawrey [-@hammerton2025], for example, identified 120
+false positives, where features identified as reefs were in actuality sand banks or rocky
+reefs (rather than coral reefs). Reefs with bathymetry data of less than 5% of its
+indicative area were excluded from analysis to ensure analyses were not conducted on reefs
+with no data coverage (see @sfig-depth-cutoff). The existing GBRMPA reef outlines were
+adopted to align with other ongoing modelling and analyses conducted as part of the Reef
+Restoration and Adaptation Program (<https://gbrrestoration.org>; [@thereef]).
 
 The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
 one, a formal mechanistic and spatial validation of the model represents an area for future
