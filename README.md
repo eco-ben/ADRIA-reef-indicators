@@ -24,47 +24,44 @@ ADRIA-reef-indicators/
 
 The ADRIADomain `GBR_2024_10_15_HighResCoralStress` is required to run ADRIA in this project. The path to this domain folder should be specified in the config.toml file.
 
-The following files should be located in the data folder:
+The following structure and files should be maintained in the outputs, figs and data folders:
 ``` code
-ADRIA-reef-indicators/data/
-├─ GBRMPA_Management_Areas.gpkg    # File containing polygons of GBRMPA management areas
-├─ GBRMPA_Reef_Features.gpkg    # File containing polygons of GBRMPA reef feature data
-└─ GBRMPA_Reefal_Bioregions.gpkg   # File containing polygons of GBRMPA reefal bioregions.
-```
-
-The following structure and files should be maintained in the outputs folder:
-``` code
-ADRIA-reef-indicators/outputs/
-└───ADRIA_results
-    └───HighResCoralStress
-        ├───figs    # Directory directly containing general GCM-wide and paper-methods figures, as well as GCM subdirectories
-        │   ├───ACCESS-CM2
-        │   │   ├───bioregion
-        │   │   ├───gbr
-        │   │   └───management_area
-        │   ├───ACCESS-ESM1-5
-        │   │   ├───bioregion
-        │   │   ├───gbr
-        │   │   └───management_area
-        │   ├───EC-Earth3-Veg
-        │   │   ├───bioregion
-        │   │   ├───gbr
-        │   │   └───management_area
-        │   ├───GFDL-CM4
-        │   │   ├───bioregion
-        │   │   ├───gbr
-        │   │   └───management_area
-        │   └───NorESM2-MM
-        │       ├───bioregion
-        │       ├───gbr
-        │       └───management_area
-        ├───processed_model_outputs     # Folder containing scenario-median timeseries arrays for each GCM
-        │       ├───median_cover_ACCESS-CM2.nc
-        │       ├───median_cover_ACCESS-ESM1-5.nc
-        │       ├───median_cover_EC-Earth3-Veg.nc
-        │       ├─── median_cover_GFDL-CM4.nc
-        │       └───median_cover_NorESM2-MM.nc
-        └───analysis_context_layers_carbonate.gpkg      # Geopackage containing the required timeseries clustering, connectivity and carbonate budget values for each reef
+ADRIA-reef-indicators
+│───outputs
+│   └───ADRIA_results
+│       └───HighResCoralStress
+│           ├───processed_model_outputs     # Folder containing scenario-median timeseries arrays for each GCM
+│           │       ├───median_cover_ACCESS-CM2.nc
+│           │       ├───median_cover_ACCESS-ESM1-5.nc
+│           │       ├───median_cover_EC-Earth3-Veg.nc
+│           │       ├─── median_cover_GFDL-CM4.nc
+│           │       └───median_cover_NorESM2-MM.nc
+│           └───analysis_context_layers_carbonate.gpkg      # Geopackage containing the required timeseries clustering, connectivity and carbonate budget values for each reef│
+│───figs    # Directory directly containing general GCM-wide and paper-methods figures, as well as GCM subdirectories
+│   ├───ACCESS-CM2
+│   │   ├───bioregion
+│   │   ├───gbr
+│   │   └───management_area
+│   ├───ACCESS-ESM1-5
+│   │   ├───bioregion
+│   │   ├───gbr
+│   │   └───management_area
+│   ├───EC-Earth3-Veg
+│   │   ├───bioregion
+│   │   ├───gbr
+│   │   └───management_area
+│   ├───GFDL-CM4
+│   │   ├───bioregion
+│   │   ├───gbr
+│   │   └───management_area
+│   └───NorESM2-MM
+│       ├───bioregion
+│       ├───gbr
+│       └───management_area
+└───data
+    ├─ GBRMPA_Management_Areas.gpkg    # File containing polygons of GBRMPA management areas
+    ├─ GBRMPA_Reef_Features.gpkg    # File containing polygons of GBRMPA reef feature data
+    └─ GBRMPA_Reefal_Bioregions.gpkg   # File containing polygons of GBRMPA reefal bioregions.
 ```
 
 ### Analysis scripts - `src/ADRIA/HighResCoralStress/`
@@ -91,6 +88,7 @@ flowchart LR;
 - `3_collating_context_layers.jl` : Attach the required values for each reef for analysis factors including connectivity metrics, reef DHW levels and perform carbonate budget analysis for a range of carbonate budget live coral cover thresholds.
 - `4_analysis_plots_clustering_carbonate.jl` : Create required results for paper using timeseries data and analysis factors collated in `3_*.jl`. Additionally, calculate the proportion of reefs that change cluster assignment across the GCM levels and the proportion of reefs with depths of 1-10m that occur in low and medium coral cover clusters.
 - `5_publication_plots.jl` : Create extra required plots for publication such as a context map and diagram of GCM Equilibium Climate Sensitivity values.
+- `6_quantifying_cluster_differences.jl` : Quantify the differences between cluster timeseries across management areas and GCMs. (Does not need to be run as it is include()ed in the .qmd file).
 
 ### Raw Data Requirements
 
