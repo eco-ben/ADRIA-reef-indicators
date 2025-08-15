@@ -445,34 +445,6 @@ this analysis.
 
 # Results
 
-## Reef carbonate budget
-
-As one might expect, the number of years experience cover above $\theta_{0}$ (the assumed
-positive carbonate budget threshold) substantially decreases as $\theta_{0}$ increases. The
-distribution of number of years above carbonate-cover thresholds is right-skewed, with many
-reefs experiencing low numbers of years above thresholds.
-
-Reefs with greater median depth levels maintain coral cover above indicative carbonate
-budget levels for a longer time frame compared to reefs with shallower median depths
-[@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate positive correlation
-with the number of years a reef maintains coral cover above the required threshold
-[@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintenance correlation
-decreases as $\theta_{0}$ increases. This is likely due to an increasing number of reefs
-being unable to maintain coral cover above threshold levels as the threshold increases, with
-values becoming increasingly right-skewed. The base-10 log of total connectivity strength
-was found to have no correlation with the number of years a reef maintains cover above the
-required thresholds [@sfig-access-esm1-5-conn-carbonate]. Log connectivity strength -
-carbonate budget maintenance correlation slightly decreases as the required carbonate budget
-threshold increases.
-
-![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
-2075. The assessed carbonate budget thresholds range from 10 to 20% of total reef area.
-Bracketed x-axis values represent the Spearman's correlation between reef depth and the
-number of years cover exceeds the carbonate budget threshold. Point colour represents the
-median reef depth level in metres. Displays results from median timeseries using
-ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate
-fig-align="center" width="14.82cm"}
-
 ## Reef trajectories across futures
 
 Each Global Climate Model (GCM) shows similar relationships between reef clusters and
@@ -610,12 +582,47 @@ correlation levels, while reefs in 'high' clusters have the highest correlation 
 bioregions in reef area-relative cover and mean timeseries DHW levels, with clusters having
 similar mean DHW levels in many bioregions (@sfig-access-esm1-5-bioregion-dhwmean).
 Similarly, there are no substantial differences between reef clusters in mean thermal
-tolerance levels @sfig-access-esm1-5-bioregion-dhwtol). There are no consistent differences
+tolerance levels (@sfig-access-esm1-5-bioregion-dhwtol). There are no consistent differences
 across bioregions and GCMs between clusters in their reefs' initial proportion of habitable
 area occupied by corals (@sfig-access-esm1-5-bioregion-initialproportion). Across most
 bioregions there are not consistent differences between clusters in connectivity metrics
 such as source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and total
 connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
+
+## Reef carbonate budget
+
+As one might expect, the number of years experience cover above $\theta_{0}$ (the assumed
+positive carbonate budget threshold) substantially decreases as $\theta_{0}$ increases. The
+distribution of number of years above carbonate-cover thresholds is right-skewed, with many
+reefs experiencing low numbers of years above thresholds.
+
+Reefs with greater median depth levels maintain coral cover above indicative carbonate
+budget levels for a longer time frame compared to reefs with shallower median depths
+[@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate positive correlation
+with the number of years a reef maintains coral cover above the required threshold
+[@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintenance correlation
+decreases as $\theta_{0}$ increases. This is likely due to an increasing number of reefs
+being unable to maintain coral cover above threshold levels as the threshold increases, with
+values becoming increasingly right-skewed. The base-10 log of total connectivity strength
+was found to have no correlation with the number of years a reef maintains cover above the
+required thresholds [@sfig-access-esm1-5-conn-carbonate]. Log connectivity strength -
+carbonate budget maintenance correlation slightly decreases as the required carbonate budget
+threshold increases.
+
+![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
+2075. The assessed carbonate budget thresholds range from 10 to 20% of total reef area.
+Bracketed x-axis values represent the Spearman's correlation between reef depth and the
+number of years cover exceeds the carbonate budget threshold. Point colour represents the
+median reef depth level in metres. Displays results from median timeseries using
+ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate
+alt="Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to 2075. The assessed carbonate budget thresholds range from 10 to 20% of total reef area. Bracketed x-axis values represent the Spearman's correlation between reef depth and the number of years cover exceeds the carbonate budget threshold. Point colour represents the median reef depth level in metres. Displays results from median timeseries using ACCESS-ESM1-5."
+fig-align="center" width="14.82cm"}
+
+## Partial Dependence
+
+The bioregion variable was excluded from partial dependence analysis due to its categorical
+nature providing limited interpretable information. The decision to exclude bioregions from
+the analysis is also justified by a low feature importance score (discussed
 
 # Discussion
 
