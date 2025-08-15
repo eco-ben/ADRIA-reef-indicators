@@ -388,9 +388,9 @@ temporal dynamics rather than simply their average coral cover. The process crea
 distance matrix of n \* n dimensions (where n is the number of timeseries in the group) that
 is clustered using a k-medoids clustering algorithm [cf. @steinmann2020]. The three reef
 clusters are assigned a qualitative level from "low", "medium" and "high" based on their
-relative median timeseries over the 2030-2050 period. Assigning cluster labels based on this
+relative median timeseries over the 2030-2060 period. Assigning cluster labels based on this
 period prevents cluster labels being assigned during the steeply declining period from
-2025-2030 and during the post-2050 period when many reefs have cover below 5% of their area.
+2025-2030 and during the post-2060 period when many reefs have cover below 5% of their area.
 
 Timeseries clustering analyses were performed at the management area and reefal bioregion
 scale (defined in GBRMPA [-@GBRMPA2024]). Additional analyses were also performed at the
