@@ -407,10 +407,7 @@ between total coral cover and inversed DHW timeseries, proportion of coral habit
 occupied by corals in the first timestep, ratio of source-to-sink larval connectivity and
 total strength of all larval connections between reefs. To analyse the DHW tolerance levels
 of reefs, heritable DHW tolerance values were tracked over timeseries in a matrix of shape
-timestep \* taxa \* reef \* scenario matrix. The mean timeseries DHW tolerance was
-calculated over the first four scenarios for each GCM (four from 4096 scenarios per GCM) due
-to computational restraints, and then used to calculate an overall mean DHW tolerance value
-for each reef under each GCM. **\[TI: Ben, is the last sentence here necessary?\]**
+timestep \* taxa \* reef \* scenario matrix.
 
 We used a multinomial linear regression model to quantify the influence of reef
 characteristics on reef cluster assignment. We model the influence of seven predictors,
