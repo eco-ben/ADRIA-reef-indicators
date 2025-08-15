@@ -278,6 +278,43 @@ management-area median timeseries and bands represent the 95th percentile confid
 intervals.](../figs/methods_dhw_timeseries.png){#fig-methods-dhws fig-align="center"
 width="14.82cm"}
 
+### Connectivity modelling
+
+\*\* need information on GBR1 connectivity used \*\*
+
+Connectivity data from 24 days in total were used in this investigation. These data span six
+years from 2015 to 2020. The years 2015, 2016, 2018 and 2019 are each represented by
+connectivity matrices covering spawning periods over three days in each year (12 days in
+total), while 2017 and 2020 are each represented by five spawning days each, coming to a
+total of 22 days of connectivity matrices. Indicative connectivity strengths are implemented
+in ADRIA-CoralBlox as the mean of all available data for each location (i.e., mean of all 22
+spawning days). While the connectivity strengths do not vary from year to year within each
+simulation, they do vary between reefs whiuch are of varying sizes, providing sufficient
+heterogeneity to capture spatial patterns in larval dispersal and settlement dynamics. The
+spatial variability also enables investigations into the influence of connectivity strength
+and its role in driving recovery processes.
+
+The ratio of source-to-sink connectivity ($O:I$) for a target reef represents the strength
+of the reef's outgoing larval flow relative to it's incoming larval flow (@eq-so-to-si). If
+a reef has no incoming connections, the $O:I$ equals the $S_O/N_O$ value. Incoming
+connections in this calculation, do not directly represent the larval supply gained as the
+population from which connections are coming from is not represented. A source-to-sink ratio
+greater than 1 (a value greater than 0 on a log scale) indicates a reef has greater outgoing
+than incoming larval flow.
+
+$$ O:I = \frac{(S_O/N_O)}{(S_I/N_I)} $$
+
+Where:
+
+-   $S$ is the sum of outgoing and incoming connections, indicating the total connectivity
+    strength.
+
+-   $N$ denotes the number of connections.
+
+-   $O$ denotes outgoing (source) connections from a reef.
+
+-   $I$ denotes incoming (sink) connections to a reef.
+
 ## Assessment framework
 
 An exploratory scenario modelling approach is adopted for this investigation. The method
@@ -333,51 +370,6 @@ scaled by the total area of the reef to represent cover as a percentage of the t
 estimated reef area. These timeseries of coral cover were then clustered based on their
 temporal behaviour.
 
-### Connectivity modelling
-
-\*\* need information on GBR1 connectivity used \*\*
-
-Connectivity data from 24 days in total were used in this investigation. These data span six
-years: 2015, 2016, 2018, and 2019 are each represented by 3 daily connectivity matrices,
-while 2017 and 2020 are each represented by 5 daily matrices. Indicative connectivity
-strengths are implemented in ADRIA-CoralBlox as the mean of all available data for each
-location (i.e., all 24 days). While the connectivity strengths do not vary from year to year
-within the simulation, they do vary between reefs of varying sizes, providing sufficient
-heterogeneity to capture spatial patterns in larval dispersal and settlement dynamics. The
-spatial variability also enables investigations into the influence of connectivity strength
-and its role in driving recovery processes.
-
-### Carbonate budget analysis
-
-Using median coral cover timeseries for each reef we calculated the number of years each
-reef maintains coral cover above a given percent threshold. The threshold represents the
-level of live coral cover necessary to maintain a positive carbonate budget (denoted here as
-$\theta_{0}$ to indicate the budget equilibrium). Greater number of years above $\theta_{0}$
-therefore suggests greater resilience and opportunity for recovery.
-
-Recent analyses suggest a general threshold of \~17% live coral cover in the case of the GBR
-[@desbiens2021]. Given in situ carbonate budgets are influenced by (1) a range of processes;
-(2) the variety of approaches that could be used to measure those processes; and (3) the
-uncertainty surrounding these, it would be unreasonable to assume all reefs adhere to a
-single precise $\theta_{0}$ value. Concurrently, it is difficult to ascertain a suitable
-$\theta_{0}$ value for each individual reef.
-
-Given the uncertainties present, the proportion of modelled reefs that display capacity to
-maintain coral cover above a given $\theta_{0}$ threshold is examined. An indicative range
-of 10 to 20% is used (inclusive, with a step size of 1%). The range was informed by Perry et
-al., [-@perry2015] and Desbians et al., [-@desbiens2021] providing plausible indications of
-the lower and upper bounds respectively. Robustness of the conclusions drawn to the
-uncertainty in the precise value of $\theta_{0}$ for all reefs can then be assessed by using
-the indicative range.
-
-The relationship between the number of years above $\theta_{0}$ and median reef depth was
-then assessed with Spearman's rank correlation. Spearman's correlation coefficient was
-adopted as reef depth and connectivity strength distributions are expected to be non-normal
-and highly skewed. Furthermore, reefs are naturally of different types and experience
-different conditions, and so the monotonic trends (whether the relationship consistently
-increase or decrease) rather than the exact quantative relationship was of interest for this
-analysis.
-
 ### Timeseries clustering
 
 To identify groups of reefs that are resilient, intermediate, and non-resilient, we
@@ -410,41 +402,51 @@ those interested.
 
 Reefs in each timeseries cluster were compared to identify characteristics that differ
 between low, medium and high coral cover clusters. These characteristics include reef median
-depth, mean timeseries DHW, mean timeseries DHW – tolerance level, Pearson’s correlation
+depth, mean timeseries DHW, mean timeseries DHW tolerance level, Pearson’s correlation
 between total coral cover and inversed DHW timeseries, proportion of coral habitable area
 occupied by corals in the first timestep, ratio of source-to-sink larval connectivity and
-total strength of all larval connections between reefs. To analyse the DHW - tolerance
-levels of reefs, heritable DHW – tolerance values were tracked over timeseries in a timestep
-\* taxa \* reef \* scenario matrix. The mean timeseries DHW - tolerance was calculated over
-the first four scenarios for each GCM (four from 4096 scenarios per GCM) due to
-computational restraints, and then used to calculate an overall mean DHW – tolerance value
-for each reef under each GCM.
-
-The ratio of source-to-sink connectivity ($O:I$) for a target reef represents the strength of the reef's outgoing larval flow relative to
-it's incoming larval flow (@eq-so-to-si). If a reef has no incoming connections, the $O:I$ equals the
-$\frac{S_O}{N_O}$ value. Incoming connections in this calculation, do not directly represent
-the larval supply gained as the population from which connections are coming from is not
-represented. A source-to-sink ratio greater than 1 (a value greater than 0 on a log scale)
-indicates a reef has greater outgoing than incoming larval flow.
-
-$$
-O:I = \frac{\frac{S_O}{N_O}}{\frac{S_I}{N_I}}
-$$ {#eq-so-to-si}
-
-Where:
-
--   $S$ denotes the total strength of connections.
-
--   $N$ denotes the number of connections.
-
--   $O$ denotes outgoing (source) connections from the target reef.
-
--   $I$ denotes incoming (sink) connections to the target reef.
+total strength of all larval connections between reefs. To analyse the DHW tolerance levels
+of reefs, heritable DHW tolerance values were tracked over timeseries in a matrix of shape
+timestep \* taxa \* reef \* scenario matrix. The mean timeseries DHW tolerance was
+calculated over the first four scenarios for each GCM (four from 4096 scenarios per GCM) due
+to computational restraints, and then used to calculate an overall mean DHW tolerance value
+for each reef under each GCM. **\[TI: Ben, is the last sentence here necessary?\]**
 
 We used a multinomial linear regression model to quantify the influence of reef
 characteristics on reef cluster assignment. We model the influence of seven predictors,
 median depth, log total connectivity strength, log source to sink ratio, mean DHW, log reef
 area, mean DHW tolerance level and GCM on cluster assignment.
+
+### Carbonate budget analysis
+
+Using median coral cover timeseries for each reef we calculated the number of years each
+reef maintains coral cover above a given percent threshold. The threshold represents the
+level of live coral cover necessary to maintain a positive carbonate budget (denoted here as
+$\theta_{0}$ to indicate the budget equilibrium). Greater number of years above $\theta_{0}$
+therefore suggests greater resilience and opportunity for recovery.
+
+Recent analyses suggest a general threshold of \~17% live coral cover in the case of the GBR
+[@desbiens2021]. Given in situ carbonate budgets are influenced by (1) a range of processes;
+(2) the variety of approaches that could be used to measure those processes; and (3) the
+uncertainty surrounding these, it would be unreasonable to assume all reefs adhere to a
+single precise $\theta_{0}$ value. Concurrently, it is difficult to ascertain a suitable
+$\theta_{0}$ value for each individual reef.
+
+Given the uncertainties present, the proportion of modelled reefs that display capacity to
+maintain coral cover above a given $\theta_{0}$ threshold is examined. An indicative range
+of 10 to 20% is used (inclusive, with a step size of 1%). The range was informed by Perry et
+al., [-@perry2015] and Desbians et al., [-@desbiens2021] providing plausible indications of
+the lower and upper bounds respectively. Robustness of the conclusions drawn to the
+uncertainty in the precise value of $\theta_{0}$ for all reefs can then be assessed by using
+the indicative range.
+
+The relationship between the number of years above $\theta_{0}$ and median reef depth was
+then assessed with Spearman's rank correlation. Spearman's correlation coefficient was
+adopted as reef depth and connectivity strength distributions are expected to be non-normal
+and highly skewed. Furthermore, reefs are naturally of different types and experience
+different conditions, and so the monotonic trends (whether the relationship consistently
+increase or decrease) rather than the exact quantitative relationship was of interest for
+this analysis.
 
 # Results
 
