@@ -91,16 +91,71 @@ sp_cors = Dict(
 rng = Random.seed!(76)
 rf = @load RandomForestClassifier pkg = "DecisionTree"
 model = rf(; rng=rng)
-mach = MLJ.machine(model, X2, y2)
+
+train_size = ceil(Int64, nrow(X2) * 0.6)
+shuffle_set = shuffle(1:nrow(X2))
+
+train_X = X2[shuffle_set[1:train_size], :]
+test_X = X2[shuffle_set[train_size+1:end], :]
+train_y = y2[shuffle_set[1:train_size]]
+test_y = y2[shuffle_set[train_size+1:end]]
+
+mach = MLJ.machine(model, train_X, train_y)
 fit!(mach)
 
-cluster_est = MLJ.predict(mach, X2)
-y_pred_mode = predict_mode(mach, X2)
-
-μ_accuracy = mean(y_pred_mode .== y2)
+cluster_est = MLJ.predict(mach, train_X)
+y_pred_mode = predict_mode(mach, train_X)
+μ_accuracy = mean(y_pred_mode .== train_y)
 @info μ_accuracy  # 0.99
 
-cm = confusion_matrix(y_pred_mode, y2)
+cluster_est = MLJ.predict(mach, test_X)
+y_pred_mode = predict_mode(mach, test_X)
+
+μ_accuracy = mean(y_pred_mode .== test_y)
+@info μ_accuracy  # 0.66
+
+cm = confusion_matrix(y_pred_mode, test_y)
+cm.mat
+
+# Helper to get offdiagonal values from matrix
+offdiag_iter(A) = (ι for ι in CartesianIndices(A) if ι[1] ≠ ι[2])
+
+class_names = ["Low", "Med", "High"]
+for i in 1:3
+    class_name = class_names[i]
+
+    # True Positives (TP) - the diagonal
+    tp = cm.mat[i, i]
+
+    # False Positives (FP)
+    # Predicted as class i but actually other classes
+    fp = sum(cm.mat[i, :]) - tp
+
+    # False Negatives (FN)
+    # Actually class i, but predicted as others
+    fn = sum(cm.mat[:, i]) - tp
+
+    # True Negatives (TN): everything else
+    total_samples = sum(cm.mat)
+    tn = total_samples - tp - fp - fn
+
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    f1 = 2 * (precision * recall) / (precision + recall)
+
+    println("""
+    Class: $class_name
+        TP (True Positives): $tp
+        FP (False Positives): $fp
+        FN (False Negatives): $fn
+        TN (True Negatives): $tn
+        Check: TP+FP+FN+TN = $(tp+fp+fn+tn), Total = $total_samples
+        Precision: $(round(precision; digits=3))
+        Recall: $(round(recall; digits=3))
+        F1: $(round(f1; digits=3))
+    """)
+end
+
 
 cv = CV(nfolds=3, rng=123)
 evaluate!(mach, resampling=cv, measure=[MLJ.accuracy, MLJ.cross_entropy])
@@ -130,7 +185,7 @@ r = 1
 c = 1
 n_rows = 2
 n_cols = 3
-for t_col in target_cols
+for t_col in names(X2)
     d = X2[:, t_col]
 
     if d isa CategoricalArray
@@ -144,7 +199,7 @@ for t_col in target_cols
     t_str = string(t_col)
     ax = Axis(f[r, c])
     scatter!(ax, v; color=y[d_order], alpha=0.2, markersize=6)
-    ax.title = "$(readable_names[t_str])\nSpearman: $(sp_cors[t_str])"
+    ax.title = "$(readable_names[t_str])\n($(sp_cors[t_str]))"
 
     c += 1
     if c > n_cols
@@ -194,13 +249,11 @@ function partial_dependence_multiclass(machine, data, feature_col; n_grid=50)
         results[class_label] = Float64[]
     end
 
-    # n_subsamples = ceil(Int, nrow(data) / 2)
+    data_modified = deepcopy(data)
     for grid_val in grid
-        data_modified = deepcopy(data)
 
         # Make feature constant
         data_modified[:, feature_col] .= grid_val
-        shuffle!(data_modified)
 
         # Prediction if feature is fixed
         prob_predictions = MLJ.predict(machine, data_modified)
@@ -309,7 +362,7 @@ end
 
 pdp_vals = OrderedDict()
 for n in names(X2)
-    pdp_vals[n] = partial_dependence_multiclass(mach, X2, n; n_grid=50)
+    pdp_vals[n] = partial_dependence_multiclass(mach, test_X, n; n_grid=50)
 end
 
 # Plot feature importances
