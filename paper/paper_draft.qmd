@@ -302,7 +302,9 @@ population from which connections are coming from is not represented. A source-t
 greater than 1 (a value greater than 0 on a log scale) indicates a reef has greater outgoing
 than incoming larval flow.
 
-$$ O:I = \frac{(S_O/N_O)}{(S_I/N_I)} $$
+$$
+O:I = \frac{(S_O/N_O)}{(S_I/N_I)}
+$$ {#eq-so-to-si}
 
 Where:
 
