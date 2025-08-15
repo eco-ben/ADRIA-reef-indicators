@@ -619,6 +619,19 @@ bioregions there are not consistent differences between clusters in connectivity
 such as source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and total
 connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
 
+## Partial Dependence
+
+The bioregion variable was excluded from partial dependence analysis due to its categorical
+nature providing limited interpretable information. The decision to exclude bioregions from
+the analysis is also justified by a low feature importance score.
+
+![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
+Dependence Plots for reef characteristics of interest. Results for bioregions were excluded
+as they were found to be
+uninformative.](../figs/ts_cluster_rf_feature_analysis.png){#ts-cluster-pdp
+alt="Feature importance scores (Panel A) of the Random Forest classifier, and Partial Dependence Plots for reef characteristics of interest. Results for bioregions were excluded as they were found to be uninformative."
+fig-align="center" width="9.2cm"}
+
 ## Reef carbonate budget
 
 As one might expect, the number of years experience cover above $\theta_{0}$ (the assumed
@@ -645,14 +658,7 @@ Bracketed x-axis values represent the Spearman's correlation between reef depth 
 number of years cover exceeds the carbonate budget threshold. Point colour represents the
 median reef depth level in metres. Displays results from median timeseries using
 ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate
-alt="Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to 2075. The assessed carbonate budget thresholds range from 10 to 20% of total reef area. Bracketed x-axis values represent the Spearman's correlation between reef depth and the number of years cover exceeds the carbonate budget threshold. Point colour represents the median reef depth level in metres. Displays results from median timeseries using ACCESS-ESM1-5."
 fig-align="center" width="14.82cm"}
-
-## Partial Dependence
-
-The bioregion variable was excluded from partial dependence analysis due to its categorical
-nature providing limited interpretable information. The decision to exclude bioregions from
-the analysis is also justified by a low feature importance score (discussed
 
 # Discussion
 
