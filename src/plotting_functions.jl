@@ -1006,7 +1006,7 @@ function gcm_cluster_assignment_heatmap(
     #labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=17)
     # labels = [first(df[:, :bioregion]) for df in gdf]
     colors = [:green, :orange, :blue]
-    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=10)
+    labels = label_lines.(first(df[:, grouping]) for df in gdf; l_length=9)
     # xsize, ysize = _axis_size(gdf, fig_x_size, fig_y_size, n_col; y_gap=0.8)
     # xsize, ysize = (50, 50)
 
@@ -1055,6 +1055,7 @@ function gcm_cluster_assignment_heatmap(
         n_row = maximum(first.(plot_layout))
         map(x -> rowsize!(fig.layout, x, Relative(1 / n_row)), 1:n_row)
         map(x -> colsize!(fig.layout, x, Relative(1 / n_col)), 1:n_col)
+        rowgap!(fig.layout, 2)
     end
 
     return fig
