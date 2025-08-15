@@ -363,12 +363,10 @@ rates, coral thermal tolerances. Scenarios were generated using the low-discrepa
 sampling method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a random-Quasi
 Monte Carlo approach which balances scenario exploration with improved convergence
 properties compared to pseudo-random sampling. A detailed comparative analysis of the
-sampling methods can be found in [@kucherenko2015].
-
-For the purpose of scenario assessment, the resulting timeseries for each model run were
-scaled by the total area of the reef to represent cover as a percentage of the total
-estimated reef area. These timeseries of coral cover were then clustered based on their
-temporal behaviour.
+sampling methods can be found in [@kucherenko2015]. For the purpose of scenario assessment,
+the resulting timeseries for each model run were scaled by the total area of the reef to
+represent cover as a percentage of the total estimated reef area. These timeseries of coral
+cover were then clustered based on their temporal behaviour.
 
 ### Timeseries clustering
 
