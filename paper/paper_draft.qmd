@@ -285,11 +285,11 @@ width="14.82cm"}
 Connectivity data from 24 days in total were used in this investigation. These data span six
 years from 2015 to 2020. The years 2015, 2016, 2018 and 2019 are each represented by
 connectivity matrices covering spawning periods over three days in each year (12 days in
-total), while 2017 and 2020 are each represented by five spawning days each, coming to a
-total of 22 days of connectivity matrices. Indicative connectivity strengths are implemented
-in ADRIA-CoralBlox as the mean of all available data for each location (i.e., mean of all 22
+total), while 2017 and 2020 are each represented by six spawning days each, coming to a
+total of 24 days of connectivity matrices. Indicative connectivity strengths are implemented
+in ADRIA-CoralBlox as the mean of all available data for each location (i.e., mean of all 24
 spawning days). While the connectivity strengths do not vary from year to year within each
-simulation, they do vary between reefs whiuch are of varying sizes, providing sufficient
+simulation, they do vary between reefs which are of varying sizes, providing sufficient
 heterogeneity to capture spatial patterns in larval dispersal and settlement dynamics. The
 spatial variability also enables investigations into the influence of connectivity strength
 and its role in driving recovery processes.
