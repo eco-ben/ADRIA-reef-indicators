@@ -407,10 +407,40 @@ total strength of all larval connections between reefs. To analyse the DHW toler
 of reefs, heritable DHW tolerance values were tracked over timeseries in a matrix of shape
 timestep \* taxa \* reef \* scenario matrix.
 
-We used a multinomial linear regression model to quantify the influence of reef
-characteristics on reef cluster assignment. We model the influence of seven predictors,
-median depth, log total connectivity strength, log source to sink ratio, mean DHW, log reef
-area, mean DHW tolerance level and GCM on cluster assignment.
+### Partial Dependence Analysis
+
+A Partial Dependence Analysis was conducted to understand the relationship between
+individual features and time series cluster predictions using a trained Random Forest (RF)
+classifier [@friedman2001]. The analysis utilised the reef characteristics of interest
+including the median reef depth, mean DHW for the given scenario, total connectivity
+strength, and the outgoing-to-incoming connectivity ratio (\$O:I\$). The full dataset
+consisted of the timeseries classification of each of the 2429 reefs under the five GCMs
+explored, for a total of 12,145 samples. The dataset was randomly split into training (60%)
+and testing (40%) subsets to ensure model generalisability. The RF classifier achieved a 99%
+accuracy on the training set and 66% on the test set.
+
+While the 99% accuracy suggests the classifier is overfit to the training data, the 66% test
+accuracy indicates a meaningful relationship between modelled reef characteristics and their
+assigned clusters has been captured. A 3-fold cross-validation was also conducted, arriving
+at a similar 67% accuracy rate. The consistent level of accuracy across test and
+cross-validation demonstrates the generalised performance of the RF classifier is reliable.
+Furthermore, F1 scores for Low, Medium, and High were determined to be 0.7, 0.57 and 0.68
+respectively, indicating balanced performance across the cluster categories. Lower
+performance with the Medium cluster reflect the inherent difficulty of classifying
+transitional states in natural systems. For management applications, this level of
+performance provides valuable decision support when combined with expert knowledge and the
+model's probabilistic outputs.
+
+Partial dependence analysis was performed by applying the trained model to the test dataset.
+Values for individual reef characteristic were systematically (one-at-a-time) varied across
+a grid of 50 equally spaced points spanning its range, while all other features were left at
+their modelled values. The procedure creates (1) a modified test dataset, where the target
+reef characteristic was set to the grid value for all samples, (2) generates probabilistic
+predictions for all three cluster classes using the trained RF classifier, and (3) the mean
+predicted probability for each class was calculated across all test observations. The median
+was also assessed (not shown) but was found not to affect the interpretation of the analysis
+results. The process isolates the marginal effect of each feature by averaging over the
+natural distribution of all other features in the test dataset.
 
 ### Carbonate budget analysis
 
