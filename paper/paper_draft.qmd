@@ -325,7 +325,7 @@ of the five DHW trajectories) and ecological factors including coral growth and 
 rates, coral thermal tolerances. Scenarios were generated using the low-discrepancy Sobol'
 sampling method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a random-Quasi
 Monte Carlo approach which balances scenario exploration with improved convergence
-properties (compared to pseudo-random sampling). A detailed comparative analysis of the
+properties compared to pseudo-random sampling. A detailed comparative analysis of the
 sampling methods can be found in [@kucherenko2015].
 
 For the purpose of scenario assessment, the resulting timeseries for each model run were
