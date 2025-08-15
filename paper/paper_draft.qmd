@@ -30,9 +30,9 @@ abstract: |
     Using five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities,
     we analysed reef cover timeseries and the ability of reefs to maintain positive carbonate
     production budgets under future conditions. Contrary to expectations, larval connectivity
-    patterns did not correlate with increases in maintainence of positive carbonate budgets.
+    patterns did not correlate with increases in maintenance of positive carbonate budgets.
     Instead, reef depth emerged as the primary predictor of cover-timeseries resilience and
-    maintainence of positive carbonate budgets, with deeper reefs benefiting from thermal
+    maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
     refugia that reduce bleaching impacts. Our findings suggest that depth provides critical
     protection against thermal stress, contrasting current restoration practices that primarily
     target easily accessible shallow sites. These results have important implications for
@@ -459,14 +459,14 @@ Reefs with greater median depth levels maintain coral cover above indicative car
 budget levels for a longer time frame compared to reefs with shallower median depths
 [@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate positive correlation
 with the number of years a reef maintains coral cover above the required threshold
-[@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintainence correlation
+[@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintenance correlation
 decreases as $\theta_{0}$ increases. This is likely due to an increasing number of reefs
 being unable to maintain coral cover above threshold levels as the threshold increases, with
 values becoming increasingly right-skewed. The base-10 log of total connectivity strength
 was found to have no correlation with the number of years a reef maintains cover above the
 required thresholds [@sfig-access-esm1-5-conn-carbonate]. Log connectivity strength -
-carbonate budget maintainence correlation slightly decreases as the required carbonate
-budget threshold increases.
+carbonate budget maintenance correlation slightly decreases as the required carbonate budget
+threshold increases.
 
 ![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025
 to 1. The carbonate budget thresholds assessed range from 10 to 20% of total reef area.
@@ -493,7 +493,7 @@ Recovery phases are predominantly seen in the ‘high’ cover cluster. The ‘m
 and to a lesser degree the ‘low’ cluster, also exhibit periods of recovery and increasing
 proportions of coral cover up to 2045. Under NorESM2-MM the Far Northern management area has
 lower CID distances between low and high cover clusters than in other management areas
-[@tbl-cluster-cid], this is reflected in the low degree of cover maintainence
+[@tbl-cluster-cid], this is reflected in the low degree of cover maintenance
 [@fig-gcm-cover-trajectories]. ACCESS-ESM1-5 has an intermediate ECS value of 3.87°C which
 results in intermediate levels of coral cover maintenance (between those of lower and higher
 ECS GCMs) [@fig-gcm-cover-trajectories], reflected in intermediate CID distance values
@@ -626,9 +626,9 @@ relative to 2025 levels, with an average of 38% of reefs (924 reefs) clustered i
 lowest cover level cluster at the management area scale across GCMs. NorESM2-MM and
 ACCESS-ESM1-5 GCMs convey the most coral cover maintenance into the future. Differences
 between low, medium and high reef clusters in cover timeseries are most notable under these
-two GCMs [@tbl-cluster-cid; @fig-gcm-cover-trajectories]. Maintainance of coral cover into
+two GCMs [@tbl-cluster-cid; @fig-gcm-cover-trajectories]. Maintenance of coral cover into
 the future is linked to the Equilibrium Climate Sensitivity of the GCM used as levels of
-future recovery and timespan of cover maintainance increase as GCM ECS increases
+future recovery and timespan of cover maintenance increase as GCM ECS increases
 [@fig-gcm-cover-trajectories]. Under high-ECS GCMs (GFDL-CM4, EC-Earth3-Veg and ACCESS-CM2)
 large declines and lower rates of recovery in high cover clusters are common compared to
 lower-ECS GCMs.
