@@ -232,7 +232,7 @@ function ecs_plot(
     fig = Figure(size=(fig_x_size, fig_y_size), fontsize=fontsize)
     ax = Axis(
         fig[1, 1],
-        ylabel="Equilibrium Climate Sensitivity (K)",
+        ylabel="Equilibrium Climate Sensitivity (\u00B0C)",
         height=10cm,
         width=8cm
     )
@@ -240,12 +240,12 @@ function ecs_plot(
     poly!(
         ax,
         [(0.98, high_min), (1.02, high_min), (1.02, high_max), (0.98, high_max)];
-        color=(:red, 0.2), linestyle=:dash, strokewidth=1.5, label="likely"
+        color=(:red, 0.2), linestyle=:dash, strokewidth=1.5, label="very likely"
     )
     poly!(
         ax,
         [(0.98, low_min), (1.02, low_min), (1.02, low_max), (0.98, low_max)];
-        color=(:red, 0.6), strokewidth=1.5, label="very likely"
+        color=(:red, 0.6), strokewidth=1.5, label="likely"
     )
     scatter!(ax, ones(length(ecs_values)), ecs_values, markersize=15, color=:black)
     GCM_label.(fill(1.06, length(ecs_values)), ecs_values, GCM_labels)
