@@ -407,25 +407,25 @@ total strength of all larval connections between reefs. To analyse the DHW toler
 of reefs, heritable DHW tolerance values were tracked over timeseries in a matrix of shape
 timestep \* taxa \* reef \* scenario matrix.
 
-### Partial Dependence Analysis
+#### Partial Dependence Analysis
 
-A Partial Dependence Analysis was conducted to understand the relationship between
-individual features and time series cluster predictions using a trained Random Forest (RF)
-classifier [@friedman2001]. The analysis utilised the reef characteristics of interest
-including the median reef depth, mean DHW for the given scenario, total connectivity
-strength, and the outgoing-to-incoming connectivity ratio (\$O:I\$). The full dataset
-consisted of the timeseries classification of each of the 2429 reefs under the five GCMs
-explored, for a total of 12,145 samples. The dataset was randomly split into training (60%)
-and testing (40%) subsets to ensure model generalisability. The RF classifier achieved a 99%
-accuracy on the training set and 66% on the test set.
+Partial Dependence Analysis was conducted to understand the relationship between individual
+features and time series cluster predictions using a trained Random Forest (RF) classifier
+[@friedman2001]. The analysis utilised the reef characteristics of interest including the
+median reef depth, mean DHW for the given GCM, total connectivity strength, and the
+outgoing-to-incoming connectivity ratio (\$O:I\$). The full dataset consisted of the
+timeseries cluster assignment of each of the 2429 reefs under the five GCMs explored, for a
+total of 12,145 samples. The dataset was randomly split into training (60%) and testing
+(40%) subsets to ensure model generalisability. The RF classifier achieved a 99% accuracy on
+the training set and 66% on the test set.
 
 While the 99% accuracy suggests the classifier is overfit to the training data, the 66% test
 accuracy indicates a meaningful relationship between modelled reef characteristics and their
 assigned clusters has been captured. A 3-fold cross-validation was also conducted, arriving
 at a similar 67% accuracy rate. The consistent level of accuracy across test and
 cross-validation demonstrates the generalised performance of the RF classifier is reliable.
-Furthermore, F1 scores for Low, Medium, and High were determined to be 0.7, 0.57 and 0.68
-respectively, indicating balanced performance across the cluster categories. Lower
+Furthermore, F1 performance scores for Low, Medium, and High were determined to be 0.7, 0.57
+and 0.68 respectively, indicating balanced performance across the cluster categories. Lower
 performance with the Medium cluster reflect the inherent difficulty of classifying
 transitional states in natural systems. For management applications, this level of
 performance provides valuable decision support when combined with expert knowledge and the
@@ -438,9 +438,9 @@ their modelled values. The procedure creates (1) a modified test dataset, where 
 reef characteristic was set to the grid value for all samples, (2) generates probabilistic
 predictions for all three cluster classes using the trained RF classifier, and (3) the mean
 predicted probability for each class was calculated across all test observations. The median
-was also assessed (not shown) but was found not to affect the interpretation of the analysis
-results. The process isolates the marginal effect of each feature by averaging over the
-natural distribution of all other features in the test dataset.
+probability was also assessed (not shown) but was found not to affect the interpretation of
+the analysis results. The process isolates the marginal effect of each feature by averaging
+over the natural distribution of all other features in the test dataset.
 
 ### Carbonate budget analysis
 
@@ -558,39 +558,6 @@ clusters, a ‘medium’ cluster with intermediate levels of coral cover, and a 
 with greater levels of cover recovery, with persistence to 2050 in some bioregions
 (@sfig-access-esm1-5-bioregion-timeseries).
 
-```{julia}
-#| echo: false
-#| warning: false
-#| message: false
-#| results: asis
-#| label: tbl-access-esm1-5-bioregion-regression
-#| tbl-cap: Multinomial logistic regression coefficients for the statistical model containing median reef depth, base-10-log total connectivity strength, base-10-log source-to-sink ratio and ACCESS-ESM1-5 mean timeseries DHW value as predictor variables. ACCESS-ESM1-5 bioregion scale reef cluster assignment is the response variable with three levels, 'low' (regression reference level), 'medium' and 'high'.
-
-# using PrettyTables, Markdown
-# cd("../src")
-
-# include("../src/common.jl")
-
-# cluster_regression = CSV.read(joinpath(output_path, "cluster_regression_outputs/ACCESS-ESM1-5_bioregion_cluster_regression_coefficients.csv"), DataFrame)
-# cluster_regression.Name = replace.(cluster_regression.Name, ["ACCESS-ESM1-5_bioregion_cluster_cats: " => "Cluster "])
-
-# for name in names(cluster_regression)
-#     if isa(cluster_regression[:, name], Vector{Float64})
-#         cluster_regression[:, name] = round.(cluster_regression[:, name]; sigdigits=2)
-#     end
-# end
-
-# io = IOBuffer()
-
-# header = ["Response level ~ Term", "β estimate", "SE", "t-value", "Pr > |t|", "2.5%", "97.5%"]
-# pretty_table(io, cluster_regression, backend=Val(:markdown), header=header)
-
-# md_string = (String(take!(io)))
-# Markdown.parse(md_string)
-```
-
-\[**BG: Need to add quantification results to text for regressions.**\]
-
 In many bioregions, median reef depth decreases as cluster coral cover decreases, with reefs
 within the ‘high’ cluster commonly having the greatest median reef depths within the
 bioregion (@fig-access-esm1-5-bioregion-depth).
@@ -619,18 +586,24 @@ bioregions there are not consistent differences between clusters in connectivity
 such as source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and total
 connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
 
-## Partial Dependence
+### Partial Dependence
 
 The bioregion variable was excluded from partial dependence analysis due to its categorical
 nature providing limited interpretable information. The decision to exclude bioregions from
-the analysis is also justified by a low feature importance score.
-
-![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
-Dependence Plots for reef characteristics of interest. Results for bioregions were excluded
-as they were found to be
-uninformative.](../figs/ts_cluster_rf_feature_analysis.png){#ts-cluster-pdp
-alt="Feature importance scores (Panel A) of the Random Forest classifier, and Partial Dependence Plots for reef characteristics of interest. Results for bioregions were excluded as they were found to be uninformative."
-fig-align="center" width="9.2cm"}
+the analysis is also justified by a low feature importance score (9.9%). Reef median depth
+and mean DHW level have the highest feature importance scores, accounting for 25.7% and
+23.7% predictive importance respectively. The probability of reefs being clustered into low
+and high clusters is greatest at shallow and deep depths respectively, with medium cluster
+reefs experiencing lower variation in assignment probability across depth
+[@sfig-ts-cluster-pdp]. The carrying capacity (total habitable area) accounts for 14.3%
+feature importance. Total strength and source-to-sink ratio connectivity metrics account for
+13.3% and 13.0% feature importance respectively. Partial dependence plots for carrying
+capacity, total connectivity strength and source-to-sink ratio indicate that their influence
+on cluster assignments is concentrated at the low range of predictor values
+[@sfig-ts-cluster-pdp]. This aligns with the right-skewed distributions of values across
+reefs for these three predictor variables. **\[BG: Will add either predictor distributions
+to these sub plots, or just in a general variable distribution plot in the supplementary
+material.\]**
 
 ## Reef carbonate budget
 
@@ -901,6 +874,12 @@ the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCE
 ACCESS-CM2, NorESM2-MM and
 GFDL-CM4).](../figs/GCM_bioregion_cluster_assignments.png){#sfig-gcm-bioregion-cluster-assignment
 fig-align="center" width="14.82cm"}
+
+![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
+Dependence Plots for reef characteristics of interest. Results for bioregions were excluded
+as they were found to be
+uninformative.](../figs/ts_cluster_rf_feature_analysis.png){#sfig-ts-cluster-pdp
+fig-align="center" width="9.2cm"}
 
 ![Heatmap indicating reef connectivity relative standard deviation (RSD %). Reef
 connectivity relative standard deviation represents the reef standard deviation connection
