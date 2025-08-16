@@ -905,7 +905,7 @@ function carbonate_budget_variable_scatter(
     color_label::String="",
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize,
-    alpha::Union{Float64,Int64}=0.5
+    alpha_c::Union{Float64,Int64}=0.5
 )
     x_fig_size = fig_sizes["carb_width"]
     y_fig_size = fig_sizes["carb_height"]
@@ -916,10 +916,16 @@ function carbonate_budget_variable_scatter(
     # Get the default colormap (as a gradient with 256 colors)
     base_cmap = cgrad(:viridis, 256; rev=true)
     # Convert all colors to RGBA with alpha = 0.4 (adjust as needed)
-    transparent_colors = [RGBA(c.r, c.g, c.b, alpha) for c in base_cmap.colors]
+    transparent_colors = [RGBA(c.r, c.g, c.b, alpha_c) for c in base_cmap.colors]
     # Wrap into a ColorScheme object
     transparent_cmap = ColorScheme(transparent_colors)
 
+    theta_means = combine(groupby(long_df, carbonate_budget_col)) do sdf
+        (; 
+            x = first(sdf[:, carbonate_budget_col]),
+            y = mean(sdf[:, year_col])
+        )
+    end
 
     fig = Figure(size=(x_fig_size, y_fig_size), fontsize=fontsize)
     ax = Axis(
@@ -939,13 +945,17 @@ function carbonate_budget_variable_scatter(
         jitter_width=1
     )
     rain.plots[1].colormap = transparent_cmap
+    rainclouds!(
+        ax,
+        theta_means.x,
+        theta_means.y;
+        color = (:red, 0.8),
+        markersize=8,
+        show_median=false,
+        clouds=nothing,
+        plot_boxplots=false
+    )
 
-    # scat = scatter!(
-    #     ACCESS_ESM1_5_long.variable,
-    #     ACCESS_ESM1_5_long.value,
-    #     color=ACCESS_ESM1_5_long.depth_med,
-    #     alpha = 0.5
-    # )
     Colorbar(fig[1, 2], rain, label=color_label)
 
     return fig
