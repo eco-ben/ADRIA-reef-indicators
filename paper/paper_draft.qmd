@@ -28,10 +28,10 @@ abstract: |
     adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
     to assess coral reef resilience across GBR locations under future climate projections.
     Using five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities,
-    we analysed reef cover timeseries and the ability of reefs to maintain positive carbonate
+    we analysed reef cover time series and the ability of reefs to maintain positive carbonate
     production budgets under future conditions. Contrary to expectations, larval connectivity
     patterns did not correlate with increases in maintenance of positive carbonate budgets.
-    Instead, reef depth emerged as the primary predictor of cover-timeseries resilience and
+    Instead, reef depth emerged as the primary predictor of cover-time series resilience and
     maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
     refugia that reduce bleaching impacts. Our findings suggest that depth provides critical
     protection against thermal stress, contrasting current restoration practices that primarily
@@ -270,11 +270,11 @@ very-likely ECS range and was taken as an intermediate model with results displa
 main text.
 :::
 
-![Degree Heating Week timeseries (in °C - Weeks) for the GCMs selected. Colours represent
+![Degree Heating Week time series (in °C - Weeks) for the GCMs selected. Colours represent
 the different management areas across the Great Barrier Reef. Green represents
 Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricorn and red
 represents the Townsville-Whitsunday management area. Solid lines represent the
-management-area median timeseries and bands represent the 95th percentile confidence
+management-area median time series and bands represent the 95th percentile confidence
 intervals.](../figs/methods_dhw_timeseries.png){#fig-methods-dhws fig-align="center"
 width="14.82cm"}
 
@@ -366,11 +366,11 @@ sampling method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a ran
 Monte Carlo approach which balances scenario exploration with improved convergence
 properties compared to pseudo-random sampling. A detailed comparative analysis of the
 sampling methods can be found in [@kucherenko2015]. For the purpose of scenario assessment,
-the resulting timeseries for each model run were scaled by the total area of the reef to
-represent cover as a percentage of the total estimated reef area. These timeseries of coral
+the resulting time series for each model run were scaled by the total area of the reef to
+represent cover as a percentage of the total estimated reef area. These time series of coral
 cover were then clustered based on their temporal behaviour.
 
-### Timeseries clustering
+### Time series clustering
 
 To identify groups of reefs that are resilient, intermediate, and non-resilient, we
 clustered reefs into three clusters based on their temporal behaviour as indicated by coral
@@ -415,11 +415,11 @@ Partial Dependence Analysis was conducted to understand the relationship between
 features and time series cluster predictions using a trained Random Forest (RF) classifier
 [@friedman2001]. The analysis utilised the reef characteristics of interest as the
 predictors, including the median reef depth, mean DHW for the given GCM, total connectivity
-strength, and the outgoing-to-incoming connectivity ratio (\$O:I\$). The full dataset
-consisted of the timeseries cluster assignment of each of the 2429 reefs under the five GCMs
-explored, for a total of 12,145 samples. The dataset was randomly split into training (60%)
-and testing (40%) subsets to ensure model generalisability. The RF classifier achieved a 99%
-accuracy on the training set and 66% on the test set.
+strength, and the outgoing-to-incoming connectivity ratio. The full dataset consisted of the
+time series cluster assignment of each of the 2429 reefs under the five GCMs explored, for a
+total of 12,145 samples. The dataset was randomly split into training (60%) and testing
+(40%) subsets to ensure model generalisability. The RF classifier achieved a 99% accuracy on
+the training set and 66% on the test set.
 
 While the 99% accuracy suggests the classifier is overfit to the training data, the 66% test
 accuracy indicates a meaningful relationship between modelled reef characteristics and their
@@ -447,7 +447,7 @@ dataset.
 
 ### Carbonate budget analysis
 
-Using median coral cover timeseries for each reef we calculated the number of years each
+Using median coral cover time series for each reef we calculated the number of years each
 reef maintains coral cover above a given percent threshold. The threshold represents the
 level of live coral cover necessary to maintain a positive carbonate budget (denoted here as
 $\theta_{0}$ to indicate the budget equilibrium). Greater number of years above $\theta_{0}$
@@ -508,14 +508,14 @@ reflected in lower CID distance values than other GCMs [@tbl-cluster-cid].
 Under each GCM, in all management areas, low, medium and high cluster reefs have low levels
 of distinction between DHW trajectories (@sfig-gcm-dhw-trajectories). The highest peak DHW
 levels occur under GFDL-CM4 between 2045 and 2050, while greater increases in overall DHWs
-timeseries occur under ACCESS-CM2 [@fig-methods-dhws].
+time series occur under ACCESS-CM2 [@fig-methods-dhws].
 
-![Reef area-relative coral cover timeseries clustered within each management area, for each
+![Reef area-relative coral cover time series clustered within each management area, for each
 GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
 between 2030 and 2060 within each bioregion. ‘Medium’ clusters (orange) are clusters with
 intermediate median area-relative cover between 2030 and 2060 within each bioregion. ‘High’
 clusters (blue) are clusters with the highest median area-relative cover between 2030 and
-2060 within each bioregion. Solid lines represent the cluster median timeseries and bands
+2060 within each bioregion. Solid lines represent the cluster median time series and bands
 represent the 95th percentile confidence intervals. Each management area is represented five
 times (for each GCM), with each GCM displayed
 horizontally.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
@@ -555,7 +555,7 @@ Markdown.parse(md_string)
 
 ## Bioregion scale clustering
 
-Across many bioregions timeseries clustering identified a ‘low’ cluster containing reefs
+Across many bioregions time series clustering identified a ‘low’ cluster containing reefs
 that suffer larger declines and generally have lower levels of coral cover than the other
 clusters, a ‘medium’ cluster with intermediate levels of coral cover, and a ‘high’ cluster
 with greater levels of cover recovery, with persistence to 2050 in some bioregions
@@ -576,10 +576,10 @@ cluster. Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 fig-align="center" width="14.82cm"}
 
-In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW timeseries
+In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW time series
 correlation levels, while reefs in 'high' clusters have the highest correlation levels
 (@sfig-access-esm1-5-bioregion-dhwcor). Conversely, there are no consistent patterns across
-bioregions in reef area-relative cover and mean timeseries DHW levels, with clusters having
+bioregions in reef area-relative cover and mean time series DHW levels, with clusters having
 similar mean DHW levels in many bioregions (@sfig-access-esm1-5-bioregion-dhwmean).
 Similarly, there are no substantial differences between reef clusters in mean thermal
 tolerance levels (@sfig-access-esm1-5-bioregion-dhwtol). There are no consistent differences
@@ -708,7 +708,7 @@ suggesting corals have the capacity to adapt to increasing climate change pressu
 [-@bairos-novak2021] that revealed high heritability of bleaching and survival response
 traits, used to inform thermal tolerance trait distributions in this investigation. The low
 importance of thermal tolerance on cover outcomes may be due to reefs experiencing high
-levels of thermal stress early in projected timeseries. High - early timeseries thermal
+levels of thermal stress early in projected time series. High - early time series thermal
 stress events may prevent the intergenerational adaptation of corals to thermal stress and
 prevent thermal tolerance from reaching levels greater than 9°C-weeks. **\[TI note: This
 paragraph needs to be revisited\]**
@@ -844,12 +844,12 @@ vertical line) were removed from the
 investigation.](../figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
-![Reef Degree Heating Week timeseries clustered within each management area, for each GCM
+![Reef Degree Heating Week time series clustered within each management area, for each GCM
 analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
 between 2030 and 2060 within each bioregion. ‘Medium’ clusters (orange) are clusters with
 intermediate median area-relative cover between 2030 and 2060 within each bioregion. ‘High’
 clusters (blue) are clusters with the highest median area-relative cover between 2030 and
-2060 within each bioregion. Solid lines represent the cluster median timeseries and bands
+2060 within each bioregion. Solid lines represent the cluster median time series and bands
 represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
 represented five times (for each GCM), with each GCM displayed
 horizontally.](../figs/GCM_dhw_timeseries_plot.png){#sfig-gcm-dhw-trajectories
@@ -944,24 +944,24 @@ tolerance levels are informed by Bairos-Novak et al. [-@bairos-novak2021].
 Bracketed x-axis values represent the Spearman's correlation between reef base-10 log of
 total connectivity strength and the number of years cover exceeds the carbonate budget
 threshold. The colour of each point represents the base-10 log of scaled reef total
-connectivity strength. Displays results from median timeseries using
+connectivity strength. Displays results from median time series using
 ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/log_total_strength_carbonate_scatter.png){#sfig-access-esm1-5-conn-carbonate
 fig-align="center" width="14.82cm"}
 
 ### Bioregion scale clustering
 
-![Reef area-relative coral cover timeseries clustered within each bioregion. ‘Low’ clusters
+![Reef area-relative coral cover time series clustered within each bioregion. ‘Low’ clusters
 (green) are clusters with the lowest median area-relative cover between 2030 and 2060 within
 each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median
 area-relative cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are
 clusters with the highest median area-relative cover between 2030 and 2060 within each
-bioregion. Solid lines represent the cluster median timeseries and bands represent the 95th
+bioregion. Solid lines represent the cluster median time series and bands represent the 95th
 percentile confidence intervals. Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/bioregion_cover_timeseries.png){#sfig-access-esm1-5-bioregion-timeseries
 fig-align="center" width="14.82cm"}
 
 ![Total coral cover – DHW Pearson’s correlation levels for reefs within each bioregion,
-separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
+separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2060 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
@@ -972,8 +972,8 @@ ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/dhw_cover_cor_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwcor
 fig-align="center" width="14.82cm"}
 
-![Mean timeseries DHW values for reefs within each bioregion, separated into clusters
-assigned by timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest
+![Mean time series DHW values for reefs within each bioregion, separated into clusters
+assigned by time series clustering. ‘Low’ clusters (green) are clusters with the lowest
 median area-relative cover between 2030 and 2060 within each bioregion. ‘Medium’ clusters
 (orange) are clusters with intermediate median area-relative cover between 2030 and 2060
 within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
@@ -983,8 +983,8 @@ within each cluster. Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/mean_dhw_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwmean
 fig-align="center" width="14.82cm"}
 
-![Mean timeseries DHW tolerance value, from 2035 to 2075, for reefs within each bioregion,
-separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
+![Mean time series DHW tolerance value, from 2035 to 2075, for reefs within each bioregion,
+separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2060 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
@@ -995,19 +995,19 @@ GCM.](../figs/ACCESS-ESM1-5/bioregion/dhw_tolerance_bioregion_violin.png){#sfig-
 fig-align="center" width="14.82cm"}
 
 ![Initial proportion of coral habitable area occupied by corals for reefs within each
-bioregion, separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green)
-are clusters with the lowest median area-relative cover between 2030 and 2060 within each
-bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
-cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
-the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
-lines represent the median proportion of habitable area occupied for each cluster and bands
-represent the distribution of occupied area values within each cluster. Displays results for
-ACCESS-ESM1-5
+bioregion, separated into clusters assigned by time series clustering. ‘Low’ clusters
+(green) are clusters with the lowest median area-relative cover between 2030 and 2060 within
+each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median
+area-relative cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are
+clusters with the highest median area-relative cover between 2030 and 2060 within each
+bioregion. Solid lines represent the median proportion of habitable area occupied for each
+cluster and bands represent the distribution of occupied area values within each cluster.
+Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/initial_proportion_bioregion_violin.png){#sfig-access-esm1-5-bioregion-initialproportion
 fig-align="center" width="14.82cm"}
 
 ![Source-to-sink connectivity ratios (in base-10 log scale) for reefs within each bioregion,
-separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
+separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2060 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
@@ -1020,7 +1020,7 @@ GCM.](../figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-acces
 fig-align="center" width="14.82cm"}
 
 ![Total connectivity strength (in base-10 log scale) for reefs within each bioregion,
-separated into clusters assigned by timeseries clustering. ‘Low’ clusters (green) are
+separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2060 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
