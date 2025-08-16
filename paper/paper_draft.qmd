@@ -387,16 +387,17 @@ supplementary materials.
 The time series clustering was applied over the time frame between 2025 and 2075. Spatially,
 the analyses were conducted for each GBR management area and at the scale of each reefal
 bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were also performed at the
-whole-of-GBR scale but were found to lead to identical conclusions about characteristics influencing cluster cover compared to management area and bioregion scale analyses, and so are not shown here. To
-compare time series clustering results across GCMs, Management area scale clustering results
-are used to preserve coarse scale latitudinal differences between regions, while maintaining
-ease of comparison and visualisation. These comparisons include quantification of
-differences between low and high cover clusters across management regions under each GCM
-using the CID between cluster median time series. To assess how different reef
-characteristics influence time series clustering at a finer spatial scale, bioregion results
-are used to capture patterns occurring within individual clusters of reefs. Results of all
-analyses at all clustering scales can be found at Grier and Iwanaga [-@grier2025] for those
-interested.
+whole-of-GBR scale but were found to lead to identical conclusions about characteristics
+influencing cluster cover compared to management area and bioregion scale analyses, and so
+are not shown here. To compare time series clustering results across GCMs, Management area
+scale clustering results are used to preserve coarse scale latitudinal differences between
+regions, while maintaining ease of comparison and visualisation. These comparisons include
+quantification of differences between low and high cover clusters across management regions
+under each GCM using the CID between cluster median time series. To assess how different
+reef characteristics influence time series clustering at a finer spatial scale, bioregion
+results are used to capture patterns occurring within individual clusters of reefs. Results
+of all analyses at all clustering scales can be found at Grier and Iwanaga [-@grier2025] for
+those interested.
 
 Reefs in each time series cluster were compared to identify characteristics that differ
 between Low, Medium and High categories. These characteristics include reef median depth,
@@ -547,16 +548,14 @@ Markdown.parse(md_string)
 ### Bioregion scale clustering
 
 In contrast to the broad temporal behaviour at the Management area scale, the relationship
-between reef characteristics **\[TI: Ben, I think this is what you meant by "contextual
-analysis factors"? depth, connectivity, dhw, carrying capacity etc?\]** and reefs' assigned
-categories were found to be similar at the bioregion scale **\[TI: Ben, please confirm my
-changes/edits are correct\]**. Results are therefore only shown and discussed for
-ACCESS-ESM1-5, an intermediate Equilibrium Climate Sensitivity scenario [@sfig-ecs]. Those
-interested in results for the other assessed GCMs are referred to Grier and Iwanaga
-[-@grier2025]. Across bioregions, reefs in the High category not only had greater levels of
-coral recovery but displayed persistence to 2050 [@sfig-access-esm1-5-bioregion-timeseries].
-Reefs in the High category were consistently found to have the greatest median reef depths
-across bioregions [@fig-access-esm1-5-bioregion-depth].
+between reef characteristics and reefs' assigned categories were found to be similar at the
+bioregion scale across GCMs. Results are only shown and discussed for ACCESS-ESM1-5, an
+intermediate Equilibrium Climate Sensitivity scenario [@sfig-ecs]. Those interested in
+results for the other assessed GCMs are referred to Grier and Iwanaga [-@grier2025]. Across
+bioregions, reefs in the High category not only had greater levels of coral recovery but
+displayed persistence to 2050 [@sfig-access-esm1-5-bioregion-timeseries]. Reefs in the High
+category were consistently found to have the greatest median reef depths across bioregions
+[@fig-access-esm1-5-bioregion-depth].
 
 ![Median depth for reefs within each bioregion, separated into clusters assigned by time
 series clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative
@@ -572,14 +571,13 @@ fig-align="center" width="14.82cm"}
 In many bioregions reefs in the Low category have the lowest correlation between coral cover
 and DHW whereas reefs in the High category were found to have the strongest correlation
 (@sfig-access-esm1-5-bioregion-dhwcor). Conversely, there are no consistent patterns across
-bioregions when comparing their temporal behaviour with respect to their reef area, relative
-cover, and mean of DHWs (@sfig-access-esm1-5-bioregion-dhwmean). There were no consistent
-differences across bioregions and GCMs between clusters in their reefs' initial proportion
-of habitable area occupied by corals (@sfig-access-esm1-5-bioregion-initialproportion).
-Across most bioregions there were not consistent differences between clusters in
-connectivity metrics such as source-to-sink connectivity ratio
-(@sfig-access-esm1-5-bioregion-logsosi) and total connectivity strength
-(@sfig-access-esm1-5-bioregion-totalconnectivity).
+bioregions when comparing their temporal behaviour with respect to their reef area and mean
+of DHWs (@sfig-access-esm1-5-bioregion-dhwmean). There were no consistent differences across
+bioregions and GCMs between clusters in their reefs' initial proportion of habitable area
+occupied by corals (@sfig-access-esm1-5-bioregion-initialproportion). Across most bioregions
+there were not consistent differences between clusters in connectivity metrics such as
+source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and total
+connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
 
 **\[TI: Note, I'm not sure if this section is interesting enough to keep now... let's
 discuss.\]**
