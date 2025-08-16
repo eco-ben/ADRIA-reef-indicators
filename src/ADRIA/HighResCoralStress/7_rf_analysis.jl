@@ -117,9 +117,6 @@ y_pred_mode = predict_mode(mach, test_X)
 cm = confusion_matrix(y_pred_mode, test_y)
 cm.mat
 
-# Helper to get offdiagonal values from matrix
-offdiag_iter(A) = (ι for ι in CartesianIndices(A) if ι[1] ≠ ι[2])
-
 class_names = ["Low", "Med", "High"]
 for i in 1:3
     class_name = class_names[i]
