@@ -413,13 +413,13 @@ timestep \* taxa \* reef \* scenario matrix.
 
 Partial Dependence Analysis was conducted to understand the relationship between individual
 features and time series cluster predictions using a trained Random Forest (RF) classifier
-[@friedman2001]. The analysis utilised the reef characteristics of interest including the
-median reef depth, mean DHW for the given GCM, total connectivity strength, and the
-outgoing-to-incoming connectivity ratio (\$O:I\$). The full dataset consisted of the
-timeseries cluster assignment of each of the 2429 reefs under the five GCMs explored, for a
-total of 12,145 samples. The dataset was randomly split into training (60%) and testing
-(40%) subsets to ensure model generalisability. The RF classifier achieved a 99% accuracy on
-the training set and 66% on the test set.
+[@friedman2001]. The analysis utilised the reef characteristics of interest as the
+predictors, including the median reef depth, mean DHW for the given GCM, total connectivity
+strength, and the outgoing-to-incoming connectivity ratio (\$O:I\$). The full dataset
+consisted of the timeseries cluster assignment of each of the 2429 reefs under the five GCMs
+explored, for a total of 12,145 samples. The dataset was randomly split into training (60%)
+and testing (40%) subsets to ensure model generalisability. The RF classifier achieved a 99%
+accuracy on the training set and 66% on the test set.
 
 While the 99% accuracy suggests the classifier is overfit to the training data, the 66% test
 accuracy indicates a meaningful relationship between modelled reef characteristics and their
@@ -434,15 +434,16 @@ performance provides valuable decision support when combined with expert knowled
 model's probabilistic outputs.
 
 Partial dependence analysis was performed by applying the trained model to the test dataset.
-Values for individual reef characteristic were systematically (one-at-a-time) varied across
-a grid of 50 equally spaced points spanning its range, while all other features were left at
-their modelled values. The procedure creates (1) a modified test dataset, where the target
-reef characteristic was set to the grid value for all samples, (2) generates probabilistic
-predictions for all three cluster classes using the trained RF classifier, and (3) the mean
-predicted probability for each class was calculated across all test observations. The median
-probability was also assessed (not shown) but was found not to affect the interpretation of
-the analysis results. The process isolates the marginal effect of each feature by averaging
-over the natural distribution of all other features in the test dataset.
+Values for individual predictors were systematically (one-at-a-time) varied across a grid of
+50 equally spaced points spanning its range, while all other features were left at their
+modelled values. The procedure creates (1) a modified test dataset, where the target
+predictor was set to the grid value for all samples, (2) generates probabilistic predictions
+for all three cluster classes using the trained RF classifier, and (3) the mean predicted
+probability for each class was calculated across all test observations. The median was also
+assessed (not shown) but was found not to substantially influence the interpretation of the
+analysis results. The process isolates the marginal effect of each predictor by averaging
+over the natural distribution of all other representative reef characteristics in the test
+dataset.
 
 ### Carbonate budget analysis
 
