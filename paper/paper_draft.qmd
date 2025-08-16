@@ -387,8 +387,7 @@ supplementary materials.
 The time series clustering was applied over the time frame between 2025 and 2075. Spatially,
 the analyses were conducted for each GBR management area and at the scale of each reefal
 bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were also performed at the
-whole-of-GBR scale but were found to lead to identical results **\[TI: Ben, compared to
-what, the bioregion or the Management area results?\]** and so are not shown here. To
+whole-of-GBR scale but were found to lead to identical conclusions about characteristics influencing cluster cover compared to management area and bioregion scale analyses, and so are not shown here. To
 compare time series clustering results across GCMs, Management area scale clustering results
 are used to preserve coarse scale latitudinal differences between regions, while maintaining
 ease of comparison and visualisation. These comparisons include quantification of
