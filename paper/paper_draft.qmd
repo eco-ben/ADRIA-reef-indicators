@@ -588,42 +588,48 @@ connectivity metrics such as source-to-sink connectivity ratio
 **\[TI: Note, I'm not sure if this section is interesting enough to keep now... let's
 discuss.\]**
 
-The bioregion variable was excluded from partial dependence analysis due to its categorical
-nature providing limited interpretable information. The decision to exclude bioregions from
-the analysis is also justified by a low feature importance score (9.9%). Reef median depth
-and mean DHW level have the highest feature importance scores, accounting for 25.7% and
-23.7% predictive importance respectively. The probability of reefs being clustered into low
-and high clusters is greatest at shallow and deep depths respectively, with medium cluster
-reefs experiencing lower variation in assignment probability across depth
-[@sfig-ts-cluster-pdp]. The carrying capacity (total habitable area) accounts for 14.3%
-feature importance. Total strength and source-to-sink ratio connectivity metrics account for
-13.3% and 13.0% feature importance respectively. Partial dependence plots for carrying
-capacity, total connectivity strength and source-to-sink ratio indicate that their influence
-on cluster assignments is concentrated at the low range of predictor values
-[@sfig-ts-cluster-pdp]. This aligns with the right-skewed distributions of values across
-reefs for these three predictor variables. **\[BG: Will add either predictor distributions
-to these sub plots, or just in a general variable distribution plot in the supplementary
-material.\]**
+### Partial dependence
 
-## Reef carbonate budget
+A Partial Dependence Analysis was conducted using a Random Forest classifier to identify
+reef characteristics that influence its temporal behaviour, and thus its cluster assignment
+into Low, Medium, or High. These include, for each of the 2429 reefs assessed, the
+indicative median reef depth, the mean DHW experienced, its coral carrying capacity, total
+connectivity strength and source-to-sink ratio. Reefs' bioregion membership was excluded
+from this analysis due to its categorical nature providing limited interpretable
+information, and is further justified by its low feature importance score of 10%, the lowest
+of all predictors [-@fig-ts-cluster-pdp, Panel A]. Reef median depth and mean DHW level have
+the highest feature importance scores, accounting for 25% and 23% predictive importance
+respectively. The carrying capacity of a reef accounts for 14.3% feature importance.
+Connectivity strength and source-to-sink ratio both had feature importance scores of \~13%.
 
-As one might expect, the number of years experience cover above $\theta_{0}$ (the assumed
-positive carbonate budget threshold) substantially decreases as $\theta_{0}$ increases. The
-distribution of number of years above carbonate-cover thresholds is right-skewed, with many
-reefs experiencing low numbers of years above thresholds.
+Reefs have the greatest probability of being clustered into Low if shallow, and High at
+greater depths, with medium cluster reefs exhibiting a lower, and stable, variation in
+assignment probability across depth ranges [@fig-ts-cluster-pdp, Panel B]. A large increase
+in the probability of a reef being categorised as High can be seen between 10 and 12 meters
+depth. This is at the edge of what is feasible with current technologies and restoration
+approaches **\[TI: Citation here\]**, but indicates a depth range that could be adopted to
+maximise longevity and benefits of, for example, coral seeding activities. With regard to
+DHWs, assignment probability is roughly equal across the three categories up to 6 DHW. A
+sharp delineation can be seen \> 6 DHW when comparing High with other categories, with lower
+assignment probability (\~25%) compared to Medium and Low (\~40%).
 
-Reefs with greater median depth levels maintain coral cover above indicative carbonate
-budget levels for a longer time frame compared to reefs with shallower median depths
-[@fig-access-esm1-5-depth-carbonate]. Reef median depth has a moderate positive correlation
-with the number of years a reef maintains coral cover above the required threshold
-[@fig-access-esm1-5-depth-carbonate]. Depth - carbonate budget maintenance correlation
-decreases as $\theta_{0}$ increases. This is likely due to an increasing number of reefs
-being unable to maintain coral cover above threshold levels as the threshold increases, with
-values becoming increasingly right-skewed. The base-10 log of total connectivity strength
-was found to have no correlation with the number of years a reef maintains cover above the
-required thresholds [@sfig-access-esm1-5-conn-carbonate]. Log connectivity strength -
-carbonate budget maintenance correlation slightly decreases as the required carbonate budget
-threshold increases.
+Carrying capacity, source-to-sink ratio and total connectivity strength and indicate that
+their influence on cluster assignments is concentrated at the low range of predictor values
+[@fig-ts-cluster-pdp]. This aligns with the right-skewed distributions of values across
+reefs for these three predictor variables. Beyond this lower range, the partial dependence
+for these reef characteristics becomes near constant, indicating that interactions with
+other reef characteristics are occurring at these values which is also evidenced by their
+intermediate feature importance scores.
+
+**\[BG: Will add either predictor distributions to these sub plots, or just in a general
+variable distribution plot in the supplementary material.\]**
+
+![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
+Dependence Plots for reef characteristics of interest indicating the probability of a reef
+being classified to one of the three categories (Panel B). Partial Dependence Plots for
+bioregions were excluded as they were found to be
+uninformative.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp
+fig-align="center" width="9.2cm"}
 
 ![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
 2075. The assessed carbonate budget thresholds range from 10 to 20% of total reef area.
@@ -874,12 +880,6 @@ the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCE
 ACCESS-CM2, NorESM2-MM and
 GFDL-CM4).](../figs/GCM_bioregion_cluster_assignments.png){#sfig-gcm-bioregion-cluster-assignment
 fig-align="center" width="14.82cm"}
-
-![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
-Dependence Plots for reef characteristics of interest. Results for bioregions were excluded
-as they were found to be
-uninformative.](../figs/ts_cluster_rf_feature_analysis.png){#sfig-ts-cluster-pdp
-fig-align="center" width="9.2cm"}
 
 ![Heatmap indicating reef connectivity relative standard deviation (RSD %). Reef
 connectivity relative standard deviation represents the reef standard deviation connection
