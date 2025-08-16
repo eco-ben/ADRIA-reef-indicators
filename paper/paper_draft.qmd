@@ -631,6 +631,24 @@ bioregions were excluded as they were found to be
 uninformative.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp
 fig-align="center" width="9.2cm"}
 
+## Reef carbonate budget
+
+Reef median depth has a moderate positive correlation with the number of years a reef
+maintains coral cover above the assumed carbonate budget threshold required to sustain live
+coral cover ($\theta_{0}$). Greater median depth is a key characteristic defining reefs that
+sustain coral cover above $\theta_{0}$ [@fig-access-esm1-5-depth-carbonate]. Unsurprisingly,
+the number of years above $\theta_0$ substantially decreases as $\theta_0$ is increased, as
+does the Spearman's correlation. This is likely due to an increasing number of reefs being
+unable to maintain coral cover above $\theta_0$ as the assumed threshold is increased, with
+values **\[TI: Ben, could you clarify which values? Coral cover or years above
+threshold?\]** becoming increasingly right-skewed. In contrast, log10-transformed total
+connectivity strength ($\text{log10}(S)$) was found to have no correlation with the number
+of years a reef maintains cover above the required thresholds
+[@sfig-access-esm1-5-conn-carbonate] **\[TI: Ben, because we are comparing depth and
+connectivity, this figure needs to be shown in the main text\]**. The correlation between
+$\text{log10}(S)$ and $\theta_0$ slightly decreases as the assumed threshold for $\theta_0$
+increases.
+
 ![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
 2075. The assessed carbonate budget thresholds range from 10 to 20% of total reef area.
 Bracketed x-axis values represent the Spearman's correlation between reef depth and the
