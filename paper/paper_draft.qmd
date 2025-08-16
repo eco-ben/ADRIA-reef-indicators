@@ -384,8 +384,11 @@ Clustering similar time series is achieved through the use of k-medoids clusteri
 @steinmann2020]. Further details on the time series clustering approach are found in the
 supplementary materials.
 
-The time series clustering was applied over the time frame between 2030 and 2060. Spatially,
-the analyses were conducted for each GBR management area and at the scale of each reefal
+The time series clustering was applied over the time frame between 2030 and 2060. The
+selected time frame prevents the classification from being overly influenced by any steep
+declines in the initial years of simulations, and avoids the post-2060 time period where
+reefs are projected to be under severe stress and in decline [@bozec2025]. Spatially, the
+analyses were conducted for each GBR management area and at the scale of each reefal
 bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were also performed at the
 whole-of-GBR scale but were found to lead to identical results **\[TI: Ben, compared to
 what, the bioregion or the management area results?\]** and so are not shown here. To
