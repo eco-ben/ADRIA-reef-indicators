@@ -303,7 +303,7 @@ greater than 1 (a value greater than 0 on a log scale) indicates a reef has grea
 than incoming larval flow.
 
 $$
-O:I = \frac{(S_O/N_O)}{(S_I/N_I)}
+O:I = \frac{S_O/N_O}{S_I/N_I}
 $$ {#eq-so-to-si}
 
 Where:
