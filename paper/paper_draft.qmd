@@ -481,57 +481,51 @@ this analysis.
 
 ## Reef trajectories across futures
 
-Each Global Climate Model (GCM) shows similar relationships between reef clusters and
-contextual analysis factors, thus further comparisons of these clusters for each analysis
-factor are only shown for ACCESS-ESM1-5 (an intermediate Equilibrium Climate Sensitivity
-scenario [@sfig-ecs]). Results for the additional GCMs can be found at Grier and Iwanaga
-[-@grier2025]. However, there are substantial differences in the longevity of reef
-resilience and maintenance of coral cover post 2030 between the GCMs, thus coral cover
-timeseries are displayed for each GCM (displayed clustered at management-area scale to
-preserve coarse spatial differences in cover trajectories) (@fig-gcm-cover-trajectories).
-
+There were substantial differences in the maintenance of coral cover post 2030 between the
+GCMs. Figure [-@fig-gcm-cover-trajectories] illustrates the temporal behaviour of reefs by
+their categorisation (Low, Medium and High). Results are displayed at the Management area
+scale to illustrate the spatial differences in cover trajectories. Of the GCMs explored,
 NorESM2-MM has the lowest Equilibrium Climate Sensitivity (2.5°C) and reefs exhibit
-continuing recovery and decline dynamics up to 2075 under this possible climate future.
-Recovery phases are predominantly seen in the ‘high’ cover cluster. The ‘medium’ cluster,
-and to a lesser degree the ‘low’ cluster, also exhibit periods of recovery and increasing
-proportions of coral cover up to 2045. Under NorESM2-MM the Far Northern management area has
-lower CID distances between low and high cover clusters than in other management areas
-[@tbl-cluster-cid], this is reflected in the low degree of cover maintenance
-[@fig-gcm-cover-trajectories]. ACCESS-ESM1-5 has an intermediate ECS value of 3.87°C which
-results in intermediate levels of coral cover maintenance (between those of lower and higher
-ECS GCMs) [@fig-gcm-cover-trajectories], reflected in intermediate CID distance values
-within most management areas [@tbl-cluster-cid]. In Townsville-Whitsunday and Far Northern
-management areas, reefs in the high cluster are able to maintain coral cover levels around
-20% to 2050 under ACCESS-ESM1-5. Under ACCESS-CM2 (4.66°C), EC-Earth3-Veg (4.30°C) and
-GFDL-CM4 (4.1°C) GCMs cover trajectories are largely declining in all management areas,
-reflected in lower CID distance values than other GCMs [@tbl-cluster-cid].
+continuing recovery and decline dynamics up to 2075 under this hypothetical climate future.
 
-Under each GCM, in all management areas, low, medium and high cluster reefs have low levels
-of distinction between DHW trajectories (@sfig-gcm-dhw-trajectories). The highest peak DHW
-levels occur under GFDL-CM4 between 2045 and 2050, while greater increases in overall DHWs
-time series occur under ACCESS-CM2 [@fig-methods-dhws].
+Unsurprisingly, recovery phases are predominantly seen in the reefs in the High category,
+with Medium and Low exhibiting lesser probability of such periods of recovery. Generally,
+recovery and increases in coral cover are visible in simulated results up to 2045. Under
+NorESM2-MM, the Far Northern Management area were found to have the most similar temporal
+behaviour between Low and High categories compared to other Management areas
+[@tbl-cluster-cid] due to the low degree of coral cover [@fig-gcm-cover-trajectories].
 
-![Reef area-relative coral cover time series clustered within each management area, for each
-GCM analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
-between 2030 and 2060 within each bioregion. ‘Medium’ clusters (orange) are clusters with
-intermediate median area-relative cover between 2030 and 2060 within each bioregion. ‘High’
-clusters (blue) are clusters with the highest median area-relative cover between 2030 and
-2060 within each bioregion. Solid lines represent the cluster median time series and bands
-represent the 95th percentile confidence intervals. Each management area is represented five
-times (for each GCM), with each GCM displayed
-horizontally.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
+Intermediate levels of coral cover maintenance can be seen in ACCESS-ESM1-5 (ECS value of
+3.87°C) when compared to the other GCMs (of higher and lower ECS values). Under these
+intermediate conditions (in relative terms), there is potential for reefs in the High
+category to maintain coral cover levels around 20% to 2050. The highest peak DHW levels
+occur under GFDL-CM4 between 2045 and 2050, while greater increases in overall DHWs time
+series occur under ACCESS-CM2 [@fig-methods-dhws]. Under conditions represented by high ECS
+value GCMs - specifically, ACCESS-CM2 (4.66°C), EC-Earth3-Veg (4.30°C) and GFDL-CM4
+(4.1°C) - all reefs are largely in decline across all management areas from 2055
+[@tbl-cluster-cid].
+
+![Time series of coral cover (relative to reef area) categorised within each Management area
+(rows), for each GCM analysed (columns) based on temporal behaviour over 2030 and 2060. The
+time series are categorised as "Low" (green), "Medium" (in orange), and "High" median cover
+(in blue). Solid lines represent the cluster median time series and bands represent the 95th
+percentile confidence
+intervals.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
 fig-align="center" width="14.82cm"}
 
-Comparing across GCMs, it is common for reefs to switch cluster level, including from low to
-high and high to low cluster transitions (@sfig-gcm-bioregion-cluster-assignment). Of 2429
-reefs, 20% (503) of reefs have consistent management area scale cluster assignment across
-all GCMs. Of the 503 consistently assigned reefs, 49% are within the Far Northern management
-area, with 7, 13 and 31% occurring in the Cairns/Cooktown, Townsville/Whitsunday and
-Mackay/Capricorn management areas respectively [@sfig-gcm-cluster-map]. Of the 503
-consistently assigned reefs, 32, 7 and 61% are clustered into low, medium and high clusters
-respectively. High assignment variability across GCMs is expected as spatial differences in
-GCM DHW timeseries result in reefs being impacted at different relative magnitudes within
-their management area across GCMs.
+**\[TI: Ben, Just noticed - we need to make the rows (Management areas) go from North to
+South!\]**
+
+Comparing across GCMs, it is common for reefs to switch between categories, including from
+Low to High and vice versa (@sfig-gcm-bioregion-cluster-assignment). Of 2429 reefs, 20%
+(503) of reefs have consistent category assignment across all GCMs. Of the 503 consistently
+assigned reefs, 49% are within the Far Northern Management area, with 7%, 13% and 31%
+occurring in the Cairns-Cooktown, Townsville-Whitsunday and Mackay-Capricorn Management
+areas respectively [@sfig-gcm-cluster-map]. Of the 503 consistently assigned reefs, 32%, 7%
+and 61% are clustered into Low, Medium and High clusters respectively. High assignment
+variability across GCMs is expected as spatial differences in a given GCM's DHW trajectory
+result in reefs being impacted at different relative magnitudes within each Management
+areas.
 
 ```{julia}
 #| echo: false
