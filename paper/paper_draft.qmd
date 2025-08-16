@@ -372,42 +372,40 @@ cover were then clustered based on their temporal behaviour.
 
 ### Time series clustering
 
-To identify groups of reefs that are resilient, intermediate, and non-resilient, we
-clustered reefs into three clusters based on their temporal behaviour as indicated by coral
-cover over time, using timeseries from 2025-2075. The Complexity-Invariant Distance (CID)
-between each timeseries was calculated to identify timeseries that behave similarly
-[@batista2014]. The CID corrects the Euclidean distance between pairs of timeseries (which
-accounts for magnitude differences) with the complexity of each timeseries (obtained through
-a measure of their variability) to ensure reefs are clustered based on their underlying
-temporal dynamics rather than simply their average coral cover. The process creates a
-distance matrix of n \* n dimensions (where n is the number of timeseries in the group) that
-is clustered using a k-medoids clustering algorithm [cf. @steinmann2020]. The three reef
-clusters are assigned a qualitative level from "low", "medium" and "high" based on their
-relative median timeseries over the 2030-2060 period. Assigning cluster labels based on this
-period prevents cluster labels being assigned during the steeply declining period from
-2025-2030 and during the post-2060 period when many reefs have cover below 5% of their area.
+Reefs were clustered into three qualitative categories based on their temporal behaviour
+indicated by coral cover over time. The three categories were Low, Medium, and High,
+indicating their relative ability to maintain coral cover and thus their structural
+resilience. The Complexity-Invariant Distance (CID) between each time series was calculated
+to identify similarities in temporal behaviour [@batista2014]. The CID applies a correction
+factor to the Euclidean distance between pairs of time series to obtain a measure of their
+similarity or dissimilarity. The adopted approach ensures reefs are clustered based on their
+temporal dynamics as opposed to, for example, naively clustering by their mean coral cover.
+Clustering similar time series is achieved through the use of k-medoids clustering [cf.
+@steinmann2020]. Further details on the time series clustering approach are found in the
+supplementary materials.
 
-Timeseries clustering analyses were performed at the management area and reefal bioregion
-scale (defined in GBRMPA [-@GBRMPA2024]). Additional analyses were also performed at the
-whole-of-GBR scale. These were found to lead to identical conclusions and so are not shown
-here. To compare timeseries clustering results across GCMs, management area scale clustering
-results are used to preserve coarse scale latitudinal differences between regions, while
-maintaining ease of comparison and visualisation. These comparisons include quantification
-of differences between low and high cover clusters across management regions under each GCM
-using the Complexity-Invariant Distance between cluster median timeseries. To assess how
-different reef characteristics influence timeseries clustering at a finer scale, bioregion
-results are used to capture patterns occurring within individual clusters of reefs. Results
-of all analyses at all clustering scales can be found at Grier and Iwanaga [-@grier2025] for
-those interested.
+The time series clustering was applied over the time frame between 2030 and 2060. Spatially,
+the analyses were conducted for each GBR management area and at the scale of each reefal
+bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were also performed at the
+whole-of-GBR scale but were found to lead to identical results **\[TI: Ben, compared to
+what, the bioregion or the management area results?\]** and so are not shown here. To
+compare time series clustering results across GCMs, management area scale clustering results
+are used to preserve coarse scale latitudinal differences between regions, while maintaining
+ease of comparison and visualisation. These comparisons include quantification of
+differences between low and high cover clusters across management regions under each GCM
+using the CID between cluster median time series. To assess how different reef
+characteristics influence time series clustering at a finer spatial scale, bioregion results
+are used to capture patterns occurring within individual clusters of reefs. Results of all
+analyses at all clustering scales can be found at Grier and Iwanaga [-@grier2025] for those
+interested.
 
-Reefs in each timeseries cluster were compared to identify characteristics that differ
-between low, medium and high coral cover clusters. These characteristics include reef median
-depth, mean timeseries DHW, mean timeseries DHW tolerance level, Pearson’s correlation
-between total coral cover and inversed DHW timeseries, proportion of coral habitable area
-occupied by corals in the first timestep, ratio of source-to-sink larval connectivity and
-total strength of all larval connections between reefs. To analyse the DHW tolerance levels
-of reefs, heritable DHW tolerance values were tracked over timeseries in a matrix of shape
-timestep \* taxa \* reef \* scenario matrix.
+Reefs in each time series cluster were compared to identify characteristics that differ
+between Low, Medium and High categories. These characteristics include reef median depth,
+mean time series DHW, mean time series DHW tolerance level **\[TI: Ben, still correct? Still
+included somewhere?\]**, Pearson’s correlation between total coral cover and inverse DHW
+time series, proportion of coral habitable area occupied by corals in the first timestep,
+ratio of source-to-sink larval connectivity and total strength of all larval connections
+between reefs.
 
 #### Partial Dependence Analysis
 
@@ -936,6 +934,20 @@ that is updated in each timestep following growth and recruitment. This distribu
 determines the proportion of the population on a reef that is susceptible to bleaching (i.e.
 has a thermal threshold below the experienced DHW value). Starting distributions for thermal
 tolerance levels are informed by Bairos-Novak et al. [-@bairos-novak2021].
+
+### Time series clustering
+
+**\[TI: To be revisited\]**
+
+The CID corrects the Euclidean distance between pairs of time series (which accounts for
+magnitude differences) with the complexity of each time series (obtained through a measure
+of their variability) to ensure reefs are clustered based on their underlying temporal
+dynamics rather than simply their average coral cover.
+
+The process creates a distance matrix of n \* n dimensions (where n is the number of time
+series in the group) that is clustered using a k-medoids clustering algorithm [cf.
+@steinmann2020]. The three reef clusters are assigned a qualitative categories from Low,
+Medium and High.
 
 ## ACCESS-ESM1-5
 
