@@ -548,43 +548,45 @@ md_string = (String(take!(io)))
 Markdown.parse(md_string)
 ```
 
-## Bioregion scale clustering
+### Bioregion scale clustering
 
-Across many bioregions time series clustering identified a ‘low’ cluster containing reefs
-that suffer larger declines and generally have lower levels of coral cover than the other
-clusters, a ‘medium’ cluster with intermediate levels of coral cover, and a ‘high’ cluster
-with greater levels of cover recovery, with persistence to 2050 in some bioregions
-(@sfig-access-esm1-5-bioregion-timeseries).
+In contrast to the broad temporal behaviour at the Management area scale, the relationship
+between reef characteristics **\[TI: Ben, I think this is what you meant by "contextual
+analysis factors"? depth, connectivity, dhw, carrying capacity etc?\]** and reefs' assigned
+categories were found to be similar at the bioregion scale **\[TI: Ben, please confirm my
+changes/edits are correct\]**. Results are therefore only shown and discussed for
+ACCESS-ESM1-5, an intermediate Equilibrium Climate Sensitivity scenario [@sfig-ecs]. Those
+interested in results for the other assessed GCMs are referred to Grier and Iwanaga
+[-@grier2025]. Across bioregions, reefs in the High category not only had greater levels of
+coral recovery but displayed persistence to 2050 [@sfig-access-esm1-5-bioregion-timeseries].
+Reefs in the High category were consistently found to have the greatest median reef depths
+across bioregions [@fig-access-esm1-5-bioregion-depth].
 
-In many bioregions, median reef depth decreases as cluster coral cover decreases, with reefs
-within the ‘high’ cluster commonly having the greatest median reef depths within the
-bioregion (@fig-access-esm1-5-bioregion-depth).
-
-![Median depth for reefs within each bioregion, separated into clusters assigned by
-timeseries clustering. ‘Low’ clusters (green) are clusters with the lowest median
-area-relative cover between 2030 and 2060 within each bioregion. ‘Medium’ clusters (orange)
-are clusters with intermediate median area-relative cover between 2030 and 2060 within each
-bioregion. ‘High’ clusters (blue) are clusters with the highest median area-relative cover
-between 2030 and 2060 within each bioregion. Solid lines represent the median depth for each
-cluster across reefs and bands represent the distribution of depth values within each
-cluster. Displays results for ACCESS-ESM1-5
+![Median depth for reefs within each bioregion, separated into clusters assigned by time
+series clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative
+cover between 2030 and 2060 within each bioregion. ‘Medium’ clusters (orange) are clusters
+with intermediate median area-relative cover between 2030 and 2060 within each bioregion.
+‘High’ clusters (blue) are clusters with the highest median area-relative cover between 2030
+and 2060 within each bioregion. Solid lines represent the median depth for each cluster
+across reefs and bands represent the distribution of depth values within each cluster.
+Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 fig-align="center" width="14.82cm"}
 
-In many bioregions reefs in the 'low' cover cluster have the lowest cover - DHW time series
-correlation levels, while reefs in 'high' clusters have the highest correlation levels
+In many bioregions reefs in the Low category have the lowest correlation between coral cover
+and DHW whereas reefs in the High category were found to have the strongest correlation
 (@sfig-access-esm1-5-bioregion-dhwcor). Conversely, there are no consistent patterns across
-bioregions in reef area-relative cover and mean time series DHW levels, with clusters having
-similar mean DHW levels in many bioregions (@sfig-access-esm1-5-bioregion-dhwmean).
-Similarly, there are no substantial differences between reef clusters in mean thermal
-tolerance levels (@sfig-access-esm1-5-bioregion-dhwtol). There are no consistent differences
-across bioregions and GCMs between clusters in their reefs' initial proportion of habitable
-area occupied by corals (@sfig-access-esm1-5-bioregion-initialproportion). Across most
-bioregions there are not consistent differences between clusters in connectivity metrics
-such as source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and total
-connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
+bioregions when comparing their temporal behaviour with respect to their reef area, relative
+cover, and mean of DHWs (@sfig-access-esm1-5-bioregion-dhwmean). There were no consistent
+differences across bioregions and GCMs between clusters in their reefs' initial proportion
+of habitable area occupied by corals (@sfig-access-esm1-5-bioregion-initialproportion).
+Across most bioregions there were not consistent differences between clusters in
+connectivity metrics such as source-to-sink connectivity ratio
+(@sfig-access-esm1-5-bioregion-logsosi) and total connectivity strength
+(@sfig-access-esm1-5-bioregion-totalconnectivity).
 
-### Partial Dependence
+**\[TI: Note, I'm not sure if this section is interesting enough to keep now... let's
+discuss.\]**
 
 The bioregion variable was excluded from partial dependence analysis due to its categorical
 nature providing limited interpretable information. The decision to exclude bioregions from
