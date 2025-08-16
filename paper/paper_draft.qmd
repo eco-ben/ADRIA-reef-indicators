@@ -734,6 +734,9 @@ stress events may prevent the intergenerational adaptation of corals to thermal 
 prevent thermal tolerance from reaching levels greater than 9°C-weeks. **\[TI note: This
 paragraph needs to be revisited\]**
 
+**\[TI note: Important to speak to interesting depth range at edge of where coral planting
+might feasibly/viably occur with current approaches\]**
+
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the degree of larval connectivity between reefs and the supply of recruits that a reef
 receives following disturbance [@hock2017; @mumby2008; @torres2024]. In contrast, our
