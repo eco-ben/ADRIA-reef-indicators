@@ -680,7 +680,7 @@ maintain coral driven CaCO~3~ production and accumulation into the future for lo
 
 These findings support the hypothesis that reefs at greater depths will exhibit
 characteristics of refugia and more prolonged structural resilience under climate change
-compared to shallower reefs. Additionally, Lui, Callaghan and Baldock [-@liu2024] suggest
+compared to shallower reefs. Additionally, Liu, Callaghan and Baldock [-@liu2024] suggest
 that rubble instability is inversely correlated with reef depth, possibly limiting the
 juvenile recruitment capacity of shallow reefs. A caveat to these depth-resilience findings
 is the quality of the bathymetry data used to calculate median reef depth. As detailed
