@@ -401,7 +401,7 @@ all analyses at all clustering scales can be found at Grier and Iwanaga [-@grier
 those interested.
 
 Reefs in each time series cluster were compared to identify characteristics that differ
-between Low, Medium and High categories. These characteristics include reef median depth,
+between Low, Medium and High clusters. These characteristics include reef median depth,
 mean time series DHW, Pearson’s correlation between total coral cover and inverse DHW time
 series, proportion of coral habitable area occupied by corals in the first timestep, ratio
 of source-to-sink larval connectivity and total strength of all larval connections between
@@ -484,17 +484,17 @@ across clusters (Low, Medium and High).
 Of the GCMs explored, NorESM2-MM had the lowest Equilibrium Climate Sensitivity (2.5°C) and
 reefs exhibit continuing recovery and decline dynamics up to 2075 under this hypothetical
 climate future. Unsurprisingly, recovery phases were predominantly seen in the reefs in the
-High category, with Medium and Low exhibiting lesser probability of such periods of
+High cluster, with Medium and Low exhibiting lesser probability of such periods of
 recovery. Generally, recovery and increases in coral cover were visible in simulated results
 up to 2045. Under NorESM2-MM, the Far Northern Management area were found to have the most
-similar temporal behaviour between Low and High categories compared to other Management
+similar temporal behaviour between Low and High clusters compared to other Management
 areas (@tbl-cluster-cid) due to the low degree of coral cover overall
 (@fig-gcm-cover-trajectories).
 
 Intermediate levels of coral cover maintenance can be seen in ACCESS-ESM1-5 (ECS value of
 3.87°C) when compared to the other GCMs (of higher and lower ECS values). Under these
 intermediate conditions (in relative terms), there is potential for reefs in the High
-category to maintain coral cover levels around 20% to 2050. The highest peak DHW levels
+cluster to maintain coral cover levels around 20% to 2050. The highest peak DHW levels
 occur under GFDL-CM4 between 2045 and 2050, while greater increases in overall DHWs time
 series occur under ACCESS-CM2 (@fig-methods-dhws). Under conditions represented by high ECS
 value GCMs - specifically, ACCESS-CM2 (4.66°C), EC-Earth3-Veg (4.30°C) and GFDL-CM4
@@ -509,9 +509,9 @@ percentile confidence
 intervals.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
 fig-align="center" width="14.82cm"}
 
-Comparing across GCMs, it is common for reefs to switch between categories, including from
+Comparing across GCMs, it is common for reefs to switch between clusters, including from
 Low to High and vice versa (@sfig-gcm-bioregion-cluster-assignment). Of 2429 reefs, 20%
-(503) of reefs have consistent category assignment across all GCMs. Of the 503 consistently
+(503) of reefs have consistent cluster assignment across all GCMs. Of the 503 consistently
 assigned reefs, 49% are within the Far Northern Management area, with 7%, 13% and 31%
 occurring in the Cairns-Cooktown, Townsville-Whitsunday and Mackay-Capricorn Management
 areas respectively (@sfig-gcm-cluster-map). Of the 503 consistently assigned reefs, 32%, 7%
@@ -543,12 +543,12 @@ Markdown.parse(md_string)
 ### Bioregion scale clustering
 
 In contrast to the broad temporal behaviour at the Management area scale, the relationship
-between reef characteristics and assigned categories were found to be similar at the
+between reef characteristics and assigned clusters were found to be similar at the
 bioregion scale across GCMs. Results are only shown and discussed for ACCESS-ESM1-5, an
 intermediate ECS scenario (@sfig-ecs). Those interested in results for the other assessed
 GCMs are referred to Grier and Iwanaga [-@grier2025]. Across bioregions, reefs in the High
-category not only had greater levels of coral recovery but displayed persistence to 2050
-(@sfig-access-esm1-5-bioregion-timeseries). Reefs in the High category were consistently
+cluster not only had greater levels of coral recovery but displayed persistence to 2050
+(@sfig-access-esm1-5-bioregion-timeseries). Reefs in the High cluster were consistently
 found to have the greatest median reef depths across bioregions
 (@fig-access-esm1-5-bioregion-depth).
 
@@ -563,8 +563,8 @@ Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 fig-align="center" width="14.82cm"}
 
-In many bioregions reefs in the Low category have the lowest correlation between coral cover
-and inverse-DHW time series whereas reefs in the High category were found to have the
+In many bioregions reefs in the Low cluster have the lowest correlation between coral cover
+and inverse-DHW time series whereas reefs in the High cluster were found to have the
 strongest correlation (@sfig-access-esm1-5-bioregion-dhwcor). Across six of the 29
 bioregions reef mean DHW levels increased as cluster cover decreased
 (@sfig-access-esm1-5-bioregion-dhwmean). There were no consistent patterns across bioregions
@@ -593,8 +593,8 @@ probability of a reef being categorised as High can be seen between 10 and 15 me
 This is at the edge of the depth range used in current deployment efforts [@howlett2021;
 @randall2021; @whitman2024] but indicates a depth range that could be adopted to maximise
 longevity and benefits of, for example, coral seeding activities. Across mean DHW values,
-assignment probability is roughly equal across the three categories up to 6 DHW. A sharp
-delineation can be seen \> 6 DHW when comparing High with other categories, with lower
+assignment probability is roughly equal across the three clusters up to 6 DHW. A sharp
+delineation can be seen \> 6 DHW when comparing High with other clusters, with lower
 assignment probability (\~25%) compared to Medium and Low (\~40%) (@fig-ts-cluster-pdp;
 Panel B).
 
@@ -616,9 +616,9 @@ is not captured by our included predictor variables.
 
 ![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
 Dependence Plots (PDPs) for reef characteristics of interest indicating the probability of a
-reef being classified to one of the three categories (Panel B). Partial Dependence Plots for
+reef being classified to one of the three clusters (Panel B). Partial Dependence Plots for
 bioregions were excluded as they were found to be uninformative. PDPs indicate the
-probability of a reef from the test dataset being clustered into each cluster category
+probability of a reef from the test dataset being clustered into each category
 depending on the predictor value on the x axis, when adjusted for values of other
 predictors. Green, orange and blue lines indicate cluster assignment probability for Low,
 Medium and High clusters respectively. Transparent grey points above probability lines
@@ -719,7 +719,7 @@ results suggest that of the assessed reefs occurring within the 1-10m depth rang
 reefs), 62% (1082) of reefs fall into the low and medium clusters (across all GCMs at the
 GBRMPA management region scale), with many unable to maintain positive carbonate budgets
 under future conditions. Partial dependence analysis revealed a range of depths from 10-15m
-where the probability of a reef being clustered into the High cover category increased
+where the probability of a reef being clustered into the High cover cluster increased
 substatially. Considering this 10-15m depth range when assessing possible restoration sites
 may reduce the exposure of planted and seeded corals to high thermal stress, while still
 maintaining effective logistical access to sites. Reef intervention planning is a complex
@@ -963,7 +963,7 @@ series (which accounts for magnitude differences) with the complexity of each ti
 their underlying temporal dynamics rather than simply their average coral cover. The process
 creates a distance matrix of n \* n dimensions (where n is the number of time series in the
 group) that is clustered using a k-medoids clustering algorithm [cf. @steinmann2020]. The
-three reef clusters are labelled with qualitative-ordered categories from Low, Medium and
+three reef clusters are labelled with qualitative-ordered clusters from Low, Medium and
 High based on their median cover relative to each other cluster over the 2030-2060 period.
 The selected time frame prevents the classification from being overly influenced by any
 steep declines in the initial years of simulations and avoids the post-2060 time period
