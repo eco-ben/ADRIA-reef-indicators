@@ -600,14 +600,14 @@ Connectivity strength and source-to-sink ratio both had feature importance score
 Reefs have the greatest probability of being clustered into Low if shallow, and High at
 greater depths, with medium cluster reefs exhibiting a lower, and stable, variation in
 assignment probability across depth ranges [@fig-ts-cluster-pdp, Panel B]. A large increase
-in the probability of a reef being categorised as High can be seen between 10 and 12 meters
-depth. This is at the edge of what is feasible with current technologies and restoration
-approaches **\[TI: Citation here\]**, but indicates a depth range that could be adopted to
-maximise longevity and benefits of, for example, coral seeding activities. With regard to
-DHWs, assignment probability is roughly equal across the three categories up to 6 DHW. A
-sharp delineation can be seen \> 6 DHW when comparing High with other categories, with lower
-assignment probability (\~25%) compared to Medium and Low (\~40%) [@fig-ts-cluster-pdp,
-Panel B].
+in the probability of a reef being categorised as High can be seen between 10 and 15 meters
+depth. This is at the edge of the depth range used in current deployment efforts
+[@howlett2021; @randall2021; @whitman2024], but indicates a depth range that could be
+adopted to maximise longevity and benefits of, for example, coral seeding activities. With
+regard to DHWs, assignment probability is roughly equal across the three categories up to 6
+DHW. A sharp delineation can be seen \> 6 DHW when comparing High with other categories,
+with lower assignment probability (\~25%) compared to Medium and Low (\~40%)
+[@fig-ts-cluster-pdp, Panel B].
 
 Analyses for carrying capacity, source-to-sink ratio and total connectivity strength
 indicate that their influence on its categorical assignment is concentrated at the low range
@@ -700,20 +700,22 @@ across scenarios.
 Reefs in different clusters largely do not differ in mean modelled DHW levels experienced,
 and exhibit overall similar DHW time series. While these reefs experience similar magnitude
 DHWs based on SST, the proportion of the reefs' coral population impacted by heat stress
-events depends on reef depth. Our results suggest that within shallow-water reef ecosystems
-(non-mesophotic, depth \< 30m), depth contributes greatly to reef resilience and the ability
-of the reef to maintain positive carbonate budgets under future conditions. While similar
-findings have been demonstrated in the eastern Pacific [@smith2014], depth refugia analyses
-have often focussed on the potential of mesophotic reefs (\> 30m deep) as thermal refugia
-[@bongaerts2010; @holstein2015; @semmler2017]. In contrast, Venegas et al. [-@venegas2019]
-found no association between depth and the alleviation of heat stress across a range of
-shallow reefs in the Pacific. Reefs at shallow depths experience no, or few, years with
-coral cover exceeding levels likely required to maintain positive carbonate budgets.
-Movement of shallow reefs towards negative carbonate budgets in the future may contribute to
-phase shifts in reef dominant CaCO~3~ production. Shifting from coral driven to encrusting
-algae driven production, or to bioerosion dominated systems with rapid erosion of physical
-reef frameworks [@dudgeon2010; @perry2008]. While reefs at increased depths may be able to
-maintain coral driven CaCO~3~ production and accumulation into the future for longer.
+events depends on reef depth. Reefs at deeper depths are likely to be clustered into High
+cover clusters. Reefs at shallow depths experience no, or few, years with coral cover
+exceeding levels likely required to maintain positive carbonate budgets. Movement of shallow
+reefs towards negative carbonate budgets in the future may contribute to phase shifts in
+reef dominant CaCO~3~ production. Shifting from coral driven to encrusting algae driven
+production, or to bioerosion dominated systems with rapid erosion of physical reef
+frameworks [@dudgeon2010; @perry2008]. While reefs at increased depths may be able to
+maintain coral driven CaCO~3~ production and accumulation into the future for longer. Our
+results suggest that within shallow-water reef ecosystems (non-mesophotic, depth \< 30m),
+depth contributes greatly to reef resilience and the ability of the reef to maintain
+positive carbonate budgets under future conditions. While similar findings have been
+demonstrated in the Pacific [@smith2014; @baird2018] and Indo-Pacific [@bridge2014] regions,
+depth refugia analyses have often focussed on the potential of mesophotic reefs (\> 30m
+deep) as thermal refugia [@bongaerts2010; @holstein2015; @semmler2017]. In contrast, Venegas
+et al. [-@venegas2019] found no association between depth and the alleviation of heat stress
+across a range of shallow reefs in the Pacific.
 
 These findings support the hypothesis that reefs at greater depths will exhibit
 characteristics of refugia and more prolonged structural resilience under climate change
@@ -728,19 +730,20 @@ outlines.
 
 Current reef restoration and intervention-investigation efforts on the GBR, such as
 deployment of coral seeding and fragment devices, target reefs with suitable restoration
-sites in the 1-10m depth range [@howlett2021; @randall2021; @whitman2024]. One of the main
-constraints on deployment depth is visual identification of target sites from the surface
-for deployment and ongoing monitoring, in combination with factors such as deployment method
-and tourism return value. Our results suggest that of the assessed reefs ocurring within the
-1-10m depth range (1736 reefs), 62% (1082) of reefs fall into the low and medium clusters
-(across all GCMs at the GBRMPA management region scale), with many unable to maintain
-positive carbonate budgets under future conditions. Reef intervention planning is a complex
+sites in the 1-10m depth range [@howlett2021; @randall2021; @whitman2024]. While there are
+no explicit justifications for this depth range, restoration depth is likely constrained by
+snorkeling and diving logistical accessibility, visual identification of sites from the
+surface, in combination with tourism return value. Our results suggest that of the assessed
+reefs ocurring within the 1-10m depth range (1736 reefs), 62% (1082) of reefs fall into the
+low and medium clusters (across all GCMs at the GBRMPA management region scale), with many
+unable to maintain positive carbonate budgets under future conditions. Partial dependence
+analysis revealed a range of depths from 10-15m where the probability of a reef being
+clustered into the High cover category increased substatially. Considering this 10-15m depth
+range when assessing possible restoration sites may enhance restoration success, while still
+maintaining effective logistical access to sites. Reef intervention planning is a complex
 and challenging decision making process [@anthony2020], and our results suggest that
 deployment site depth may be an important factor to additionally consider when assessing the
 long-term resilience of deployment sites.
-
-**\[TI note: Important to speak to interesting depth range at edge of where coral planting
-might feasibly/viably occur with current approaches\]**
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the degree of larval connectivity between reefs and the supply of recruits that a reef
