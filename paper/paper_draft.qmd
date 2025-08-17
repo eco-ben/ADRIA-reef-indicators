@@ -607,13 +607,15 @@ DHWs, assignment probability is roughly equal across the three categories up to 
 sharp delineation can be seen \> 6 DHW when comparing High with other categories, with lower
 assignment probability (\~25%) compared to Medium and Low (\~40%).
 
-Carrying capacity, source-to-sink ratio and total connectivity strength and indicate that
-their influence on cluster assignments is concentrated at the low range of predictor values
-[@fig-ts-cluster-pdp]. This aligns with the right-skewed distributions of values across
-reefs for these three predictor variables. Beyond this lower range, the partial dependence
-for these reef characteristics becomes near constant, indicating that interactions with
-other reef characteristics are occurring at these values which is also evidenced by their
-intermediate feature importance scores.
+Analyses for carrying capacity, source-to-sink ratio and total connectivity strength
+indicate that their influence on its categorical assignment is concentrated at the low range
+of predictor values [@fig-ts-cluster-pdp]. This aligns with the right-skewed distributions
+of values across reefs for these three predictor variables. Beyond this lower range, the
+partial dependence for these reef characteristics becomes near constant, contrary to their
+feature importance scores which suggest these characteristics do contribute important
+information to predictions. The contrasting outcomes indicate that interactions between
+other reef characteristics are driving behaviour rather than a strong influence from a
+single individual characteristic.
 
 **\[BG: Will add either predictor distributions to these sub plots, or just in a general
 variable distribution plot in the supplementary material.\]**
