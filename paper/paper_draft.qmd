@@ -739,11 +739,11 @@ low and medium clusters (across all GCMs at the GBRMPA management region scale),
 unable to maintain positive carbonate budgets under future conditions. Partial dependence
 analysis revealed a range of depths from 10-15m where the probability of a reef being
 clustered into the High cover category increased substatially. Considering this 10-15m depth
-range when assessing possible restoration sites may enhance restoration success, while still
-maintaining effective logistical access to sites. Reef intervention planning is a complex
-and challenging decision making process [@anthony2020], and our results suggest that
-deployment site depth may be an important factor to additionally consider when assessing the
-long-term resilience of deployment sites.
+range when assessing possible restoration sites may reduce the exposure of planted and
+seeeded corals to high thermal stress, while still maintaining effective logistical access
+to sites. Reef intervention planning is a complex and challenging decision making process
+[@anthony2020], and our results suggest that deployment site depth may be an important
+factor to additionally consider when assessing the long-term resilience of deployment sites.
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the degree of larval connectivity between reefs and the supply of recruits that a reef
