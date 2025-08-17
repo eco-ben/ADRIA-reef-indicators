@@ -605,7 +605,8 @@ approaches **\[TI: Citation here\]**, but indicates a depth range that could be 
 maximise longevity and benefits of, for example, coral seeding activities. With regard to
 DHWs, assignment probability is roughly equal across the three categories up to 6 DHW. A
 sharp delineation can be seen \> 6 DHW when comparing High with other categories, with lower
-assignment probability (\~25%) compared to Medium and Low (\~40%).
+assignment probability (\~25%) compared to Medium and Low (\~40%) [@fig-ts-cluster-pdp,
+Panel B].
 
 Analyses for carrying capacity, source-to-sink ratio and total connectivity strength
 indicate that their influence on its categorical assignment is concentrated at the low range
@@ -617,15 +618,18 @@ information to predictions. The contrasting outcomes indicate that interactions 
 other reef characteristics are driving behaviour rather than a strong influence from a
 single individual characteristic.
 
-**\[BG: Will add either predictor distributions to these sub plots, or just in a general
-variable distribution plot in the supplementary material.\]**
-
 ![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
-Dependence Plots for reef characteristics of interest indicating the probability of a reef
-being classified to one of the three categories (Panel B). Partial Dependence Plots for
-bioregions were excluded as they were found to be
-uninformative.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp
-fig-align="center" width="9.2cm"}
+Dependence Plots (PDPs) for reef characteristics of interest indicating the probability of a
+reef being classified to one of the three categories (Panel B). Partial Dependence Plots for
+bioregions were excluded as they were found to be uninformative. PDPs indicate the
+probability of a reef from the test dataset being clustered into each cluster category
+depending on the predictor value on the x axis, when adjusted for values of other
+predictors. Green, orange and blue lines indicate cluster assignment probability for Low,
+Medium and High clusters respectively. Transparent grey points above probability lines
+represent the predictor values present in the test dataset, providing a rough indication of
+predcitor value distribution across
+reefs.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp fig-align="center"
+width="14.82cm"}
 
 ## Reef carbonate budget
 
