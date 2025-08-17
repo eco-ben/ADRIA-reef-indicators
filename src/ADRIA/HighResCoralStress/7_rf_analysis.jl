@@ -445,42 +445,42 @@ fig = Figure(
 ax = Axis(
     fig[1,1],
     ylabel = "Mean bioregion accuracy",
-    xlabel = "Mean bioregion depth",
+    xlabel = "Mean reef depth [m]",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.depth, perf_by_bio.acc, color=bioregion_colors)
 ax = Axis(
     fig[1,2],
     ylabel = "Mean bioregion accuracy",
-    xlabel = "Mean bioregion carrying capacity",
+    xlabel = "Mean carrying capacity [km²]",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.size, perf_by_bio.acc, color=bioregion_colors)
 ax = Axis(
     fig[2,1],
-    ylabel = "Mean bioregion accuracy",
-    xlabel = "Mean bioregion DHW",
+    ylabel = "Bioregion accuracy",
+    xlabel = "Mean DHW [\u00B0C - Weeks]",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.dhw, perf_by_bio.acc, color=bioregion_colors)
 ax = Axis(
     fig[2,2],
-    ylabel = "Mean bioregion accuracy",
-    xlabel = "Mean bioregion connectivity strength",
+    ylabel = "Bioregion accuracy",
+    xlabel = "Mean total connectivity strength",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)
 ax = Axis(
     fig[3,1],
-    ylabel = "Mean bioregion accuracy",
-    xlabel = "Mean bioregion source to sink ratio",
+    ylabel = "Bioregion accuracy",
+    xlabel = "Mean source-to-sink ratio",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.so_to_si, perf_by_bio.acc, color=bioregion_colors)
 ax = Axis(
     fig[3,2],
-    ylabel = "Mean bioregion accuracy",
-    xlabel = "Bioregion number of reefs",
+    ylabel = "Bioregion accuracy",
+    xlabel = "Number of reefs per bioregion",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)

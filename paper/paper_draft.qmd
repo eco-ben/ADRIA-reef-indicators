@@ -582,7 +582,7 @@ connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
 **\[TI: Note, I'm not sure if this section is interesting enough to keep now... let's
 discuss.\]**
 
-### Partial dependence
+#### Partial dependence
 
 A Partial Dependence Analysis was conducted using a Random Forest classifier to identify
 reef characteristics that influence its temporal behaviour, and thus its cluster assignment
@@ -617,6 +617,11 @@ feature importance scores which suggest these characteristics do contribute impo
 information to predictions. The contrasting outcomes indicate that interactions between
 other reef characteristics are driving behaviour rather than a strong influence from a
 single individual characteristic.
+
+Assessing random forest prediction performance reveals increasing performance as bioregion
+mean reef depth and carrying capacity increase [@sfig-rf-predictor-perf]. This highlights
+where there is unexplained variation between reefs that contributes to cluster assignment
+and reef cover outcomes but is not captured by our included predictor variables.
 
 ![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
 Dependence Plots (PDPs) for reef characteristics of interest indicating the probability of a
@@ -915,6 +920,14 @@ of reef elements varies depending on the number of reefs within the bioregion (d
 the y axis). The x axis represents the different GCM levels (EC-Earth3-Veg, ACCESS-ESM1-5,
 ACCESS-CM2, NorESM2-MM and
 GFDL-CM4).](../figs/GCM_bioregion_cluster_assignments.png){#sfig-gcm-bioregion-cluster-assignment
+fig-align="center" width="14.82cm"}
+
+![Scatter plots indicating the bioregion test-prediction accuracy (proportion of reefs in
+each bioregion assigned correct clusters) from the Random Forest model. Plot panels
+represent the bioregion accuracy across various predictor ranges and bioregion attributes,
+such as mean bioregion depth, carrying capacity, DHW value, total connectivity strength,
+Source-to-sink ratio and the number of reefs in each
+bioregion.](../figs/rf_performance_across_predictors.png){#sfig-rf-predictor-perf
 fig-align="center" width="14.82cm"}
 
 ![Heatmap indicating reef connectivity relative standard deviation (RSD %). Reef
