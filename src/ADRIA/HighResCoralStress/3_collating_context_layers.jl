@@ -214,6 +214,9 @@ context_layers.total_comb .= convert.(Float64, context_layers.total_comb)
 context_layers.so_to_si .= convert.(Float64, context_layers.so_to_si)
 context_layers.man_area_consistent_reefs .= convert.(String, context_layers.man_area_consistent_reefs)
 
+# Sort by latitude so that reefs are displayed north to south.
+sort!(context_layers, :LAT; rev=true)
+
 GDF.write(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"), context_layers; crs=GFT.EPSG(7844), overwrite=true)
 
 change_ADRIA_debug(false) # reset ADRIA debug mode to false as required by other scripts

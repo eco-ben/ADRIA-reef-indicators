@@ -125,8 +125,8 @@ dhw_arrays = [
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
 dhw_arrays = rebuild(dhw_arrays, metadata=dhw_timeseries_properties)
 
-rel_cover_arrays = rel_cover_arrays[locations=At(context_layers.UNIQUE_ID)]
-dhw_arrays = dhw_arrays[locations=At(context_layers.UNIQUE_ID)]
+rel_cover_arrays = rel_cover_arrays[locations=At(analysis_layers_long.UNIQUE_ID)]
+dhw_arrays = dhw_arrays[locations=At(analysis_layers_long.UNIQUE_ID)]
 
 GCM_comparison_cover_plot = grouped_GCM_cluster_timeseries_plots(
     rel_cover_arrays,

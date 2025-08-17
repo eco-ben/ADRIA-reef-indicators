@@ -723,7 +723,7 @@ function grouped_GCM_cluster_timeseries_plots(
         x_fig_size=fig_x_size,
         y_fig_size=fig_y_size,
         fontsize=fontsize,
-        order=[:management_area, :GCM]
+        order=[:GCM]
     )
 
     mgmt_area = [first(df.management_area) for df in gdf]
@@ -1151,7 +1151,7 @@ function map_gbr_reefs(reef_df, color_col::Symbol, colormap, color_legend_label;
     Legend(
         fig[1, 2],
         [MarkerElement(color=bioregion_color, marker=:circle) for bioregion_color in unique(ordered_reefs.color)],
-        unique(ordered_reefs.label),
+        titlecase.(unique(ordered_reefs.label)),
         color_legend_label,
         nbanks=2,
         colgap=6,
