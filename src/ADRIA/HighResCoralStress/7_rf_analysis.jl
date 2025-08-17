@@ -265,7 +265,7 @@ function partial_dependence_multiclass(machine, data, feature_col; n_grid=50)
     return (grid=collect(grid), class_values=results)
 end
 
-function plot_multiclass_pd(pdp_results::OrderedDict)
+function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame)
     feature_names = keys(pdp_results)
     readable_names = Dict(
         "mean_dhw" => "Mean DHW",
@@ -333,6 +333,11 @@ function plot_multiclass_pd(pdp_results::OrderedDict)
                     alpha=0.7
                 )
             end
+            var_values = matching_reef_df[:, fn]
+            y_dist_scatter = rand(length(var_values)) .* (0.9 - 0.8) .+ 0.8
+            scatter!(
+                ax, var_values, y_dist_scatter, color=(:gray, 0.3), markersize=6
+            )
         end
 
         c += 1
@@ -378,7 +383,7 @@ save(
 )
 
 
-f2 = plot_multiclass_pd(pdp_vals)
+f2 = plot_multiclass_pd(pdp_vals, test_X)
 save(
     joinpath(figs_path, "ts_cluster_rf_pdp.png"),
     f2,
