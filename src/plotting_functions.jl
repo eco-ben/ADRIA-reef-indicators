@@ -39,8 +39,8 @@ fig_sizes = Dict{String,Union{Float64,Int64}}(
 # Size of 1cm in pixels relative to 1 CSS px, see:
 # - https://docs.makie.org/dev/how-to/match-figure-size-font-sizes-and-dpi
 # - https://docs.makie.org/dev/explanations/figure#Figure-size-and-resolution
-cm = 37.7952755906
-map!(x -> x * cm, values(fig_sizes))
+centimetre = 37.7952755906
+map!(x -> x * centimetre, values(fig_sizes))
 
 # Convert fontsize to pixel measurement
 pt = 1.33 # size of 1 pt in pixels
@@ -1158,6 +1158,147 @@ function map_gbr_reefs(reef_df, color_col::Symbol, colormap, color_legend_label;
         rowgap=1,
         backgroundcolor=bgcol
     )
+
+    return fig
+end
+
+function carbonate_budget_subplot!(
+    fig, 
+    long_df, 
+    grid_layout_pos, 
+    color_variable_col, 
+    carbonate_budget_col, 
+    year_col, 
+    labels, 
+    color_label, 
+    theta_year_means
+)
+
+
+    if grid_layout_pos[2] == 1
+        bar_pos = (1,0)
+        flip_axis = false
+        yaxis_pos = :right
+    else
+        bar_pos = (1,2)
+        flip_axis = true
+        yaxis_pos = :left
+    end
+
+    grid_x = GridLayout(fig[grid_layout_pos...])
+    ax = Axis(
+        grid_x[1, 1],
+        xlabel="Carbonate budget threshold [%] (correlation)",
+        ylabel="Years above carbonate budget threshold",
+        xticks=(1:1:11, labels),
+        xticklabelsize=fontsize-2,
+        yaxisposition = yaxis_pos
+    )
+    rain = rainclouds!(
+        ax,
+        long_df[:, carbonate_budget_col],
+        long_df[:, year_col];
+        color=long_df[:, color_variable_col],
+        plot_boxplots=false,
+        clouds=nothing,
+        show_median=false,
+        markersize=6,
+        jitter_width=0.7
+    )
+    rain.plots[1].colormap = transparent_cmap
+    rainclouds!(
+        ax,
+        theta_year_means.x,
+        theta_year_means.y;
+        color = (:red, 0.8),
+        markersize=8,
+        show_median=false,
+        clouds=nothing,
+        plot_boxplots=false
+    )
+
+    Colorbar(grid_x[bar_pos...], rain, label=color_label, flip_vertical_label=false, size=6, flipaxis=flip_axis, spinewidth=0.0)
+
+    return fig
+end
+
+"""
+    carbonate_budget_variable_scatter(
+        long_df::DataFrame,
+        color_variable_col::Union{String, Symbol},
+        year_col::Union{String, Symbol},
+        carbonate_budget_col::Union{String, Symbol},
+        year_variable_correlation::Dict;
+        xlabel::String="Carbonate budget threshold [%] (correlation)",
+        ylabel::String="Years above carbonate budget threshold",
+        color_label::String="",
+        fig_sizes::Dict=fig_sizes,
+        fontsize::Float64=fontsize,
+        alpha::Union{Float64, Int64}=0.5
+    )
+
+Create scatter plot displaying years reefs exceed carbonate budget thresholds (y axis), for
+each unique carbonate budget threshold level in `carbonate_budget_col` (x axis). Scatter
+points are coloured by `color_variable_col`.
+
+# Arguments
+- `long_df` : Longform DataFrame containing `color_variable_col` and `year_col` values under
+each `carbonate_budget_col` threshold level.
+- `color_variable_col` : Column containing Float64 values to colour the scatter points for each location.
+- `year_col` : Column containing values for the number of years a reef maintains a positive carbonate budget.
+- `carbonate_budget_col` : Column containing the carbonate budget threshold values used in analyses (Β).
+- `year_variable_correlation` : Dictionary containing correlation values (or nothing values) for each unique value in `carbonate_budget_col`.
+- `xlabel`
+- `ylabel`
+- `color_label`
+- `fig_sizes` : Dictionary containing carb_ width and height variables for figure sizing.
+- `fontsize`
+- `alpha` : Transparency applied to scatter points for each location.
+"""
+function carbonate_budget_variable_scatter(
+    long_df::DataFrame,
+    color_variable_col::Union{String,Symbol},
+    year_col::Union{String,Symbol},
+    carbonate_budget_col::Union{String,Symbol},
+    year_variable_correlation::Dict;
+    xlabel::String="Carbonate budget threshold [%] (correlation)",
+    ylabel::String="Years above carbonate budget threshold",
+    color_label::String="",
+    fig_sizes::Dict=fig_sizes,
+    fontsize::Float64=fontsize,
+    alpha_c::Union{Float64,Int64}=0.5
+)
+    x_fig_size = fig_sizes["carb_width"]
+    y_fig_size = fig_sizes["carb_height"]
+
+    labels = unique(long_df[:, carbonate_budget_col])
+    depth_labels = ["$(lab)\n($(round(year_depth_correlation[lab], digits=2)))" for lab in labels]
+    conn_labels = ["$(lab)\n($(round(year_conn_correlation[lab], digits=2)))" for lab in labels]
+
+    # Get the default colormap (as a gradient with 256 colors)
+    base_cmap = cgrad(:viridis, 256; rev=true)
+    # Convert all colors to RGBA with alpha = 0.4 (adjust as needed)
+    transparent_colors = [RGBA(c.r, c.g, c.b, alpha_c) for c in base_cmap.colors]
+    # Wrap into a ColorScheme object
+    transparent_cmap = ColorScheme(transparent_colors)
+
+    theta_means = combine(groupby(long_df, carbonate_budget_col)) do sdf
+        (; 
+            x = first(sdf[:, carbonate_budget_col]),
+            y = mean(sdf[:, year_col])
+        )
+    end
+
+    fig = Figure(size=(x_fig_size, y_fig_size), fontsize=fontsize)
+    carbonate_budget_subplot!(fig, long_df, (1,1), depth_var_col, carbonate_budget_col, year_col, depth_labels, depth_color_label, theta_means)
+    carbonate_budget_subplot!(fig, long_df, (1,2), conn_var_col, carbonate_budget_col, year_col, conn_labels, conn_color_label, theta_means)
+
+    grid_layouts = filter(x -> x isa Axis, fig.content)
+    hideydecorations!(grid_layouts[1]; grid=false, ticks=false)
+    hideydecorations!(grid_layouts[2]; grid=false, ticks=false, ticklabels=false)
+    map(x -> hidexdecorations!(x; grid=false, ticks=false, ticklabels=false), grid_layouts)
+    Makie.trim!(fig.layout)
+    colgap!(fig.layout, 3.5)
 
     return fig
 end

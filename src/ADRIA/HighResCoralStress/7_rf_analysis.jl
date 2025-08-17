@@ -20,7 +20,7 @@ gcm_dhw_cols = [Symbol("$(GCM)_mean_dhw") for GCM in GCMs]
 gcm_bioregion_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
 
 collated_reef_properties = Vector{DataFrame}(undef, length(GCMs))
-target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :total_strength, :so_to_si, :bioregion]
+target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :total_strength, :so_to_si, :bioregion, :bioregion_average_latitude]
 reef_properties = context_layers[:, target_cols]
 reef_properties.abs_k_area = context_layers.area .* context_layers.k
 for (i, GCM) in enumerate(GCMs)
@@ -49,6 +49,7 @@ y = vec(reef_properties[:, :cluster])
 y = Int64.(getfield.(y, :ref))
 
 Xs.bioregion .= categorical(Xs.bioregion)
+bioregion_cats = Xs.bioregion
 Xs.bioregion .= Int64.(getfield.(Xs.bioregion, :ref))
 
 d = Dict(1 => "low", 2 => "med", 3 => "high")
@@ -392,3 +393,88 @@ save(
 
 # Above two figures are manually joined together and given panel labels A and B.
 # The file is saved as "ts_cluster_rf_feature_analysis.png" in the Figure directory.
+
+test_X.pred_y = y_pred_mode
+test_X.y = test_y
+test_X.bioregion = bioregion_cats[shuffle_set[train_size+1:end]]
+test_X.bioregion_average_lat = reef_properties.bioregion_average_latitude[shuffle_set[train_size+1:end]]
+
+perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
+    (; n = nrow(sdf),
+       acc = mean(sdf.y .== sdf.pred_y),
+       size = mean(sdf.abs_k_area),
+       depth = mean(sdf.depth_med),
+       dhw = mean(sdf.mean_dhw),
+       conn_str = mean(sdf.total_strength),
+       so_to_si = mean(sdf.so_to_si),
+       bior_ave_lat = mean(sdf.bioregion_average_lat)
+    )
+end
+perf_by_bio = sort(perf_by_bio, :bior_ave_lat, rev=true)
+
+bioregion_colors = distinguishable_colors(nrow(perf_by_bio))
+
+bgcol=:gray90
+fig = Figure(
+    size = (fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] + 3centimetre), 
+    fontsize=fontsize,
+    backgroundcolor=bgcol
+)
+ax = Axis(
+    fig[1,1],
+    ylabel = "Mean bioregion accuracy",
+    xlabel = "Mean bioregion depth",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.depth, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[1,2],
+    ylabel = "Mean bioregion accuracy",
+    xlabel = "Mean bioregion carrying capacity",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.size, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[2,1],
+    ylabel = "Mean bioregion accuracy",
+    xlabel = "Mean bioregion DHW",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.dhw, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[2,2],
+    ylabel = "Mean bioregion accuracy",
+    xlabel = "Mean bioregion connectivity strength",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[3,1],
+    ylabel = "Mean bioregion accuracy",
+    xlabel = "Mean bioregion source to sink ratio",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.so_to_si, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[3,2],
+    ylabel = "Mean bioregion accuracy",
+    xlabel = "Bioregion number of reefs",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)
+
+Legend(
+    fig[1:3, 0],
+    [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],
+    label_lines.(string.(perf_by_bio.bioregion); l_length=12),
+    orientation=:vertical,
+    nbanks=1,
+    backgroundcolor=bgcol,
+    framewidth=0.3
+)
+
+save(
+    joinpath(figs_path, "rf_performance_across_predictors.png"),
+    fig,
+    px_per_unit=dpi
+)
