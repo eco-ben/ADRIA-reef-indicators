@@ -511,9 +511,6 @@ percentile confidence
 intervals.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
 fig-align="center" width="14.82cm"}
 
-**\[TI: Ben, Just noticed - we need to make the rows (Management areas) go from North to
-South!\]**
-
 Comparing across GCMs, it is common for reefs to switch between categories, including from
 Low to High and vice versa (@sfig-gcm-bioregion-cluster-assignment). Of 2429 reefs, 20%
 (503) of reefs have consistent category assignment across all GCMs. Of the 503 consistently
@@ -647,31 +644,23 @@ the number of years above $\theta_0$ substantially decreases as $\theta_0$ is in
 does the Spearman's correlation. This is likely due to an increasing number of reefs being
 unable to maintain coral cover above $\theta_0$ as it is increased, with the distribution of
 years above threshold becoming increasingly right-skewed
-[@fig-access-esm1-5-depth-carbonate; @fig-access-esm1-5-conn-carbonate]. In contrast,
-log10-transformed total connectivity strength ($\text{log10}(S)$) was found to have no
-correlation with the number of years a reef maintains cover above the required thresholds
-[@fig-access-esm1-5-conn-carbonate]. The correlation between $\text{log10}(S)$ and
+[@fig-access-esm1-5-depth-carbonate]. In contrast, log10-transformed total connectivity
+strength ($\text{log10}(S)$) was found to have no correlation with the number of years a
+reef maintains cover above the required thresholds
+[@fig-access-esm1-5-depth-conn-carbonate]. The correlation between $\text{log10}(S)$ and
 $\theta_0$ slightly decreases as the assumed threshold for $\theta_0$ increases.
 
 ![Number of years reef coral cover exceeds the carbonate budget threshold from 2025 to 2075.
 The assessed carbonate budget thresholds range from 10 to 20% of total reef area. Bracketed
 x-axis values represent the Spearman's correlation between reef depth and the number of
 years cover exceeds the carbonate budget threshold. Point colour represents the median reef
-depth in metres. Red points represent the mean number of years above an assumed carbonate
-budget threshold across reefs. Note that deeper reefs are better able to maintain cover
-above the indicative carbonate budget threshold. Displays results from median time series
-using
-ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate
-fig-align="center" width="14.82cm"}
-
-![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
-2075. The carbonate budget thresholds assessed range from 10 to 20% of total reef area.
-Bracketed x-axis values represent the Spearman's correlation between reef base-10 log of
-total connectivity strength and the number of years cover exceeds the carbonate budget
-threshold. The colour of each point represents the base-10 log of scaled reef total
-connectivity strength. Red points represent the mean number of years above a carbonate
-threshold across reefs. Displays results from median time series using
-ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/log_total_strength_carbonate_scatter.png){#fig-access-esm1-5-conn-carbonate
+depth in metres in the left-hand panel, and log total connectivity strength in the
+right-hand panel. Red points represent the mean number of years above an assumed carbonate
+budget threshold across reefs. Deeper reefs are better able to maintain cover above the
+indicative carbonate budget threshold, while there is no considerable relationship between
+connectivity strength and carbonate budget maintenance. Displays results from median time
+series using
+ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
 fig-align="center" width="14.82cm"}
 
 # Discussion
@@ -852,11 +841,12 @@ reef depth is a key factor contributing to ongoing reef resilience. We provide e
 support of depth as a form of thermal refugia for shallow-water reefs on the GBR. While
 protecting ‘key node’ reefs in larval connectivity networks is an important consideration
 for reef restoration efforts [@anthony2020; @hock2017], current connectivity modelling
-methods, and our modelling framework, suggest that connectivity may not be as important for
-reef resilience under projected conditions as factors such as depth **\[TI: TO BE
-REVISITED\]**. We suggest further analyses that investigate the benefits of incorporating
-depth-based resilience into reef intervention decision making, as well as further research
-and development in connectivity modelling methods for whole-ecosystem scales.
+methods, in combination with our modelling framework, suggest that connectivity may not be
+as important for reef resilience under projected conditions as environmental factors such as
+depth and thermal stress levels. We suggest further analyses that investigate the benefits
+of incorporating depth-based resilience into reef intervention decision making, as well as
+further research and development in connectivity modelling methods for whole-ecosystem
+scales.
 
 # References
 
