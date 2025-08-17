@@ -216,11 +216,11 @@ Create methods publication figure that displays the ECS values for each GCM inve
 and display the likely/very-likely ranges of ECS values from the IPCC.
 """
 function ecs_plot(
-    ecs_values::Vector{Float64}, 
-    low_conf_range::Vector{Float64}, 
-    high_conf_range::Vector{Float64}, 
-    GCM_labels::Vector{String}; 
-    fig_sizes::Dict=fig_sizes, 
+    ecs_values::Vector{Float64},
+    low_conf_range::Vector{Float64},
+    high_conf_range::Vector{Float64},
+    GCM_labels::Vector{String};
+    fig_sizes::Dict=fig_sizes,
     fontsize=fontsize
 )
     fig_x_size = fig_sizes["ecs_width"]
@@ -353,7 +353,7 @@ function grouped_cluster_timeseries_plots(
         # middle_axes = filter(x -> x isa Axis, fig.content)[second_row:second_last_row]
         map(x -> hidexdecorations!(x; grid=false, ticks=false), not_bottom_axes)
     end
-        
+
     axes = filter(x -> x isa Axis, fig.content)
     map(x -> hideydecorations!(x; ticks=false, ticklabels=false, grid=false), axes)
 
@@ -921,9 +921,9 @@ function carbonate_budget_variable_scatter(
     transparent_cmap = ColorScheme(transparent_colors)
 
     theta_means = combine(groupby(long_df, carbonate_budget_col)) do sdf
-        (; 
-            x = first(sdf[:, carbonate_budget_col]),
-            y = mean(sdf[:, year_col])
+        (;
+            x=first(sdf[:, carbonate_budget_col]),
+            y=mean(sdf[:, year_col])
         )
     end
 
@@ -949,7 +949,7 @@ function carbonate_budget_variable_scatter(
         ax,
         theta_means.x,
         theta_means.y;
-        color = (:red, 0.8),
+        color=(:red, 0.8),
         markersize=8,
         show_median=false,
         clouds=nothing,
@@ -1105,7 +1105,7 @@ function map_gbr_reefs(reef_df, color_col::Symbol, colormap, color_legend_label;
     # GeoMakie currently has a bug where x/y labels never display.
     # We adjust map size to roughly align with the correct projection.
     bgcol = :gray90
-    fig = Figure(size=(map_width + 75, map_height), fontsize=fontsize, backgroundcolor=bgcol);
+    fig = Figure(size=(map_width + 75, map_height), fontsize=fontsize, backgroundcolor=bgcol)
     ax = Axis(
         fig[1, 1],
         width=map_width - 275,

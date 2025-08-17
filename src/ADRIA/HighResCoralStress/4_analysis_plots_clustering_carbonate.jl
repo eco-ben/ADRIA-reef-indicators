@@ -290,13 +290,13 @@ save(joinpath(figs_path, "reef_depth_included_cutoff.png"), f, px_per_unit=dpi)
 # Plot a map of reef cluster assignments across GCMs at management area scale:
 consistent_reefs_colors = [:gray, :green, :orange, :blue];
 order = Dict("variable" => 1, "low" => 2, "medium" => 3, "high" => 4)
-sorted_vals = sort(context_layers, :man_area_consistent_reefs, by = x -> order[x])
+sorted_vals = sort(context_layers, :man_area_consistent_reefs, by=x -> order[x])
 gbr_assignment_map = map_gbr_reefs(sorted_vals, :man_area_consistent_reefs, consistent_reefs_colors, "Cluster assignment across GCMs")
 
 save(joinpath(figs_path, "gcm_cluster_assignment_map.png"), gbr_assignment_map, px_per_unit=dpi)
 
-n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs .!="variable", :], :management_area), nrow => :nrow)
+n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs.!="variable", :], :management_area), nrow => :nrow)
 n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reefs.nrow) .* 100
 
-n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs .!="variable", :], :man_area_consistent_reefs), nrow => :nrow)
+n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs.!="variable", :], :man_area_consistent_reefs), nrow => :nrow)
 n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reefs.nrow) .* 100

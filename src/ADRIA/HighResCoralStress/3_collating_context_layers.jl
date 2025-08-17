@@ -88,7 +88,6 @@ for reef in eachindex(reefs)
         so_to_si = out_comb / income_comb
     end
 
-
     push!(
         source_to_sink,
         [
@@ -121,13 +120,14 @@ context_layers.initial_proportion = (
 
 areas = gbr_dom_filtered.area
 thresholds = 10:1:20
+
 # Attaching GCM-dependent context layers
 for (i_gcm, GCM) in enumerate(GCMs)
 
     # 3. Calculate number of years each reef is above a carbonate budget threshold
     absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
     absolute_cover = absolute_cover[locations=At(context_layers.UNIQUE_ID)]
-    @floop for threshold in thresholds
+    for threshold in thresholds
         t_threshold = threshold / 100
         reef_thresholds = context_layers.area .* t_threshold
 
