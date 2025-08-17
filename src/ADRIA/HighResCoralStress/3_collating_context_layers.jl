@@ -8,8 +8,10 @@ using ArchGDAL
 
 include("../../common.jl")
 
-change_ADRIA_debug(true) # Change ADRIA debug mode to true to extract DHW tolerance data from runs 
+# Change ADRIA debug mode to true to extract DHW tolerance data from runs
 # (removes parallel processing)
+change_ADRIA_debug(true)
+
 
 using ADRIA
 
@@ -21,7 +23,7 @@ gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
 GCMs = dhw_scenarios.dhw.properties["members"]
 gbr_dom.loc_data.geometry = Vector{ArchGDAL.IGeometry}(gbr_dom.loc_data.geometry) # Need to recast gbr_dom geometry col for ADRIA.run_scenarios(). Possibly issue with GeoDataFrames version.
-gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID .∈ [context_layers.UNIQUE_ID], :]
+gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID.∈[context_layers.UNIQUE_ID], :]
 filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_ID)
 
 # 1. Attach connectivity data to context_layers
@@ -159,11 +161,11 @@ for (i_gcm, GCM) in enumerate(GCMs)
     scens = CSV.read(joinpath(output_path, "HighResCoralStress_ADRIA_scens_$(GCM).csv"), DataFrame)
     scens = scens[1:4, :]
     scens.wave_scenario .= 1.0
-    
-    rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
-    dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims = [:scenarios, :species]))
 
-    dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims = 1), dims = 1).data
+    rs_dhw = ADRIA.run_scenarios(gbr_dom, scens, "45")
+    dhw_tol_log = Float64.(mapslices(median, rs_dhw.coral_dhw_tol_log, dims=[:scenarios, :species]))
+
+    dhw_tol_mean = dropdims(mean(dhw_tol_log[10:end, :], dims=1), dims=1).data
     context_layers[!, "$(GCM)_mean_DHW_tol"] = dhw_tol_mean[filtered_indices]
 
     context_layers[:, "$(GCM)_DHW_tol_rate"] .= 0.0

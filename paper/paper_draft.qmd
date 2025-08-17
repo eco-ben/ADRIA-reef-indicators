@@ -641,12 +641,14 @@ correlation with the number of years a reef maintains cover above the required t
 [@fig-access-esm1-5-conn-carbonate]. The correlation between $\text{log10}(S)$ and
 $\theta_0$ slightly decreases as the assumed threshold for $\theta_0$ increases.
 
-![Number of years reef coral cover exceeds the carbonate budget threshold level from 2025 to
-2075. The assessed carbonate budget thresholds range from 10 to 20% of total reef area.
-Bracketed x-axis values represent the Spearman's correlation between reef depth and the
-number of years cover exceeds the carbonate budget threshold. Point colour represents the
-median reef depth level in metres. Red points represent the mean number of years above a
-carbonate threshold across reefs. Displays results from median time series using
+![Number of years reef coral cover exceeds the carbonate budget threshold from 2025 to 2075.
+The assessed carbonate budget thresholds range from 10 to 20% of total reef area. Bracketed
+x-axis values represent the Spearman's correlation between reef depth and the number of
+years cover exceeds the carbonate budget threshold. Point colour represents the median reef
+depth in metres. Red points represent the mean number of years above an assumed carbonate
+budget threshold across reefs. Note that deeper reefs are better able to maintain cover
+above the indicative carbonate budget threshold. Displays results from median time series
+using
 ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_carbonate_scatter.png){#fig-access-esm1-5-depth-carbonate
 fig-align="center" width="14.82cm"}
 
