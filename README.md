@@ -6,6 +6,44 @@ Time series analyses for GBR resilience using ADRIA - CoralBlox reef ecosystem m
 - Clustering reef timeseries to identify what characteristics define resilient clusters.
 - Assessing the characteristics that influence positive carbonate budget maintainence into the future.
 
+# Setup
+
+Set up the project in the usual Julian way by instantiating the project.
+
+Start Julia from the project root (the main project directory, where the README file sits).
+
+```shell
+julia --project=.
+```
+
+Followed by:
+
+```julia
+] instantiate
+```
+
+The above will setup the project and install all dependencies.
+
+Note that the specific version of Rasters.jl and Makie.jl currently has an error preventing
+precompilation of the Makie extension for Rasters.jl (RastersMakieExt.jl). An error message
+will appear, but can be safely ignored as we do not rely on this extension for any
+visualizations.
+
+All scripts are expected to be run from the `src` directory.
+The current directory can be changed without leaving Julia by hitting semi-colon.
+
+```julia
+; cd src
+```
+
+Scripts are run with the `include` method, for example:
+
+```julia
+include("ADRIA/HighResCoralStress/1_GCM_model_runs.jl")
+```
+
+See further notes under the "Analysis scripts" section below.
+
 ## Structure
 
 Repository structure:
@@ -22,7 +60,10 @@ ADRIA-reef-indicators/
 └─ README.md    # this file
 ```
 
-The ADRIADomain `GBR_2024_10_15_HighResCoralStress` is required to run ADRIA in this project. The path to this domain folder should be specified in the config.toml file.
+The ADRIA Domain data package `GBR_2024_10_15_HighResCoralStress` is required to run ADRIA
+for this project.
+
+The path to this domain folder should be specified in the config.toml file.
 
 The following structure and files should be maintained in the outputs, figs and data folders:
 ``` code
@@ -67,7 +108,8 @@ ADRIA-reef-indicators
 ### Analysis scripts - `src/ADRIA/HighResCoralStress/`
 
 Note that scripts 1, 2 and 3 are only required to be run if creating model outputs from scratch.
-If median cover timeseries and `analysis_context_layers_carbonate.gpkg` are already available in the relevant output structure, then scripts 4 and 5 can be run immediately.
+If median cover timeseries and `analysis_context_layers_carbonate.gpkg` are already available
+in the relevant output structure, then scripts 4 and 5 can be run immediately.
 If figures are already available, then the paper.qmd document can be rendered immediately.
 
 Workflow:
@@ -83,7 +125,7 @@ flowchart LR;
     E --> C;
 ```
 
-- `1_GCM_model_runs.jl` : Script to run ADRIA - CoralBlox with the required ADRIADomain and produce processed median coral cover outputs.
+- `1_GCM_model_runs.jl` : Script to run ADRIA-CoralBlox with the required ADRIA Domain and produce processed median coral cover outputs.
 - `2_timeseries_clustering_absolute.jl` : Perform timeseries clustering analysis on reef-area-scaled absolute coral cover. Analysis is performed at bioregion, management area and GBR wide scales. Cluster assignments for each reef are saved as `analysis_context_layers_carbonate.gpkg`
 - `3_collating_context_layers.jl` : Attach the required values for each reef for analysis factors including connectivity metrics, reef DHW levels and perform carbonate budget analysis for a range of carbonate budget live coral cover thresholds.
 - `4_analysis_plots_clustering_carbonate.jl` : Create required results for paper using timeseries data and analysis factors collated in `3_*.jl`. Additionally, calculate the proportion of reefs that change cluster assignment across the GCM levels and the proportion of reefs with depths of 1-10m that occur in low and medium coral cover clusters.
@@ -101,7 +143,7 @@ flowchart LR;
 
 ### Domain
 
-Using GBR-wide ADRIADomain.
+Using GBR-wide ADRIA Domain.
 
 #### Includes:
 
