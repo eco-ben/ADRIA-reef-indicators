@@ -266,7 +266,7 @@ function partial_dependence_multiclass(machine, data, feature_col; n_grid=50)
     return (grid=collect(grid), class_values=results)
 end
 
-function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame)
+function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame; fig=Figure(size=(800,500)))
     feature_names = keys(pdp_results)
     readable_names = Dict(
         "mean_dhw" => "Mean DHW",
@@ -283,7 +283,6 @@ function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFram
     # Color palette for classes (low, med, high)
     colors = [(:green, 0.4), (:orange, 0.4), (:blue, 0.4)]
 
-    fig = Figure(size=(800, 500))
     r = 1
     c = 1
     for fn in feature_names
@@ -353,12 +352,23 @@ function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFram
         fig[n_rows+1, :],
         [PolyElement(color=col, alpha=0.8) for col in colors],
         ["Low", "Medium", "High"],
-        nbanks=3,
+        orientation=:horizontal
     )
 
-    rowsize!(fig.layout, n_rows + 1, Auto(0.25))
+    # if isa(fig, GridLayout)
+    #     rowsize!(fig, n_rows+1, Relative(0.15))
+    #     for j in 1:3
+    #         colsize!(fig, j, Relative(1/3))
+    #     end
+    # else
+    #     rowsize!(fig.layout, n_rows+1, Relative(0.15))
+    #     for j in 1:3
+    #         colsize!(fig.layout, j, Relative(1/3))
+    #     end
+    # end
 
-    Label(fig[1:2, 0], "Probability", rotation=π / 2)
+    # Label(fig[1:2, -1], "Probability", rotation=π / 2)
+    Label(fig[0, 1:3], "Partial Dependence", font=:bold)
 
     return fig
 end
@@ -369,30 +379,42 @@ for n in names(X2)
 end
 
 # Plot feature importances
-f1, ax, sp = barplot(
+figure = Figure(
+    size = (fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] - 3centimetre), 
+    fontsize=fontsize
+)
+gr1 = GridLayout(figure[1,1])
+ax = Axis(
+    gr1[1,1], 
+    yticks=(1:6, map(x -> readable_names[x], fi_names)),
+    title="Feature Importance"
+)
+bar = barplot!(
+    ax,
     fi_vals,
     direction=:x,
-    axis=(
-        yticks=(1:6, map(x -> readable_names[x], fi_names)),
-        title="Feature Importance"
-    )
 )
+
+gr2 = GridLayout(figure[2,1])
+plot_multiclass_pd(pdp_vals, test_X; fig=gr2)
+rowsize!(figure.layout, 1, Relative(0.25))
+Label(figure[2,1, Left()], "Probability", rotation=π/2, tellwidth=false)
+Label(figure[1,1, TopLeft()], "A", font=:bold, tellwidth=false, fontsize=fontsize+3)
+Label(figure[2,1, TopLeft()], "B", font=:bold, tellwidth=false, fontsize=fontsize+3)
+
 save(
-    joinpath(figs_path, "ts_cluster_rf_feature_importance.png"),
-    f1,
+    joinpath(figs_path, "ts_cluster_rf_feature_analysis.png"),
+    figure,
     px_per_unit=dpi
 )
 
-
-f2 = plot_multiclass_pd(pdp_vals, test_X)
-save(
-    joinpath(figs_path, "ts_cluster_rf_pdp.png"),
-    f2,
-    px_per_unit=dpi
-)
-
+### The below notes are from a previous version. This version was ammended to ensure consistent fontsize/dpi.
 # Above two figures are manually joined together and given panel labels A and B.
 # The file is saved as "ts_cluster_rf_feature_analysis.png" in the Figure directory.
+# This manual two-part figure can be recreated by using the old code for panel A and the following code 
+# for panel B (then adding the Probability label):
+# f2 = plot_multiclass_pd(pdp_vals, test_X)
+
 
 test_X.pred_y = y_pred_mode
 test_X.y = test_y
