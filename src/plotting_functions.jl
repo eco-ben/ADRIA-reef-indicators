@@ -723,7 +723,7 @@ function grouped_GCM_cluster_timeseries_plots(
         x_fig_size=fig_x_size,
         y_fig_size=fig_y_size,
         fontsize=fontsize,
-        order=[:GCM]
+        order=[:management_area, :GCM]
     )
 
     mgmt_area = [first(df.management_area) for df in gdf]
