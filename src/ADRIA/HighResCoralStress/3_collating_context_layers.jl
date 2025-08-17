@@ -181,13 +181,20 @@ for reef in eachrow(context_layers)
     reef.bioregion_count = count(context_layers.bioregion .== [reef.bioregion])
 end
 
-# 6. Add average latitude for each bioregion
+# 6. Add average latitude for each bioregion and management area
 bioregion_average_latitude = combine(groupby(context_layers, :bioregion)) do sdf
     return average_latitude = mean([ArchGDAL.gety(ArchGDAL.centroid(geom), 0) for geom in sdf.geometry])
 end
 rename!(bioregion_average_latitude, :x1 => :bioregion_average_latitude)
 bioregion_average_latitude = Dict(tuple.(bioregion_average_latitude.bioregion, bioregion_average_latitude.bioregion_average_latitude))
 context_layers.bioregion_average_latitude = [bioregion_average_latitude[bior] for bior in context_layers.bioregion]
+
+management_area_average_latitude = combine(groupby(context_layers, :management_area)) do sdf
+    return average_latitude = mean([ArchGDAL.gety(ArchGDAL.centroid(geom), 0) for geom in sdf.geometry])
+end
+rename!(management_area_average_latitude, :x1 => :management_area_average_latitude)
+management_area_average_latitude = Dict(tuple.(management_area_average_latitude.management_area, management_area_average_latitude.management_area_average_latitude))
+context_layers.management_area_average_latitude = [management_area_average_latitude[bior] for bior in context_layers.management_area]
 
 # 7. Check for reef cluster consistency across GCMs at management area scale
 man_area_gcm_cols = ["$(GCM)_management_area_cluster_cats" for GCM in GCMs]

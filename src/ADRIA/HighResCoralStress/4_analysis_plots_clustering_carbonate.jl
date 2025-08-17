@@ -13,6 +13,7 @@ GCMs = dhw_scenarios.dhw.properties["members"]
 
 context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 context_layers.gbr .= "Great Barrier Reef"
+context_layers.gbr_average_latitude .= 0.0
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
 
@@ -62,19 +63,19 @@ for (i_gcm, GCM) in enumerate(GCMs)
         for thresh in string.(thresholds)
     ])
 
-    depth_carbonate_scatter = carbonate_budget_variable_scatter(
-        gcm_reefs_long,
-        :depth_med,
-        :value,
-        :variable,
-        depth_year_correlation;
-        color_label="Median reef depth [m]"
-    )
-    save(
-        joinpath(fig_out_dir, "depth_carbonate_scatter.png"),
-        depth_carbonate_scatter,
-        px_per_unit=dpi
-    )
+    # depth_carbonate_scatter = carbonate_budget_variable_scatter(
+    #     gcm_reefs_long,
+    #     :depth_med,
+    #     :value,
+    #     :variable,
+    #     depth_year_correlation;
+    #     color_label="Median reef depth [m]"
+    # )
+    # save(
+    #     joinpath(fig_out_dir, "depth_carbonate_scatter.png"),
+    #     depth_carbonate_scatter,
+    #     px_per_unit=dpi
+    # )
 
 
     log_strength_year_correlation = Dict([
@@ -84,19 +85,31 @@ for (i_gcm, GCM) in enumerate(GCMs)
         ))
         for thresh in string.(thresholds)
     ])
-    total_connectivity_carbonate_scatter = carbonate_budget_variable_scatter(
+    # total_connectivity_carbonate_scatter = carbonate_budget_variable_scatter(
+    #     gcm_reefs_long,
+    #     :log_total_strength,
+    #     :value,
+    #     :variable,
+    #     log_strength_year_correlation;
+    #     color_label="Log total connectivity strength"
+    # )
+    depth_conn_carbonate_comparison = carbonate_budget_variable_scatter(
         gcm_reefs_long,
-        :log_total_strength,
         :value,
         :variable,
-        log_strength_year_correlation;
-        color_label="Log total connectivity strength"
+        depth_year_correlation,
+        log_strength_year_correlation
     )
     save(
-        joinpath(fig_out_dir, "log_total_strength_carbonate_scatter.png"),
-        total_connectivity_carbonate_scatter,
+        joinpath(fig_out_dir, "depth_conn_carbonate_comparison.png"),
+        depth_conn_carbonate_comparison,
         px_per_unit=dpi
     )
+    # save(
+    #     joinpath(fig_out_dir, "log_total_strength_carbonate_scatter.png"),
+    #     total_connectivity_carbonate_scatter,
+    #     px_per_unit=dpi
+    # )
 end
 
 man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM in GCMs]
@@ -105,7 +118,7 @@ gbr_gcm_cluster_cols = [Symbol("$(GCM)_gbr_clusters") for GCM in GCMs]
 
 # Prepare management area grouped clusters and timeseries for plotting
 analysis_layers_long = stack(
-    context_layers[:, [:UNIQUE_ID, :management_area, man_area_gcm_cluster_cols...]],
+    context_layers[:, [:UNIQUE_ID, :management_area, :management_area_average_latitude, man_area_gcm_cluster_cols...]],
     man_area_gcm_cluster_cols
 )
 analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_long.variable]
@@ -251,7 +264,7 @@ std_conn = mapslices(std, all_conn_data, dims=[:conn_name])
 rstd_conn = std_conn ./ mean_conn .* 100
 
 rstd_matrix = rstd_conn
-fig = Figure(size=(15.9 * cm, 15.9 * cm), fontsize=fontsize)
+fig = Figure(size=(14.82 * centimetre, 14.82 * centimetre), fontsize=fontsize)
 ax = Axis(
     fig[1, 1],
     xlabel="",

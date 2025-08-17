@@ -342,7 +342,7 @@ function grouping_counts(
     n_clusters::Int64,
     n_reefs::Int64
 )::Vector{String}
-    reef_counts = combine(groupby(dataset, [String(grouping_col), clustering_col]), nrow => :nrow)
+    reef_counts = combine(groupby(dataset, [String(grouping_col)]), nrow => :nrow)
     groups_few_reefs = unique(reef_counts[reef_counts.nrow.<n_reefs, grouping_col])
 
     cluster_counts = combine(groupby(dataset, grouping_col)) do sdf

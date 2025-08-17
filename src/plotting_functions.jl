@@ -91,9 +91,8 @@ function _axis_size(gdf, x_fig_size, y_fig_size, n_col; x_gap=1.5, y_gap=1.2)
     return xsize, ysize
 end
 
-function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement, order=:bioregion_average_latitude, multi_axis=true, fontsize=11pt)
-    dataframe = sort(dataframe, order; rev=true)
-
+function _setup_grouped_figure(dataframe, grouping; x_fig_size=2130, y_fig_size=1500, marker=LineElement, order="$(grouping)_average_latitude", multi_axis=true, fontsize=11pt, rev=true)
+    dataframe = sort(dataframe, order; rev=rev)
     gdf = DataFrames.groupby(dataframe, grouping)
 
     fig = Figure(size=(x_fig_size, y_fig_size), fontsize=fontsize)
@@ -433,7 +432,8 @@ function grouped_cluster_ridgeline_plot(
         y_fig_size=fig_y_size,
         fontsize=fontsize,
         marker=PolyElement,
-        multi_axis=false
+        multi_axis=false,
+        rev=false
     )
 
     #labels = label_lines.([first(df[:, grouping]) for df in gdf]; l_length=17)
@@ -546,7 +546,7 @@ function cluster_analysis_plots(
 
     overlap = 0.8
     # Filter out groups that don't have 3 clusters due to earlier filtering.
-    groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3, 5)
+    groups_too_few_clusters = grouping_counts(grouping, analysis_layers, "$(GCM)_$(grouping)_clusters", 3, 3)
     analysis_layers = analysis_layers[analysis_layers[:, grouping].∉[groups_too_few_clusters], :]
     rel_cover = rel_cover = rel_cover[:, rel_cover.locations.∈[analysis_layers.UNIQUE_ID]]
     dhw_ts = dhw_ts[:, dhw_ts.locations.∈[rel_cover.locations]]
@@ -723,7 +723,7 @@ function grouped_GCM_cluster_timeseries_plots(
         x_fig_size=fig_x_size,
         y_fig_size=fig_y_size,
         fontsize=fontsize,
-        order=[:management_area, :GCM]
+        order=[:management_area_average_latitude, :GCM]
     )
 
     mgmt_area = [first(df.management_area) for df in gdf]
@@ -1257,13 +1257,14 @@ each `carbonate_budget_col` threshold level.
 """
 function carbonate_budget_variable_scatter(
     long_df::DataFrame,
-    color_variable_col::Union{String,Symbol},
     year_col::Union{String,Symbol},
     carbonate_budget_col::Union{String,Symbol},
-    year_variable_correlation::Dict;
-    xlabel::String="Carbonate budget threshold [%] (correlation)",
-    ylabel::String="Years above carbonate budget threshold",
-    color_label::String="",
+    year_depth_correlation::Dict,
+    year_conn_correlation::Dict;
+    depth_var_col=:depth_med,
+    conn_var_col=:log_total_strength,
+    depth_color_label="Reef median depth [m]",
+    conn_color_label="Log total connectivity strength",
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize,
     alpha_c::Union{Float64,Int64}=0.5
@@ -1299,6 +1300,10 @@ function carbonate_budget_variable_scatter(
     map(x -> hidexdecorations!(x; grid=false, ticks=false, ticklabels=false), grid_layouts)
     Makie.trim!(fig.layout)
     colgap!(fig.layout, 3.5)
+
+    Label(fig[0, 1:2], "Number of years exceeding positive carbonate budget threshold", tellwidth=false)
+    Label(fig[2, 1:2, Top()], "Carbonate budget threshold [%] (correlation)", tellwidth=false)
+    rowsize!(fig.layout, 2, Relative(0.025))
 
     return fig
 end
