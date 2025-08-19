@@ -116,9 +116,12 @@ Additionally, if available, ADRIA Result Sets should be located in the outputs/A
 ### Analysis scripts - `src/ADRIA/HighResCoralStress/`
 
 Note that scripts 1, 2 and 3 are only required to be run if creating model outputs from scratch.
+Script 1 takes > 6h to run on 6 threads, therefore we recommend accessing the preprocessed
+outputs and running from script 2_.jl onwards.
 If median cover timeseries and `analysis_context_layers_carbonate.gpkg` are already available
 in the relevant output structure, then scripts 4 and 5 can be run immediately.
-If figures are already available, then the paper.qmd document can be rendered immediately.
+If figures are already available and `analysis_context_layers_carbonate.gpkg` and the GBR-wide
+domain package are available, then the paper.qmd document can be rendered immediately.
 
 Workflow:
 ```mermaid
@@ -150,7 +153,7 @@ flowchart LR;
 
 ### Pregenerated data availability
 
-- `ADRIA Result Set outputs from script 1` : https://registry.mds.gbrrestoration.org/item/102.100.100/708082
+- `ADRIA Result Set outputs from script 1 (100GB total size!)` : https://registry.mds.gbrrestoration.org/item/102.100.100/708082
 - `pregenerated intermediate outputs from scripts 2 & 3` : https://registry.mds.gbrrestoration.org/item/102.100.100/708366
 - `pregenerated figure outputs` : GitHub /figs/ folder
 
