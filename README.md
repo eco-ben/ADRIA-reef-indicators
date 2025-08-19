@@ -75,9 +75,15 @@ ADRIA-reef-indicators
 │           │       ├───median_cover_ACCESS-CM2.nc
 │           │       ├───median_cover_ACCESS-ESM1-5.nc
 │           │       ├───median_cover_EC-Earth3-Veg.nc
-│           │       ├─── median_cover_GFDL-CM4.nc
+│           │       ├───median_cover_GFDL-CM4.nc
 │           │       └───median_cover_NorESM2-MM.nc
-│           └───analysis_context_layers_carbonate.gpkg      # Geopackage containing the required timeseries clustering, connectivity and carbonate budget values for each reef│
+│           ├───HighResCoralStress_ADRIA_scens_ACCESS-CM2.csv       # CSV files containing the ADRIA-CoralBlox input parameter scenarios used in 1_.jl for each GCM
+│           ├───HighResCoralStress_ADRIA_scens_ACCESS-ESM1-5.csv
+│           ├───HighResCoralStress_ADRIA_scens_EC-Earth3-Veg.csv
+│           ├───HighResCoralStress_ADRIA_scens_GFDL-CM4.csv
+│           ├───HighResCoralStress_ADRIA_scens_NorESM2-MM.csv
+│           ├───clustered_reefs_carbonate.gpkg      # Reef spatial data with cluster timeseries information attached (before context layers are attached in 3_.jl).
+│           └───analysis_context_layers_carbonate.gpkg      # Geopackage containing the required timeseries clustering, connectivity and carbonate budget values for each reef
 │───figs    # Directory directly containing general GCM-wide and paper-methods figures, as well as GCM subdirectories
 │   ├───ACCESS-CM2
 │   │   ├───bioregion
@@ -104,6 +110,7 @@ ADRIA-reef-indicators
     ├─ GBRMPA_Reef_Features.gpkg    # File containing polygons of GBRMPA reef feature data
     └─ GBRMPA_Reefal_Bioregions.gpkg   # File containing polygons of GBRMPA reefal bioregions.
 ```
+Additionally, if available, ADRIA Result Sets should be located in the outputs/ADRIA_Results/HighResCoralStress/ folder.
 
 ### Analysis scripts - `src/ADRIA/HighResCoralStress/`
 
@@ -131,13 +138,20 @@ flowchart LR;
 - `4_analysis_plots_clustering_carbonate.jl` : Create required results for paper using timeseries data and analysis factors collated in `3_*.jl`. Additionally, calculate the proportion of reefs that change cluster assignment across the GCM levels and the proportion of reefs with depths of 1-10m that occur in low and medium coral cover clusters.
 - `5_publication_plots.jl` : Create extra required plots for publication such as a context map and diagram of GCM Equilibium Climate Sensitivity values.
 - `6_quantifying_cluster_differences.jl` : Quantify the differences between cluster timeseries across management areas and GCMs. (Does not need to be run as it is include()ed in the .qmd file).
+- `7_rf_analysis.jl` : Perform Random Forest analysis on bioregion scale clustering assignments using reef-characteristics as predictors such as depth and connectivity, producing plots for the paper.
 
 ### Raw Data Requirements
 
-- `GBR-wide ADRIADomain data with HighResCoralStress DWHs` : **link uploaded domain M&DS**
+- `GBR-wide ADRIADomain data with HighResCoralStress DWHs` : https://registry.mds.gbrrestoration.org/item/102.100.100/708065
 - `GBRMPA management areas` : https://geohub-gbrmpa.hub.arcgis.com/datasets/management-areas
 - `GBRMPA reef features` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::great-barrier-reef-features
 - `GBRMPA reefal bioregions` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::reefal-marine-bioregions
+
+### Pregenerated data availability
+
+- `ADRIA Result Set outputs from script 1` : https://registry.mds.gbrrestoration.org/item/102.100.100/708082
+- `pregenerated intermediate outputs from scripts 2 & 3` : https://registry.mds.gbrrestoration.org/item/102.100.100/708366
+- `pregenerated figure outputs` : GitHub /figs/ folder
 
 ## Methods
 
@@ -148,13 +162,13 @@ Using GBR-wide ADRIA Domain.
 #### Includes:
 
 - Initial coral cover data from RME
-- DHW timeseries data from HighResCoralStress.org
+- DHW timeseries data from HighResCoralStress.org (Dixon, A.M, Forster, P.M., Heron, S.F., Stoner, A.M.K., Beger, M. (2021). Future loss of local-scale thermal refugia in coral reef ecosystems. PLOS Climate, 1(2), e0000004, doi: 10.1371/journal.pclm.0000004)
 - Reef spatial data from RME
 - GBR1 connectivity data
 
 ### Scales
 
-Timeseris clustering analyses are performed at bioregion, management area and GBR-wide scales. Only bioregion scale analyses are carried forward into the paper as findings are the same across the spatial scales.
+Timeseris clustering analyses are performed at bioregion, management area and GBR-wide scales. Only bioregion and management area analyses are carried forward into sections of the paper as findings are the same across the spatial scales.
 
 ### Timeseries clustering
 
@@ -164,7 +178,7 @@ differences) with the complexity of each timeseries (obtained through a measure 
 variability) to ensure reefs are clustered based on their underlying temporal dynamics
 rather than simply their average coral cover.
 Reefs are clustered into 3 clusters based on these values, with clusters being assigned a
-low, medium or high value based on their median-cluster coral cover from 2030-2050.
+low, medium or high value based on their median-cluster coral cover from 2030-2060.
 
 ### Carbonate budget analysis
 

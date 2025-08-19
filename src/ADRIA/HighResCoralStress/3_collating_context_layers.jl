@@ -16,7 +16,7 @@ change_ADRIA_debug(true)
 using ADRIA
 
 # Load context layers with bioregions and target reefs
-context_layers = GDF.read(joinpath(output_path, "bellwether_reefs_carbonate.gpkg"))
+context_layers = GDF.read(joinpath(output_path, "clustered_reefs_carbonate.gpkg"))
 
 # GBR wide domain
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")

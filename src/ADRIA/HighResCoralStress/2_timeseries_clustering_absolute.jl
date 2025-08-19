@@ -59,4 +59,4 @@ for GCM in GCMs
 
 end
 
-GDF.write(joinpath(output_path, "bellwether_reefs_carbonate.gpkg"), context_layers)
+GDF.write(joinpath(output_path, "clustered_reefs_carbonate.gpkg"), context_layers)
