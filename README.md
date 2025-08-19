@@ -8,6 +8,7 @@ Time series analyses for GBR resilience using ADRIA - CoralBlox reef ecosystem m
 
 # Setup
 
+Full recreation of this project requires that users have Julia v1.11.5 and Quarto installed.
 Set up the project in the usual Julian way by instantiating the project.
 
 Start Julia from the project root (the main project directory, where the README file sits).
@@ -142,7 +143,7 @@ flowchart LR;
 
 ### Raw Data Requirements
 
-- `GBR-wide ADRIADomain data with HighResCoralStress DWHs` : https://registry.mds.gbrrestoration.org/item/102.100.100/708065
+- `GBR-wide ADRIADomain data with HighResCoralStress DWHs` : https://registry.mds.gbrrestoration.org/item/102.100.100/708080
 - `GBRMPA management areas` : https://geohub-gbrmpa.hub.arcgis.com/datasets/management-areas
 - `GBRMPA reef features` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::great-barrier-reef-features
 - `GBRMPA reefal bioregions` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::reefal-marine-bioregions
