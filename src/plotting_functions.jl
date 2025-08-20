@@ -623,6 +623,18 @@ function cluster_analysis_plots(
         px_per_unit=dpi
     )
 
+    weighted_incom_conn = grouped_cluster_ridgeline_plot(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("$(GCM)_weighted_incoming_conn_log");
+        xlabel="Log total weighted incoming connectivity", ylabel="$(grouping_fn)", overlap=overlap
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "weighted_incoming_conn_$(grouping)_violin.png"),
+        weighted_incom_conn,
+        px_per_unit=dpi
+    )
+
     analysis_layers_depth = analysis_layers[analysis_layers.depth_mean.!=7, :]
     groups_too_few_clusters_depth = grouping_counts(
         grouping,
@@ -1171,7 +1183,8 @@ function carbonate_budget_subplot!(
     year_col, 
     labels, 
     color_label, 
-    theta_year_means
+    theta_year_means,
+    colormap
 )
 
 
@@ -1205,7 +1218,7 @@ function carbonate_budget_subplot!(
         markersize=6,
         jitter_width=0.7
     )
-    rain.plots[1].colormap = transparent_cmap
+    rain.plots[1].colormap = colormap
     rainclouds!(
         ax,
         theta_year_means.x,
@@ -1291,8 +1304,8 @@ function carbonate_budget_variable_scatter(
     end
 
     fig = Figure(size=(x_fig_size, y_fig_size), fontsize=fontsize)
-    carbonate_budget_subplot!(fig, long_df, (1,1), depth_var_col, carbonate_budget_col, year_col, depth_labels, depth_color_label, theta_means)
-    carbonate_budget_subplot!(fig, long_df, (1,2), conn_var_col, carbonate_budget_col, year_col, conn_labels, conn_color_label, theta_means)
+    carbonate_budget_subplot!(fig, long_df, (1,1), depth_var_col, carbonate_budget_col, year_col, depth_labels, depth_color_label, theta_means, transparent_cmap)
+    carbonate_budget_subplot!(fig, long_df, (1,2), conn_var_col, carbonate_budget_col, year_col, conn_labels, conn_color_label, theta_means, transparent_cmap)
 
     grid_layouts = filter(x -> x isa Axis, fig.content)
     hideydecorations!(grid_layouts[1]; grid=false, ticks=false)

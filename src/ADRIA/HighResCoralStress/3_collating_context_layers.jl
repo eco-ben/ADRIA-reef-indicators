@@ -43,7 +43,7 @@ col_types = [
     Float64,
     Int64,
     Float64,
-    Float64,
+    Float64
 ]
 
 source_to_sink = DataFrame(
@@ -59,12 +59,21 @@ source_to_sink = DataFrame(
         :total_strength,
         :total_count,
         :total_comb,
-        :so_to_si,
+        :so_to_si
     ]
 )
 
+for GCM in GCMs
+    context_layers[!, "$(GCM)_weighted_incoming_conn"] .= 1*10^-5
+end
+
 for reef in eachindex(reefs)
     reef_id = reefs[reef]
+
+    if !(reef_id ∈ context_layers.UNIQUE_ID)
+        continue
+    end
+
     outgoing = connectivity_matrix[connectivity_matrix.Source.==reef_id, :]
     incoming = connectivity_matrix[:, connectivity_matrix.Sink.==reef_id]
 
@@ -86,6 +95,25 @@ for reef in eachindex(reefs)
         so_to_si = out_comb
     else
         so_to_si = out_comb / income_comb
+    end
+
+    # Get all incoming connectivity indices
+    incoming_positive = findall(incoming[:, 1] .> 0)
+
+    if !isempty(incoming_positive)
+        for GCM in GCMs
+            # Load all source reefs for each GCM
+            absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
+            absolute_cover = absolute_cover[locations=At(String.(incoming.Source[incoming_positive]))]
+            
+            weighted_conn_sources = zeros(length(incoming_positive))
+            for (i, in_conn) in enumerate(incoming_positive)
+                weighted_conn = incoming[in_conn, 1] * mean(absolute_cover[:, i].data)
+                weighted_conn_sources[i] = weighted_conn
+            end
+
+            context_layers[context_layers.UNIQUE_ID .== reef_id, "$(GCM)_weighted_incoming_conn"] .= sum(weighted_conn_sources)
+        end
     end
 
     push!(

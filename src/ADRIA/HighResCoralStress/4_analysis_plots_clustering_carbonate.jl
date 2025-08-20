@@ -35,6 +35,8 @@ reefs_long = stack(
 )
 
 for (i_gcm, GCM) in enumerate(GCMs)
+    context_layers[:, "$(GCM)_weighted_incoming_conn_log"] = log10.(context_layers[:, "$(GCM)_weighted_incoming_conn"]) 
+
     # Select GCM and load relevant results
     @info "Analysing reef clustering for $(GCM)"
 
