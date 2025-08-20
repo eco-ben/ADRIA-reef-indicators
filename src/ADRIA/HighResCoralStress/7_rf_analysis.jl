@@ -26,9 +26,10 @@ reef_properties.abs_k_area = context_layers.area .* context_layers.k
 for (i, GCM) in enumerate(GCMs)
     dhw_col = Symbol("$(GCM)_mean_dhw")
     bio_cluster_col = Symbol("$(GCM)_bioregion_clusters")
+    weighted_incom_col = Symbol("$(GCM)_weighted_incoming_conn")
 
-    bio_cluster_details = context_layers[:, [dhw_col, bio_cluster_col]]
-    rename!(bio_cluster_details, dhw_col => :mean_dhw, bio_cluster_col => :cluster)
+    bio_cluster_details = context_layers[:, [dhw_col, bio_cluster_col, weighted_incom_col]]
+    rename!(bio_cluster_details, dhw_col => :mean_dhw, bio_cluster_col => :cluster, weighted_incom_col => :weighted_incoming_conn)
     bio_cluster_details.GCM .= GCM
     bio_cluster_details.cluster .= categorical(bio_cluster_details.cluster)
 
@@ -43,7 +44,7 @@ reef_properties.GCM .= categorical(reef_properties.GCM)
 reef_properties.bioregion .= categorical(reef_properties.bioregion)
 reef_properties.abs_k_area ./= 1e6  # Convert to km^2 for clarity
 
-target_cols = [:depth_med, :total_strength, :so_to_si, :bioregion, :mean_dhw, :abs_k_area]
+target_cols = [:depth_med, :total_strength, :so_to_si, :bioregion, :mean_dhw, :abs_k_area, :weighted_incoming_conn]
 Xs = reef_properties[:, target_cols]
 y = vec(reef_properties[:, :cluster])
 y = Int64.(getfield.(y, :ref))
@@ -68,6 +69,7 @@ X2 = coerce(
     :bioregion => OrderedFactor,
     :mean_dhw => Continuous,
     :abs_k_area => Continuous,
+    :weighted_incoming_conn => Continuous
 )
 
 readable_names = OrderedDict(
@@ -77,6 +79,7 @@ readable_names = OrderedDict(
     "bioregion" => "Bioregion",
     "abs_k_area" => "Carrying Capacity",
     "so_to_si" => "Outgoing to Incoming\nConnectivity Ratio",
+    "weighted_incoming_conn" => "Total Weighted Incoming Connectivity"
 )
 
 # General (naive) overview
@@ -87,6 +90,7 @@ sp_cors = Dict(
     "bioregion" => round(corspearman(levelcode.(X2.bioregion), y); digits=2),
     "abs_k_area" => round(corspearman(X2.abs_k_area, y); digits=2),
     "so_to_si" => round(corspearman(X2.so_to_si, y); digits=2),
+    "weighted_incoming_conn" => round(corspearman(X2.weighted_incoming_conn, y); digits=2)
 )
 
 rng = Random.seed!(76)
@@ -266,15 +270,70 @@ function partial_dependence_multiclass(machine, data, feature_col; n_grid=50)
     return (grid=collect(grid), class_values=results)
 end
 
+function partial_dependence_two_way(machine, data, feature_cols; n_grid=50)
+    # feature_values = data[:, feature_col]
+
+    # is_cat_type = eltype(feature_values) <: Union{String,Symbol,CategoricalValue,AbstractString}
+    # if is_cat_type || isa(feature_values, CategoricalArray)
+    #     # Skip categorical (uninformative)
+    #     return zeros(n_grid)
+    #     # grid = unique(feature_values)
+    # else
+    #     grid = range(extrema(feature_values)..., length=n_grid)
+    # end
+    feature_1_values = data[:, feature_cols[1]]
+    grid_1 = range(extrema(feature_1_values)..., length=n_grid)
+
+    feature_2_values = data[:, feature_cols[2]]
+    grid_2 = range(extrema(feature_2_values)..., length=n_grid)
+
+    # Get class labels from a sample prediction
+    sample_pred = MLJ.predict(machine, data[1:1, :])
+    class_labels = levels(sample_pred[1])
+
+    # Initialize results for each class
+    results = DataFrame(grid_1_grid_2_product = vcat(collect(Iterators.product(grid_1, grid_2))...))
+    results = hcat(
+        results,
+        DataFrame(
+            fill(Vector{Union{Float64, Missing}}(missing, length(results.grid_1_grid_2_product)), 3),
+            class_labels
+        )
+    )
+
+    data_modified = deepcopy(data)
+    for grid_1_val in grid_1
+        # Make feature constant
+        data_modified[:, feature_cols[1]] .= grid_1_val
+        for grid_2_val in grid_2
+            grid_id = (grid_1_val, grid_2_val)
+
+            # Make feature constant
+            data_modified[:, feature_cols[2]] .= grid_2_val
+            
+            # Prediction if feature is fixed
+            prob_predictions = MLJ.predict(machine, data_modified)
+
+            # Calculate average probability for each class
+            for class_label in class_labels
+                results[results.grid_1_grid_2_product .== [grid_id], class_label] .= mean(pdf.(prob_predictions, Ref(class_label)))
+            end
+        end
+    end
+
+    return results
+end
+
 function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame; fig=Figure(size=(800,500)))
     feature_names = keys(pdp_results)
-    readable_names = Dict(
+    readable_names = OrderedDict(
         "mean_dhw" => "Mean DHW",
         "total_strength" => "Total Connectivity Strength",
         "depth_med" => "Median Depth",
         "bioregion" => "Bioregion",
         "abs_k_area" => "Carrying Capacity",
         "so_to_si" => "Outgoing to Incoming\nConnectivity Ratio",
+        "weighted_incoming_conn" => "Total Weighted Incoming\nConnectivity"
     )
 
     n_rows = 2
@@ -386,7 +445,7 @@ figure = Figure(
 gr1 = GridLayout(figure[1,1])
 ax = Axis(
     gr1[1,1], 
-    yticks=(1:6, map(x -> readable_names[x], fi_names)),
+    yticks=(1:7, map(x -> readable_names[x], fi_names)),
     title="Feature Importance"
 )
 bar = barplot!(
@@ -407,6 +466,37 @@ save(
     figure,
     px_per_unit=dpi
 )
+
+depth_conn_two_way_pdp = partial_dependence_two_way(mach, test_X, [:depth_med, :weighted_incoming_conn])
+grid_1 = sort(unique(first.(depth_conn_two_way_pdp.grid_1_grid_2_product)))
+grid_2 = sort(unique(last.(depth_conn_two_way_pdp.grid_1_grid_2_product)))
+
+sample_pred = MLJ.predict(machine, data[1:1, :])
+class_labels = levels(sample_pred[1])
+
+fig = Figure(size = (800, 400))
+for (c, class_label) in enumerate(class_labels)
+    res_matrix = Matrix{Union{Missing, Float64}}(missing, (length(grid_1), length(grid_2)))
+    gridlayout = GridLayout(fig[1,c])
+    for (g1, grid_1_val) in enumerate(grid_1)
+        for (g2, grid_2_val) in enumerate(grid_2)
+            gval = depth_conn_two_way_pdp[depth_conn_two_way_pdp.grid_1_grid_2_product .== [(grid_1_val, grid_2_val)], class_label]
+            res_matrix[g1, g2] = first(gval)
+        end
+    end
+
+    ax = Axis(
+        gridlayout[1,1],
+        xlabel = "Median depth",
+        ylabel = "Total Weighted connectivity"
+    )
+    c3 = contourf!(
+        grid_1,
+        grid_2,
+        res_matrix
+    )
+    Colorbar(gridlayout[0,1], c3, label="Probability $(class_label) cluster", size=6, spinewidth=0.0, vertical=false)
+end
 
 ### The below notes are from a previous version. This version was ammended to ensure consistent fontsize/dpi.
 # Above two figures are manually joined together and given panel labels A and B.
