@@ -231,9 +231,7 @@ function ecs_plot(
     fig = Figure(size=(fig_x_size, fig_y_size), fontsize=fontsize)
     ax = Axis(
         fig[1, 1],
-        ylabel="Equilibrium Climate Sensitivity (\u00B0C)",
-        height=10cm,
-        width=8cm
+        ylabel="Equilibrium Climate Sensitivity (\u00B0C)"
     )
     hidexdecorations!(ax)
     poly!(
@@ -250,6 +248,8 @@ function ecs_plot(
     GCM_label.(fill(1.06, length(ecs_values)), ecs_values, GCM_labels)
 
     fig[2, 1] = Legend(fig, ax, "ECS assessed range", framevisible=false, nbanks=2)
+    rowsize!(fig.layout, 2, Relative(0.1))
+    colsize!(fig.layout, 1, Relative(1))
 
     return fig
 end
@@ -1185,7 +1185,7 @@ function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_la
     return fig
 end
 
-function map_gbr_reefs_cont(reef_df, color_col::Symbol, color_bar_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize)
+function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize)
     regions = GDF.read(management_region_fn)
     regions.region_name = replace.(regions.AREA_DESCR, [" Management Area" => ""])
     qld = GDF.read(mainland_fn)

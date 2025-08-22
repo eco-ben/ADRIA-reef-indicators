@@ -618,18 +618,24 @@ ax = Axis(
     xlabel = "Mean Log10 weighted incoming connectivity",
     backgroundcolor=bgcol
 )
-Makie.scatter!(ax, perf_by_bio.weighted_incoming_conn, perf_by_bio.acc, color=bioregion_colors)
+Makie.scatter!(ax, perf_by_bio.income_conn, perf_by_bio.acc, color=bioregion_colors)
 ax = Axis(
     fig[3,2],
+    ylabel = "Bioregion accuracy",
+    xlabel = "Mean Log10 weighted outgoing connectivity",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.outgoing_conn, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[4,1],
     ylabel = "Bioregion accuracy",
     xlabel = "Mean Log10 source-to-sink ratio",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.log_so_to_si, perf_by_bio.acc, color=bioregion_colors)
 
-
 Legend(
-    fig[1:3, 0],
+    fig[1:4, 0],
     [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],
     label_lines.(string.(perf_by_bio.bioregion); l_length=12),
     orientation=:vertical,

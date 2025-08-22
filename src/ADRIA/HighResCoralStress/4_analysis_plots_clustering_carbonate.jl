@@ -148,14 +148,24 @@ for (i_gcm, GCM) in enumerate(GCMs)
         outgoing_conn_map,
         px_per_unit=dpi
     )
+
+    mean_dhw_map = map_gbr_reefs_cont(
+        context_layers,
+        "$(GCM)_mean_dhw",
+        "Mean DHW [\u00B0C - Weeks]"
+    )
+    save(
+        joinpath(fig_out_dir, "mean_dhw_input_map.png"),
+        mean_dhw_map,
+        px_per_unit=dpi
+    )
 end
 
 context_layers.abs_k_area = context_layers.area .* context_layers.k ./ 1e6
-vars = [:depth_med, :log_so_to_si, :mean_dhw, :abs_k_area]
+vars = [:depth_med, :log_so_to_si, :abs_k_area]
 var_labels = Dict(
     :depth_med => "Median depth [m]",
     :log_so_to_si => "Log10 weighted incoming connectivity",
-    :mean_dhw => "Mean DHW [\u00B0C - Weeks]",
     :abs_k_area => "Carrying capacity [km²]"
 )
 for var in vars 
