@@ -112,6 +112,17 @@ for (i_gcm, GCM) in enumerate(GCMs)
     #     total_connectivity_carbonate_scatter,
     #     px_per_unit=dpi
     # )
+    gcm_threshold_columns = ["$(GCM)_years_above_$(x)" for x in 10:20]
+    context_layers[!, "$(GCM)_mean_positive_years"] = vec(mean(Matrix(context_layers[:, gcm_threshold_columns]), dims=2))
+    fig, ax, scat = scatter(context_layers.depth_med, context_layers[:, "$(GCM)_weighted_incoming_conn_log"], color=context_layers[:, "$(GCM)_mean_positive_years"], alpha=0.5)
+    Colorbar(fig[1,2], scat, label="Mean number of positive carbonate budget years \nacross θ")
+    ax.ylabel = "Log weighted incoming connectivity"
+    ax.xlabel = "Median depth [m]"
+    save(
+        joinpath(fig_out_dir, "depth_conn_mean_carbonate_budget.png"),
+        fig,
+        px_per_unit=dpi
+    )
 end
 
 man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM in GCMs]

@@ -971,6 +971,10 @@ where reefs are projected to be under severe stress and in a declined state [@bo
 
 ## ACCESS-ESM1-5
 
+![Scatter plot indicating reef median depth (metres) and Log10 weighted incoming connectivity for each reef. Point colours represent the mean number of years each reef maintains positive carbonate budgets across each $theta$ value from 10-20% live coral cover. Displays results for ACCESS-ESM1-5
+GCM.](../figs/ACCESS-ESM1-5/depth_conn_mean_carbonate_budget.png){#sfig-access-esm1-5-mean-carb-budget
+fig-align="center" width="10cm"}
+
 ### Bioregion scale clustering
 
 ![Reef area-relative coral cover time series clustered within each bioregion. ‘Low’ clusters
