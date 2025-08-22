@@ -15,7 +15,6 @@ context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbona
 context_layers.gbr .= "Great Barrier Reef"
 context_layers.gbr_average_latitude .= 0.0
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
-context_layers.log_total_strength = log10.(context_layers.total_strength)
 
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID.∈[context_layers.UNIQUE_ID], :]
@@ -23,20 +22,23 @@ filtered_indices = indexin(gbr_dom_filtered.UNIQUE_ID, gbr_dom.loc_data.UNIQUE_I
 
 thresholds = 10:1:20
 year_cols = Vector{String}()
+conn_cols = Vector{String}()
 for GCM in GCMs
+    context_layers[:, "$(GCM)_weighted_incoming_conn_log"] = log10.(context_layers[:, "$(GCM)_weighted_incoming_conn"]) 
+    context_layers[:, "$(GCM)_weighted_outgoing_conn_log"] = log10.(context_layers[:, "$(GCM)_weighted_outgoing_conn"]) 
+    
+    push!(conn_cols, "$(GCM)_weighted_incoming_conn_log")
     for threshold in thresholds
         push!(year_cols, "$(GCM)_years_above_$(threshold)")
     end
 end
 
 reefs_long = stack(
-    context_layers[:, ["UNIQUE_ID", "depth_med", "log_total_strength", year_cols...]],
+    context_layers[:, ["UNIQUE_ID", "depth_med", conn_cols..., year_cols...]],
     year_cols
 )
 
 for (i_gcm, GCM) in enumerate(GCMs)
-    context_layers[:, "$(GCM)_weighted_incoming_conn_log"] = log10.(context_layers[:, "$(GCM)_weighted_incoming_conn"]) 
-
     # Select GCM and load relevant results
     @info "Analysing reef clustering for $(GCM)"
 
@@ -80,10 +82,10 @@ for (i_gcm, GCM) in enumerate(GCMs)
     # )
 
 
-    log_strength_year_correlation = Dict([
+    log_incoming_conn_year_correlation = Dict([
         (thresh, corspearman(
             gcm_reefs_long[gcm_reefs_long.variable.==thresh, :value],
-            gcm_reefs_long[gcm_reefs_long.variable.==thresh, :log_total_strength]
+            gcm_reefs_long[gcm_reefs_long.variable.==thresh, "$(GCM)_weighted_incoming_conn_log"]
         ))
         for thresh in string.(thresholds)
     ])
@@ -100,7 +102,8 @@ for (i_gcm, GCM) in enumerate(GCMs)
         :value,
         :variable,
         depth_year_correlation,
-        log_strength_year_correlation
+        log_incoming_conn_year_correlation;
+        conn_var_col="$(GCM)_weighted_incoming_conn_log"
     )
     save(
         joinpath(fig_out_dir, "depth_conn_carbonate_comparison.png"),
@@ -116,7 +119,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     context_layers[!, "$(GCM)_mean_positive_years"] = vec(mean(Matrix(context_layers[:, gcm_threshold_columns]), dims=2))
     fig, ax, scat = scatter(context_layers.depth_med, context_layers[:, "$(GCM)_weighted_incoming_conn_log"], color=context_layers[:, "$(GCM)_mean_positive_years"], alpha=0.5)
     Colorbar(fig[1,2], scat, label="Mean number of positive carbonate budget years \nacross θ")
-    ax.ylabel = "Log weighted incoming connectivity"
+    ax.ylabel = "Log10 weighted incoming connectivity"
     ax.xlabel = "Median depth [m]"
     save(
         joinpath(fig_out_dir, "depth_conn_mean_carbonate_budget.png"),

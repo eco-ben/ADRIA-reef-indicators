@@ -5,6 +5,9 @@ reef cover as a percentage of total reef area is used.
 
 include("../../common.jl")
 
+# Set random seed for clustering reproducibility
+Random.seed!(123)
+
 # Select the target GCM from
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
 GCMs = dhw_scenarios.dhw.properties["members"]

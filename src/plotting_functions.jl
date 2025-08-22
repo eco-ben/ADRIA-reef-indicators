@@ -579,7 +579,7 @@ function cluster_analysis_plots(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, :log_so_to_si;
-        xlabel="Log source to sink ratio", ylabel="$(grouping_fn)", overlap=overlap
+        xlabel="Log10 source to sink ratio", ylabel="$(grouping_fn)", overlap=overlap
     )
     save(
         joinpath(fig_out_dir, "$(grouping)", "so_to_si_$(grouping)_violin.png"),
@@ -587,17 +587,17 @@ function cluster_analysis_plots(
         px_per_unit=dpi
     )
 
-    total_strength_violin = grouped_cluster_ridgeline_plot(
-        analysis_layers,
-        Symbol("$(GCM)_$(grouping)_clusters"),
-        grouping, :log_total_strength;
-        xlabel="Log total connectivity strength", ylabel="$(grouping_fn)", overlap=overlap
-    )
-    save(
-        joinpath(fig_out_dir, "$(grouping)", "log_total_strength_$(grouping)_violin.png"),
-        total_strength_violin,
-        px_per_unit=dpi
-    )
+    # total_strength_violin = grouped_cluster_ridgeline_plot(
+    #     analysis_layers,
+    #     Symbol("$(GCM)_$(grouping)_clusters"),
+    #     grouping, :log_total_strength;
+    #     xlabel="Log total connectivity strength", ylabel="$(grouping_fn)", overlap=overlap
+    # )
+    # save(
+    #     joinpath(fig_out_dir, "$(grouping)", "log_total_strength_$(grouping)_violin.png"),
+    #     total_strength_violin,
+    #     px_per_unit=dpi
+    # )
 
     initial_proportion_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
@@ -627,11 +627,23 @@ function cluster_analysis_plots(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_weighted_incoming_conn_log");
-        xlabel="Log total weighted incoming connectivity", ylabel="$(grouping_fn)", overlap=overlap
+        xlabel="Log10 weighted incoming connectivity", ylabel="$(grouping_fn)", overlap=overlap
     )
     save(
         joinpath(fig_out_dir, "$(grouping)", "weighted_incoming_conn_$(grouping)_violin.png"),
         weighted_incom_conn,
+        px_per_unit=dpi
+    )
+
+    weighted_outgo_conn = grouped_cluster_ridgeline_plot(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("$(GCM)_weighted_outgoing_conn_log");
+        xlabel="Log10 weighted outgoing connectivity", ylabel="$(grouping_fn)", overlap=overlap
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "weighted_outgoing_conn_$(grouping)_violin.png"),
+        weighted_outgo_conn,
         px_per_unit=dpi
     )
 
@@ -1277,7 +1289,7 @@ function carbonate_budget_variable_scatter(
     depth_var_col=:depth_med,
     conn_var_col=:log_total_strength,
     depth_color_label="Reef median depth [m]",
-    conn_color_label="Log total connectivity strength",
+    conn_color_label="Log10 weighted incoming connectivity",
     fig_sizes::Dict=fig_sizes,
     fontsize::Float64=fontsize,
     alpha_c::Union{Float64,Int64}=0.5

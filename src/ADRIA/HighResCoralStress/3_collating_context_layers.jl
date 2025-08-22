@@ -65,6 +65,7 @@ source_to_sink = DataFrame(
 
 for GCM in GCMs
     context_layers[!, "$(GCM)_weighted_incoming_conn"] .= 1*10^-5
+    context_layers[!, "$(GCM)_weighted_outgoing_conn"] .= 0.0
 end
 
 for reef in eachindex(reefs)
@@ -100,19 +101,24 @@ for reef in eachindex(reefs)
     # Get all incoming connectivity indices
     incoming_positive = findall(incoming[:, 1] .> 0)
 
-    if !isempty(incoming_positive)
-        for GCM in GCMs
-            # Load all source reefs for each GCM
-            absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
+    for GCM in GCMs
+        # Load all source reefs for each GCM
+        absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
+        target_reef_cover = absolute_cover[locations=At(reef_id)]
+        weighted_outconn = out_strength * mean(target_reef_cover.data)
+        context_layers[context_layers.UNIQUE_ID .== reef_id, "$(GCM)_weighted_outgoing_conn"] .= sum(weighted_outconn)
+
+
+        if !isempty(incoming_positive)
             absolute_cover = absolute_cover[locations=At(String.(incoming.Source[incoming_positive]))]
             
-            weighted_conn_sources = zeros(length(incoming_positive))
+            weighted_inconn_sources = zeros(length(incoming_positive))
             for (i, in_conn) in enumerate(incoming_positive)
-                weighted_conn = incoming[in_conn, 1] * mean(absolute_cover[:, i].data)
-                weighted_conn_sources[i] = weighted_conn
+                weighted_inconn = incoming[in_conn, 1] * mean(absolute_cover[:, i].data)
+                weighted_inconn_sources[i] = weighted_inconn
             end
 
-            context_layers[context_layers.UNIQUE_ID .== reef_id, "$(GCM)_weighted_incoming_conn"] .= sum(weighted_conn_sources)
+            context_layers[context_layers.UNIQUE_ID .== reef_id, "$(GCM)_weighted_incoming_conn"] .= sum(weighted_inconn_sources)
         end
     end
 
