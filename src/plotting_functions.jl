@@ -555,7 +555,7 @@ function cluster_analysis_plots(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_mean_dhw");
-        xlabel="mean DHW", ylabel="$(grouping_fn)", overlap=overlap
+        xlabel="Mean DHW [\u00B0C - Weeks]", ylabel="$(grouping_fn)", overlap=overlap
     )
     save(
         joinpath(fig_out_dir, "$(grouping)", "mean_dhw_$(grouping)_violin.png"),
@@ -567,7 +567,7 @@ function cluster_analysis_plots(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("$(GCM)_mean_DHW_tol");
-        xlabel="mean reef DHW tolerance", ylabel="$(grouping_fn)", overlap=overlap
+        xlabel="Mean reef DHW tolerance [\u00B0C - Weeks]", ylabel="$(grouping_fn)", overlap=overlap
     )
     save(
         joinpath(fig_out_dir, "$(grouping)", "dhw_tolerance_$(grouping)_violin.png"),
@@ -1095,8 +1095,7 @@ function gcm_cluster_assignment_heatmap(
     return fig
 end
 
-
-function map_gbr_reefs(reef_df, color_col::Symbol, colormap, color_legend_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize)
+function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize)
     regions = GDF.read(management_region_fn)
     regions.region_name = replace.(regions.AREA_DESCR, [" Management Area" => ""])
     qld = GDF.read(mainland_fn)
@@ -1182,6 +1181,83 @@ function map_gbr_reefs(reef_df, color_col::Symbol, colormap, color_legend_label;
         rowgap=1,
         backgroundcolor=bgcol
     )
+
+    return fig
+end
+
+function map_gbr_reefs_cont(reef_df, color_col::Symbol, color_bar_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize)
+    regions = GDF.read(management_region_fn)
+    regions.region_name = replace.(regions.AREA_DESCR, [" Management Area" => ""])
+    qld = GDF.read(mainland_fn)
+    qld = qld[qld.FEAT_NAME.=="Mainland", :SHAPE]
+
+    map_width = fig_sizes["map_width"]
+    map_height = fig_sizes["map_height"]
+    region_col = tuple.([:blue, :green, :orange, :red], fill(0.2, 4)) # Manually set alpha value to 0.3
+
+    if color_col == :bioregion
+        ordered_reefs = sort(reef_df, :bioregion_average_latitude; rev=true)
+    else
+        ordered_reefs = reef_df
+    end
+
+    centroids = GO.centroid.(ordered_reefs.geometry)
+
+    # GeoMakie currently has a bug where x/y labels never display.
+    # We adjust map size to roughly align with the correct projection.
+    bgcol = :gray90
+    fig = Figure(size=(map_width, map_height), fontsize=fontsize, backgroundcolor=bgcol)
+    ax = Axis(
+        fig[1, 1],
+        xgridvisible=false,
+        ygridvisible=false,
+        limits=((142.5, 154.1), (-25, -10)),
+        backgroundcolor=bgcol
+    )
+    poly!(qld; color=:darkgray)
+    poly!(regions.SHAPE, color=region_col)
+
+    scat = scatter!(centroids; color=ordered_reefs[:, color_col], markersize=4)
+    ax.ylabel = "Latitude"
+    ax.xlabel = "Longitude"
+
+    # Note key cities/towns for reference
+    scatter!((145.754120, -16.925491); color=:black)
+    text!((145.1, -16.925491); text="Cairns", align=(:center, :top))
+
+    scatter!((146.8057, -19.2664); color=:black)
+    text!((146.0, -19.2664); text="Townsville", align=(:center, :top))
+
+    scatter!((149.182147, -21.142496); color=:black)
+    text!((148.432147, -21.142496); text="Mackay", align=(:center, :top))
+
+    scatter!((150.733333, -23.133333); color=:black)
+    text!((150.0, -23.133333); text="Yeppoon", align=(:center, :top))
+
+    # lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
+    # text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
+
+    Legend(
+        fig[2, 1],
+        [PolyElement(color=col, alpha=0.2) for col in region_col],
+        regions.region_name,
+        "Management regions",
+        nbanks=4,
+        patchsize=(10, 10),
+        colgap=8,
+        backgroundcolor=bgcol
+    )
+    rowsize!(fig.layout, 2, Relative(0.1))
+    Colorbar(
+        fig[1, 2],
+        scat,
+        label=color_bar_label,
+        size=6, 
+        spinewidth=0.0,
+        tellwidth=false,
+        tellheight=false
+    )
+    colsize!(fig.layout, 2, Relative(0.1))
 
     return fig
 end

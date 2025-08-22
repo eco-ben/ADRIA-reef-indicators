@@ -126,6 +126,45 @@ for (i_gcm, GCM) in enumerate(GCMs)
         fig,
         px_per_unit=dpi
     )
+
+    incoming_conn_map = map_gbr_reefs_cont(
+        context_layers, 
+        "$(GCM)_weighted_incoming_conn_log", 
+        "Log10 weighted incoming connectivity"
+    )
+    save(
+        joinpath(fig_out_dir, "incoming_conn_input_map.png"),
+        incoming_conn_map,
+        px_per_unit=dpi
+    )
+
+    outgoing_conn_map = map_gbr_reefs_cont(
+        context_layers, 
+        "$(GCM)_weighted_outgoing_conn_log", 
+        "Log10 weighted outgoing connectivity"
+    )
+    save(
+        joinpath(fig_out_dir, "outgoing_conn_input_map.png"),
+        outgoing_conn_map,
+        px_per_unit=dpi
+    )
+end
+
+context_layers.abs_k_area = context_layers.area .* context_layers.k ./ 1e6
+vars = [:depth_med, :log_so_to_si, :mean_dhw, :abs_k_area]
+var_labels = Dict(
+    :depth_med => "Median depth [m]",
+    :log_so_to_si => "Log10 weighted incoming connectivity",
+    :mean_dhw => "Mean DHW [\u00B0C - Weeks]",
+    :abs_k_area => "Carrying capacity [km²]"
+)
+for var in vars 
+    var_map = map_gbr_reefs_cont(context_layers, var, var_labels[var])
+    save(
+        joinpath(figs_path, "$(var)_input_map.png"),
+        var_map,
+        px_per_unit=dpi
+    )
 end
 
 man_area_gcm_cluster_cols = [Symbol("$(GCM)_management_area_clusters") for GCM in GCMs]
@@ -320,7 +359,7 @@ save(joinpath(figs_path, "reef_depth_included_cutoff.png"), f, px_per_unit=dpi)
 consistent_reefs_colors = [:gray, :green, :orange, :blue];
 order = Dict("variable" => 1, "low" => 2, "medium" => 3, "high" => 4)
 sorted_vals = sort(context_layers, :man_area_consistent_reefs, by=x -> order[x])
-gbr_assignment_map = map_gbr_reefs(sorted_vals, :man_area_consistent_reefs, consistent_reefs_colors, "Cluster assignment across GCMs")
+gbr_assignment_map = map_gbr_reefs_cat(sorted_vals, :man_area_consistent_reefs, consistent_reefs_colors, "Cluster assignment across GCMs")
 
 save(joinpath(figs_path, "gcm_cluster_assignment_map.png"), gbr_assignment_map, px_per_unit=dpi)
 

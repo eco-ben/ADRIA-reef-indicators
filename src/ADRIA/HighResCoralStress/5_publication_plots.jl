@@ -21,7 +21,7 @@ save(joinpath(figs_path, "ecs_plot.png"), ecs, px_per_unit=dpi)
 
 # GBR map plot - methods
 bioregion_colors = distinguishable_colors(length(unique(context_layers.bioregion)));
-gbr_methods_map = map_gbr_reefs(context_layers, :bioregion, bioregion_colors, "Bioregions")
+gbr_methods_map = map_gbr_reefs_cat(context_layers, :bioregion, bioregion_colors, "Bioregions")
 
 save(joinpath(figs_path, "region_map.png"), gbr_methods_map, px_per_unit=dpi)
 
