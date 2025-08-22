@@ -512,14 +512,35 @@ for (c, class_label) in enumerate(["Low", "Medium", "High"])
         colormap=base_cmap
     )
     abc = ["A","B","C"]
-    Label(gridlayout[1,1, Top()], "($(abc[c])) $(class_label) cluster \n ")
+    Label(gridlayout[1,1, Top()], "($(abc[c])) $(class_label) cluster \n ", font=:bold)
 end
 
 # ax.ytickformat = x -> string.(round.(10 .^ x; digits = 2))
 Colorbar(fig[0,:], limits=color_range, colormap=base_cmap, label="Probability of target cluster assignment", size=6, spinewidth=0.0, vertical=false)
 Label(fig[1, 0], "Log10 weighted incoming connectivity", tellwidth=false, tellheight=false, rotation=π / 2)
-Label(fig[2, 1:3], "Median depth [m]", tellheight=false, tellwidth=false)
+Label(fig[2, 1:3], "Median depth [m]\n ", tellheight=false, tellwidth=false)
 rowsize!(fig.layout, 2, Relative(0.01))
+rowsize!(fig.layout, 0, Relative(0.01))
+
+gridlayout2 = GridLayout(fig[3, 1:3])
+ax2 = Axis(
+    gridlayout2[1, 1],
+    ylabel="",
+    xlabel="Median depth [m]"
+)
+hist!(ax2, test_X.depth_med; color=(:gray))
+Label(gridlayout2[1,1, TopLeft()], "D", font=:bold)
+
+ax3 = Axis(
+    gridlayout2[1, 2],
+    ylabel="",
+    xlabel="Log10 weighted incoming connectivity"
+)
+hist!(ax3, test_X.weighted_incoming_conn; color=(:gray))
+Label(gridlayout2[1,2, TopLeft()], "E", font=:bold)
+
+Label(fig[3, 0], "Number of samples", tellwidth=false, tellheight=false, rotation=π / 2)
+rowsize!(fig.layout, 3, Relative(0.25))
 colsize!(fig.layout, 0, Relative(0.01))
 
 save(
