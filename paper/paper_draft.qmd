@@ -341,7 +341,7 @@ Connectivity data from 24 days in total were used in this investigation to estim
 larval flows. These data span six years from 2015 to 2020. The years 2015, 2016, 2018 and
 2019 are each represented by connectivity matrices covering spawning periods over three days
 in each year (12 days in total), while 2017 and 2020 are each represented by six spawning
-days each, coming to a total of 24 days of connectivity matrices. Indicative connectivity
+days each, coming to a total of 24 days of connectivity matrices. The values in these matrices indicate the probability of larval transfer between each pair of reefs in the GBR, herein referred to as connectivity strengths. Indicative connectivity
 strengths are implemented in ADRIA-CoralBlox as the mean of all available data for each
 location (i.e., mean of all 24 spawning days). While the connectivity strengths do not vary
 from year to year within each ADRIA-CoralBlox simulation, they do vary between reefs which
@@ -351,29 +351,14 @@ investigations into the influence of connectivity strength and its role in drivi
 processes.
 
 To assess the impact of reef connectivity on modelled outcomes we summarise inter-reef
-connections using the total strength of connections and the ratio of source-to-sink
-connectivity for each reef. The ratio of source-to-sink connectivity ($O:I$) for a target
+connections using weighted connectivity metrics (incoming and outgoing) and the ratio of source-to-sink
+connectivity for each reef. Weighted incoming connectivity is calculated by summing the product of each connection strength incoming to a target reef and the mean timeseries absolute coral cover (km^2^) of each matching source reef. This metric provides an approximation of overall larval flow into a reef, with high values indicating the target reef is supplied high volumes of larvae via strong connections and low values indicating the target reef has weak (or no) incoming connections or is supplied by small source populations. Weighted outgoing connectivity is calculated as the product of outgoing connectivity strength from a target reef and the mean timeseries absolute coral cover (km^2^) of the target reef, representing the larval flow leaving the target reef population. A limitation of these weighted connectivity metrics is that they do not incorporate the proportion of the source reef's population that is reproducing and producing larvae, instead taking the total coral cover area as an indicator of larval productivity.
+The ratio of source-to-sink connectivity ($O:I$) for a target
 reef represents the strength of the reef's outgoing larval flow relative to it's incoming
-larval flow (@eq-so-to-si). If a reef has no incoming connections, the $O:I$ equals the
-$S_O/N_O$ value. Incoming connections in this calculation, do not directly represent the
-larval supply gained as the population from which connections are coming from is not
+larval flow. This is calculated as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where S represents the sum of connectivity pobabilities, N represents the number of connections, O denotes outgoing connectivity from the target reef and I denotes incoming connectivity to the target reef. If a reef has no incoming connections, the $O:I$ equals the $S_O/N_O$ value. Incoming connections in this calculation, do not directly represent the
+larval supply gained as the breeding populations from which connections are coming from are not
 represented. A source-to-sink ratio greater than 1 (a value greater than 0 on a log scale)
 indicates a reef has greater outgoing than incoming larval flow.
-
-$$
-O:I = \frac{S_O/N_O}{S_I/N_I}
-$$ {#eq-so-to-si}
-
-Where:
-
--   $S$ is the sum of outgoing and incoming connectivity, indicating the total connectivity
-    strength.
-
--   $N$ denotes the number of connections.
-
--   $O$ denotes outgoing (source) connections from a reef.
-
--   $I$ denotes incoming (sink) connections to a reef.
 
 ### Time series clustering
 
@@ -408,20 +393,17 @@ Reefs in each time series cluster were compared to identify characteristics that
 between Low, Medium and High clusters. These characteristics include reef median depth,
 mean time series DHW, Pearson’s correlation between total coral cover and inverse DHW time
 series, proportion of coral habitable area occupied by corals in the first timestep, ratio
-of source-to-sink larval connectivity and total strength of all larval connections between
-reefs.
+of source-to-sink larval connectivity and weighted incoming connectivity.
 
 #### Partial Dependence Analysis
 
-Partial Dependence Analysis was conducted to understand the relationship between individual
-features and bioregion-scale time series cluster predictions using a trained Random Forest
+Partial Dependence Analysis was conducted to understand the relationship between features and bioregion-scale time series cluster predictions using a trained Random Forest
 (RF) classifier [@friedman2001]. The analysis utilised the reef characteristics of interest
-as the predictors, including the median reef depth, mean DHW for the given GCM, total
-connectivity strength, and the outgoing-to-incoming connectivity ratio. The full dataset
+as the predictors, including the median reef depth, mean DHW for the given GCM, Log10 - weighted incoming connectivity, Log10 - weighted outgoing connectivity, and Log10 - outgoing-to-incoming connectivity ratio. The full dataset
 consisted of the time series cluster assignment of each of the 2429 reefs under the five
 GCMs explored, for a total of 12,145 samples. The dataset was randomly split into training
 (60%) and testing (40%) subsets to ensure model generalisability. The RF classifier achieved
-99% accuracy on the training set and 66% on the test set.
+99% accuracy on the training set and 62% on the test set.
 
 While 99% accuracy suggests the classifier is overfit to the training data, the 66% test
 accuracy indicates a meaningful relationship between modelled reef characteristics and their
@@ -429,7 +411,7 @@ assigned clusters has been captured. A 3-fold cross-validation was also conducte
 at a similar 67% accuracy rate. The consistent level of accuracy across test and
 cross-validation demonstrates the generalised performance of the RF classifier is reliable.
 Furthermore, F1 performance scores for Low, Medium, and High clusters were determined to be
-0.7, 0.57 and 0.68 respectively, indicating balanced performance across the cluster
+0.7, 0.5 and 0.65 respectively, indicating balanced performance across the cluster
 categories. Lower performance with the Medium cluster reflects the inherent difficulty of
 classifying transitional states in natural systems. For management applications, this level
 of performance provides valuable decision support when combined with expert knowledge and
@@ -444,7 +426,9 @@ for all three cluster classes using the trained RF classifier, and (3) the mean 
 probability for each class across all test observations. The median was also assessed (not
 shown) but was found not to substantially influence the interpretation of results. The
 process isolates the marginal effect of each predictor by averaging over the natural
-distribution of all other representative reef characteristics in the test dataset.
+distribution of all other representative reef characteristics in the test dataset. Additionally,
+to assess possible interaction between reef depth and incoming connectivity, two-way partial
+dependence analysis was performed on grids along the range of these two features.
 
 ### Carbonate budget analysis
 
@@ -554,8 +538,7 @@ bioregions reef mean DHW levels increased as cluster cover decreased
 in their reefs' initial proportion of habitable area occupied by corals and cluster
 assignment (@sfig-access-esm1-5-bioregion-initialproportion). Across most bioregions there
 were not consistent differences between clusters in connectivity metrics such as Log-10
-source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and Log-10 total
-connectivity strength (@sfig-access-esm1-5-bioregion-totalconnectivity).
+source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and Log-10 weighted incoming connectivity (@sfig-access-esm1-5-bioregion-weightedincoming).
 
 #### Partial dependence
 
@@ -563,11 +546,11 @@ A Partial Dependence Analysis was conducted using a Random Forest classifier to 
 reef characteristics that influence its temporal behaviour, and thus its cluster assignment
 into Low, Medium, or High. Bioregion classification was excluded from this analysis as a
 predictor due to its categorical nature providing limited interpretable information, and is
-further justified by its low feature importance score of 10%, the lowest of all predictors
+further justified by its low feature importance score of 9%, the lowest of all predictors
 (@fig-ts-cluster-pdp; Panel A). Reef median depth and mean DHW level have the highest
-feature importance scores, accounting for 25% and 23% predictive importance respectively.
-The carrying capacity of a reef accounts for 14.3% feature importance. Connectivity strength
-and source-to-sink ratio both had feature importance scores of \~13%.
+feature importance scores, accounting for 25% and 16% predictive importance respectively.
+Weighted incoming and outgoing connectivity (Log10) features account for \~13.6% feature importance.
+The carrying capacity of a reef accounts for 12.3% feature importance. Reef source-to-sink ratio (Log10) both had feature importance scores of \~10%.
 
 Reefs have the greatest probability of being clustered into Low if shallow, and High at
 greater depths, with medium cluster reefs exhibiting a lower, and more stable, assignment
@@ -576,25 +559,25 @@ probability of a reef being categorised as High can be seen between 10 and 15 me
 This is at the edge of the depth range used in current deployment efforts [@howlett2021;
 @randall2021; @whitman2024] but indicates a depth range that could be adopted to maximise
 longevity and benefits of, for example, coral seeding activities. Across mean DHW values,
-assignment probability is roughly equal across the three clusters up to 6 DHW. A sharp
-delineation can be seen \> 6 DHW when comparing High with other clusters, with lower
+assignment probability is roughly equal across the three clusters up to 5 DHW. A sharp
+delineation can be seen \> 5 DHW when comparing High with other clusters, with lower
 assignment probability (\~25%) compared to Medium and Low (\~40%) (@fig-ts-cluster-pdp;
 Panel B).
 
-Analyses for carrying capacity, source-to-sink ratio and total connectivity strength
-indicate that their influence on its categorical assignment is concentrated at the low range
-of predictor values (@fig-ts-cluster-pdp). This aligns with the right-skewed distributions
-of values across reefs for these three predictor variables. Beyond this lower range, the
-partial dependence for these reef characteristics becomes near constant, contrary to their
+Analyses for source-to-sink ratio and weighted incoming and outgoing connectivity metrics suggest that reefs with greater outgoing connectivity and lower incoming connectivity levels have higher probability of being clustered into the Low cluster category compared to other reefs. Additionally, two-way analyses revealed an interaction between reef depth and incoming connectivity in determining cluster category assignment, particularly at the high depth range (@fig-ts-cluster-pdp-twoway). Two-way analyses revealed that reefs at greater than 10m depth are unlikely to be clustered into the Low cluster category, regardless of their incoming connectivity levels. However, at greater than 10m depth reefs with higher incoming connectivity are more likely to be assigned to a High cluster, while reefs with low incoming connectivity are more likely to be assigned to a Medium cover cluster (@fig-ts-cluster-pdp-twoway).
+
+Individual feature analysis for carrying capacity indicates that its influence on cluster assignment is concentrated at the low range
+of predictor values (@fig-ts-cluster-pdp). This aligns with the right-skewed distribution
+of carrying capacity across reefs for these three predictor variables. Beyond this low-end range, the
+partial dependence becomes near constant, contrary to their
 feature importance scores which suggest these characteristics do contribute important
 information to predictions. The contrasting outcomes indicate that interactions between
 other reef characteristics are driving behaviour rather than a strong influence from a
 single individual characteristic.
 
 Assessing random forest prediction accuracy across predictor values, summarised by
-bioregions, reveals increasing performance as bioregion mean reef depth and carrying
-capacity increase (@sfig-rf-predictor-perf). This highlights where there is unexplained
-variation between reefs that contributes to cluster assignment and reef cover outcomes but
+bioregions, reveals increasing performance as bioregion mean reef depth increases (@sfig-rf-predictor-perf). This highlights that there may be unexplained
+variation between reefs in shallow bioregions that contributes to cluster assignment and reef cover outcomes but
 is not captured by our included predictor variables.
 
 ![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
@@ -610,7 +593,7 @@ predictor value distribution across
 reefs.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp fig-align="center"
 width="14.82cm"}
 
-![Partial dependence plot indicating the probability of cluster assignment along interacting values of median reef depth (metres) and Log10 weighted incoming connectivity. Colour indicates the probability of assignment to each cluster, with lighter colours indicating higher probability of assignment. Panel A shows the probability of assignment for the Low cover cluster, Panel B shows Medium cover cluster and Panel C shows assignment probability for the High cluster category. Probability values for each cluster are generated by the random forest classifier using each combination of depth and incoming connectivity values along the axes at 50 grid points. The actual distributions of depth and incoming connectivity values are displayed in panels D and E respectively.](../figs/ts_cluster_rf_twoway_depth_conn_pdp.png){#fig-ts-cluster-pdp-twoway fig-align="center"
+![Partial dependence plot indicating the probability of cluster assignment along interacting values of median reef depth (metres) and Log10 weighted incoming connectivity. Colour indicates the probability of assignment to each cluster, with lighter colours indicating higher probability of assignment. Panel A shows the probability of assignment for the Low cover cluster, Panel B shows Medium cover cluster and Panel C shows assignment probability for the High cluster category. Probability values for each cluster are generated by the random forest classifier using each combination of depth and incoming connectivity values along the axes at 50 grid points. The actual distributions of depth and incoming connectivity values for reefs are displayed in panels D and E respectively.](../figs/ts_cluster_rf_twoway_depth_conn_pdp.png){#fig-ts-cluster-pdp-twoway fig-align="center"
 width="14.82cm"}
 
 ## Reef carbonate budget
@@ -618,7 +601,7 @@ width="14.82cm"}
 Reef median depth had a moderate positive correlation with the number of years a reef
 maintains coral cover above the assumed carbonate budget threshold required to sustain live
 coral cover ($\theta_{0}$). Greater median depth was a key characteristic defining reefs
-that sustain coral cover above $\theta_{0}$ (@fig-access-esm1-5-depth-conn-carbonate).
+that sustain coral cover above $\theta_{0}$ (@fig-access-esm1-5-depth-conn-carbonate; @sfig-access-esm1-5-mean-carb-budget).
 Unsurprisingly, the number of years above $\theta_0$ substantially decreased as $\theta_0$
 is increased, as does the Spearman's correlation. Decreasing correlation levels are likely
 due to an increasing number of reefs being unable to maintain coral cover above $\theta_0$
@@ -702,13 +685,13 @@ no explicit justifications for this depth range, restoration depth is likely con
 snorkelling and diving deployment and monitoring logistical accessibility, visual
 identification of sites from the surface, in combination with tourism return value. Our
 results suggest that of the assessed reefs occurring within the 1-10m depth range (1736
-reefs), 62% (1082) of reefs fall into the low and medium clusters (across all GCMs at the
+reefs), 57% (991) of reefs fall into the low and medium clusters (across all GCMs at the
 GBRMPA management region scale), with many unable to maintain positive carbonate budgets
 under future conditions. Partial dependence analysis revealed a range of depths from 10-15m
 where the probability of a reef being clustered into the High cover cluster increased
-substatially. Considering this 10-15m depth range when assessing possible restoration sites
+substatially. Additionally, two-way partial dependence analysis revealed that high incoming connectivity is important for High cluster assignment for reefs at depths of \>10m. Considering this 10-15m depth range, and targetting well connected reefs, when assessing possible restoration sites
 may reduce the exposure of planted and seeded corals to high thermal stress, while still
-maintaining effective logistical access to sites. Reef intervention planning is a complex
+maintaining effective logistical access to sites. Although transient, and difficult to measure, properties such as reef connectivity are likely to increase uncertainty in intervention planning to a greater degree than environmental characteristics such as reef depth. Reef intervention planning is a complex
 and challenging decision-making process [@anthony2020], and our results suggest that
 deployment site depth may be an important factor to additionally consider when assessing the
 long-term resilience of sites.
@@ -718,17 +701,16 @@ the degree of larval connectivity between reefs and the supply of recruits that 
 receives following disturbance [@hock2017; @mumby2008; @torres2024]. In contrast, our
 results suggest that while connectivity metrics show some levels of cluster predictor
 importance, there are few differences between resilient and non-resilient reefs in metrics
-such as source-to-sink connectivity ratio and total connectivity strength. Furthermore, our
+such as source-to-sink connectivity ratio and total connectivity strength. While there is interaction between incoming connectivity and depth in reef cluster prediction, according to available input data, there are few reefs in the GBR that occur at depths \>10m and have Log10 weighted incoming connectivity levels below 0 (@sfig-access-esm1-5-mean-carb-budget), resulting in low importance of connectivity as an individual feature for clustering across the GBR. Furthermore, our
 results suggest no relationship between connectivity strength and the ability of reefs to
 maintain positive carbonate budgets under future conditions. There has been contrasting
 evidence [@bode2018; @hock2017] surrounding whether recent generation connectivity modelling
 is able to identify reefs that are important for recovery processes, with findings dependent
 on the larval connectivity model used. These investigations were performed using prior
 generations of larval connectivity models parameterised for 2008-2013 [@hock2017] and
-1996-2002 [@bode2018] time periods. Using updated 1km^2^ resolution larval connectivity
+1996-2002 [@bode2018] time periods, without considering the influence of reef depth on resilience. Using updated 1km^2^ resolution larval connectivity
 across the whole GBR, with a limited temporal sample of particle flows, our results suggest
-that larval connectivity alone is not as important for reef resilience and recovery as
-environmental refugia such as depth.
+that larval connectivity alone may not be important or reef resilience and recovery, but should be considered in combination with more influential factors such as depth.
 
 Our findings on the importance of connectivity may differ due to the highly uncertain nature
 of larval connectivity modelling [@vogt-vincent2023], the way larval flows and juvenile
@@ -744,7 +726,7 @@ ecological-timescale patterns in coral larval dispersal, such as cumulated impli
 connectivity [@vogt-vincent2023], future investigations may find increased importance of
 both depth and reef connectivity for resilience, in line with other investigations
 [@hock2017; @torres2024]. Further improvements and research in connectivity modelling are
-necessary to provide a robust comparison of all factors influencing reef resilience.
+necessary when incorporating connectivity as a supplementary factor in reef resilience and intervention-planning analyses.
 
 ## Limitations
 
@@ -1042,14 +1024,14 @@ outgoing and incoming connectivity levels. Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-access-esm1-5-bioregion-logsosi
 fig-align="center" width="14.82cm"}
 
-![Total connectivity strength (in base-10 log scale) for reefs within each bioregion,
+![Weighted incoming connectivity (in base-10 log scale) for reefs within each bioregion,
 separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2060 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
 the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
-lines within each violin represent the median base-10 log of total connectivity strength for
-each cluster and bands represent the distribution of connectivity strength values within
+lines within each violin represent the median base-10 log of weighted incoming connectivity for
+each cluster and bands represent the distribution of connectivity values within
 each cluster. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/log_total_strength_bioregion_violin.png){#sfig-access-esm1-5-bioregion-totalconnectivity
+GCM.](../figs/ACCESS-ESM1-5/bioregion/weighted_incoming_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-weightedincoming
 fig-align="center" width="14.82cm"}
