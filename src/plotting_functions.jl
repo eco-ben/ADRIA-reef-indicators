@@ -747,7 +747,7 @@ function grouped_GCM_cluster_timeseries_plots(
         x_fig_size=fig_x_size,
         y_fig_size=fig_y_size,
         fontsize=fontsize,
-        order=[:management_area_average_latitude, :GCM]
+        order=[:management_area_average_latitude, :GCM_ECS]
     )
 
     mgmt_area = [first(df.management_area) for df in gdf]

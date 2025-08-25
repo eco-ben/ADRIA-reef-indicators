@@ -187,6 +187,7 @@ analysis_layers_long = stack(
     man_area_gcm_cluster_cols
 )
 analysis_layers_long.GCM = [first(split(name, "_")) for name in analysis_layers_long.variable]
+analysis_layers_long.GCM_ECS = [ecs_values[r.GCM] for r in eachrow(analysis_layers_long)]
 
 # Collate all cover timeseries and plot them grouped by management area
 rel_cover_arrays = [

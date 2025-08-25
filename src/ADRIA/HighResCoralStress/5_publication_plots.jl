@@ -9,13 +9,6 @@ CairoMakie.activate!()
 context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"))
 
 # ECS plot - methods
-ecs_values = Dict(
-    "EC-Earth3-Veg" => 4.30,  # Wyser et al. (2020). On the increased climate sensitivity in the EC-Earth model from CMIP5 to CMIP6
-    "ACCESS-ESM1-5" => 3.87,  # Ziehn et al. (2020). The Australian Earth System Model: ACCESS-ESM1.5
-    "ACCESS-CM2" => 4.66,  # Grose et al. (2020). A CMIP6-based multi-model downscaling ensemble to underpin climate change services in Australia
-    "GFDL-CM4" => 4.1,  # Sentman et al. (2025). Quantifying Equilibrium Climate Sensitivity to Atmospheric Chemistry and Composition Representations in GFDL-CM4.0 and GFDL-ESM4.1
-    "NorESM2-MM" => 2.5  # Seland et al. (2020). Overview of the Norwegian Earth System Model (NorESM2) and key climate response of CMIP6 DECK, historical, and scenario simulations
-)
 ecs = ecs_plot(collect(values(ecs_values)), [2.5, 5.1], [2.1, 7.7], collect(keys(ecs_values)))
 save(joinpath(figs_path, "ecs_plot.png"), ecs, px_per_unit=dpi)
 
