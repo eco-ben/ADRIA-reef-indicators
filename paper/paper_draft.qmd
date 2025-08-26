@@ -67,6 +67,7 @@ crossref:
 editor:
   markdown:
     wrap: 92
+    canonical: true
 ---
 
 # Introduction
