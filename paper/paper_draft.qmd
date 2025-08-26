@@ -33,12 +33,13 @@ abstract: |
     patterns did not correlate with increases in maintenance of positive carbonate budgets.
     Instead, reef depth emerged as the primary predictor of cover-time series resilience and
     maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
-    refugia that reduce bleaching impacts. Interaction between reef depth and incoming connectivity was found to influence reef temporal behaviour. Our findings suggest that depth provides critical
-    protection against thermal stress, contrasting current restoration practices that primarily
-    target easily accessible shallow sites. These results have important implications for
-    reef management, indicating that depth refugia should be prioritized for further
-    consideration in conservation planning alongside connectivity considerations to maximize
-    coral survival under continuing climate change.
+    refugia that reduce bleaching impacts. Interaction between reef depth and incoming 
+    connectivity was found to influence reef temporal behaviour. Our findings suggest that 
+    depth provides critical protection against thermal stress, contrasting current restoration
+    practices that primarily target easily accessible shallow sites. These results have 
+    important implications for reef management, indicating that depth refugia should be 
+    prioritized for further consideration in conservation planning alongside connectivity 
+    considerations to maximize coral survival under continuing climate change.
 keywords:
   - Coral reef
   - Climate change
