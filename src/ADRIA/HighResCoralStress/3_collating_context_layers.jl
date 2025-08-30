@@ -152,6 +152,8 @@ context_layers.initial_proportion = (
     (context_layers.area .* context_layers.k)
 )
 
+context_layers.carrying_capacity = context_layers.area .* context_layers.k
+
 areas = gbr_dom_filtered.area
 thresholds = 10:1:20
 

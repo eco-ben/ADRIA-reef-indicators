@@ -15,6 +15,7 @@ context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbona
 context_layers.gbr .= "Great Barrier Reef"
 context_layers.gbr_average_latitude .= 0.0
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
+context_layers.log_carrying_capacity = log10.(context_layers.carrying_capacity)
 
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID.∈[context_layers.UNIQUE_ID], :]
@@ -379,3 +380,63 @@ n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reef
 
 n_consistent_reefs = combine(groupby(context_layers[context_layers.man_area_consistent_reefs.!="variable", :], :man_area_consistent_reefs), nrow => :nrow)
 n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reefs.nrow) .* 100
+
+# gcm_bioregions = combine(groupby(context_layers, :bioregion)) do gdf
+#     (
+#         nrow = nrow(gdf),
+#         bior_average_lat = mean(gdf.bioregion_average_latitude),
+#         Low = sum(gdf[:, "$(GCM)_bioregion_cluster_cats"] .== "low") / nrow(gdf),
+#         Medium = sum(gdf[:, "$(GCM)_bioregion_cluster_cats"] .== "medium") / nrow(gdf),
+#         High = sum(gdf[:, "$(GCM)_bioregion_cluster_cats"] .== "high") / nrow(gdf),
+#         depth = mean(gdf[:, "depth_med"]),
+#         incoming_conn = mean(gdf[:, "$(GCM)_weighted_incoming_conn"])
+#     )
+# end
+
+# gcm_bioregions = sort(gcm_bioregions, :bior_average_lat)
+
+# fig = Figure(size = (14.82centimetre, 17centimetre), fontsize=fontsize)
+# ax = Axis(
+#     fig[1,1],
+#     xticks = ([1,2,3], ["Low", "Medium", "High"]),
+#     yticks = (1:nrow(gcm_bioregions), label_lines.(gcm_bioregions.bioregion; l_length=15))
+# )
+# heatmap!(ax, Matrix(gcm_bioregions[:, ["Low", "Medium", "High"]])')
+# ax2 = Axis(
+#     fig[1,2],
+#     xticksvisible = false,
+#     xticklabelsvisible = false,
+#     yticksvisible = false,
+#     yticklabelsvisible = false
+# )
+# heatmap!(ax2, fill(1, nrow(gcm_bioregions)), 1:nrow(gcm_bioregions), gcm_bioregions[:, "depth"])
+# ax3 = Axis(
+#     fig[1,3],
+#     xticksvisible = false,
+#     xticklabelsvisible = false,
+#     yticksvisible = false,
+#     yticklabelsvisible = false
+# )
+# heatmap!(ax3, fill(1, nrow(gcm_bioregions)), 1:nrow(gcm_bioregions), gcm_bioregions[:, "incoming_conn"])
+
+# gcm_reefs_long = reefs_long[contains.(reefs_long.variable, [GCM]), :]
+# gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
+
+# fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
+# ax1 = Axis(
+#     fig[1,1]
+# )
+# scat1 = scatter!(ax1, gcm_reefs_long.depth_med, gcm_reefs_long.value, color=categorical(gcm_reefs_long.variable).refs, alpha=0.3)
+# ax2 = Axis(
+#     fig[1,2]
+# )
+# scat2 = scatter!(ax2, gcm_reefs_long[:, "$(GCM)_weighted_incoming_conn_log"], gcm_reefs_long.value, color=categorical(gcm_reefs_long.variable).refs, alpha=0.3)
+# Colorbar(fig[0, 1:2], scat1, label = "Carbonate budget threshold [%]", vertical = false, tellwidth=false, tellheight=false, spinewidth=0.0)
+
+# Label(fig[1, 0], "Number of years above θ", tellwidth=false, tellheight = false, rotation = π / 2)
+# Label(fig[2, 1], "Median depth [m]", tellwidth=false, tellheight=false)
+# Label(fig[2,2], "Log weighted incoming connectivity", tellwidth=false, tellheight=false)
+
+# rowsize!(fig.layout, 2, Relative(0.025))
+# rowsize!(fig.layout, 0, Relative(0.025))
+# colsize!(fig.layout, 0, Relative(0.025))

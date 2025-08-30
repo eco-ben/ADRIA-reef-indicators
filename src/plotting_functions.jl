@@ -611,6 +611,18 @@ function cluster_analysis_plots(
         px_per_unit=dpi
     )
 
+    carrying_capacity_violin = grouped_cluster_ridgeline_plot(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("log_carrying_capacity");
+        xlabel="Log10 carrying capacity", ylabel="$(grouping_fn)", overlap=overlap
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "carrying_capacity_$(grouping)_violin.png"),
+        carrying_capacity_violin,
+        px_per_unit=dpi
+    )
+
     dhw_cover_cor_violin = grouped_cluster_ridgeline_plot(
         analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
