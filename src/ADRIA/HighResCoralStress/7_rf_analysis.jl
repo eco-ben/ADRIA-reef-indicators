@@ -445,6 +445,75 @@ function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFram
     return fig
 end
 
+
+function plot_two_way_pdp(two_way_pdp_results, test_X, feature1, feature2, f1_label, f2_label; fig_sizes=fig_sizes)
+
+    grid_1 = sort(unique(first.(two_way_pdp_results.grid_1_grid_2_product)))
+    grid_2 = sort(unique(last.(two_way_pdp_results.grid_1_grid_2_product)))
+    # grid_2 = 10 .^ grid_2
+    # depth_conn_two_way_pdp.grid_1_grid_2_product = vcat(collect(Iterators.product(grid_1, grid_2))...)
+
+    color_range = extrema(Matrix(two_way_pdp_results[:, Not(:grid_1_grid_2_product)]))
+    rename!(two_way_pdp_results, "low" => "Low", "med" => "Medium", "high" => "High")
+    base_cmap = cgrad(:viridis, range(color_range[1], color_range[2], 256))
+
+    fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
+    for (c, class_label) in enumerate(["Low", "Medium", "High"])
+        res_matrix = Matrix{Union{Missing, Float64}}(missing, (length(grid_1), length(grid_2)))
+        gridlayout = GridLayout(fig[1,c])
+        for (g1, grid_1_val) in enumerate(grid_1)
+            for (g2, grid_2_val) in enumerate(grid_2)
+                gval = two_way_pdp_results[two_way_pdp_results.grid_1_grid_2_product .== [(grid_1_val, grid_2_val)], class_label]
+                res_matrix[g1, g2] = first(gval)
+            end
+        end
+
+        ax = Axis(
+            gridlayout[1,1],
+            xlabel = "",
+            ylabel = ""
+        )
+        c3 = contourf!(
+            grid_1,
+            grid_2,
+            res_matrix;
+            colormap=base_cmap
+        )
+        abc = ["A","B","C"]
+        Label(gridlayout[1,1, Top()], "($(abc[c])) $(class_label) cluster \n ", font=:bold)
+    end
+
+    # ax.ytickformat = x -> string.(round.(10 .^ x; digits = 2))
+    Colorbar(fig[0,:], limits=color_range, colormap=base_cmap, label="Probability of target cluster assignment", size=6, spinewidth=0.0, vertical=false)
+    Label(fig[1, 0], f2_label, tellwidth=false, tellheight=false, rotation=π / 2)
+    Label(fig[2, 1:3], f1_label, tellheight=false, tellwidth=false)
+    rowsize!(fig.layout, 2, Relative(0.01))
+    rowsize!(fig.layout, 0, Relative(0.01))
+
+    gridlayout2 = GridLayout(fig[3, 1:3])
+    ax2 = Axis(
+        gridlayout2[1, 1],
+        ylabel="",
+        xlabel=f1_label
+    )
+    hist!(ax2, test_X[:, feature1]; color=(:gray))
+    Label(gridlayout2[1,1, TopLeft()], "D", font=:bold)
+
+    ax3 = Axis(
+        gridlayout2[1, 2],
+        ylabel="",
+        xlabel=f2_label
+    )
+    hist!(ax3, test_X[:, feature2]; color=(:gray))
+    Label(gridlayout2[1,2, TopLeft()], "E", font=:bold)
+
+    Label(fig[3, 0], "Number of samples", tellwidth=false, tellheight=false, rotation=π / 2)
+    rowsize!(fig.layout, 3, Relative(0.25))
+    colsize!(fig.layout, 0, Relative(0.01))
+
+    return fig
+end
+
 pdp_vals = OrderedDict()
 for n in names(X2)
     pdp_vals[n] = partial_dependence_multiclass(mach, test_X, n; n_grid=50)
@@ -481,74 +550,21 @@ save(
 )
 
 depth_conn_two_way_pdp = partial_dependence_two_way(mach, test_X, [:depth_med, :weighted_incoming_conn])
-grid_1 = sort(unique(first.(depth_conn_two_way_pdp.grid_1_grid_2_product)))
-grid_2 = sort(unique(last.(depth_conn_two_way_pdp.grid_1_grid_2_product)))
-# grid_2 = 10 .^ grid_2
-# depth_conn_two_way_pdp.grid_1_grid_2_product = vcat(collect(Iterators.product(grid_1, grid_2))...)
-
-color_range = extrema(Matrix(depth_conn_two_way_pdp[:, Not(:grid_1_grid_2_product)]))
-rename!(depth_conn_two_way_pdp, "low" => "Low", "med" => "Medium", "high" => "High")
-base_cmap = cgrad(:viridis, range(color_range[1], color_range[2], 256))
-
-fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
-for (c, class_label) in enumerate(["Low", "Medium", "High"])
-    res_matrix = Matrix{Union{Missing, Float64}}(missing, (length(grid_1), length(grid_2)))
-    gridlayout = GridLayout(fig[1,c])
-    for (g1, grid_1_val) in enumerate(grid_1)
-        for (g2, grid_2_val) in enumerate(grid_2)
-            gval = depth_conn_two_way_pdp[depth_conn_two_way_pdp.grid_1_grid_2_product .== [(grid_1_val, grid_2_val)], class_label]
-            res_matrix[g1, g2] = first(gval)
-        end
-    end
-
-    ax = Axis(
-        gridlayout[1,1],
-        xlabel = "",
-        ylabel = ""
-    )
-    c3 = contourf!(
-        grid_1,
-        grid_2,
-        res_matrix;
-        colormap=base_cmap
-    )
-    abc = ["A","B","C"]
-    Label(gridlayout[1,1, Top()], "($(abc[c])) $(class_label) cluster \n ", font=:bold)
-end
-
-# ax.ytickformat = x -> string.(round.(10 .^ x; digits = 2))
-Colorbar(fig[0,:], limits=color_range, colormap=base_cmap, label="Probability of target cluster assignment", size=6, spinewidth=0.0, vertical=false)
-Label(fig[1, 0], "Log10 weighted incoming connectivity", tellwidth=false, tellheight=false, rotation=π / 2)
-Label(fig[2, 1:3], "Median depth [m]\n ", tellheight=false, tellwidth=false)
-rowsize!(fig.layout, 2, Relative(0.01))
-rowsize!(fig.layout, 0, Relative(0.01))
-
-gridlayout2 = GridLayout(fig[3, 1:3])
-ax2 = Axis(
-    gridlayout2[1, 1],
-    ylabel="",
-    xlabel="Median depth [m]"
-)
-hist!(ax2, test_X.depth_med; color=(:gray))
-Label(gridlayout2[1,1, TopLeft()], "D", font=:bold)
-
-ax3 = Axis(
-    gridlayout2[1, 2],
-    ylabel="",
-    xlabel="Log10 weighted incoming connectivity"
-)
-hist!(ax3, test_X.weighted_incoming_conn; color=(:gray))
-Label(gridlayout2[1,2, TopLeft()], "E", font=:bold)
-
-Label(fig[3, 0], "Number of samples", tellwidth=false, tellheight=false, rotation=π / 2)
-rowsize!(fig.layout, 3, Relative(0.25))
-colsize!(fig.layout, 0, Relative(0.01))
-
+fig = plot_two_way_pdp(depth_conn_two_way_pdp, test_X, :depth_med, :weighted_incoming_conn, "Median depth [m]", "Log10 weighted incoming connectivity")
 save(
-    joinpath(figs_path, "ts_cluster_rf_twoway_depth_conn_pdp.png"),
+    joinpath(figs_path, "ts_cluster_rf_twoway_depth_incomingconn_pdp.png"),
     fig,
     px_per_unit=dpi
 )
+
+depth_conn_two_way_pdp = partial_dependence_two_way(mach, test_X, [:depth_med, :weighted_outgoing_conn])
+fig = plot_two_way_pdp(depth_conn_two_way_pdp, test_X, :depth_med, :weighted_outgoing_conn, "Median depth [m]", "Log10 weighted outgoing connectivity")
+save(
+    joinpath(figs_path, "ts_cluster_rf_twoway_depth_outgoingconn_pdp.png"),
+    fig,
+    px_per_unit=dpi
+)
+
 
 ### The below notes are from a previous version. This version was ammended to ensure consistent fontsize/dpi.
 # Above two figures are manually joined together and given panel labels A and B.
