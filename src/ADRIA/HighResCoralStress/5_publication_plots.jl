@@ -35,9 +35,11 @@ dhw_arrays = [
 dhw_arrays = concatenatecubes(dhw_arrays, Dim{:GCM}(GCMs))
 dhw_arrays = rebuild(dhw_arrays, metadata=dhw_timeseries_properties)
 
-context_layers = sort(context_layers, :management_area)
+context_layers = sort(context_layers, [:management_area_average_latitude]; rev=true)
 
-dhw_arrays = dhw_arrays[sites=At(context_layers.UNIQUE_ID)]
+GCMs = collect(keys(sort(ecs_values, byvalue=true, rev=true)))
+
+dhw_arrays = dhw_arrays[sites=At(context_layers.UNIQUE_ID), GCM=At(GCMs)]
 
 fig = Figure(
     size=(fig_sizes["gcm_timeseries_width"], fig_sizes["gcm_timeseries_height"] * 1.3),
@@ -89,7 +91,7 @@ map(x -> hideydecorations!(x, ticks=false, ticklabels=false, grid=false), filter
 linkaxes!(filter(x -> x isa Axis, fig.content)...)
 
 legend_entries = []
-for (i, col) in enumerate([:green, :orange, :blue, :red])
+for (i, col) in enumerate([:orange, :green, :red, :blue])
     LE = LineElement(; color=col, marker=:circle)
     push!(legend_entries, [LE])
 end
@@ -97,7 +99,7 @@ end
 Legend(
     fig[length(GCMs)+1, 1],
     legend_entries,
-    levels(man_areas_categorical),
+    ["Far Northern", "Cairns/Cooktown", "Mackay/Capricorn", "Townsville/Whitsunday"],
     nbanks=2,
     tellwidth=false,
     padding=(2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
