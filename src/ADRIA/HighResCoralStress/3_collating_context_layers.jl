@@ -43,6 +43,7 @@ col_types = [
     Float64,
     Int64,
     Float64,
+    Float64,
     Float64
 ]
 
@@ -59,7 +60,8 @@ source_to_sink = DataFrame(
         :total_strength,
         :total_count,
         :total_comb,
-        :so_to_si
+        :so_to_si,
+        :self_strength
     ]
 )
 
@@ -71,11 +73,14 @@ end
 for reef in eachindex(reefs)
     reef_id = reefs[reef]
 
-    if !(reef_id ∈ context_layers.UNIQUE_ID)
+    if reef_id ∉ context_layers.UNIQUE_ID
         continue
     end
 
     outgoing = connectivity_matrix[connectivity_matrix.Source.==reef_id, :]
+    self_strength = first(outgoing[1, outgoing.Sink .== reef_id].data) # Calculate larval retention
+
+    outgoing = outgoing[:, outgoing.Sink .!= reef_id] # Ensure outgoing connectivity does not include retained larvae
     incoming = connectivity_matrix[:, connectivity_matrix.Sink.==reef_id]
 
     income_strength = sum(incoming)
@@ -135,12 +140,14 @@ for reef in eachindex(reefs)
             total_strength,
             total_count,
             total_comb,
-            so_to_si
+            so_to_si,
+            self_strength
         ]
     )
 end
 
 context_layers = leftjoin(context_layers, source_to_sink; on=:UNIQUE_ID, order=:left)
+context_layers.self_strength .= ifelse.(context_layers.self_strength .== 0, 1*10^-5, context_layers.self_strength) # Need to add a tiny buffer to reefs that have 0 retention probability
 
 context_layers.initial_coral_cover = vec(
     sum(gbr_dom.init_coral_cover[locations=At(context_layers.UNIQUE_ID)]; dims=1).data' .*

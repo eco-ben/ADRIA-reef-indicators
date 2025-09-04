@@ -659,20 +659,32 @@ function cluster_analysis_plots(
         px_per_unit=dpi
     )
 
-    analysis_layers_depth = analysis_layers[analysis_layers.depth_mean.!=7, :]
-    groups_too_few_clusters_depth = grouping_counts(
-        grouping,
-        analysis_layers_depth,
-        "$(GCM)_$(grouping)_clusters",
-        3,
-        5
+    outgo_conn = grouped_cluster_ridgeline_plot(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("log_out_strength");
+        xlabel="Log10 outgoing connectivity strength", ylabel="$(grouping_fn)", overlap=overlap
     )
-    analysis_layers_depth = analysis_layers_depth[
-        analysis_layers_depth[:, grouping].∉[groups_too_few_clusters_depth], :
-    ]
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "outgoing_strength_$(grouping)_violin.png"),
+        outgo_conn,
+        px_per_unit=dpi
+    )
+
+    self_conn = grouped_cluster_ridgeline_plot(
+        analysis_layers,
+        Symbol("$(GCM)_$(grouping)_clusters"),
+        grouping, Symbol("log_self_strength");
+        xlabel="Log10 larval retention probability", ylabel="$(grouping_fn)", overlap=overlap
+    )
+    save(
+        joinpath(fig_out_dir, "$(grouping)", "self_conn_$(grouping)_violin.png"),
+        self_conn,
+        px_per_unit=dpi
+    )
 
     depth_median_violin = grouped_cluster_ridgeline_plot(
-        analysis_layers_depth,
+        analysis_layers,
         Symbol("$(GCM)_$(grouping)_clusters"),
         grouping, Symbol("depth_med");
         xlabel="Median Depth [m]", ylabel="$(grouping_fn)", overlap=overlap

@@ -9,6 +9,8 @@ context_layers = GDF.read(joinpath(output_path, "analysis_context_layers_carbona
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_total_strength = log10.(context_layers.total_strength)
 context_layers.log_depth_med = log10.(context_layers.depth_med)
+context_layers.log_out_strength = log10.(context_layers.out_strength)
+context_layers.log_self_strength = log10.(context_layers.self_strength)
 
 dhw_scenarios = open_dataset(joinpath(gbr_domain_path, "DHWs/dhwRCP45.nc"))
 GCMs = dhw_scenarios.dhw.properties["members"]
@@ -25,22 +27,21 @@ gcm_dhw_cols = [Symbol("$(GCM)_mean_dhw") for GCM in GCMs]
 gcm_bioregion_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
 
 collated_reef_properties = Vector{DataFrame}(undef, length(GCMs))
-target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :log_so_to_si, :bioregion, :bioregion_average_latitude]
+target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :log_so_to_si, :bioregion, :bioregion_average_latitude, :log_out_strength, :log_self_strength]
 reef_properties = context_layers[:, target_cols]
 reef_properties.abs_k_area = context_layers.area .* context_layers.k
 for (i, GCM) in enumerate(GCMs)
     dhw_col = Symbol("$(GCM)_mean_dhw")
     bio_cluster_col = Symbol("$(GCM)_bioregion_clusters")
     weighted_incom_col = Symbol("$(GCM)_weighted_incoming_conn_log")
-    weighted_outgoing_col = Symbol("$(GCM)_weighted_outgoing_conn_log")
+    # weighted_outgoing_col = Symbol("$(GCM)_weighted_outgoing_conn_log")
 
-    bio_cluster_details = context_layers[:, [dhw_col, bio_cluster_col, weighted_incom_col, weighted_outgoing_col]]
+    bio_cluster_details = context_layers[:, [dhw_col, bio_cluster_col, weighted_incom_col]]
     rename!(
         bio_cluster_details, 
         dhw_col => :mean_dhw, 
         bio_cluster_col => :cluster, 
-        weighted_incom_col => :weighted_incoming_conn,
-        weighted_outgoing_col => :weighted_outgoing_conn
+        weighted_incom_col => :weighted_incoming_conn
     )
     bio_cluster_details.GCM .= GCM
     bio_cluster_details.cluster .= categorical(bio_cluster_details.cluster)
@@ -56,7 +57,7 @@ reef_properties.GCM .= categorical(reef_properties.GCM)
 reef_properties.bioregion .= categorical(reef_properties.bioregion)
 reef_properties.abs_k_area ./= 1e6  # Convert to km^2 for clarity
 
-target_cols = [:depth_med, :log_so_to_si, :bioregion, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :weighted_outgoing_conn]
+target_cols = [:depth_med, :log_so_to_si, :bioregion, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :log_out_strength, :log_self_strength]
 Xs = reef_properties[:, target_cols]
 y = vec(reef_properties[:, :cluster])
 y = Int64.(getfield.(y, :ref))
@@ -81,7 +82,8 @@ X2 = coerce(
     :mean_dhw => Continuous,
     :abs_k_area => Continuous,
     :weighted_incoming_conn => Continuous,
-    :weighted_outgoing_conn => Continuous
+    :log_out_strength => Continuous,
+    :log_self_strength => Continuous
 )
 
 readable_names = OrderedDict(
@@ -91,7 +93,9 @@ readable_names = OrderedDict(
     "abs_k_area" => "Carrying Capacity",
     "log_so_to_si" => "Log10 Outgoing to Incoming\nConnectivity Ratio",
     "weighted_incoming_conn" => "Log10 Weighted\nIncoming Connectivity",
-    "weighted_outgoing_conn" => "Log10 Weighted\nOutgoing Connectivity"
+    "weighted_outgoing_conn" => "Log10 Weighted\nOutgoing Connectivity",
+    "log_out_strength" => "Log10 Outgoing Connectivity\n Strength",
+    "log_self_strength" => "Log10 Larval Retention\n Probability"
 )
 
 # General (naive) overview
@@ -102,7 +106,8 @@ sp_cors = Dict(
     "abs_k_area" => round(corspearman(X2.abs_k_area, y); digits=2),
     "log_so_to_si" => round(corspearman(X2.log_so_to_si, y); digits=2),
     "weighted_incoming_conn" => round(corspearman(X2.weighted_incoming_conn, y); digits=2),
-    "weighted_outgoing_conn" => round(corspearman(X2.weighted_outgoing_conn, y); digits=2)
+    "log_out_strength" => round(corspearman(X2.log_out_strength, y); digits=2),
+    "log_self_strength" => round(corspearman(X2.log_self_strength, y); digits=2)
 )
 
 rng = Random.seed!(76)
@@ -224,15 +229,16 @@ for t_col in names(X2)
 end
 
 Label(f[:, 0], "Feature value", rotation=π / 2)
-Label(f[3, :], "Number of samples")
+Label(f[4, :], "Number of samples")
 Legend(
-    f[4, :],
+    f[5, :],
     [PolyElement(color=col, alpha=0.8) for col in [:green, :orange, :blue]],
     ["Low", "Medium", "High"],
     "Cluster",
     nbanks=3
 )
-rowsize!(f.layout, 4, Auto(0.5))
+rowsize!(f.layout, 5, Relative(0.25))
+rowsize!(f.layout, 4, Relative(0.02))
 
 save(
     joinpath(figs_path, "ts_cluster_feature_sp_corr.png"),
@@ -346,10 +352,12 @@ function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFram
         "abs_k_area" => "Carrying Capacity [km²]",
         "log_so_to_si" => "Log10 Outgoing to Incoming\nConnectivity Ratio",
         "weighted_incoming_conn" => "Log10 Weighted\nIncoming Connectivity",
-        "weighted_outgoing_conn" => "Log10 Weighted\nOutgoing Connectivity"
+        "weighted_outgoing_conn" => "Log10 Weighted\nOutgoing Connectivity",
+        "log_out_strength" => "Log10 Outgoing Connectivity\n Strength",
+        "log_self_strength" => "Log10 Larval Retention\n Probability"
     )
 
-    n_rows = 2
+    n_rows = 3
     n_cols = 3
 
     # Color palette for classes (low, med, high)
@@ -527,7 +535,7 @@ figure = Figure(
 gr1 = GridLayout(figure[1,1])
 ax = Axis(
     gr1[1,1], 
-    yticks=(1:7, map(x -> readable_names[x], fi_names)),
+    yticks=(1:length(fi_names), map(x -> readable_names[x], fi_names)),
     title="Feature Importance"
 )
 bar = barplot!(
@@ -538,7 +546,7 @@ bar = barplot!(
 
 gr2 = GridLayout(figure[2,1])
 plot_multiclass_pd(pdp_vals, test_X; fig=gr2)
-rowsize!(figure.layout, 1, Relative(0.25))
+rowsize!(figure.layout, 1, Relative(0.3))
 Label(figure[2,1, Left()], "Probability", rotation=π/2, tellwidth=false)
 Label(figure[1,1, TopLeft()], "A", font=:bold, tellwidth=false, fontsize=fontsize+3)
 Label(figure[2,1, TopLeft()], "B", font=:bold, tellwidth=false, fontsize=fontsize+3)
@@ -557,8 +565,8 @@ save(
     px_per_unit=dpi
 )
 
-depth_conn_two_way_pdp = partial_dependence_two_way(mach, test_X, [:depth_med, :weighted_outgoing_conn])
-fig = plot_two_way_pdp(depth_conn_two_way_pdp, test_X, :depth_med, :weighted_outgoing_conn, "Median depth [m]", "Log10 weighted outgoing connectivity")
+depth_conn_two_way_pdp = partial_dependence_two_way(mach, test_X, [:depth_med, :log_out_strength])
+fig = plot_two_way_pdp(depth_conn_two_way_pdp, test_X, :depth_med, :log_out_strength, "Median depth [m]", "Log10 Outgoing Connectivity Strength")
 save(
     joinpath(figs_path, "ts_cluster_rf_twoway_depth_outgoingconn_pdp.png"),
     fig,
@@ -586,7 +594,8 @@ perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
        depth = mean(sdf.depth_med),
        dhw = mean(sdf.mean_dhw),
        income_conn = mean(sdf.weighted_incoming_conn),
-       outgoing_conn = mean(sdf.weighted_outgoing_conn),
+       outgoing_conn = mean(sdf.log_out_strength),
+       self_conn = mean(sdf.log_self_strength),
        log_so_to_si = mean(sdf.log_so_to_si),
        bior_ave_lat = mean(sdf.bioregion_average_lat)
     )
@@ -639,12 +648,19 @@ Makie.scatter!(ax, perf_by_bio.income_conn, perf_by_bio.acc, color=bioregion_col
 ax = Axis(
     fig[3,2],
     ylabel = "Bioregion accuracy",
-    xlabel = "Mean Log10 weighted outgoing connectivity",
+    xlabel = "Mean Log10 outgoing connectivity strength",
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.outgoing_conn, perf_by_bio.acc, color=bioregion_colors)
 ax = Axis(
     fig[4,1],
+    ylabel = "Bioregion accuracy",
+    xlabel = "Mean Log10 larval retention probability",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.self_conn, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[4,2],
     ylabel = "Bioregion accuracy",
     xlabel = "Mean Log10 source-to-sink ratio",
     backgroundcolor=bgcol

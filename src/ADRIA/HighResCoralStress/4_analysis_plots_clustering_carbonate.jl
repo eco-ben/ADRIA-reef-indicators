@@ -16,6 +16,8 @@ context_layers.gbr .= "Great Barrier Reef"
 context_layers.gbr_average_latitude .= 0.0
 context_layers.log_so_to_si = log10.(context_layers.so_to_si)
 context_layers.log_carrying_capacity = log10.(context_layers.carrying_capacity)
+context_layers.log_out_strength = log10.(context_layers.out_strength)
+context_layers.log_self_strength = log10.(context_layers.self_strength)
 
 gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
 gbr_dom_filtered = gbr_dom.loc_data[gbr_dom.loc_data.UNIQUE_ID.∈[context_layers.UNIQUE_ID], :]
@@ -134,21 +136,21 @@ for (i_gcm, GCM) in enumerate(GCMs)
         "Log10 weighted incoming connectivity"
     )
     save(
-        joinpath(fig_out_dir, "incoming_conn_input_map.png"),
+        joinpath(fig_out_dir, "weighted_incoming_conn_input_map.png"),
         incoming_conn_map,
         px_per_unit=dpi
     )
 
-    outgoing_conn_map = map_gbr_reefs_cont(
-        context_layers, 
-        "$(GCM)_weighted_outgoing_conn_log", 
-        "Log10 weighted outgoing connectivity"
-    )
-    save(
-        joinpath(fig_out_dir, "outgoing_conn_input_map.png"),
-        outgoing_conn_map,
-        px_per_unit=dpi
-    )
+    # outgoing_conn_map = map_gbr_reefs_cont(
+    #     context_layers, 
+    #     "$(GCM)_weighted_outgoing_conn_log", 
+    #     "Log10 weighted outgoing connectivity"
+    # )
+    # save(
+    #     joinpath(fig_out_dir, "weighted_outgoing_conn_input_map.png"),
+    #     outgoing_conn_map,
+    #     px_per_unit=dpi
+    # )
 
     mean_dhw_map = map_gbr_reefs_cont(
         context_layers,
@@ -167,7 +169,9 @@ vars = [:depth_med, :log_so_to_si, :abs_k_area]
 var_labels = Dict(
     :depth_med => "Median depth [m]",
     :log_so_to_si => "Log10 weighted incoming connectivity",
-    :abs_k_area => "Carrying capacity [km²]"
+    :abs_k_area => "Carrying capacity [km²]",
+    :log_out_strength => "Log10 outgoing connection strength",
+    :log_self_strength => "Log10 larval retention probability"
 )
 for var in vars 
     var_map = map_gbr_reefs_cont(context_layers, var, var_labels[var])
