@@ -647,17 +647,17 @@ function cluster_analysis_plots(
         px_per_unit=dpi
     )
 
-    weighted_outgo_conn = grouped_cluster_ridgeline_plot(
-        analysis_layers,
-        Symbol("$(GCM)_$(grouping)_clusters"),
-        grouping, Symbol("$(GCM)_weighted_outgoing_conn_log");
-        xlabel="Log10 weighted outgoing connectivity", ylabel="$(grouping_fn)", overlap=overlap
-    )
-    save(
-        joinpath(fig_out_dir, "$(grouping)", "weighted_outgoing_conn_$(grouping)_violin.png"),
-        weighted_outgo_conn,
-        px_per_unit=dpi
-    )
+    # weighted_outgo_conn = grouped_cluster_ridgeline_plot(
+    #     analysis_layers,
+    #     Symbol("$(GCM)_$(grouping)_clusters"),
+    #     grouping, Symbol("$(GCM)_weighted_outgoing_conn_log");
+    #     xlabel="Log10 weighted outgoing connectivity", ylabel="$(grouping_fn)", overlap=overlap
+    # )
+    # save(
+    #     joinpath(fig_out_dir, "$(grouping)", "weighted_outgoing_conn_$(grouping)_violin.png"),
+    #     weighted_outgo_conn,
+    #     px_per_unit=dpi
+    # )
 
     outgo_conn = grouped_cluster_ridgeline_plot(
         analysis_layers,
@@ -1219,6 +1219,9 @@ function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar
     map_height = fig_sizes["map_height"]
     region_col = tuple.([:blue, :green, :orange, :red], fill(0.2, 4)) # Manually set alpha value to 0.3
 
+    missing_reefs = reef_df[ismissing.(reef_df[:, color_col]), :]
+    reef_df = reef_df[.!ismissing.(reef_df[:, color_col]), :]
+
     if color_col == :bioregion
         ordered_reefs = sort(reef_df, :bioregion_average_latitude; rev=true)
     else
@@ -1241,7 +1244,10 @@ function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar
     poly!(qld; color=:darkgray)
     poly!(regions.SHAPE, color=region_col)
 
-    scat = scatter!(centroids; color=ordered_reefs[:, color_col], markersize=4)
+    if !isempty(missing_reefs)
+        scat_0 = scatter!(GO.centroid.(missing_reefs.geometry); color=(:gray, 0.4), markersize=4)
+    end
+    scat = scatter!(centroids; color=Float64.(ordered_reefs[:, color_col]), markersize=4)
     ax.ylabel = "Latitude"
     ax.xlabel = "Longitude"
 
@@ -1274,7 +1280,8 @@ function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar
     rowsize!(fig.layout, 2, Relative(0.1))
     Colorbar(
         fig[1, 2],
-        scat,
+        limits = extrema(ordered_reefs[:, color_col]),
+        colormap = :viridis,
         label=color_bar_label,
         size=6, 
         spinewidth=0.0,

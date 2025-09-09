@@ -353,20 +353,17 @@ sizes, providing sufficient heterogeneity to capture spatial patterns in larval 
 and settlement dynamics. This spatial variability also enables investigations into the
 influence of connectivity strength and its role in driving recovery processes.
 
-To assess the impact of reef connectivity on modelled outcomes we summarise inter-reef
-connections using weighted connectivity metrics (incoming and outgoing) and the ratio of
-source-to-sink connectivity for each reef. Weighted incoming connectivity is calculated by
+To assess the impact of reef connectivity on modelled outcomes we summarise incoming
+connectivity (weighted incoming connectivity), outgoing connectivity (outgoing connection strength), the ratio of
+source-to-sink connectivity, and larval retention probability for each reef. Weighted incoming connectivity is calculated by
 summing the product of each connection strength incoming to a target reef and the mean
 timeseries absolute coral cover (km^2^) of each matching source reef. This metric provides
 an approximation of overall larval flow into a reef, with high values indicating the target
 reef is supplied high volumes of larvae via strong connections and low values indicating the
 target reef has weak (or no) incoming connections or is supplied by small source
-populations. Weighted outgoing connectivity is calculated as the product of outgoing
-connectivity strength from a target reef and the mean timeseries absolute coral cover
-(km^2^) of the target reef, representing the larval flow leaving the target reef population.
-A limitation of these weighted connectivity metrics is that they do not incorporate the
+populations. A limitation of weighted incoming connectivity is it does not incorporate the
 proportion of the source reef's population that is reproducing and producing larvae, instead
-taking the total coral cover area as an indicator of larval productivity. The ratio of
+taking the total coral cover area as an indicator of larval productivity. Outgoing connection strength is calculated as the sum of all outgoing transition probabilities from a target reef. Outgoing connection strength has a theoretical maximum of one (all larvae reach settlement on sink reefs), however the large size of the GBR combined with larval mortality considerations result in outgoing connection strength values much lower than one. The ratio of
 source-to-sink connectivity ($O:I$) for a target reef represents the strength of the reef's
 outgoing larval flow relative to it's incoming larval flow. This is calculated as:
 $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where S represents the sum of connectivity pobabilities, N
@@ -376,7 +373,7 @@ connections, the $O:I$ equals the $S_O/N_O$ value. Incoming connections in this 
 do not directly represent the larval supply gained as the breeding populations from which
 connections are coming from are not represented. A source-to-sink ratio greater than 1 (a
 value greater than 0 on a log scale) indicates a reef has greater outgoing than incoming
-larval flow.
+larval flow. Reef larval retention probability indicates the proportion of spawned larvae from a target reef that remain to settlement.
 
 ### Time series clustering
 
@@ -409,8 +406,8 @@ those interested.
 
 Reefs in each time series cluster were compared to identify characteristics that differ
 between Low, Medium and High clusters. These characteristics include reef median depth, mean
-time series DHW, ratio of source-to-sink larval connectivity, weighted incoming
-connectivity, weighted outgoing connectivity and reef carrying capacity (coral habitable
+time series DHW, weighted incoming
+connectivity, outgoing connection strength, ratio of source-to-sink larval connectivity, larval retention probability and reef carrying capacity (coral habitable
 area).
 
 #### Partial Dependence Analysis
@@ -549,16 +546,11 @@ Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 fig-align="center" width="14.82cm"}
 
-Across six of the 29 bioregions reefs in the high cover cluster have lower mean DHW, Log-10
-carrying capacity and Log-10 weighted outgoing connectivity values than reefs in other
-clusters (@sfig-access-esm1-5-bioregion-dhwmean;
-@sfig-access-esm1-5-bioregion-carrying-capacity;
-@sfig-access-esm1-5-bioregion-weightedoutgoing). There were no consistent patterns across
-bioregions in their reefs' Log-10 coral carrying capacity area and cluster assignment
-(@sfig-access-esm1-5-bioregion-carrying-capacity). Across most bioregions there were not
-consistent differences between clusters in connectivity metrics such as Log-10
-source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and Log-10
-weighted incoming connectivity (@sfig-access-esm1-5-bioregion-weightedincoming).
+Across bioregions there were no consistent patterns between reef clusters in mean DHW values (@sfig-access-esm1-5-bioregion-dhwmean), Log-10
+weighted incoming connectivity (@sfig-access-esm1-5-bioregion-weightedincoming), Log-10 outgoing connection strength (@sfig-access-esm1-5-bioregion-outoingconn), Log-10
+source-to-sink connectivity ratio (@sfig-access-esm1-5-bioregion-logsosi) and Log-10 larval retention probability (@sfig-access-esm1-5-bioregion-selfconn). Across six of the 29 bioregions reefs in the high cover cluster have lower Log-10
+carrying capacity values than reefs in other
+clusters (@sfig-access-esm1-5-bioregion-carrying-capacity).
 
 #### Partial dependence
 
@@ -567,11 +559,9 @@ reef characteristics that influence its temporal behaviour, and thus its cluster
 into Low, Medium, or High. Bioregion classification was excluded from this analysis as a
 predictor due to its categorical nature providing limited interpretable information, and is
 further justified by its low feature importance score of 9%, the lowest of all predictors
-(@fig-ts-cluster-pdp; Panel A). Reef median depth and mean DHW level have the highest
-feature importance scores, accounting for 25% and 16% predictive importance respectively.
-Weighted incoming and outgoing connectivity (Log10) features account for \~13.6% feature
-importance. The carrying capacity of a reef accounts for 12.3% feature importance. Reef
-source-to-sink ratio (Log10) both had feature importance scores of \~10%.
+(@fig-ts-cluster-pdp; Panel A). Reef median depth, mean DHW level and weighted incoming connectivity (Log10) have the highest
+feature importance scores, accounting for 22%, 17% and 14% predictive importance respectively.
+The carrying capacity of a reef accounts for 12% feature importance, while outgoing connection strength, source-to-sink ratio and larval retention account for 10%, 9% and 7% respectively.
 
 Reefs have the greatest probability of being clustered into Low if shallow, and High at
 greater depths, with medium cluster reefs exhibiting a lower, and more stable, assignment
@@ -598,7 +588,7 @@ value distribution across
 reefs.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp fig-align="center"
 width="14.82cm"}
 
-Analyses for source-to-sink ratio and weighted incoming and outgoing connectivity metrics
+Analyses for source-to-sink ratio and incoming and outgoing connectivity metrics
 suggest that reefs with greater outgoing connectivity and lower incoming connectivity levels
 have higher probability of being clustered into the Low cluster category compared to other
 reefs. Additionally, two-way analyses revealed an interaction between reef depth and
@@ -608,10 +598,7 @@ greater than 10m depth are unlikely to be clustered into the Low cluster categor
 regardless of their incoming connectivity levels. However, at greater than 10m depth reefs
 with higher incoming connectivity are more likely to be assigned to a High cluster, while
 reefs with low incoming connectivity are more likely to be assigned to a Medium cover
-cluster (@fig-ts-cluster-pdp-twoway-incoming). Two-way analyses, for depth and weighted
-outgoing connectivity, revealed a slight interaction with the increased low-cluster
-probability for reefs of high outgoing connectivity primarily concentrated in shallow reefs,
-while deep reefs with high outgoing connectivity have the greatest probability of being
+cluster (@fig-ts-cluster-pdp-twoway-incoming). Two-way analyses, for depth and outgoing connection strength, revealed a slight interaction with deep reefs with high outgoing connectivity having the greatest probability of being
 clustered into a high cover cluster (@sfig-ts-cluster-pdp-twoway-outgoing).
 
 ![Partial dependence plot indicating the probability of cluster assignment along interacting
@@ -727,9 +714,7 @@ range, and targetting well connected reefs, when assessing possible intervention
 reduce the exposure of planted and seeded corals to high thermal stress, while still
 maintaining effective logistical access to sites. Managers are also likely to consider the
 positive potential for flow on effects due to outgoing connectivity when selecting
-intervention sites [@hock2017]. While reefs with high outgoing connectivity levels were
-found to have greater probability of being assigned to low cover clusters when assessed
-individually (@fig-ts-cluster-pdp-twoway-incoming), within the context of reef depth, reefs
+intervention sites [@hock2017]. Within the context of reef depth, reefs
 with high depths and high outgoing connectivity levels had the greatest probability of being
 clustered into high cover clusters (@sfig-ts-cluster-pdp-twoway-outgoing). These results
 suggests that interventions targetting deep reefs will also benefit from high incoming and
@@ -1010,6 +995,56 @@ strength as a percentage of reef mean connection strength. Lighter colours indic
 RSD % values.](../figs/connectivity_rsd_percent.png){#sfig-connectivity-rsd
 fig-align="center" width="14.82cm"}
 
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by median reef depth.
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Lighter colours represent greater reef depth values than darker colours. All 2429 reefs included in this
+investigation are represented in this figure. Annotations represent major coastal
+settlements along the GBR.](../figs/depth_med_input_map.png){#sfig-depth-map
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by reef carrying capacity (coral habitable area).
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Lighter colours represent greater carrying capacity area values than darker colours. All 2429 reefs included in this
+investigation are represented in this figure. Annotations represent major coastal
+settlements along the GBR.](../figs/abs_k_area_input_map.png){#sfig-abs-k-area-map
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by outgoing connection strength (Log10).
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Lighter colours represent higher outgoing connection strength values than darker colours. All 2429 reefs included in this
+investigation are represented in this figure. Annotations represent major coastal
+settlements along the GBR.](../figs/log_out_strength_input_map.png){#sfig-outgoing-conn-map
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by source-to-sink connectivity ratio (Log10).
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Lighter colours represent higher source-to-sink values than darker colours. Source-to-sink ratio values above zero (one on normal scale) indicate a reef has greater outgoing than incoming connectivity. All 2429 reefs included in this
+investigation are represented in this figure. Annotations represent major coastal
+settlements along the GBR.](../figs/log_so_to_si_input_map.png){#sfig-sotosi-conn-map
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by larval retention probability (Log10).
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Lighter colours represent higher probability of retaining spawned larvae than darker colours. All 2429 reefs included in this
+investigation are represented in this figure. Annotations represent major coastal
+settlements along the GBR.](../figs/log_self_strength_input_map.png){#sfig-self-conn-map
+fig-align="center" width="14.82cm"}
+
 ## ADRIA-CoralBlox
 
 The CoralBlox model incorporates linear extension (growth) and background mortality rates
@@ -1139,14 +1174,56 @@ cluster. Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/weighted_incoming_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-weightedincoming
 fig-align="center" width="14.82cm"}
 
-![Weighted outgoing connectivity (in base-10 log scale) for reefs within each bioregion,
+![Outgoing connection strength (in base-10 log scale) for reefs within each bioregion,
 separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
 clusters with the lowest median area-relative cover between 2030 and 2060 within each
 bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
 cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
 the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
-lines within each violin represent the median base-10 log of weighted outgoing connectivity
+lines within each violin represent the median base-10 log of outgoing connection strength
 for each cluster and bands represent the distribution of connectivity values within each
 cluster. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/weighted_outgoing_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-weightedoutgoing
+GCM.](../figs/ACCESS-ESM1-5/bioregion/outgoing_strength_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-outgoingconn
+fig-align="center" width="14.82cm"}
+
+![Larval retention probability (in base-10 log scale) for reefs within each bioregion,
+separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
+clusters with the lowest median area-relative cover between 2030 and 2060 within each
+bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
+cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
+the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
+lines within each violin represent the median base-10 log of larval retention probability
+for each cluster and bands represent the distribution of probability values within each
+cluster. Displays results for ACCESS-ESM1-5
+GCM.](../figs/ACCESS-ESM1-5/bioregion/self_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-selfconn
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by median number of years exceeding positive carbonate budget threshold.
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Reefs that have a median positive carbonate budget year value of 0 years are coloured in grey. All other reefs are coloured according to their median years across threshold values, with lighter colours representing greater number of years with positive carbonate budgets than darker colours. All 2429 reefs included in this
+investigation are represented in this figure. This map depicts values from the ACCESS-ESM1-5 GCM. Annotations represent major coastal
+settlements along the GBR.](../figs/ACCESS-ESM1-5/median_carbonate_budget_map.png){#sfig-carb-budget-map
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by mean time series DHW value.
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Lighter colours represent higher mean DHW values than darker colours. All 2429 reefs included in this
+investigation are represented in this figure. This map depicts values from the ACCESS-ESM1-5 GCM. Annotations represent major coastal
+settlements along the GBR.](../figs/ACCESS-ESM1-5/mean_dhw_input_map.png){#sfig-mean-dhw-map
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by weighted incoming connectivity levels (Log10).
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Lighter colours represent higher weighted incoming connectivity values than darker colours. All 2429 reefs included in this
+investigation are represented in this figure. This map depicts values from the ACCESS-ESM1-5 GCM. Annotations represent major coastal
+settlements along the GBR.](../figs/ACCESS-ESM1-5/weighted_incoming_conn_input_map.png){#sfig-incoming-conn-map
 fig-align="center" width="14.82cm"}

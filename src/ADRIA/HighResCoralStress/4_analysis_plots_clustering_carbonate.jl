@@ -28,7 +28,7 @@ year_cols = Vector{String}()
 conn_cols = Vector{String}()
 for GCM in GCMs
     context_layers[:, "$(GCM)_weighted_incoming_conn_log"] = log10.(context_layers[:, "$(GCM)_weighted_incoming_conn"]) 
-    context_layers[:, "$(GCM)_weighted_outgoing_conn_log"] = log10.(context_layers[:, "$(GCM)_weighted_outgoing_conn"]) 
+    # context_layers[:, "$(GCM)_weighted_outgoing_conn_log"] = log10.(context_layers[:, "$(GCM)_weighted_outgoing_conn"]) 
     
     push!(conn_cols, "$(GCM)_weighted_incoming_conn_log")
     for threshold in thresholds
@@ -37,7 +37,7 @@ for GCM in GCMs
 end
 
 reefs_long = stack(
-    context_layers[:, ["UNIQUE_ID", "depth_med", conn_cols..., year_cols...]],
+    context_layers[:, ["UNIQUE_ID", "depth_med", "geometry", conn_cols..., year_cols...]],
     year_cols
 )
 
@@ -162,10 +162,30 @@ for (i_gcm, GCM) in enumerate(GCMs)
         mean_dhw_map,
         px_per_unit=dpi
     )
+
+    median_cover_years = combine(groupby(gcm_reefs_long, :UNIQUE_ID)) do sdf
+        (;
+            geometry = first(sdf.geometry),
+            depth = first(sdf.depth_med),
+            incoming_conn = first(sdf[:, "$(GCM)_weighted_incoming_conn_log"]),
+            median_years = median(sdf.value)
+        )
+    end
+    median_cover_years.median_years = ifelse.(median_cover_years.median_years .== 0.0, missing, median_cover_years.median_years)
+    carbonate_budget_map = map_gbr_reefs_cont(
+        median_cover_years,
+        :median_years,
+        "Number of years exceeding positive carbonate budget threshold"
+    )
+    save(
+        joinpath(fig_out_dir, "median_carbonate_budget_map.png"),
+        carbonate_budget_map,
+        px_per_unit=dpi
+    )
 end
 
 context_layers.abs_k_area = context_layers.area .* context_layers.k ./ 1e6
-vars = [:depth_med, :log_so_to_si, :abs_k_area]
+vars = [:depth_med, :log_so_to_si, :abs_k_area, :log_out_strength, :log_self_strength]
 var_labels = Dict(
     :depth_med => "Median depth [m]",
     :log_so_to_si => "Log10 weighted incoming connectivity",
