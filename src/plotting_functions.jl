@@ -1439,3 +1439,114 @@ function carbonate_budget_variable_scatter(
 
     return fig
 end
+
+function carbonate_budget_biscatter(
+    gcm_reefs_long::DataFrame, 
+    depth_col::Union{String, Symbol}, 
+    conn_col::Union{String, Symbol},
+    year_col::Union{String, Symbol},
+    threshold_col::Union{String, Symbol}; 
+    depth_label::String="Median depth [m]", 
+    conn_label::String="Log10 weighted incoming connectivity",
+    fig_sizes=fig_sizes,
+    fontsize=fontsize,
+    carb_budget_color_label::String="Carbonate budget threshold [%]",
+    carb_budget_year_label::String="Number of years above θ"
+)
+
+    fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
+    gr1 = GridLayout(fig[1,1])
+    
+    thresholds = categorical(gcm_reefs_long[:, threshold_col])
+
+    ax1 = Axis(
+        gr1[1,1],
+        xlabel=depth_label
+    )
+    scat1 = scatter!(
+        ax1, 
+        gcm_reefs_long[:, depth_col], 
+        gcm_reefs_long[:, year_col], 
+        color=thresholds.refs,
+        alpha=0.3
+    )
+    ax2 = Axis(
+        gr1[1,2],
+        ylabel=conn_label
+    )
+    scat2 = scatter!(
+        ax2, 
+        gcm_reefs_long[:, conn_col],
+        gcm_reefs_long[:, year_col],
+        color=thresholds.refs,
+        alpha=0.3
+    )
+
+    Colorbar(
+        gr1[0, 1:2],
+        scat1,
+        label = carb_budget_color_label,
+        vertical = false,
+        tellwidth=false,
+        tellheight=false,
+        spinewidth=0.0,
+        ticks=(unique(thresholds.refs), unique(values(thresholds)))
+    )
+
+    Label(gr1[1, 0], carb_budget_year_label, tellwidth=false, tellheight = false, rotation = π / 2)
+
+    rowsize!(gr1, 0, Relative(0.01))
+    colsize!(gr1, 0, Relative(0.01))
+
+    return fig
+end
+
+function carbonate_budget_correlations(
+    depth_correlations::Dict{String, Float64}, 
+    conn_correlations::Dict{String, Float64};
+    depth_label::String="Median depth [m]",
+    conn_label::String="Log10 weighted incoming connectivity",
+    correlation_label::String="Spearman's rank correlation",
+    threshold_label::String="Carbonate budget threshold [%]",
+    fig_sizes=fig_sizes,
+    fontsize=fontsize
+)
+    fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
+    gr1 = GridLayout(fig[1,1])
+    
+    depth_correlations = sort(depth_correlations)
+    conn_correlations = sort(conn_correlations)
+    thresholds = categorical(collect(keys(depth_correlations)))
+
+    ax1 = Axis(
+        gr1[1,1];
+        xticks=(thresholds.refs, collect(keys(depth_correlations)))
+    )
+    bar1 = barplot!(
+        ax1, 
+        thresholds.refs, 
+        collect(values(depth_correlations))
+    )
+    ax2 = Axis(
+        gr1[1,2],
+        xticks=(thresholds.refs, collect(keys(conn_correlations)))
+    )
+    bar1 = barplot!(
+        ax2, 
+        thresholds.refs, 
+        collect(values(conn_correlations))
+    )
+
+    Label(gr1[1, 0], correlation_label, tellwidth=false, tellheight = false, rotation = π / 2)
+    Label(gr1[0, 1], depth_label, tellwidth=false, tellheight=false, font=:bold)
+    Label(gr1[0, 2], conn_label, tellwidth=false, tellheight=false, font=:bold)
+    Label(gr1[2, 1:2], threshold_label, tellwidth=false, tellheight=false)
+
+    colsize!(gr1, 0, Relative(0.01))
+    rowsize!(gr1, 0, Relative(0.01))
+    rowsize!(gr1, 2, Relative(0.01))
+
+    linkaxes!(filter(x -> x isa Axis, fig.content)...)
+
+    return fig
+end

@@ -100,28 +100,37 @@ for (i_gcm, GCM) in enumerate(GCMs)
     #     log_strength_year_correlation;
     #     color_label="Log total connectivity strength"
     # )
-    depth_conn_carbonate_comparison = carbonate_budget_variable_scatter(
+    depth_conn_carbonate_comparison = carbonate_budget_biscatter(
         gcm_reefs_long,
+        :depth_med,
+        "$(GCM)_weighted_incoming_conn_log",
         :value,
-        :variable,
-        depth_year_correlation,
-        log_incoming_conn_year_correlation;
-        conn_var_col="$(GCM)_weighted_incoming_conn_log"
+        :variable
     )
     save(
         joinpath(fig_out_dir, "depth_conn_carbonate_comparison.png"),
         depth_conn_carbonate_comparison,
         px_per_unit=dpi
     )
+    
+    depth_conn_carbonate_correlations = carbonate_budget_correlations(
+        depth_year_correlation, log_incoming_conn_year_correlation
+    )
+    save(
+        joinpath(fig_out_dir, "depth_conn_carbonate_correlations.png"),
+        depth_conn_carbonate_correlations,
+        px_per_unit=dpi
+    )
+
     # save(
     #     joinpath(fig_out_dir, "log_total_strength_carbonate_scatter.png"),
     #     total_connectivity_carbonate_scatter,
     #     px_per_unit=dpi
     # )
     gcm_threshold_columns = ["$(GCM)_years_above_$(x)" for x in 10:20]
-    context_layers[!, "$(GCM)_mean_positive_years"] = vec(mean(Matrix(context_layers[:, gcm_threshold_columns]), dims=2))
-    fig, ax, scat = scatter(context_layers.depth_med, context_layers[:, "$(GCM)_weighted_incoming_conn_log"], color=context_layers[:, "$(GCM)_mean_positive_years"], alpha=0.5)
-    Colorbar(fig[1,2], scat, label="Mean number of positive carbonate budget years \nacross θ")
+    context_layers[!, "$(GCM)_median_positive_years"] = vec(median(Matrix(context_layers[:, gcm_threshold_columns]), dims=2))
+    fig, ax, scat = scatter(context_layers.depth_med, context_layers[:, "$(GCM)_weighted_incoming_conn_log"], color=context_layers[:, "$(GCM)_median_positive_years"], alpha=0.5)
+    Colorbar(fig[1,2], scat, label="Median number of positive carbonate budget years \nacross θ")
     ax.ylabel = "Log10 weighted incoming connectivity"
     ax.xlabel = "Median depth [m]"
     save(
@@ -446,21 +455,26 @@ n_consistent_reefs.percentage = n_consistent_reefs.nrow ./ sum(n_consistent_reef
 # gcm_reefs_long = reefs_long[contains.(reefs_long.variable, [GCM]), :]
 # gcm_reefs_long.variable = last.(split.(gcm_reefs_long.variable, "_"))
 
-# fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
-# ax1 = Axis(
-#     fig[1,1]
-# )
-# scat1 = scatter!(ax1, gcm_reefs_long.depth_med, gcm_reefs_long.value, color=categorical(gcm_reefs_long.variable).refs, alpha=0.3)
-# ax2 = Axis(
-#     fig[1,2]
-# )
-# scat2 = scatter!(ax2, gcm_reefs_long[:, "$(GCM)_weighted_incoming_conn_log"], gcm_reefs_long.value, color=categorical(gcm_reefs_long.variable).refs, alpha=0.3)
-# Colorbar(fig[0, 1:2], scat1, label = "Carbonate budget threshold [%]", vertical = false, tellwidth=false, tellheight=false, spinewidth=0.0)
 
-# Label(fig[1, 0], "Number of years above θ", tellwidth=false, tellheight = false, rotation = π / 2)
-# Label(fig[2, 1], "Median depth [m]", tellwidth=false, tellheight=false)
-# Label(fig[2,2], "Log weighted incoming connectivity", tellwidth=false, tellheight=false)
 
-# rowsize!(fig.layout, 2, Relative(0.025))
-# rowsize!(fig.layout, 0, Relative(0.025))
-# colsize!(fig.layout, 0, Relative(0.025))
+# gr2 = GridLayout(fig[2,1])
+# ax3 = Axis(
+#     gr2[1,1],
+#     ylabel="Median Depth [m]"
+# )
+# depth_sorted_reefs = sort(gcm_reefs_long, [:depth_med, :value])
+# scatter!(ax3, depth_sorted_reefs.depth_med; color=depth_sorted_reefs.value, alpha=0.3)
+
+# ax4 = Axis(
+#     gr2[1,2],
+#     ylabel="Log10 weighted\n incoming connectivity"
+# )
+# incoming_conn_sorted_reefs = sort(gcm_reefs_long, ["$(GCM)_weighted_incoming_conn_log", "value"])
+# scatter!(ax4, incoming_conn_sorted_reefs[:, "$(GCM)_weighted_incoming_conn_log"]; color=incoming_conn_sorted_reefs.value, alpha=0.3)
+
+# Colorbar(gr2[0, 1:2], colormap=:viridis, limits=extrema(gcm_reefs_long.value), label="Number of years above θ", vertical=false, spinewidth=0.0)
+# Label(gr2[2, 1:2], "Number of samples", tellwidth=false, tellheight=false)
+# Label(gr2[0, 0], "B", font=:bold)
+# rowsize!(gr2, 2, Relative(0.01))
+# rowsize!(gr2, 0, Relative(0.01))
+# colsize!(gr2, 0, Relative(0.01))
