@@ -644,26 +644,23 @@ Reef median depth had a moderate positive correlation with the number of years a
 maintains coral cover above the assumed carbonate budget threshold required to sustain live
 coral cover ($\theta_{0}$). Greater median depth was a key characteristic defining reefs
 that sustain coral cover above $\theta_{0}$ (@fig-access-esm1-5-depth-conn-carbonate;
-@sfig-access-esm1-5-mean-carb-budget). Unsurprisingly, the number of years above $\theta_0$
-substantially decreased as $\theta_0$ is increased, as does the Spearman's correlation.
-Decreasing correlation levels are likely due to an increasing number of reefs being unable
-to maintain coral cover above $\theta_0$ as it is increased, with the distribution of years
-above threshold becoming increasingly right-skewed
-(@fig-access-esm1-5-depth-conn-carbonate). In contrast, weighted incoming connectivity
-strength (Log-10 scale) was found to have no correlation with the number of years a reef
-maintains cover above the required thresholds (@fig-access-esm1-5-depth-conn-carbonate).
+@sfig-access-esm1-5-mean-carb-budget; @sfig-access-esm1-5-carb-budget-corr). Unsurprisingly,
+the number of years above $\theta_0$ substantially decreased as $\theta_0$ is increased, as
+does the Spearman's correlation (@sfig-access-esm1-5-carb-budget-corr). Decreasing
+correlation levels are likely due to an increasing number of reefs being unable to maintain
+coral cover above $\theta_0$ as it is increased, with the distribution of years above
+threshold becoming increasingly right-skewed (@fig-access-esm1-5-depth-conn-carbonate). In
+contrast, weighted incoming connectivity strength (Log-10 scale) was found to have no
+correlation with the number of years a reef maintains cover above the required thresholds
+(@fig-access-esm1-5-carb-budget-corr).
 
 ![Number of years reef coral cover exceeds the carbonate budget threshold from 2025 to 2075
-(y-axis). The assessed carbonate budget thresholds range from 10 to 20% of total reef area.
-Bracketed x-axis values represent the Spearman's correlation between reef variables (depth -
-left and Log-10 weighted incoming connectivity - right) and the number of years cover
-exceeds the carbonate budget threshold. Point colour represents the median reef depth in
-metres in the left-hand panel, and Log-10 weighted incoming connectivity in the right-hand
-panel. Red points represent the mean number of years above an assumed carbonate budget
-threshold across reefs. Deeper reefs are better able to maintain cover above the indicative
-carbonate budget threshold, while there is no considerable relationship between weighted
-incoming connectivity and carbonate budget maintenance. Displays results from median time
-series using
+(y-axis) and reef median depth (left panel) and reef Log10 weighted incoming connectivity
+values (right panel). Point colour represents the threshold assessment values used to assess
+positive carbonate budget status ($\theta_0$). Deeper reefs are better able to maintain
+cover above the indicative carbonate budget threshold, while there is no considerable
+relationship between weighted incoming connectivity and carbonate budget maintenance.
+Displays results from median time series using
 ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
 fig-align="center" width="14.82cm"}
 
@@ -1134,12 +1131,19 @@ reefs are projected to be under severe stress and in a declined state [@bozec202
 
 ## ACCESS-ESM1-5
 
+![Bar plot indicating the Spearman's rank correlation values for the number of years above
+carbonate budget threshold and, median reef depth and Log10 weighted incoming connectivity
+values. Depth correlation values are displayed in the left plot, while connectivity
+correlation values are displayed in the right plot. Displays results for ACCESS-ESM1-5
+GCM.](../figs/ACCESS-ESM1-5/depth_conn_carbonate_correlations.png){#sfig-access-esm1-5-carb-budget-corr
+fig-align="center" width="14.82cm"}
+
 ![Scatter plot indicating reef median depth (metres) and Log10 weighted incoming
-connectivity for each reef. Point colours represent the mean number of years each reef
+connectivity for each reef. Point colours represent the median number of years each reef
 maintains positive carbonate budgets across each $theta$ value from 10-20% live coral cover.
 Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/depth_conn_mean_carbonate_budget.png){#sfig-access-esm1-5-mean-carb-budget
-fig-align="center" width="10cm"}
+fig-align="center" width="14.82cm"}
 
 ### Bioregion scale clustering
 

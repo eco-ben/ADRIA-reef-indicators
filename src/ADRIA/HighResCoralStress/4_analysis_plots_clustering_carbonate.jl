@@ -114,7 +114,8 @@ for (i_gcm, GCM) in enumerate(GCMs)
     )
     
     depth_conn_carbonate_correlations = carbonate_budget_correlations(
-        depth_year_correlation, log_incoming_conn_year_correlation
+        depth_year_correlation, log_incoming_conn_year_correlation;
+        correlation_label="Spearman's rank correlation \n(Reef feature - Number of years above carbonate budget threshold)"
     )
     save(
         joinpath(fig_out_dir, "depth_conn_carbonate_correlations.png"),
