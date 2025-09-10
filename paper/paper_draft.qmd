@@ -134,15 +134,16 @@ cover and community complexity [@perry2012; @desbiens2021], environmental proces
 ocean chemistry [@perry2015; @eyre2018]. For GBR mid-shelf and offshore reefs, maintaining
 positive carbonate budgets requires approximately 17% live coral cover [@desbiens2021].
 
-Recent advances in whole-ecosystem larval connectivity modelling and coral thermal response
-research enable integrated investigation of how these multiple factors interact to determine
-climate resilience. By incorporating the latest coral population models
-[@ribeirodealmeida2024], ecosystem-wide connectivity data, and updated climate projections
-[@dixon2022], we can examine which factors most strongly influence reef persistence under
-different scenarios. While connectivity has been emphasized as critical for GBR resilience
-[@hock2017], and remains an important consideration, our integrated modelling reveals depth
-may play a fundamental role in determining maintenance of reef coral populations and
-positive carbonate budgets under current projections of climate change.
+Recent advances in whole-ecosystem larval connectivity modelling **\[Insert GBR1
+connectivity citation.\]** and coral thermal response research [@bairos-novak2021] enable
+integrated investigation of how multiple factors interact to determine climate resilience.
+By incorporating the latest coral population models [@ribeirodealmeida2024], ecosystem-wide
+connectivity data, and updated climate projections [@dixon2022], we can examine which
+factors most strongly influence reef persistence under different scenarios. While
+connectivity has been emphasized as critical for GBR resilience [@hock2017], and remains an
+important consideration, our integrated modelling reveals depth may play a fundamental role
+in determining maintenance of reef coral populations and positive carbonate budgets under
+current projections of climate change.
 
 # Methods
 
