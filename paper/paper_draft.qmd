@@ -716,34 +716,35 @@ for each pixel as well as their alignment to the established GBRMPA reef outline
 Additionally, we do not incorporate the light-based decreases in coral growth rates as depth
 increases [@baker1975; @huston1985; @ruiz-diaz2022].
 
-Current reef restoration and intervention investigation efforts on the GBR, such as
-deployment of coral seeding and fragment devices, target reefs with suitable sites in the
-1-10m depth range [@howlett2021; @randall2021; @whitman2024]. While there are no explicit
-justifications for this depth range, intervention depth is likely constrained by snorkelling
-and diving deployment and monitoring logistical accessibility, visual identification of
-sites from the surface, in combination with tourism return value. Our results suggest that
-of the assessed reefs occurring within the 1-10m depth range (1736 reefs), 57% (991) of
-reefs fall into the low and medium clusters (across all GCMs at the GBRMPA management region
-scale), with many unable to maintain positive carbonate budgets under future conditions.
-Partial dependence analysis revealed a range of depths from 10-15m where the probability of
-a reef being clustered into the High cover cluster increased substantially. Additionally,
-two-way partial dependence analysis revealed that high incoming connectivity is important
-for High cluster assignment for reefs at depths of \>10m. Considering this 10-15m depth
-range, and targetting well connected reefs, when assessing possible intervention sites may
-reduce the exposure of planted and seeded corals to high thermal stress, while still
-maintaining effective logistical access to sites. Managers are also likely to consider the
-positive potential for flow on effects due to outgoing connectivity when selecting
-intervention sites [@hock2017]. Within the context of reef depth, reefs with high depths and
-high outgoing connectivity levels had the greatest probability of being clustered into high
-cover clusters (@sfig-ts-cluster-pdp-twoway-outgoing). These results suggests that
-interventions targetting deep reefs will also benefit from high incoming and outgoing
-connectivity levels, allowing for high potential for site resilience and outgoing flow of
-benefits and recovery. Transient, and difficult to measure, properties such as reef
-connectivity are likely to increase uncertainty in intervention planning to a greater degree
-than environmental characteristics such as reef depth. Overall, reef intervention planning
-is a complex and challenging decision-making process [@anthony2020], and our results suggest
-that intervention site depth may be an important factor to additionally consider when
-assessing the long-term resilience of sites.
+Current reef restoration and intervention efforts on the GBR, such as deployment of coral
+seeding, fragment devices and Crown of Thorns Starfish control, target reefs with suitable
+sites in the 1-10m depth range [@howlett2021; @randall2021; @whitman2024]. While there are
+no explicit justifications for this depth range, intervention depth is likely constrained by
+snorkelling and diving deployment and monitoring logistical accessibility, visual
+identification of sites from the surface, in combination with tourism return value. Our
+results suggest that of the assessed reefs occurring within the 1-10m depth range (1736
+reefs), 57% (991) of reefs fall into the low and medium clusters (across all GCMs at the
+GBRMPA management region scale), with many unable to maintain positive carbonate budgets
+under future conditions. Partial dependence analysis revealed a range of depths from 10-15m
+where the probability of a reef being clustered into the High cover cluster increased
+substantially. Additionally, two-way partial dependence analysis revealed that high incoming
+connectivity is important for High cluster assignment for reefs at depths of \>10m.
+Considering this 10-15m depth range, and targetting well connected reefs, when assessing
+possible intervention sites may reduce the exposure of planted and seeded corals to high
+thermal stress, while still maintaining effective logistical access to sites. Managers are
+also likely to consider the positive potential for flow on effects due to outgoing
+connectivity when selecting intervention sites [@hock2017]. Within the context of reef
+depth, reefs with high depths and high outgoing connectivity levels had the greatest
+probability of being clustered into high cover clusters
+(@sfig-ts-cluster-pdp-twoway-outgoing). These results suggests that interventions targetting
+deep reefs will also benefit from high incoming and outgoing connectivity levels, allowing
+for high potential for site resilience and outgoing flow of benefits and recovery.
+Transient, and difficult to measure, properties such as reef connectivity are likely to
+increase uncertainty in intervention planning to a greater degree than environmental
+characteristics such as reef depth. Overall, reef intervention planning is a complex and
+challenging decision-making process [@anthony2020], and our results suggest that
+intervention site depth may be an important factor to additionally consider when assessing
+the long-term resilience of sites.
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the supply of recruits that a reef receives following disturbance [@hock2017; @mumby2008;
