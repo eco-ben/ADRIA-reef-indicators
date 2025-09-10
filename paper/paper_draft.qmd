@@ -694,16 +694,17 @@ depth contributes greatly to reef resilience and the ability of the reef to main
 positive carbonate budgets under future conditions. Spatially our results indicate that
 positive carbonate budget maintenance, under ACCESS-ESM1-5, and high depth levels were
 concentrated in the Far Northern, offshore Townsville/Whitsunday, and Mackay/Capricorn
-management areas (@sfig-carb-budget-map; @sfig-depth-map). Additionally similar spatial
-patterns were observed for reefs clustered into the high cover cluster category across all
-GCMs (@sfig-gcm-cluster-map). We do not interpret these spatial findings as accurate
-predictions of future resilience due to high uncertainty in input data, particularly depth
-and connectivity. While similar findings have been demonstrated in the Pacific [@smith2014;
-@baird2018] and Indo-Pacific [@bridge2014] regions, depth refugia analyses have often
-focussed on the potential of mesophotic reefs (\> 30m deep) as thermal refugia
-[@bongaerts2010; @holstein2015; @semmler2017]. In contrast, Venegas et al. [-@venegas2019]
-found no association between depth and the alleviation of heat stress across a range of
-shallow reefs in the Pacific.
+management areas (@sfig-carb-budget-map; @sfig-depth-map). Resilient reefs in the Far
+Northern management area were exposed to lower mean DHW levels than other reefs under
+ACCESS-ESM1-5 (@sfig-mean-dhw-map). Similar spatial patterns were observed across GCMs for
+reefs clustered into the high cover cluster category (@sfig-gcm-cluster-map). We do not
+interpret these spatial findings as accurate predictions of future resilience due to high
+uncertainty in input data, particularly depth and connectivity. While similar findings have
+been demonstrated in the Pacific [@smith2014; @baird2018] and Indo-Pacific [@bridge2014]
+regions, depth refugia analyses have often focussed on the potential of mesophotic reefs (\>
+30m deep) as thermal refugia [@bongaerts2010; @holstein2015; @semmler2017]. In contrast,
+Venegas et al. [-@venegas2019] found no association between depth and the alleviation of
+heat stress across a range of shallow reefs in the Pacific.
 
 These findings support the hypothesis that reefs at greater depths will exhibit
 characteristics of refugia and more prolonged structural resilience under climate change
