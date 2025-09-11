@@ -326,7 +326,8 @@ reefs_1_to_10_clusters = reefs_1_to_10_clusters[reefs_1_to_10_clusters.variable.
 
 for reef in eachrow(reefs_1_to_10)
     reef_id = reef.UNIQUE_ID
-    reef.low_medium_clusters = all(reefs_1_to_10_clusters[reefs_1_to_10_clusters.UNIQUE_ID.==reef_id, :value] .<= 2.0)
+    # Calculate the number of shallow reefs that are always in low/medium clusters across GCMs
+    reef.low_medium_clusters = all(reefs_1_to_10_clusters[reefs_1_to_10_clusters.UNIQUE_ID.==reef_id, :value] .<= 2.0) 
 end
 
 sum(reefs_1_to_10.low_medium_clusters) / nrow(reefs_1_to_10)
