@@ -131,7 +131,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     gcm_threshold_columns = ["$(GCM)_years_above_$(x)" for x in 10:20]
     context_layers[!, "$(GCM)_median_positive_years"] = vec(median(Matrix(context_layers[:, gcm_threshold_columns]), dims=2))
     fig, ax, scat = scatter(context_layers.depth_med, context_layers[:, "$(GCM)_weighted_incoming_conn_log"], color=context_layers[:, "$(GCM)_median_positive_years"], alpha=0.5)
-    Colorbar(fig[1,2], scat, label="Median number of positive carbonate budget years \nacross θ")
+    Colorbar(fig[1,2], scat, label="Median number of positive carbonate budget years \nacross θ", spinewidth=0.0)
     ax.ylabel = "Log10 weighted incoming connectivity"
     ax.xlabel = "Median depth [m]"
     save(

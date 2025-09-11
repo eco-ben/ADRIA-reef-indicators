@@ -1020,7 +1020,7 @@ considered reefs (points), coloured by median reef depth. Colour-coded areas out
 marine park management regions, where orange represents the Far Northern management region,
 green represents Cairns/Cooktown, red covers Townsville/Whitsunday and blue covers
 Mackay/Capricorn [@GBRMPA2007]. Reef centroids are marked individually for visual clarity.
-Lighter colours represent greater reef depth values than darker colours. All 2429 reefs
+Darker colours represent greater reef depth values than lighter colours. All 2429 reefs
 included in this investigation are represented in this figure. Annotations represent major
 coastal settlements along the GBR.](../figs/depth_med_input_map.png){#sfig-depth-map
 fig-align="center" width="14.82cm"}
@@ -1030,8 +1030,8 @@ considered reefs (points), coloured by reef carrying capacity (coral habitable a
 Colour-coded areas outline GBR marine park management regions, where orange represents the
 Far Northern management region, green represents Cairns/Cooktown, red covers
 Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
-marked individually for visual clarity. Lighter colours represent greater carrying capacity
-area values than darker colours. All 2429 reefs included in this investigation are
+marked individually for visual clarity. Darker colours represent greater carrying capacity
+area values than lighter colours. All 2429 reefs included in this investigation are
 represented in this figure. Annotations represent major coastal settlements along the
 GBR.](../figs/abs_k_area_input_map.png){#sfig-abs-k-area-map fig-align="center"
 width="14.82cm"}
@@ -1041,8 +1041,8 @@ considered reefs (points), coloured by outgoing connection strength (Log10). Col
 areas outline GBR marine park management regions, where orange represents the Far Northern
 management region, green represents Cairns/Cooktown, red covers Townsville/Whitsunday and
 blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are marked individually for
-visual clarity. Lighter colours represent higher outgoing connection strength values than
-darker colours. All 2429 reefs included in this investigation are represented in this
+visual clarity. Darker colours represent higher outgoing connection strength values than
+lighter colours. All 2429 reefs included in this investigation are represented in this
 figure. Annotations represent major coastal settlements along the
 GBR.](../figs/log_out_strength_input_map.png){#sfig-outgoing-conn-map fig-align="center"
 width="14.82cm"}
@@ -1052,8 +1052,8 @@ considered reefs (points), coloured by source-to-sink connectivity ratio (Log10)
 Colour-coded areas outline GBR marine park management regions, where orange represents the
 Far Northern management region, green represents Cairns/Cooktown, red covers
 Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
-marked individually for visual clarity. Lighter colours represent higher source-to-sink
-values than darker colours. Source-to-sink ratio values above zero (one on normal scale)
+marked individually for visual clarity. Darker colours represent higher source-to-sink
+values than lighter colours. Source-to-sink ratio values above zero (one on normal scale)
 indicate a reef has greater outgoing than incoming connectivity. All 2429 reefs included in
 this investigation are represented in this figure. Annotations represent major coastal
 settlements along the GBR.](../figs/log_so_to_si_input_map.png){#sfig-sotosi-conn-map
@@ -1064,8 +1064,8 @@ considered reefs (points), coloured by larval retention probability (Log10). Col
 areas outline GBR marine park management regions, where orange represents the Far Northern
 management region, green represents Cairns/Cooktown, red covers Townsville/Whitsunday and
 blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are marked individually for
-visual clarity. Lighter colours represent higher probability of retaining spawned larvae
-than darker colours. All 2429 reefs included in this investigation are represented in this
+visual clarity. Darker colours represent higher probability of retaining spawned larvae
+than lighter colours. All 2429 reefs included in this investigation are represented in this
 figure. Annotations represent major coastal settlements along the
 GBR.](../figs/log_self_strength_input_map.png){#sfig-self-conn-map fig-align="center"
 width="14.82cm"}
@@ -1145,6 +1145,20 @@ connectivity for each reef. Point colours represent the median number of years e
 maintains positive carbonate budgets across each $theta$ value from 10-20% live coral cover.
 Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/depth_conn_mean_carbonate_budget.png){#sfig-access-esm1-5-mean-carb-budget
+fig-align="center" width="14.82cm"}
+
+![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
+considered reefs (points), coloured by median number of years exceeding positive carbonate
+budget threshold. Colour-coded areas outline GBR marine park management regions, where
+orange represents the Far Northern management region, green represents Cairns/Cooktown, red
+covers Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids
+are marked individually for visual clarity. Reefs that have a median positive carbonate
+budget year value of 0 years are coloured in grey. All other reefs are coloured according to
+their median years across threshold values, with darker colours representing greater number
+of years with positive carbonate budgets than lighter colours. All 2429 reefs included in
+this investigation are represented in this figure. This map depicts values from the
+ACCESS-ESM1-5 GCM. Annotations represent major coastal settlements along the
+GBR.](../figs/ACCESS-ESM1-5/median_carbonate_budget_map.png){#sfig-carb-budget-map
 fig-align="center" width="14.82cm"}
 
 ### Bioregion scale clustering
@@ -1231,25 +1245,11 @@ GCM.](../figs/ACCESS-ESM1-5/bioregion/self_conn_bioregion_violin.png){#sfig-acce
 fig-align="center" width="14.82cm"}
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
-considered reefs (points), coloured by median number of years exceeding positive carbonate
-budget threshold. Colour-coded areas outline GBR marine park management regions, where
-orange represents the Far Northern management region, green represents Cairns/Cooktown, red
-covers Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids
-are marked individually for visual clarity. Reefs that have a median positive carbonate
-budget year value of 0 years are coloured in grey. All other reefs are coloured according to
-their median years across threshold values, with lighter colours representing greater number
-of years with positive carbonate budgets than darker colours. All 2429 reefs included in
-this investigation are represented in this figure. This map depicts values from the
-ACCESS-ESM1-5 GCM. Annotations represent major coastal settlements along the
-GBR.](../figs/ACCESS-ESM1-5/median_carbonate_budget_map.png){#sfig-carb-budget-map
-fig-align="center" width="14.82cm"}
-
-![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points), coloured by mean time series DHW value. Colour-coded areas
 outline GBR marine park management regions, where orange represents the Far Northern
 management region, green represents Cairns/Cooktown, red covers Townsville/Whitsunday and
 blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are marked individually for
-visual clarity. Lighter colours represent higher mean DHW values than darker colours. All
+visual clarity. Darker colours represent higher mean DHW values than lighter colours. All
 2429 reefs included in this investigation are represented in this figure. This map depicts
 values from the ACCESS-ESM1-5 GCM. Annotations represent major coastal settlements along the
 GBR.](../figs/ACCESS-ESM1-5/mean_dhw_input_map.png){#sfig-mean-dhw-map fig-align="center"
@@ -1260,8 +1260,8 @@ considered reefs (points), coloured by weighted incoming connectivity levels (Lo
 Colour-coded areas outline GBR marine park management regions, where orange represents the
 Far Northern management region, green represents Cairns/Cooktown, red covers
 Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
-marked individually for visual clarity. Lighter colours represent higher weighted incoming
-connectivity values than darker colours. All 2429 reefs included in this investigation are
+marked individually for visual clarity. Darker colours represent higher weighted incoming
+connectivity values than lighter colours. All 2429 reefs included in this investigation are
 represented in this figure. This map depicts values from the ACCESS-ESM1-5 GCM. Annotations
 represent major coastal settlements along the
 GBR.](../figs/ACCESS-ESM1-5/weighted_incoming_conn_input_map.png){#sfig-incoming-conn-map

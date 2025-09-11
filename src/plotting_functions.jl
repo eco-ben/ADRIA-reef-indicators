@@ -1229,6 +1229,7 @@ function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar
     end
 
     centroids = GO.centroid.(ordered_reefs.geometry)
+    color_map = cgrad(:viridis, 256, rev=true)
 
     # GeoMakie currently has a bug where x/y labels never display.
     # We adjust map size to roughly align with the correct projection.
@@ -1247,7 +1248,7 @@ function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar
     if !isempty(missing_reefs)
         scat_0 = scatter!(GO.centroid.(missing_reefs.geometry); color=(:gray, 0.4), markersize=4)
     end
-    scat = scatter!(centroids; color=Float64.(ordered_reefs[:, color_col]), markersize=4)
+    scat = scatter!(centroids; color=Float64.(ordered_reefs[:, color_col]), colormap=color_map, markersize=4)
     ax.ylabel = "Latitude"
     ax.xlabel = "Longitude"
 
@@ -1281,7 +1282,7 @@ function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar
     Colorbar(
         fig[1, 2],
         limits = extrema(ordered_reefs[:, color_col]),
-        colormap = :viridis,
+        colormap = color_map,
         label=color_bar_label,
         size=6, 
         spinewidth=0.0,
