@@ -308,33 +308,33 @@ depth, and connectivity, that support favourable outcomes in reef recovery and r
 
 ### Scenario modelling
 
-To apply exploratory scenario modelling, we employed a framework involving two separate
-systems: ADRIA (the Adaptive Dynamic Reef Intervention Algorithms platform) and CoralBlox.
-ADRIA is a multi-criteria decision support platform designed to help reef managers address
-climate change challenges in coral reef systems [@iwanaga2023]. The ADRIA platform provides
-functionality for scenario generation and analysis as well as providing the technical
-infrastructure to couple environmental and ecosystem representations. CoralBlox is a
-computationally efficient coral population model. It simulates functional/morphological
-groups of corals over their life cycles, competing for available space over time
-[@ribeirodealmeida2024]. The coupled framework is referred to as ADRIA-CoralBlox.
+Two separate systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
+Intervention Algorithms platform) and CoralBlox. ADRIA is a multi-criteria decision support
+platform designed for the assessment and analysis of coral reef intervention strategies
+under uncertainty [@iwanaga2023]. The ADRIA platform provides functionality for scenario
+generation and analysis as well as providing the technical infrastructure to couple
+environmental and ecosystem representations. CoralBlox is a computationally efficient coral
+population model. It simulates functional/morphological groups of corals over their life
+cycles, competing for available space over time [@ribeirodealmeida2024]. The coupled
+framework is referred to as ADRIA-CoralBlox.
 
 The coral demographic representation and associated model implementation are further
-detailed in the supplementary material. Of important note, however, is that the
-representation of bleaching mortalities followed Bozec et al., [-@bozec2022] albeit with a
-scaling coefficient to incorporate the amelioration effect that depth may have, following
-Baird et al., [@baird2018]. This depth-scaling reduces the proportion of coral colonies
-impacted by high heat stress as depth increases. The impacts of tropical cyclones, wave
-activity, Crown of Thorns Starfish or coral disease were not included in this investigation,
-in order to focus on assessing reef resilience under possible future warming scenarios.
+detailed in the supplementary material. Of important note is that the representation of
+bleaching mortalities followed Bozec et al., [-@bozec2022] albeit with a scaling coefficient
+to incorporate the amelioration effect that depth may have, following Baird et al.,
+[@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
+heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
+Thorns Starfish or coral disease were not included in this investigation, in order to focus
+on assessing reef resilience under possible future warming scenarios.
 
 ADRIA-CoralBlox was run for 4096 scenarios for each GCM (20,480 total model runs). Here, a
 scenario represents a unique combination of assumed environmental (namely one of the five
 DHW trajectories) and ecological factors including coral growth and mortality rates, and
 coral thermal tolerances. Scenarios were generated using the low-discrepancy Sobol' sampling
-method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a random-Quasi Monte Carlo
-approach which balances scenario exploration with improved convergence properties compared
-to pseudo-random sampling. A detailed comparative analysis of the sampling methods can be
-found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
+method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a randomised Quasi Monte
+Carlo approach which balances scenario exploration with improved convergence properties
+compared to pseudo-random sampling. A detailed comparative analysis of sampling methods can
+be found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
 cover time series for each model run were scaled by the total area of each reef to represent
 cover as a percentage of the total estimated reef area. The scenario-median timeseries for
 each reef was used for further analyses. These time series of coral cover were then
