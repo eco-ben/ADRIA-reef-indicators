@@ -159,27 +159,26 @@ Estimates of coral carrying capacity for each reef were taken from prior analyse
 in [@bozec2022].
 
 Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
-available in GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched
-with the 3806 reef outlines through geometric intersections. All depth values were converted
-to positive values (depths below sea level). The median depth was used to provide an
-indicative depth value for each reef. Code, and the resulting depth estimates, are available
-at [@iwanaga2025].
+available in GBRMPA [-@GBRMPA2020]. While the bathymetry data adopted for the given
+assessment are said to be accurate up to 15m from Mean Sea Level [@GBRMPA2020], there are
+many sources of uncertainty in the depth estimates used for this study. Notably, the adopted
+depth estimates were derived from bathymetries based on satellite imagery. The bathymetry
+data can be limited in their alignment with the established GBRMPA reef outlines used to
+characterise reef locations and their areal extent. For each reef, bathymetry data were
+spatially matched with the 3806 reef outlines through geometric intersections.
 
-While the bathymetry data adopted for the given assessment are said to be accurate up to 15m
-from Mean Sea Level [@GBRMPA2020], there are many sources of uncertainty in the depth
-estimates used for this study. These are outlined further in the Discussion. Notably, the
-adopted depth estimates were derived from bathymetries based on satellite imagery. The
-bathymetry data can be limited in their alignment with the established GBRMPA reef outlines
-used to characterise reef locations and their areal extent. A Quality Assessment and Control
-process identified reefs with potential data limitations: reefs with no overlapping
-bathymetry data, reefs with minimum depth values above sea level (indicating potential data
-artifacts), and reefs where bathymetry pixels covered less than 5% of the reef polygon area.
-This process removed 842 reefs, or 22%, from the initial set of 3806 reefs. Furthermore,
-reefs that are not associated with GBRMPA Management areas [@GBRMPA2007] or reefal
-bioregions [@GBRMPA2024] were also removed from the investigation. Bioregions which
-contained fewer than three reefs after these processes were also excluded. As a result, 1377
-reefs were excluded (36%), leaving a total of 2429 remaining for the purpose of this
-investigation.
+A Quality Assessment and Control process identified reefs with potential data limitations:
+reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
+(indicating potential data artifacts), and reefs where bathymetry pixels covered less than
+5% of the reef polygon area. This process removed 842 reefs, or 22%, from the initial set of
+3806 reefs. Furthermore, reefs that are not associated with GBRMPA Management areas
+[@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were also removed from the investigation.
+Bioregions which contained fewer than three reefs after these processes were also excluded.
+As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining for the
+purpose of this investigation. All depth values were converted to positive values (depths
+below sea level). The median depth was used to provide an indicative depth value for each
+reef. Further limitations are outlined in the Discussion. Code to extract depth estimates,
+and the resulting depth estimates themselves, are available at [@iwanaga2025].
 
 ![Map of the Great Barrier Reef region, including GBRMPA Management areas (polygons) and all
 considered reefs (points). Colour-coded polygons outline GBR marine park management regions,
