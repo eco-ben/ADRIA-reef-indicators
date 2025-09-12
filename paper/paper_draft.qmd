@@ -22,7 +22,8 @@ author:
         corresponding: true
 abstract: |
     Coral reefs globally face unprecedented threats from climate change, with the Great Barrier
-    Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral cover from thermal stress events.
+    Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral cover from thermal stress
+    events.
     Understanding drivers behind reef resilience to climate impacts is critical for conservation
     planning and intervention strategies. A scenario-based population modelling approach was
     adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
@@ -33,12 +34,13 @@ abstract: |
     patterns did not correlate with increases in maintenance of positive carbonate budgets.
     Instead, reef depth emerged as the primary predictor of cover-time series resilience and
     maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
-    refugia that reduce bleaching impacts. Interaction between reef depth and incoming 
-    connectivity was found to influence reef temporal behaviour. Our findings suggest that 
-    depth provides critical protection against thermal stress, with high incoming connectivity enhancing the performance of deep reefs, contrasting current intervention
-    practices that primarily target easily accessible sites in the 1-10m depth range. These results have 
-    important implications for reef management, indicating that depth refugia should be 
-    prioritized for further consideration in conservation planning alongside connectivity 
+    refugia that reduce bleaching impacts. Interaction between reef depth and incoming
+    connectivity was found to influence reef temporal behaviour. Our findings suggest that
+    depth provides critical protection against thermal stress, with high incoming connectivity enhancing the
+    performance of deep reefs, contrasting current intervention
+    practices that primarily target easily accessible sites in the 1-10m depth range. These results have
+    important implications for reef management, indicating that depth refugia should be
+    prioritized for further consideration in conservation planning alongside connectivity
     considerations to maximize coral survival under continuing climate change.
 keywords:
   - Coral reef
