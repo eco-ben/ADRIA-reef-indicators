@@ -284,23 +284,27 @@ width="14.82cm"}
 
 ## Assessment framework
 
-We adapted exploratory scenario modelling approach from robust decision making (RDM)
-approaches for this investigation. In particular, we used parameter sampling and exploratory
-modelling to investigate a wide range of plausible futures under different assumptions of
-environmental (climatic) conditions and ecological factors. Exploratory modelling approaches
-have gained favour in recent years as precise long-term predictions of future conditions are
-often impossible in complex ecological systems [@conradt2024; @lempert2013]. RDM embraces
-uncertainty as an inherent characteristic of complex environmental systems [@lempert2010;
-@lempert2013] and is a core methodology underpinning the development of robust and adaptive
-management strategies [@haasnoot2013]. Rather than attempting to forecast specific outcomes,
-RDM aims to systematically explore many possible futures to identify patterns. Allowing for
-the identification of robust management strategies that perform well across those diverse
-conditions, as well as conditions in which such strategies may fail. Multiple interacting
-and compounding sources of uncertainty, and a lack of broad agreement as to their
-likelihood, create inherently uncertain outcomes. While we did not directly model management
-decision making in this investigation, we used exploratory modelling to identify the
-environmental and reef characteristics, such as thermal stress, depth and connectivity, that
-support favourable outcomes such as recovery and resilience.
+We adapted an exploratory scenario modelling approach for this investigation. Specifically,
+we use combinations of model factors to investigate a wide range of potential futures under
+different assumptions of environmental (climatic) and ecological conditions. Exploratory
+modelling approaches have gained favour in recent years to explore the implications of deep
+uncertainty; where there is little or no agreement on the key drivers of a system, the
+extent of the relationship, how best to represent them or their probability distributions
+[@conradt2024; @lempert2013]. Exploratory modelling embraces uncertainty as an inherent
+characteristic of complex environmental systems [@lempert2010; @lempert2013] and is a core
+methodology underpinning the development of robust and adaptive management strategies
+[@haasnoot2013].
+
+Rather than attempting to forecast precise outcomes, the exploratory approach aims to
+systematically search many possible futures to identify patterns that lead to outcomes of
+interest. The approach allows for the identification of robust management strategies that
+perform well across a diversity of future conditions rather than attempting to identify a
+single most optimal strategy. Concurrently, assessing the wide swathe of scenarios allows
+contextual understanding of the conditions in which strategies may fail. Multiple
+interacting and compounding sources of uncertainty, and a lack of broad agreement as to
+their likelihood, create inherently uncertain outcomes. Here, exploratory modelling was
+applied to identify the environmental and reef characteristics, such as thermal stress,
+depth, and connectivity, that support favourable outcomes in reef recovery and resilience.
 
 ### Scenario modelling
 
