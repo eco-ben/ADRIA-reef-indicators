@@ -77,7 +77,7 @@ X2 = coerce(
     :mean_dhw => Continuous,
     :abs_k_area => Continuous,
     :weighted_incoming_conn => Continuous,
-    :log_out_strength => Continuous,
+    # :log_out_strength => Continuous,
     :log_self_strength => Continuous
 )
 
@@ -105,7 +105,7 @@ sp_cors = Dict(
 
 rng = Random.seed!(76)
 rf = @load RandomForestClassifier pkg = "DecisionTree"
-model = rf(; rng=rng)
+model = rf(; rng=rng, sampling_fraction=0.5, n_trees=100, max_depth=15, min_samples_leaf=4)
 
 train_size = ceil(Int64, nrow(X2) * 0.6)
 shuffle_set = shuffle(1:nrow(X2))
@@ -121,13 +121,13 @@ fit!(mach)
 cluster_est = MLJ.predict(mach, train_X)
 y_pred_mode = predict_mode(mach, train_X)
 μ_accuracy = mean(y_pred_mode .== train_y)
-@info μ_accuracy  # 0.99
+@info μ_accuracy  # 0.79
 
 cluster_est = MLJ.predict(mach, test_X)
 y_pred_mode = predict_mode(mach, test_X)
 
 μ_accuracy = mean(y_pred_mode .== test_y)
-@info μ_accuracy  # 0.62
+@info μ_accuracy  # 0.58
 
 cm = confusion_matrix(y_pred_mode, test_y)
 cm.mat
@@ -171,19 +171,19 @@ end
 
 cv = CV(nfolds=3, rng=123)
 evaluate!(mach, resampling=cv, measure=[MLJ.accuracy, MLJ.cross_entropy])
-# Accuracy: 0.606
-# LogLoss: 0.853
+# Accuracy: 0.576
+# LogLoss: 0.91
 
 feat_imports = feature_importances(mach)
-#               :depth_med => 0.23860533087232372
-#                :mean_dhw => 0.16479623325258205
-#  :weighted_incoming_conn => 0.136410744763997
-#  :weighted_outgoing_conn => 0.1362327788209799
-#              :abs_k_area => 0.12357937667819203
-#            :log_so_to_si => 0.1069541180323328
-#               :bioregion => 0.09342141757959256
-# The precise values of the above are subject to change but the order of features is
-# robust.
+#               :depth_med => 0.2962643264332456
+#              :abs_k_area => 0.1433747275450697
+#                :mean_dhw => 0.1405337167376021
+#  :weighted_incoming_conn => 0.12351683372393917
+#        :log_out_strength => 0.11641412357551047
+#            :log_so_to_si => 0.10031849641249332
+#       :log_self_strength => 0.07957777557213959
+# The precise values of the above are subject to change but the order of features appears to
+# be robust.
 
 fi_dict = OrderedDict(feat_imports)
 fi_names = string.(reverse(collect(keys(fi_dict))))
@@ -326,7 +326,7 @@ function partial_dependence_two_way(machine, data, feature_cols; n_grid=50)
     return results
 end
 
-function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame; fig=Figure(size=(800,500)))
+function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame; fig=Figure(size=(800, 500)))
     feature_names = keys(pdp_results)
     readable_names = OrderedDict(
         "mean_dhw" => "Mean DHW",
