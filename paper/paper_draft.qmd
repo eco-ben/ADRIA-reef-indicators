@@ -336,7 +336,7 @@ Carlo approach which balances scenario exploration with improved convergence pro
 compared to pseudo-random sampling. A detailed comparative analysis of sampling methods can
 be found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
 cover time series for each model run were scaled by the total area of each reef to represent
-cover as a percentage of the total estimated reef area. The scenario-median timeseries for
+cover as a percentage of the total estimated reef area. The scenario-median time series for
 each reef was used for further analyses. These time series of coral cover were then
 clustered based on their temporal behaviour.
 
@@ -362,7 +362,7 @@ To assess the impact of reef connectivity on modelled outcomes we summarise inco
 connectivity (weighted incoming connectivity), outgoing connectivity (outgoing connection
 strength), the ratio of source-to-sink connectivity, and larval retention probability for
 each reef. Weighted incoming connectivity is calculated by summing the product of each
-connection strength incoming to a target reef and the mean timeseries absolute coral cover
+connection strength incoming to a target reef and the mean time series absolute coral cover
 (km^2^) of each matching source reef. This metric provides an approximation of overall
 larval flow into a reef, with high values indicating the target reef is supplied high
 volumes of larvae via strong connections and low values indicating the target reef has weak
@@ -938,7 +938,7 @@ fig-align="center" width="14.82cm"}
 
 | Metric | Used in | Definition | Justification |
 |-----------------------|-----------------------|-----------------------|-----------------------|
-| Percentage coral cover time series | Timeseries clustering, Carbonate budget analysis | Total coral cover as a percentage of reef area | To summarise coral population health over time |
+| Percentage coral cover time series | Time series clustering, Carbonate budget analysis | Total coral cover as a percentage of reef area | To summarise coral population health over time |
 | Median depth | Time series cluster assessment Carbonate budget analysis | Reef median depth as calculated with zonal raster analysis | Depth is a critical form of environmental refugia from high thermal stress |
 | Mean time series DHW | Time series cluster assessment | Reef mean DHW value across time series | Resilient reefs may experience reduced surface DHWs |
 | Source - to - sink connectivity ratio | Time series cluster assessment | Ratio of reef outgoing to incoming connectivity | Reefs with greater source than sink connectivity may have lower recovery |
@@ -1122,7 +1122,7 @@ Starting distributions for thermal tolerance levels are informed by Bairos-Novak
 
 ### Time series clustering
 
-The CID timeseries clustering metric corrects the Euclidean distance between pairs of time
+The CID time series clustering metric corrects the Euclidean distance between pairs of time
 series (which accounts for magnitude differences) with the complexity of each time series
 (obtained through a measure of their variability) to ensure reefs are clustered based on
 their underlying temporal dynamics rather than simply their average coral cover. The process
