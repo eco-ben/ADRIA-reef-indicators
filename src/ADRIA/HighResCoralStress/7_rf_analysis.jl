@@ -194,10 +194,10 @@ X2 = X2[:, string.([first(fi) for fi in feat_imports])]
 
 # Plot overview based on Spearman correlation
 f = Figure(size=(800, 500))
-r = 1
-c = 1
-n_rows = 2
-n_cols = 3
+global r = 1
+global c = 1
+global n_rows = 2
+global n_cols = 3
 for t_col in names(X2)
     d = X2[:, t_col]
 
