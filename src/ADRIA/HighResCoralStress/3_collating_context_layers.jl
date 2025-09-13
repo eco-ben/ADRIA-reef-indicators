@@ -82,6 +82,7 @@ for reef in eachindex(reefs)
 
     outgoing = outgoing[:, outgoing.Sink .!= reef_id] # Ensure outgoing connectivity does not include retained larvae
     incoming = connectivity_matrix[:, connectivity_matrix.Sink.==reef_id]
+    incoming = incoming[:, incoming.Source .!= reef_id] # Ensure incoming connectivity is only externally sourced larval flow
 
     income_strength = sum(incoming)
     income_count = count(incoming .> 0)

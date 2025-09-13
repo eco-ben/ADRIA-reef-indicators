@@ -357,29 +357,29 @@ To assess the impact of reef connectivity on modelled outcomes we summarise inco
 connectivity (weighted incoming connectivity), outgoing connectivity (outgoing connection
 strength), the ratio of source-to-sink connectivity, and larval retention probability for
 each reef. Weighted incoming connectivity is calculated by summing the product of each
-connection strength incoming to a target reef and the mean timeseries absolute coral cover
-(km^2^) of each matching source reef. This metric provides an approximation of overall
-larval flow into a reef, with high values indicating the target reef is supplied high
-volumes of larvae via strong connections and low values indicating the target reef has weak
-(or no) incoming connections or is supplied by small source populations. A limitation of
-weighted incoming connectivity is it does not incorporate the proportion of the source
-reef's population that is reproducing and producing larvae, instead taking the total coral
-cover area as an indicator of larval productivity. Outgoing connection strength is
-calculated as the sum of all outgoing transition probabilities from a target reef. Outgoing
-connection strength has a theoretical maximum of one (all larvae reach settlement on sink
-reefs), however the large size of the GBR combined with larval mortality considerations
-result in outgoing connection strength values much lower than one. The ratio of
-source-to-sink connectivity ($O:I$) for a target reef represents the strength of the reef's
-outgoing larval flow relative to it's incoming larval flow. This is calculated as:
-$O:I = \frac{S_O/N_O}{S_I/N_I}$. Where S represents the sum of connectivity pobabilities, N
-represents the number of connections, O denotes outgoing connectivity from the target reef
-and I denotes incoming connectivity to the target reef. If a reef has no incoming
-connections, the $O:I$ equals the $S_O/N_O$ value. Incoming connections in this calculation,
-do not directly represent the larval supply gained as the breeding populations from which
-connections are coming from are not represented. A source-to-sink ratio greater than 1 (a
-value greater than 0 on a log scale) indicates a reef has greater outgoing than incoming
-larval flow. Reef larval retention probability indicates the proportion of spawned larvae
-from a target reef that remain to settlement.
+connection strength incoming to a target reef (excluding retained larvae from the target
+reef) and the mean timeseries absolute coral cover (km^2^) of each matching source reef.
+This metric provides an approximation of overall larval flow into a reef, with high values
+indicating the target reef is supplied high volumes of larvae via strong connections and low
+values indicating the target reef has weak (or no) incoming connections or is supplied by
+small source populations. A limitation of weighted incoming connectivity is it does not
+incorporate the proportion of the source reef's population that is reproducing and producing
+larvae, instead taking the total coral cover area as an indicator of larval productivity.
+Outgoing connection strength is calculated as the sum of all outgoing transition
+probabilities from a target reef. Outgoing connection strength has a theoretical maximum of
+one (all larvae reach settlement on sink reefs), however the large size of the GBR combined
+with larval mortality considerations result in outgoing connection strength values much
+lower than one. The ratio of source-to-sink connectivity ($O:I$) for a target reef
+represents the strength of the reef's outgoing larval flow relative to it's incoming larval
+flow. This is calculated as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where S represents the sum of
+connectivity pobabilities, N represents the number of connections, O denotes outgoing
+connectivity from the target reef and I denotes incoming connectivity to the target reef. If
+a reef has no incoming connections, the $O:I$ equals the $S_O/N_O$ value. Incoming
+connections in this calculation, do not directly represent the larval supply gained as the
+breeding populations from which connections are coming from are not represented. A
+source-to-sink ratio greater than 1 (a value greater than 0 on a log scale) indicates a reef
+has greater outgoing than incoming larval flow. Reef larval retention probability indicates
+the proportion of spawned larvae from a target reef that remain to settlement.
 
 ### Time series clustering
 
