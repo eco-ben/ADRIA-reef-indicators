@@ -38,9 +38,9 @@ for (i, GCM) in enumerate(GCMs)
 
     bio_cluster_details = context_layers[:, [dhw_col, bio_cluster_col, weighted_incom_col]]
     rename!(
-        bio_cluster_details, 
-        dhw_col => :mean_dhw, 
-        bio_cluster_col => :cluster, 
+        bio_cluster_details,
+        dhw_col => :mean_dhw,
+        bio_cluster_col => :cluster,
         weighted_incom_col => :weighted_incoming_conn
     )
     bio_cluster_details.GCM .= GCM
@@ -57,14 +57,10 @@ reef_properties.GCM .= categorical(reef_properties.GCM)
 reef_properties.bioregion .= categorical(reef_properties.bioregion)
 reef_properties.abs_k_area ./= 1e6  # Convert to km^2 for clarity
 
-target_cols = [:depth_med, :log_so_to_si, :bioregion, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :log_out_strength, :log_self_strength]
+target_cols = [:depth_med, :log_so_to_si, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :log_out_strength, :log_self_strength]
 Xs = reef_properties[:, target_cols]
 y = vec(reef_properties[:, :cluster])
 y = Int64.(getfield.(y, :ref))
-
-Xs.bioregion .= categorical(Xs.bioregion)
-bioregion_cats = Xs.bioregion
-Xs.bioregion .= Int64.(getfield.(Xs.bioregion, :ref))
 
 d = Dict(1 => "low", 2 => "med", 3 => "high")
 
@@ -78,7 +74,6 @@ X2 = coerce(
     X2,
     :depth_med => Continuous,
     :log_so_to_si => Continuous,
-    :bioregion => OrderedFactor,
     :mean_dhw => Continuous,
     :abs_k_area => Continuous,
     :weighted_incoming_conn => Continuous,
@@ -89,7 +84,6 @@ X2 = coerce(
 readable_names = OrderedDict(
     "mean_dhw" => "Mean DHW",
     "depth_med" => "Median Depth",
-    "bioregion" => "Bioregion",
     "abs_k_area" => "Carrying Capacity",
     "log_so_to_si" => "Log10 Outgoing to Incoming\nConnectivity Ratio",
     "weighted_incoming_conn" => "Log10 Weighted\nIncoming Connectivity",
@@ -102,7 +96,6 @@ readable_names = OrderedDict(
 sp_cors = Dict(
     "mean_dhw" => round(corspearman(X2.mean_dhw, y); digits=2),
     "depth_med" => round(corspearman(X2.depth_med, y); digits=2),
-    "bioregion" => round(corspearman(levelcode.(X2.bioregion), y); digits=2),
     "abs_k_area" => round(corspearman(X2.abs_k_area, y); digits=2),
     "log_so_to_si" => round(corspearman(X2.log_so_to_si, y); digits=2),
     "weighted_incoming_conn" => round(corspearman(X2.weighted_incoming_conn, y); digits=2),
@@ -221,10 +214,10 @@ for t_col in names(X2)
     scatter!(ax, v; color=y[d_order], alpha=0.2, markersize=6)
     ax.title = "$(readable_names[t_str])\n($(sp_cors[t_str]))"
 
-    c += 1
+    global c += 1
     if c > n_cols
-        c = 1
-        r += 1
+        global c = 1
+        global r += 1
     end
 end
 
