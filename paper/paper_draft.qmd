@@ -388,61 +388,63 @@ from a target reef that remain to settlement.
 
 ### Time series clustering
 
-Reefs were clustered into three qualitative categories based on their temporal behaviour
-indicated by coral cover over time. The three categories were Low, Medium, and High,
-indicating their relative ability to maintain coral cover and thus their structural
-resilience. The Complexity-Invariant Distance (CID) between each time series was calculated
-to identify similarities in temporal behaviour [@batista2014]. The CID applies a correction
-factor to the Euclidean distance between pairs of time series to obtain a measure of their
-similarity. The adopted approach ensures reefs are clustered based on their temporal
-dynamics as opposed to, for example, naively clustering by their mean coral cover.
-Clustering similar time series is achieved through the use of k-medoids clustering [cf.
-@steinmann2020]. Further details on the time series clustering approach are found in the
-supplementary materials.
+Reefs were clustered based on the temporal behaviour of their median coral cover time
+series. Put simply, reefs that have similar trends and trajectories are more likely to be
+clustered together. Reefs are clustered into Low, Medium, or High, indicating their relative
+ability to maintain coral cover over time. Reefs in each time series cluster were compared
+to identify characteristics that differ between Low, Medium and High clusters. These
+characteristics include reef median depth, mean time series DHW, weighted incoming
+connectivity, outgoing connection strength, ratio of source-to-sink larval connectivity,
+larval retention probability and reef carrying capacity (coral habitable area).
 
-The time series clustering was applied over the time frame between 2025 and 2075. Spatially,
-the clustering analyses were conducted for each GBR management area and at the scale of each
-reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were also performed at the
-whole-of-GBR scale but were found to lead to identical conclusions about characteristics
-influencing cluster cover compared to management area and bioregion scale analyses and so
-are not shown here. To compare time series clustering results across GCMs, management area
-scale clustering results are used to preserve coarse scale latitudinal differences between
-regions, while maintaining ease of comparison and visualisation. These comparisons include
-quantification of differences between low and high cover clusters across management regions
-under each GCM using the CID between cluster median time series. To assess how different
-reef characteristics influence time series clustering at a finer spatial scale, bioregion
-results are used to capture patterns occurring within individual groups of reefs. Results of
-all analyses at all clustering scales can be found at Grier and Iwanaga [-@grier2025] for
-those interested.
+The Complexity-Invariant Distance (CID) between each time series was calculated to identify
+similarities in temporal behaviour [@batista2014]. The CID applies a correction factor to
+the Euclidean distance between pairs of time series to obtain a measure of their similarity.
+The adopted approach ensures reefs are clustered based on their temporal dynamics as opposed
+to, for example, naively clustering by their mean coral cover. Time series clustering is
+achieved through the use of k-medoids clustering [cf. @steinmann2020]. Further details on
+the time series clustering approach are found in the supplementary materials.
 
-Reefs in each time series cluster were compared to identify characteristics that differ
-between Low, Medium and High clusters. These characteristics include reef median depth, mean
-time series DHW, weighted incoming connectivity, outgoing connection strength, ratio of
-source-to-sink larval connectivity, larval retention probability and reef carrying capacity
-(coral habitable area).
+The time series clustering was applied over the time frame between 2025 and 2075. The
+clustering was conducted for three spatial scales: (1) the whole of GBR; (2) each GBR
+management area; and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). The
+analyses was conducted at the different spatial scales as, conceptually, the temporal
+behaviour constituting "low", "medium" or "high" coral cover may differ at the different
+spatial scales. As it was, analyses at the whole-of-GBR scale were found to lead to
+identical conclusions regarding reef characteristics which influence coral cover and so for
+brevity are not shown here.
+
+To compare time series clustering results across GCMs, management area scale clustering
+results are used to preserve coarse scale latitudinal differences between regions, while
+maintaining ease of comparison and visualisation. These comparisons include quantification
+of differences between low and high cover clusters across management regions under each GCM
+using the CID between cluster median time series. To assess how different reef
+characteristics influence time series clustering at a finer spatial scale, bioregion results
+are used to capture patterns occurring within individual groups of reefs. Results of all
+analyses at all spatial scales can be found at Grier and Iwanaga [-@grier2025] for those
+interested.
 
 #### Partial Dependence Analysis
 
 Partial Dependence Analysis was conducted to understand the relationship between features
 and bioregion-scale time series cluster predictions using a trained Random Forest (RF)
 classifier [@friedman2001]. The analysis utilised the reef characteristics of interest as
-the predictors, including the median reef depth, mean DHW for the given GCM, Log10 -
-weighted incoming connectivity, Log10 - weighted outgoing connectivity, and Log10 -
-outgoing-to-incoming connectivity ratio. The full dataset consisted of the time series
-cluster assignment of each of the 2429 reefs under the five GCMs explored, for a total of
-12,145 samples. The dataset was randomly split into training (60%) and testing (40%) subsets
-to ensure model generalisability. The RF classifier achieved 99% accuracy on the training
-set and 62% on the test set.
+the predictors, including the median reef depth, mean DHW for the given GCM, log10-weighted
+incoming connectivity, log10-weighted outgoing connectivity, and log10-outgoing-to-incoming
+connectivity ratio. The full dataset consisted of the time series cluster assignment of each
+of the 2429 reefs under the five GCMs explored, for a total of 12,145 samples. The dataset
+was randomly split into training (60%) and testing (40%) subsets to ensure model
+generalisability. The RF classifier achieved 79% accuracy on the training set and 59% on the
+test set.
 
-While 99% accuracy suggests the classifier is overfit to the training data, the 66% test
-accuracy indicates a meaningful relationship between modelled reef characteristics and their
-assigned clusters has been captured. A 3-fold cross-validation was also conducted, arriving
-at a similar 67% accuracy rate. The consistent level of accuracy across test and
-cross-validation demonstrates the generalised performance of the RF classifier is reliable.
+A 3-fold cross-validation was also conducted, arriving at a similar 57% accuracy rate.
 Furthermore, F1 performance scores for Low, Medium, and High clusters were determined to be
-0.7, 0.5 and 0.65 respectively, indicating balanced performance across the cluster
-categories. Lower performance with the Medium cluster reflects the inherent difficulty of
-classifying transitional states in natural systems.
+0.68, 0.43 and 0.62 respectively, with precision of 0.77, 0.49 and 0.66 when evaluated with
+the test set (consisting of 4858 samples). Lower performance with the Medium cluster
+reflects the inherent difficulty of classifying transitional states in natural systems. The
+consistent level of accuracy across test and cross-validation demonstrates the generalised
+performance of the RF classifier, while not accurate, was deemed sufficiently informative
+for the purpose of assessing the influence of reef characteristics.
 
 Partial dependence analysis was performed by applying the trained model to the test dataset.
 Values for individual predictors were systematically (one-at-a-time) varied across a grid of
@@ -450,13 +452,13 @@ Values for individual predictors were systematically (one-at-a-time) varied acro
 at their modelled values. The procedure creates (1) a modified test dataset, where the
 target predictor was set to the grid value for all samples, (2) probabilistic predictions
 for all three cluster classes using the trained RF classifier, and (3) the mean predicted
-probability for each class across all test observations. The median was also assessed (not
-shown) but was found not to substantially influence the interpretation of results. The
-process isolates the marginal effect of each predictor by averaging over the natural
-distribution of all other representative reef characteristics in the test dataset.
-Additionally, to assess possible interaction between reef depth and incoming connectivity,
-two-way partial dependence analysis was performed on grids along the range of these two
-features.
+probability for each class across all test observations. Use of the median predicted
+probability was also assessed but was found not to substantially influence the
+interpretation of results (and so, are not shown here). The process isolates the marginal
+effect of each predictor by averaging over the natural distribution of all other
+representative reef characteristics in the test dataset. Additionally, to assess possible
+interaction between reef depth and incoming connectivity, two-way partial dependence
+analysis was performed on grids along the range of these two features.
 
 ### Carbonate budget analysis
 
