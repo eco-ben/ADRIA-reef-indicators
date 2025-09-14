@@ -38,9 +38,9 @@ for (i, GCM) in enumerate(GCMs)
 
     bio_cluster_details = context_layers[:, [dhw_col, bio_cluster_col, weighted_incom_col]]
     rename!(
-        bio_cluster_details, 
-        dhw_col => :mean_dhw, 
-        bio_cluster_col => :cluster, 
+        bio_cluster_details,
+        dhw_col => :mean_dhw,
+        bio_cluster_col => :cluster,
         weighted_incom_col => :weighted_incoming_conn
     )
     bio_cluster_details.GCM .= GCM
@@ -57,14 +57,10 @@ reef_properties.GCM .= categorical(reef_properties.GCM)
 reef_properties.bioregion .= categorical(reef_properties.bioregion)
 reef_properties.abs_k_area ./= 1e6  # Convert to km^2 for clarity
 
-target_cols = [:depth_med, :log_so_to_si, :bioregion, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :log_out_strength, :log_self_strength]
+target_cols = [:depth_med, :log_so_to_si, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :log_out_strength, :log_self_strength]
 Xs = reef_properties[:, target_cols]
 y = vec(reef_properties[:, :cluster])
 y = Int64.(getfield.(y, :ref))
-
-Xs.bioregion .= categorical(Xs.bioregion)
-bioregion_cats = Xs.bioregion
-Xs.bioregion .= Int64.(getfield.(Xs.bioregion, :ref))
 
 d = Dict(1 => "low", 2 => "med", 3 => "high")
 
@@ -78,18 +74,16 @@ X2 = coerce(
     X2,
     :depth_med => Continuous,
     :log_so_to_si => Continuous,
-    :bioregion => OrderedFactor,
     :mean_dhw => Continuous,
     :abs_k_area => Continuous,
     :weighted_incoming_conn => Continuous,
-    :log_out_strength => Continuous,
+    # :log_out_strength => Continuous,
     :log_self_strength => Continuous
 )
 
 readable_names = OrderedDict(
     "mean_dhw" => "Mean DHW",
     "depth_med" => "Median Depth",
-    "bioregion" => "Bioregion",
     "abs_k_area" => "Carrying Capacity",
     "log_so_to_si" => "Log10 Outgoing to Incoming\nConnectivity Ratio",
     "weighted_incoming_conn" => "Log10 Weighted\nIncoming Connectivity",
@@ -102,7 +96,6 @@ readable_names = OrderedDict(
 sp_cors = Dict(
     "mean_dhw" => round(corspearman(X2.mean_dhw, y); digits=2),
     "depth_med" => round(corspearman(X2.depth_med, y); digits=2),
-    "bioregion" => round(corspearman(levelcode.(X2.bioregion), y); digits=2),
     "abs_k_area" => round(corspearman(X2.abs_k_area, y); digits=2),
     "log_so_to_si" => round(corspearman(X2.log_so_to_si, y); digits=2),
     "weighted_incoming_conn" => round(corspearman(X2.weighted_incoming_conn, y); digits=2),
@@ -112,7 +105,7 @@ sp_cors = Dict(
 
 rng = Random.seed!(76)
 rf = @load RandomForestClassifier pkg = "DecisionTree"
-model = rf(; rng=rng)
+model = rf(; rng=rng, sampling_fraction=0.5, n_trees=100, max_depth=15, min_samples_leaf=4)
 
 train_size = ceil(Int64, nrow(X2) * 0.6)
 shuffle_set = shuffle(1:nrow(X2))
@@ -128,13 +121,13 @@ fit!(mach)
 cluster_est = MLJ.predict(mach, train_X)
 y_pred_mode = predict_mode(mach, train_X)
 μ_accuracy = mean(y_pred_mode .== train_y)
-@info μ_accuracy  # 0.99
+@info μ_accuracy  # 0.79
 
 cluster_est = MLJ.predict(mach, test_X)
 y_pred_mode = predict_mode(mach, test_X)
 
 μ_accuracy = mean(y_pred_mode .== test_y)
-@info μ_accuracy  # 0.62
+@info μ_accuracy  # 0.58
 
 cm = confusion_matrix(y_pred_mode, test_y)
 cm.mat
@@ -178,19 +171,19 @@ end
 
 cv = CV(nfolds=3, rng=123)
 evaluate!(mach, resampling=cv, measure=[MLJ.accuracy, MLJ.cross_entropy])
-# Accuracy: 0.606
-# LogLoss: 0.853
+# Accuracy: 0.576
+# LogLoss: 0.91
 
 feat_imports = feature_importances(mach)
-#               :depth_med => 0.23860533087232372
-#                :mean_dhw => 0.16479623325258205
-#  :weighted_incoming_conn => 0.136410744763997
-#  :weighted_outgoing_conn => 0.1362327788209799
-#              :abs_k_area => 0.12357937667819203
-#            :log_so_to_si => 0.1069541180323328
-#               :bioregion => 0.09342141757959256
-# The precise values of the above are subject to change but the order of features is
-# robust.
+#               :depth_med => 0.2962643264332456
+#              :abs_k_area => 0.1433747275450697
+#                :mean_dhw => 0.1405337167376021
+#  :weighted_incoming_conn => 0.12351683372393917
+#        :log_out_strength => 0.11641412357551047
+#            :log_so_to_si => 0.10031849641249332
+#       :log_self_strength => 0.07957777557213959
+# The precise values of the above are subject to change but the order of features appears to
+# be robust.
 
 fi_dict = OrderedDict(feat_imports)
 fi_names = string.(reverse(collect(keys(fi_dict))))
@@ -201,10 +194,10 @@ X2 = X2[:, string.([first(fi) for fi in feat_imports])]
 
 # Plot overview based on Spearman correlation
 f = Figure(size=(800, 500))
-r = 1
-c = 1
-n_rows = 2
-n_cols = 3
+global r = 1
+global c = 1
+global n_rows = 2
+global n_cols = 3
 for t_col in names(X2)
     d = X2[:, t_col]
 
@@ -221,10 +214,10 @@ for t_col in names(X2)
     scatter!(ax, v; color=y[d_order], alpha=0.2, markersize=6)
     ax.title = "$(readable_names[t_str])\n($(sp_cors[t_str]))"
 
-    c += 1
+    global c += 1
     if c > n_cols
-        c = 1
-        r += 1
+        global c = 1
+        global r += 1
     end
 end
 
@@ -290,16 +283,6 @@ function partial_dependence_multiclass(machine, data, feature_col; n_grid=50)
 end
 
 function partial_dependence_two_way(machine, data, feature_cols; n_grid=50)
-    # feature_values = data[:, feature_col]
-
-    # is_cat_type = eltype(feature_values) <: Union{String,Symbol,CategoricalValue,AbstractString}
-    # if is_cat_type || isa(feature_values, CategoricalArray)
-    #     # Skip categorical (uninformative)
-    #     return zeros(n_grid)
-    #     # grid = unique(feature_values)
-    # else
-    #     grid = range(extrema(feature_values)..., length=n_grid)
-    # end
     feature_1_values = data[:, feature_cols[1]]
     grid_1 = range(extrema(feature_1_values)..., length=n_grid)
 
@@ -311,11 +294,11 @@ function partial_dependence_two_way(machine, data, feature_cols; n_grid=50)
     class_labels = levels(sample_pred[1])
 
     # Initialize results for each class
-    results = DataFrame(grid_1_grid_2_product = vcat(collect(Iterators.product(grid_1, grid_2))...))
+    results = DataFrame(grid_1_grid_2_product=vcat(collect(Iterators.product(grid_1, grid_2))...))
     results = hcat(
         results,
         DataFrame(
-            fill(Vector{Union{Float64, Missing}}(missing, length(results.grid_1_grid_2_product)), 3),
+            fill(Vector{Union{Float64,Missing}}(missing, length(results.grid_1_grid_2_product)), 3),
             class_labels
         )
     )
@@ -329,13 +312,13 @@ function partial_dependence_two_way(machine, data, feature_cols; n_grid=50)
 
             # Make feature constant
             data_modified[:, feature_cols[2]] .= grid_2_val
-            
+
             # Prediction if feature is fixed
             prob_predictions = MLJ.predict(machine, data_modified)
 
             # Calculate average probability for each class
             for class_label in class_labels
-                results[results.grid_1_grid_2_product .== [grid_id], class_label] .= mean(pdf.(prob_predictions, Ref(class_label)))
+                results[results.grid_1_grid_2_product.==[grid_id], class_label] .= mean(pdf.(prob_predictions, Ref(class_label)))
             end
         end
     end
@@ -343,7 +326,7 @@ function partial_dependence_two_way(machine, data, feature_cols; n_grid=50)
     return results
 end
 
-function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame; fig=Figure(size=(800,500)))
+function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFrame; fig=Figure(size=(800, 500)))
     feature_names = keys(pdp_results)
     readable_names = OrderedDict(
         "mean_dhw" => "Mean DHW",
@@ -435,19 +418,6 @@ function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFram
         orientation=:horizontal
     )
 
-    # if isa(fig, GridLayout)
-    #     rowsize!(fig, n_rows+1, Relative(0.15))
-    #     for j in 1:3
-    #         colsize!(fig, j, Relative(1/3))
-    #     end
-    # else
-    #     rowsize!(fig.layout, n_rows+1, Relative(0.15))
-    #     for j in 1:3
-    #         colsize!(fig.layout, j, Relative(1/3))
-    #     end
-    # end
-
-    # Label(fig[1:2, -1], "Probability", rotation=π / 2)
     Label(fig[0, 1:3], "Partial Dependence", font=:bold)
 
     return fig
@@ -458,28 +428,26 @@ function plot_two_way_pdp(two_way_pdp_results, test_X, feature1, feature2, f1_la
 
     grid_1 = sort(unique(first.(two_way_pdp_results.grid_1_grid_2_product)))
     grid_2 = sort(unique(last.(two_way_pdp_results.grid_1_grid_2_product)))
-    # grid_2 = 10 .^ grid_2
-    # depth_conn_two_way_pdp.grid_1_grid_2_product = vcat(collect(Iterators.product(grid_1, grid_2))...)
 
     color_range = extrema(Matrix(two_way_pdp_results[:, Not(:grid_1_grid_2_product)]))
     rename!(two_way_pdp_results, "low" => "Low", "med" => "Medium", "high" => "High")
     base_cmap = cgrad(:viridis, range(color_range[1], color_range[2], 256))
 
-    fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
+    fig = Figure(size=(fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize=fontsize)
     for (c, class_label) in enumerate(["Low", "Medium", "High"])
-        res_matrix = Matrix{Union{Missing, Float64}}(missing, (length(grid_1), length(grid_2)))
-        gridlayout = GridLayout(fig[1,c])
+        res_matrix = Matrix{Union{Missing,Float64}}(missing, (length(grid_1), length(grid_2)))
+        gridlayout = GridLayout(fig[1, c])
         for (g1, grid_1_val) in enumerate(grid_1)
             for (g2, grid_2_val) in enumerate(grid_2)
-                gval = two_way_pdp_results[two_way_pdp_results.grid_1_grid_2_product .== [(grid_1_val, grid_2_val)], class_label]
+                gval = two_way_pdp_results[two_way_pdp_results.grid_1_grid_2_product.==[(grid_1_val, grid_2_val)], class_label]
                 res_matrix[g1, g2] = first(gval)
             end
         end
 
         ax = Axis(
-            gridlayout[1,1],
-            xlabel = "",
-            ylabel = ""
+            gridlayout[1, 1],
+            xlabel="",
+            ylabel=""
         )
         c3 = contourf!(
             grid_1,
@@ -487,12 +455,19 @@ function plot_two_way_pdp(two_way_pdp_results, test_X, feature1, feature2, f1_la
             res_matrix;
             colormap=base_cmap
         )
-        abc = ["A","B","C"]
-        Label(gridlayout[1,1, Top()], "($(abc[c])) $(class_label) cluster \n ", font=:bold)
+        abc = ["A", "B", "C"]
+        Label(gridlayout[1, 1, Top()], "($(abc[c])) $(class_label) cluster \n ", font=:bold)
     end
 
-    # ax.ytickformat = x -> string.(round.(10 .^ x; digits = 2))
-    Colorbar(fig[0,:], limits=color_range, colormap=base_cmap, label="Probability of target cluster assignment", size=6, spinewidth=0.0, vertical=false)
+    Colorbar(
+        fig[0, :],
+        limits=color_range,
+        colormap=base_cmap,
+        label="Probability of target cluster assignment",
+        size=6,
+        spinewidth=0.0,
+        vertical=false
+    )
     Label(fig[1, 0], f2_label, tellwidth=false, tellheight=false, rotation=π / 2)
     Label(fig[2, 1:3], f1_label, tellheight=false, tellwidth=false)
     rowsize!(fig.layout, 2, Relative(0.01))
@@ -505,7 +480,7 @@ function plot_two_way_pdp(two_way_pdp_results, test_X, feature1, feature2, f1_la
         xlabel=f1_label
     )
     hist!(ax2, test_X[:, feature1]; color=(:gray))
-    Label(gridlayout2[1,1, TopLeft()], "D", font=:bold)
+    Label(gridlayout2[1, 1, TopLeft()], "D", font=:bold)
 
     ax3 = Axis(
         gridlayout2[1, 2],
@@ -513,7 +488,7 @@ function plot_two_way_pdp(two_way_pdp_results, test_X, feature1, feature2, f1_la
         xlabel=f2_label
     )
     hist!(ax3, test_X[:, feature2]; color=(:gray))
-    Label(gridlayout2[1,2, TopLeft()], "E", font=:bold)
+    Label(gridlayout2[1, 2, TopLeft()], "E", font=:bold)
 
     Label(fig[3, 0], "Number of samples", tellwidth=false, tellheight=false, rotation=π / 2)
     rowsize!(fig.layout, 3, Relative(0.25))
@@ -529,12 +504,12 @@ end
 
 # Plot feature importances
 figure = Figure(
-    size = (fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] - 3centimetre), 
+    size=(fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"]),
     fontsize=fontsize
 )
-gr1 = GridLayout(figure[1,1])
+gr1 = GridLayout(figure[1, 1])
 ax = Axis(
-    gr1[1,1], 
+    gr1[1, 1],
     yticks=(1:length(fi_names), map(x -> readable_names[x], fi_names)),
     title="Feature Importance"
 )
@@ -544,12 +519,12 @@ bar = barplot!(
     direction=:x,
 )
 
-gr2 = GridLayout(figure[2,1])
+gr2 = GridLayout(figure[2, 1])
 plot_multiclass_pd(pdp_vals, test_X; fig=gr2)
 rowsize!(figure.layout, 1, Relative(0.3))
-Label(figure[2,1, Left()], "Probability", rotation=π/2, tellwidth=false)
-Label(figure[1,1, TopLeft()], "A", font=:bold, tellwidth=false, fontsize=fontsize+3)
-Label(figure[2,1, TopLeft()], "B", font=:bold, tellwidth=false, fontsize=fontsize+3)
+Label(figure[2, 1, Left()], "Probability", rotation=π / 2, tellwidth=false)
+Label(figure[1, 1, TopLeft()], "A", font=:bold, tellwidth=false, fontsize=fontsize + 3)
+Label(figure[2, 1, TopLeft()], "B", font=:bold, tellwidth=false, fontsize=fontsize + 3)
 
 save(
     joinpath(figs_path, "ts_cluster_rf_feature_analysis.png"),
@@ -558,7 +533,14 @@ save(
 )
 
 depth_conn_two_way_pdp = partial_dependence_two_way(mach, test_X, [:depth_med, :weighted_incoming_conn])
-fig = plot_two_way_pdp(depth_conn_two_way_pdp, test_X, :depth_med, :weighted_incoming_conn, "Median depth [m]", "Log10 weighted incoming connectivity")
+fig = plot_two_way_pdp(
+    depth_conn_two_way_pdp,
+    test_X,
+    :depth_med,
+    :weighted_incoming_conn,
+    "Median depth [m]",
+    "Log10 weighted incoming connectivity"
+)
 save(
     joinpath(figs_path, "ts_cluster_rf_twoway_depth_incomingconn_pdp.png"),
     fig,
@@ -573,112 +555,103 @@ save(
     px_per_unit=dpi
 )
 
+# test_X.pred_y = y_pred_mode
+# test_X.y = test_y
+# test_X.bioregion = bioregion_cats[shuffle_set[train_size+1:end]]
+# test_X.bioregion_average_lat = reef_properties.bioregion_average_latitude[shuffle_set[train_size+1:end]]
 
-### The below notes are from a previous version. This version was ammended to ensure consistent fontsize/dpi.
-# Above two figures are manually joined together and given panel labels A and B.
-# The file is saved as "ts_cluster_rf_feature_analysis.png" in the Figure directory.
-# This manual two-part figure can be recreated by using the old code for panel A and the following code 
-# for panel B (then adding the Probability label):
-# f2 = plot_multiclass_pd(pdp_vals, test_X)
+# perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
+#     (; n=nrow(sdf),
+#         acc=mean(sdf.y .== sdf.pred_y),
+#         size=mean(sdf.abs_k_area),
+#         depth=mean(sdf.depth_med),
+#         dhw=mean(sdf.mean_dhw),
+#         income_conn=mean(sdf.weighted_incoming_conn),
+#         outgoing_conn=mean(sdf.log_out_strength),
+#         self_conn=mean(sdf.log_self_strength),
+#         log_so_to_si=mean(sdf.log_so_to_si),
+#         # bior_ave_lat=mean(sdf.bioregion_average_lat)
+#     )
+# end
+# perf_by_bio = sort(perf_by_bio, :bior_ave_lat, rev=true)
 
+# bioregion_colors = distinguishable_colors(nrow(perf_by_bio))
 
-test_X.pred_y = y_pred_mode
-test_X.y = test_y
-test_X.bioregion = bioregion_cats[shuffle_set[train_size+1:end]]
-test_X.bioregion_average_lat = reef_properties.bioregion_average_latitude[shuffle_set[train_size+1:end]]
+# bgcol = :gray90
+# fig = Figure(
+#     size=(fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] + 3centimetre),
+#     fontsize=fontsize,
+#     backgroundcolor=bgcol
+# )
+# ax = Axis(
+#     fig[1, 1],
+#     ylabel="Mean bioregion accuracy",
+#     xlabel="Mean reef depth [m]",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.depth, perf_by_bio.acc, color=bioregion_colors)
+# ax = Axis(
+#     fig[1, 2],
+#     ylabel="Mean bioregion accuracy",
+#     xlabel="Mean carrying capacity [km²]",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.size, perf_by_bio.acc, color=bioregion_colors)
+# ax = Axis(
+#     fig[2, 1],
+#     ylabel="Bioregion accuracy",
+#     xlabel="Mean DHW [\u00B0C - Weeks]",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.dhw, perf_by_bio.acc, color=bioregion_colors)
+# ax = Axis(
+#     fig[2, 2],
+#     ylabel="Bioregion accuracy",
+#     xlabel="Number of reefs per bioregion",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)
+# ax = Axis(
+#     fig[3, 1],
+#     ylabel="Bioregion accuracy",
+#     xlabel="Mean Log10 weighted incoming connectivity",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.income_conn, perf_by_bio.acc, color=bioregion_colors)
+# ax = Axis(
+#     fig[3, 2],
+#     ylabel="Bioregion accuracy",
+#     xlabel="Mean Log10 outgoing connectivity strength",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.outgoing_conn, perf_by_bio.acc, color=bioregion_colors)
+# ax = Axis(
+#     fig[4, 1],
+#     ylabel="Bioregion accuracy",
+#     xlabel="Mean Log10 larval retention probability",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.self_conn, perf_by_bio.acc, color=bioregion_colors)
+# ax = Axis(
+#     fig[4, 2],
+#     ylabel="Bioregion accuracy",
+#     xlabel="Mean Log10 source-to-sink ratio",
+#     backgroundcolor=bgcol
+# )
+# Makie.scatter!(ax, perf_by_bio.log_so_to_si, perf_by_bio.acc, color=bioregion_colors)
 
-perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
-    (; n = nrow(sdf),
-       acc = mean(sdf.y .== sdf.pred_y),
-       size = mean(sdf.abs_k_area),
-       depth = mean(sdf.depth_med),
-       dhw = mean(sdf.mean_dhw),
-       income_conn = mean(sdf.weighted_incoming_conn),
-       outgoing_conn = mean(sdf.log_out_strength),
-       self_conn = mean(sdf.log_self_strength),
-       log_so_to_si = mean(sdf.log_so_to_si),
-       bior_ave_lat = mean(sdf.bioregion_average_lat)
-    )
-end
-perf_by_bio = sort(perf_by_bio, :bior_ave_lat, rev=true)
+# Legend(
+#     fig[1:4, 0],
+#     [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],
+#     label_lines.(string.(perf_by_bio.bioregion); l_length=12),
+#     orientation=:vertical,
+#     nbanks=1,
+#     backgroundcolor=bgcol,
+#     framewidth=0.3
+# )
 
-bioregion_colors = distinguishable_colors(nrow(perf_by_bio))
-
-bgcol=:gray90
-fig = Figure(
-    size = (fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] + 3centimetre), 
-    fontsize=fontsize,
-    backgroundcolor=bgcol
-)
-ax = Axis(
-    fig[1,1],
-    ylabel = "Mean bioregion accuracy",
-    xlabel = "Mean reef depth [m]",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.depth, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[1,2],
-    ylabel = "Mean bioregion accuracy",
-    xlabel = "Mean carrying capacity [km²]",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.size, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[2,1],
-    ylabel = "Bioregion accuracy",
-    xlabel = "Mean DHW [\u00B0C - Weeks]",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.dhw, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[2,2],
-    ylabel = "Bioregion accuracy",
-    xlabel = "Number of reefs per bioregion",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[3,1],
-    ylabel = "Bioregion accuracy",
-    xlabel = "Mean Log10 weighted incoming connectivity",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.income_conn, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[3,2],
-    ylabel = "Bioregion accuracy",
-    xlabel = "Mean Log10 outgoing connectivity strength",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.outgoing_conn, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[4,1],
-    ylabel = "Bioregion accuracy",
-    xlabel = "Mean Log10 larval retention probability",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.self_conn, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[4,2],
-    ylabel = "Bioregion accuracy",
-    xlabel = "Mean Log10 source-to-sink ratio",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.log_so_to_si, perf_by_bio.acc, color=bioregion_colors)
-
-Legend(
-    fig[1:4, 0],
-    [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],
-    label_lines.(string.(perf_by_bio.bioregion); l_length=12),
-    orientation=:vertical,
-    nbanks=1,
-    backgroundcolor=bgcol,
-    framewidth=0.3
-)
-
-save(
-    joinpath(figs_path, "rf_performance_across_predictors.png"),
-    fig,
-    px_per_unit=dpi
-)
+# save(
+#     joinpath(figs_path, "rf_performance_across_predictors.png"),
+#     fig,
+#     px_per_unit=dpi
+# )

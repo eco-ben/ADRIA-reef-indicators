@@ -22,7 +22,8 @@ author:
         corresponding: true
 abstract: |
     Coral reefs globally face unprecedented threats from climate change, with the Great Barrier
-    Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral cover from thermal stress events.
+    Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral cover from thermal stress
+    events.
     Understanding drivers behind reef resilience to climate impacts is critical for conservation
     planning and intervention strategies. A scenario-based population modelling approach was
     adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
@@ -33,12 +34,13 @@ abstract: |
     patterns did not correlate with increases in maintenance of positive carbonate budgets.
     Instead, reef depth emerged as the primary predictor of cover-time series resilience and
     maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
-    refugia that reduce bleaching impacts. Interaction between reef depth and incoming 
-    connectivity was found to influence reef temporal behaviour. Our findings suggest that 
-    depth provides critical protection against thermal stress, with high incoming connectivity enhancing the performance of deep reefs, contrasting current intervention
-    practices that primarily target easily accessible sites in the 1-10m depth range. These results have 
-    important implications for reef management, indicating that depth refugia should be 
-    prioritized for further consideration in conservation planning alongside connectivity 
+    refugia that reduce bleaching impacts. Interaction between reef depth and incoming
+    connectivity was found to influence reef temporal behaviour. Our findings suggest that
+    depth provides critical protection against thermal stress, with high incoming connectivity enhancing the
+    performance of deep reefs, contrasting current intervention
+    practices that primarily target easily accessible sites in the 1-10m depth range. These results have
+    important implications for reef management, indicating that depth refugia should be
+    prioritized for further consideration in conservation planning alongside connectivity
     considerations to maximize coral survival under continuing climate change.
 keywords:
   - Coral reef
@@ -157,27 +159,26 @@ Estimates of coral carrying capacity for each reef were taken from prior analyse
 in [@bozec2022].
 
 Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
-available in GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched
-with the 3806 reef outlines through geometric intersections. All depth values were converted
-to positive values (depths below sea level). The median depth was used to provide an
-indicative depth value for each reef. Code, and the resulting depth estimates, are available
-at [@iwanaga2025].
+available in GBRMPA [-@GBRMPA2020]. While the bathymetry data adopted for the given
+assessment are said to be accurate up to 15m from Mean Sea Level [@GBRMPA2020], there are
+many sources of uncertainty in the depth estimates used for this study. Notably, the adopted
+depth estimates were derived from bathymetries based on satellite imagery. The bathymetry
+data can be limited in their alignment with the established GBRMPA reef outlines used to
+characterise reef locations and their areal extent. For each reef, bathymetry data were
+spatially matched with the 3806 reef outlines through geometric intersections.
 
-While the bathymetry data adopted for the given assessment are said to be accurate up to 15m
-from Mean Sea Level [@GBRMPA2020], there are many sources of uncertainty in the depth
-estimates used for this study. These are outlined further in the Discussion. Notably, the
-adopted depth estimates were derived from bathymetries based on satellite imagery. The
-bathymetry data can be limited in their alignment with the established GBRMPA reef outlines
-used to characterise reef locations and their areal extent. A Quality Assessment and Control
-process identified reefs with potential data limitations: reefs with no overlapping
-bathymetry data, reefs with minimum depth values above sea level (indicating potential data
-artifacts), and reefs where bathymetry pixels covered less than 5% of the reef polygon area.
-This process removed 842 reefs, or 22%, from the initial set of 3806 reefs. Furthermore,
-reefs that are not associated with GBRMPA Management areas [@GBRMPA2007] or reefal
-bioregions [@GBRMPA2024] were also removed from the investigation. Bioregions which
-contained fewer than three reefs after these processes were also excluded. As a result, 1377
-reefs were excluded (36%), leaving a total of 2429 remaining for the purpose of this
-investigation.
+A Quality Assessment and Control process identified reefs with potential data limitations:
+reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
+(indicating potential data artifacts), and reefs where bathymetry pixels covered less than
+5% of the reef polygon area. This process removed 842 reefs, or 22%, from the initial set of
+3806 reefs. Furthermore, reefs that are not associated with GBRMPA Management areas
+[@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were also removed from the investigation.
+Bioregions which contained fewer than three reefs after these processes were also excluded.
+As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining for the
+purpose of this investigation. All depth values were converted to positive values (depths
+below sea level). The median depth was used to provide an indicative depth value for each
+reef. Further limitations are outlined in the Discussion. Code to extract depth estimates,
+and the resulting depth estimates themselves, are available at [@iwanaga2025].
 
 ![Map of the Great Barrier Reef region, including GBRMPA Management areas (polygons) and all
 considered reefs (points). Colour-coded polygons outline GBR marine park management regions,
@@ -283,55 +284,59 @@ width="14.82cm"}
 
 ## Assessment framework
 
-We adapted exploratory scenario modelling approach from robust decision making (RDM)
-approaches for this investigation. In particular, we used parameter sampling and exploratory
-modelling to investigate a wide range of plausible futures under different assumptions of
-environmental (climatic) conditions and ecological factors. Exploratory modelling approaches
-have gained favour in recent years as precise long-term predictions of future conditions are
-often impossible in complex ecological systems [@conradt2024; @lempert2013]. RDM embraces
-uncertainty as an inherent characteristic of complex environmental systems [@lempert2010;
-@lempert2013] and is a core methodology underpinning the development of robust and adaptive
-management strategies [@haasnoot2013]. Rather than attempting to forecast specific outcomes,
-RDM aims to systematically explore many possible futures to identify patterns. Allowing for
-the identification of robust management strategies that perform well across those diverse
-conditions, as well as conditions in which such strategies may fail. Multiple interacting
-and compounding sources of uncertainty, and a lack of broad agreement as to their
-likelihood, create inherently uncertain outcomes. While we did not directly model management
-decision making in this investigation, we used exploratory modelling to identify the
-environmental and reef characteristics, such as thermal stress, depth and connectivity, that
-support favourable outcomes such as recovery and resilience.
+We adapted an exploratory scenario modelling approach for this investigation. Specifically,
+we use combinations of model factors to investigate a wide range of potential futures under
+different assumptions of environmental (climatic) and ecological conditions. Exploratory
+modelling approaches have gained favour in recent years to explore the implications of deep
+uncertainty; where there is little or no agreement on the key drivers of a system, the
+extent of the relationship, how best to represent them or their probability distributions
+[@conradt2024; @lempert2013]. Exploratory modelling embraces uncertainty as an inherent
+characteristic of complex environmental systems [@lempert2010; @lempert2013] and is a core
+methodology underpinning the development of robust and adaptive management strategies
+[@haasnoot2013].
+
+Rather than attempting to forecast precise outcomes, the exploratory approach aims to
+systematically search many possible futures to identify patterns that lead to outcomes of
+interest. The approach allows for the identification of robust management strategies that
+perform well across a diversity of future conditions rather than attempting to identify a
+single most optimal strategy. Concurrently, assessing the wide swathe of scenarios allows
+contextual understanding of the conditions in which strategies may fail. Multiple
+interacting and compounding sources of uncertainty, and a lack of broad agreement as to
+their likelihood, create inherently uncertain outcomes. Here, exploratory modelling was
+applied to identify the environmental and reef characteristics, such as thermal stress,
+depth, and connectivity, that support favourable outcomes in reef recovery and resilience.
 
 ### Scenario modelling
 
-To apply exploratory scenario modelling, we employed a framework involving two separate
-systems: ADRIA (the Adaptive Dynamic Reef Intervention Algorithms platform) and CoralBlox.
-ADRIA is a multi-criteria decision support platform designed to help reef managers address
-climate change challenges in coral reef systems [@iwanaga2023]. The ADRIA platform provides
-functionality for scenario generation and analysis as well as providing the technical
-infrastructure to couple environmental and ecosystem representations. CoralBlox is a
-computationally efficient coral population model. It simulates functional/morphological
-groups of corals over their life cycles, competing for available space over time
-[@ribeirodealmeida2024]. The coupled framework is referred to as ADRIA-CoralBlox.
+Two separate systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
+Intervention Algorithms platform) and CoralBlox. ADRIA is a multi-criteria decision support
+platform designed for the assessment and analysis of coral reef intervention strategies
+under uncertainty [@iwanaga2023]. The ADRIA platform provides functionality for scenario
+generation and analysis as well as providing the technical infrastructure to couple
+environmental and ecosystem representations. CoralBlox is a computationally efficient coral
+population model. It simulates functional/morphological groups of corals over their life
+cycles, competing for available space over time [@ribeirodealmeida2024]. The coupled
+framework is referred to as ADRIA-CoralBlox.
 
 The coral demographic representation and associated model implementation are further
-detailed in the supplementary material. Of important note, however, is that the
-representation of bleaching mortalities followed Bozec et al., [-@bozec2022] albeit with a
-scaling coefficient to incorporate the amelioration effect that depth may have, following
-Baird et al., [@baird2018]. This depth-scaling reduces the proportion of coral colonies
-impacted by high heat stress as depth increases. The impacts of tropical cyclones, wave
-activity, Crown of Thorns Starfish or coral disease were not included in this investigation,
-in order to focus on assessing reef resilience under possible future warming scenarios.
+detailed in the supplementary material. Of important note is that the representation of
+bleaching mortalities followed Bozec et al., [-@bozec2022] albeit with a scaling coefficient
+to incorporate the amelioration effect that depth may have, following Baird et al.,
+[@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
+heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
+Thorns Starfish or coral disease were not included in this investigation, in order to focus
+on assessing reef resilience under possible future warming scenarios.
 
 ADRIA-CoralBlox was run for 4096 scenarios for each GCM (20,480 total model runs). Here, a
 scenario represents a unique combination of assumed environmental (namely one of the five
 DHW trajectories) and ecological factors including coral growth and mortality rates, and
 coral thermal tolerances. Scenarios were generated using the low-discrepancy Sobol' sampling
-method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a random-Quasi Monte Carlo
-approach which balances scenario exploration with improved convergence properties compared
-to pseudo-random sampling. A detailed comparative analysis of the sampling methods can be
-found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
+method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a randomised Quasi Monte
+Carlo approach which balances scenario exploration with improved convergence properties
+compared to pseudo-random sampling. A detailed comparative analysis of sampling methods can
+be found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
 cover time series for each model run were scaled by the total area of each reef to represent
-cover as a percentage of the total estimated reef area. The scenario-median timeseries for
+cover as a percentage of the total estimated reef area. The scenario-median time series for
 each reef was used for further analyses. These time series of coral cover were then
 clustered based on their temporal behaviour.
 
@@ -383,61 +388,63 @@ the proportion of spawned larvae from a target reef that remain to settlement.
 
 ### Time series clustering
 
-Reefs were clustered into three qualitative categories based on their temporal behaviour
-indicated by coral cover over time. The three categories were Low, Medium, and High,
-indicating their relative ability to maintain coral cover and thus their structural
-resilience. The Complexity-Invariant Distance (CID) between each time series was calculated
-to identify similarities in temporal behaviour [@batista2014]. The CID applies a correction
-factor to the Euclidean distance between pairs of time series to obtain a measure of their
-similarity. The adopted approach ensures reefs are clustered based on their temporal
-dynamics as opposed to, for example, naively clustering by their mean coral cover.
-Clustering similar time series is achieved through the use of k-medoids clustering [cf.
-@steinmann2020]. Further details on the time series clustering approach are found in the
-supplementary materials.
+Reefs were clustered based on the temporal behaviour of their median coral cover time
+series. Put simply, reefs that have similar trends and trajectories are more likely to be
+clustered together. Reefs are clustered into Low, Medium, or High, indicating their relative
+ability to maintain coral cover over time. Reefs in each time series cluster were compared
+to identify characteristics that differ between Low, Medium and High clusters. These
+characteristics include reef median depth, mean time series DHW, weighted incoming
+connectivity, outgoing connection strength, ratio of source-to-sink larval connectivity,
+larval retention probability and reef carrying capacity (coral habitable area).
 
-The time series clustering was applied over the time frame between 2025 and 2075. Spatially,
-the clustering analyses were conducted for each GBR management area and at the scale of each
-reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were also performed at the
-whole-of-GBR scale but were found to lead to identical conclusions about characteristics
-influencing cluster cover compared to management area and bioregion scale analyses and so
-are not shown here. To compare time series clustering results across GCMs, management area
-scale clustering results are used to preserve coarse scale latitudinal differences between
-regions, while maintaining ease of comparison and visualisation. These comparisons include
-quantification of differences between low and high cover clusters across management regions
-under each GCM using the CID between cluster median time series. To assess how different
-reef characteristics influence time series clustering at a finer spatial scale, bioregion
-results are used to capture patterns occurring within individual groups of reefs. Results of
-all analyses at all clustering scales can be found at Grier and Iwanaga [-@grier2025] for
-those interested.
+The Complexity-Invariant Distance (CID) between each time series was calculated to identify
+similarities in temporal behaviour [@batista2014]. The CID applies a correction factor to
+the Euclidean distance between pairs of time series to obtain a measure of their similarity.
+The adopted approach ensures reefs are clustered based on their temporal dynamics as opposed
+to, for example, naively clustering by their mean coral cover. Time series clustering is
+achieved through the use of k-medoids clustering [cf. @steinmann2020]. Further details on
+the time series clustering approach are found in the supplementary materials.
 
-Reefs in each time series cluster were compared to identify characteristics that differ
-between Low, Medium and High clusters. These characteristics include reef median depth, mean
-time series DHW, weighted incoming connectivity, outgoing connection strength, ratio of
-source-to-sink larval connectivity, larval retention probability and reef carrying capacity
-(coral habitable area).
+The time series clustering was applied over the time frame between 2025 and 2075. The
+clustering was conducted for three spatial scales: (1) the whole of GBR; (2) each GBR
+management area; and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). The
+analyses was conducted at the different spatial scales as, conceptually, the temporal
+behaviour constituting "low", "medium" or "high" coral cover may differ at the different
+spatial scales. As it was, analyses at the whole-of-GBR scale were found to lead to
+identical conclusions regarding reef characteristics which influence coral cover and so for
+brevity are not shown here.
+
+To compare time series clustering results across GCMs, management area scale clustering
+results are used to preserve coarse scale latitudinal differences between regions, while
+maintaining ease of comparison and visualisation. These comparisons include quantification
+of differences between low and high cover clusters across management regions under each GCM
+using the CID between cluster median time series. To assess how different reef
+characteristics influence time series clustering at a finer spatial scale, bioregion results
+are used to capture patterns occurring within individual groups of reefs. Results of all
+analyses at all spatial scales can be found at Grier and Iwanaga [-@grier2025] for those
+interested.
 
 #### Partial Dependence Analysis
 
 Partial Dependence Analysis was conducted to understand the relationship between features
 and bioregion-scale time series cluster predictions using a trained Random Forest (RF)
 classifier [@friedman2001]. The analysis utilised the reef characteristics of interest as
-the predictors, including the median reef depth, mean DHW for the given GCM, Log10 -
-weighted incoming connectivity, Log10 - weighted outgoing connectivity, and Log10 -
-outgoing-to-incoming connectivity ratio. The full dataset consisted of the time series
-cluster assignment of each of the 2429 reefs under the five GCMs explored, for a total of
-12,145 samples. The dataset was randomly split into training (60%) and testing (40%) subsets
-to ensure model generalisability. The RF classifier achieved 99% accuracy on the training
-set and 62% on the test set.
+the predictors, including the median reef depth, mean DHW for the given GCM, log10-weighted
+incoming connectivity, log10-weighted outgoing connectivity, and log10-outgoing-to-incoming
+connectivity ratio. The full dataset consisted of the time series cluster assignment of each
+of the 2429 reefs under the five GCMs explored, for a total of 12,145 samples. The dataset
+was randomly split into training (60%) and testing (40%) subsets to ensure model
+generalisability. The RF classifier achieved 79% accuracy on the training set and 59% on the
+test set.
 
-While 99% accuracy suggests the classifier is overfit to the training data, the 66% test
-accuracy indicates a meaningful relationship between modelled reef characteristics and their
-assigned clusters has been captured. A 3-fold cross-validation was also conducted, arriving
-at a similar 67% accuracy rate. The consistent level of accuracy across test and
-cross-validation demonstrates the generalised performance of the RF classifier is reliable.
+A 3-fold cross-validation was also conducted, arriving at a similar 57% accuracy rate.
 Furthermore, F1 performance scores for Low, Medium, and High clusters were determined to be
-0.7, 0.5 and 0.65 respectively, indicating balanced performance across the cluster
-categories. Lower performance with the Medium cluster reflects the inherent difficulty of
-classifying transitional states in natural systems.
+0.68, 0.43 and 0.62 respectively, with precision of 0.77, 0.49 and 0.66 when evaluated with
+the test set (consisting of 4858 samples). Lower performance with the Medium cluster
+reflects the inherent difficulty of classifying transitional states in natural systems. The
+consistent level of accuracy across test and cross-validation demonstrates the generalised
+performance of the RF classifier, while not accurate, was deemed sufficiently informative
+for the purpose of assessing the influence of reef characteristics.
 
 Partial dependence analysis was performed by applying the trained model to the test dataset.
 Values for individual predictors were systematically (one-at-a-time) varied across a grid of
@@ -445,13 +452,13 @@ Values for individual predictors were systematically (one-at-a-time) varied acro
 at their modelled values. The procedure creates (1) a modified test dataset, where the
 target predictor was set to the grid value for all samples, (2) probabilistic predictions
 for all three cluster classes using the trained RF classifier, and (3) the mean predicted
-probability for each class across all test observations. The median was also assessed (not
-shown) but was found not to substantially influence the interpretation of results. The
-process isolates the marginal effect of each predictor by averaging over the natural
-distribution of all other representative reef characteristics in the test dataset.
-Additionally, to assess possible interaction between reef depth and incoming connectivity,
-two-way partial dependence analysis was performed on grids along the range of these two
-features.
+probability for each class across all test observations. Use of the median predicted
+probability was also assessed but was found not to substantially influence the
+interpretation of results (and so, are not shown here). The process isolates the marginal
+effect of each predictor by averaging over the natural distribution of all other
+representative reef characteristics in the test dataset. Additionally, to assess possible
+interaction between reef depth and incoming connectivity, two-way partial dependence
+analysis was performed on grids along the range of these two features.
 
 ### Carbonate budget analysis
 
@@ -933,7 +940,7 @@ fig-align="center" width="14.82cm"}
 
 | Metric | Used in | Definition | Justification |
 |-----------------------|-----------------------|-----------------------|-----------------------|
-| Percentage coral cover time series | Timeseries clustering, Carbonate budget analysis | Total coral cover as a percentage of reef area | To summarise coral population health over time |
+| Percentage coral cover time series | Time series clustering, Carbonate budget analysis | Total coral cover as a percentage of reef area | To summarise coral population health over time |
 | Median depth | Time series cluster assessment Carbonate budget analysis | Reef median depth as calculated with zonal raster analysis | Depth is a critical form of environmental refugia from high thermal stress |
 | Mean time series DHW | Time series cluster assessment | Reef mean DHW value across time series | Resilient reefs may experience reduced surface DHWs |
 | Source - to - sink connectivity ratio | Time series cluster assessment | Ratio of reef outgoing to incoming connectivity | Reefs with greater source than sink connectivity may have lower recovery |
@@ -1117,7 +1124,7 @@ Starting distributions for thermal tolerance levels are informed by Bairos-Novak
 
 ### Time series clustering
 
-The CID timeseries clustering metric corrects the Euclidean distance between pairs of time
+The CID time series clustering metric corrects the Euclidean distance between pairs of time
 series (which accounts for magnitude differences) with the complexity of each time series
 (obtained through a measure of their variability) to ensure reefs are clustered based on
 their underlying temporal dynamics rather than simply their average coral cover. The process
