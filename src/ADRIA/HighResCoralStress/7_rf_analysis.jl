@@ -77,7 +77,7 @@ X2 = coerce(
     :mean_dhw => Continuous,
     :abs_k_area => Continuous,
     :weighted_incoming_conn => Continuous,
-    # :log_out_strength => Continuous,
+    :log_out_strength => Continuous,
     :log_self_strength => Continuous
 )
 
@@ -555,103 +555,104 @@ save(
     px_per_unit=dpi
 )
 
-# test_X.pred_y = y_pred_mode
-# test_X.y = test_y
-# test_X.bioregion = bioregion_cats[shuffle_set[train_size+1:end]]
-# test_X.bioregion_average_lat = reef_properties.bioregion_average_latitude[shuffle_set[train_size+1:end]]
 
-# perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
-#     (; n=nrow(sdf),
-#         acc=mean(sdf.y .== sdf.pred_y),
-#         size=mean(sdf.abs_k_area),
-#         depth=mean(sdf.depth_med),
-#         dhw=mean(sdf.mean_dhw),
-#         income_conn=mean(sdf.weighted_incoming_conn),
-#         outgoing_conn=mean(sdf.log_out_strength),
-#         self_conn=mean(sdf.log_self_strength),
-#         log_so_to_si=mean(sdf.log_so_to_si),
-#         # bior_ave_lat=mean(sdf.bioregion_average_lat)
-#     )
-# end
-# perf_by_bio = sort(perf_by_bio, :bior_ave_lat, rev=true)
+test_X.pred_y = y_pred_mode
+test_X.y = test_y
+test_X.bioregion = reef_properties.bioregion[shuffle_set[train_size+1:end]]
+test_X.bioregion_average_lat = reef_properties.bioregion_average_latitude[shuffle_set[train_size+1:end]]
 
-# bioregion_colors = distinguishable_colors(nrow(perf_by_bio))
+perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
+    (; n=nrow(sdf),
+        acc=mean(sdf.y .== sdf.pred_y),
+        size=mean(sdf.abs_k_area),
+        depth=mean(sdf.depth_med),
+        dhw=mean(sdf.mean_dhw),
+        income_conn=mean(sdf.weighted_incoming_conn),
+        outgoing_conn=mean(sdf.log_out_strength),
+        self_conn=mean(sdf.log_self_strength),
+        log_so_to_si=mean(sdf.log_so_to_si),
+        bior_ave_lat=mean(sdf.bioregion_average_lat)
+    )
+end
+perf_by_bio = sort(perf_by_bio, :bior_ave_lat, rev=true)
 
-# bgcol = :gray90
-# fig = Figure(
-#     size=(fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] + 3centimetre),
-#     fontsize=fontsize,
-#     backgroundcolor=bgcol
-# )
-# ax = Axis(
-#     fig[1, 1],
-#     ylabel="Mean bioregion accuracy",
-#     xlabel="Mean reef depth [m]",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.depth, perf_by_bio.acc, color=bioregion_colors)
-# ax = Axis(
-#     fig[1, 2],
-#     ylabel="Mean bioregion accuracy",
-#     xlabel="Mean carrying capacity [km²]",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.size, perf_by_bio.acc, color=bioregion_colors)
-# ax = Axis(
-#     fig[2, 1],
-#     ylabel="Bioregion accuracy",
-#     xlabel="Mean DHW [\u00B0C - Weeks]",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.dhw, perf_by_bio.acc, color=bioregion_colors)
-# ax = Axis(
-#     fig[2, 2],
-#     ylabel="Bioregion accuracy",
-#     xlabel="Number of reefs per bioregion",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)
-# ax = Axis(
-#     fig[3, 1],
-#     ylabel="Bioregion accuracy",
-#     xlabel="Mean Log10 weighted incoming connectivity",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.income_conn, perf_by_bio.acc, color=bioregion_colors)
-# ax = Axis(
-#     fig[3, 2],
-#     ylabel="Bioregion accuracy",
-#     xlabel="Mean Log10 outgoing connectivity strength",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.outgoing_conn, perf_by_bio.acc, color=bioregion_colors)
-# ax = Axis(
-#     fig[4, 1],
-#     ylabel="Bioregion accuracy",
-#     xlabel="Mean Log10 larval retention probability",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.self_conn, perf_by_bio.acc, color=bioregion_colors)
-# ax = Axis(
-#     fig[4, 2],
-#     ylabel="Bioregion accuracy",
-#     xlabel="Mean Log10 source-to-sink ratio",
-#     backgroundcolor=bgcol
-# )
-# Makie.scatter!(ax, perf_by_bio.log_so_to_si, perf_by_bio.acc, color=bioregion_colors)
+bioregion_colors = distinguishable_colors(nrow(perf_by_bio))
 
-# Legend(
-#     fig[1:4, 0],
-#     [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],
-#     label_lines.(string.(perf_by_bio.bioregion); l_length=12),
-#     orientation=:vertical,
-#     nbanks=1,
-#     backgroundcolor=bgcol,
-#     framewidth=0.3
-# )
+bgcol = :gray90
+fig = Figure(
+    size=(fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] + 3centimetre),
+    fontsize=fontsize,
+    backgroundcolor=bgcol
+)
+ax = Axis(
+    fig[1, 1],
+    ylabel="Mean bioregion accuracy",
+    xlabel="Mean reef depth [m]",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.depth, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[1, 2],
+    ylabel="Mean bioregion accuracy",
+    xlabel="Mean carrying capacity [km²]",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.size, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[2, 1],
+    ylabel="Bioregion accuracy",
+    xlabel="Mean DHW [\u00B0C - Weeks]",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.dhw, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[2, 2],
+    ylabel="Bioregion accuracy",
+    xlabel="Number of reefs per bioregion",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.n, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[3, 1],
+    ylabel="Bioregion accuracy",
+    xlabel="Mean Log10 weighted incoming connectivity",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.income_conn, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[3, 2],
+    ylabel="Bioregion accuracy",
+    xlabel="Mean Log10 outgoing connectivity strength",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.outgoing_conn, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[4, 1],
+    ylabel="Bioregion accuracy",
+    xlabel="Mean Log10 larval retention probability",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.self_conn, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[4, 2],
+    ylabel="Bioregion accuracy",
+    xlabel="Mean Log10 source-to-sink ratio",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.log_so_to_si, perf_by_bio.acc, color=bioregion_colors)
 
-# save(
-#     joinpath(figs_path, "rf_performance_across_predictors.png"),
-#     fig,
-#     px_per_unit=dpi
-# )
+Legend(
+    fig[1:4, 0],
+    [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],
+    label_lines.(string.(perf_by_bio.bioregion); l_length=12),
+    orientation=:vertical,
+    nbanks=1,
+    backgroundcolor=bgcol,
+    framewidth=0.3
+)
+
+save(
+    joinpath(figs_path, "rf_performance_across_predictors.png"),
+    fig,
+    px_per_unit=dpi
+)

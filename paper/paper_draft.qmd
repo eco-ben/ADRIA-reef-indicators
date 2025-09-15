@@ -35,7 +35,7 @@ abstract: |
     Instead, reef depth emerged as the primary predictor of cover-time series resilience and
     maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
     refugia that reduce bleaching impacts. Interaction between reef depth and incoming
-    connectivity was found to influence reef temporal behaviour. Our findings suggest that
+    connectivity was found to influence reef temporal behaviour at 15m depth. Our findings suggest that
     depth provides critical protection against thermal stress, with high incoming connectivity enhancing the
     performance of deep reefs, contrasting current intervention
     practices that primarily target easily accessible sites in the 1-10m depth range. These results have
@@ -175,12 +175,12 @@ reefs with no overlapping bathymetry data, reefs with minimum depth values above
 [@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were also removed from the investigation.
 Bioregions which contained fewer than three reefs after these processes were also excluded.
 As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining. All depth
-values were converted to positive values (depths
-below sea level). The median depth was used to provide an indicative depth value for each
-reef. Further limitations are outlined in the Discussion. Code to extract depth estimates,
-and the resulting depth estimates themselves, are available at [@iwanaga2025]. To ensure
-effective data analysis, reefs with incoming or outgoing connectivity values below the 5th
-percentile were removed from post-hoc analyses, leaving 2197 reefs remaining for display in results.
+values were converted to positive values (depths below sea level). The median depth was used
+to provide an indicative depth value for each reef. Further limitations are outlined in the
+Discussion. Code to extract depth estimates, and the resulting depth estimates themselves,
+are available at [@iwanaga2025]. To ensure effective data analysis, reefs with incoming or
+outgoing connectivity values below the 5th percentile were removed from post-hoc analyses,
+leaving 2197 reefs remaining for display in results.
 
 ![Map of the Great Barrier Reef region, including GBRMPA Management areas (polygons) and all
 considered reefs (points). Colour-coded polygons outline GBR marine park management regions,
@@ -434,15 +434,15 @@ classifier [@friedman2001]. The analysis utilised the reef characteristics of in
 the predictors, including the median reef depth, mean DHW for the given GCM, log10-weighted
 incoming connectivity, log10-weighted outgoing connectivity, and log10-outgoing-to-incoming
 connectivity ratio. The full dataset consisted of the time series cluster assignment of each
-of the 2197 reefs under the five GCMs explored, for a total of 12,145 samples. The dataset **[]
-was randomly split into training (60%) and testing (40%) subsets to ensure model
-generalisability. The RF classifier achieved 79% accuracy on the training set and 59% on the
+of the 2197 reefs under the five GCMs explored, for a total of 10,985 samples. The dataset
+\*\*\[\] was randomly split into training (60%) and testing (40%) subsets to ensure model
+generalisability. The RF classifier achieved 80% accuracy on the training set and 59% on the
 test set.
 
-A 3-fold cross-validation was also conducted, arriving at a similar 57% accuracy rate.
+A 3-fold cross-validation was also conducted, arriving at a similar 59% accuracy rate.
 Furthermore, F1 performance scores for Low, Medium, and High clusters were determined to be
-0.68, 0.43 and 0.62 respectively, with precision of 0.77, 0.49 and 0.66 when evaluated with
-the test set (consisting of 4858 samples). Lower performance with the Medium cluster
+0.70, 0.41 and 0.63 respectively, with precision of 0.77, 0.47 and 0.64 when evaluated with
+the test set (consisting of 4394 samples). Lower performance with the Medium cluster
 reflects the inherent difficulty of classifying transitional states in natural systems. The
 consistent level of accuracy across test and cross-validation demonstrates the generalised
 performance of the RF classifier, while not accurate, was deemed sufficiently informative
@@ -574,14 +574,11 @@ cover cluster have lower Log-10 carrying capacity values than reefs in other clu
 
 A Partial Dependence Analysis was conducted using a Random Forest classifier to identify
 reef characteristics that influence its temporal behaviour, and thus its cluster assignment
-into Low, Medium, or High. Bioregion classification was excluded from this analysis as a
-predictor due to its categorical nature providing limited interpretable information, and is
-further justified by its low feature importance score of 9%, the lowest of all predictors
-(@fig-ts-cluster-pdp; Panel A). Reef median depth, mean DHW level and weighted incoming
-connectivity (Log10) have the highest feature importance scores, accounting for 22%, 17% and
-14% predictive importance respectively. The carrying capacity of a reef accounts for 12%
-feature importance, while outgoing connection strength, source-to-sink ratio and larval
-retention account for 10%, 9% and 7% respectively.
+into Low, Medium, or High. Reef median depth, carrying capacity and mean time series DHW
+level have the highest feature importance scores, accounting for 29%, 15% and 15% predictive
+importance respectively (@fig-ts-cluster-pdp; Panel A). Reef weighted incoming connectivity,
+outgoing connectivity strength, source-to-sink connectivity ratio and larval retention
+probability account for \~12%, 11%, 10% and 8% respectively.
 
 Reefs have the greatest probability of being clustered into Low if shallow, and High at
 greater depths, with medium cluster reefs exhibiting a lower, and more stable, assignment
@@ -611,17 +608,12 @@ width="14.82cm"}
 Analyses for source-to-sink ratio and incoming and outgoing connectivity metrics suggest
 that reefs with greater outgoing connectivity and lower incoming connectivity levels have
 higher probability of being clustered into the Low cluster category compared to other reefs.
-Additionally, two-way analyses revealed an interaction between reef depth and incoming
-connectivity in determining cluster category assignment, particularly at the high depth
-range (@fig-ts-cluster-pdp-twoway-incoming). Two-way analyses revealed that reefs at greater
-than 10m depth are unlikely to be clustered into the Low cluster category, regardless of
-their incoming connectivity levels. However, at greater than 10m depth reefs with higher
-incoming connectivity are more likely to be assigned to a High cluster, while reefs with low
-incoming connectivity are more likely to be assigned to a Medium cover cluster
-(@fig-ts-cluster-pdp-twoway-incoming). Two-way analyses, for depth and outgoing connection
-strength, revealed a slight interaction with deep reefs with high outgoing connectivity
-having the greatest probability of being clustered into a high cover cluster
-(@sfig-ts-cluster-pdp-twoway-outgoing).
+Additionally, two-way analyses revealed little interaction between depth and incoming and
+outgoing connectivity metrics for reef clustering probabilities
+(@fig-ts-cluster-pdp-twoway-incoming; @sfig-ts-cluster-pdp-twoway-outgoing). Reefs with a
+median depth around 15m and high incoming connectivity may benefit slightly, with higher
+probability of High cover cluster assignment compared to 15m - depth reefs with lower
+connectivity.
 
 ![Partial dependence plot indicating the probability of cluster assignment along interacting
 values of median reef depth (metres) and Log10 weighted incoming connectivity. Colour
@@ -741,12 +733,7 @@ at depths of \>10m. Considering this 10-15m depth range when assessing possible 
 sites may reduce the exposure of planted and seeded corals to high thermal stress, while
 still maintaining effective logistical access to sites. Managers are also likely to consider
 the potential for positive flow on effects due to outgoing connectivity when selecting
-intervention sites [@hock2017]. Two-way partial dependence analysis revealed reefs with high
-depths and high outgoing connectivity levels have a high probability of being clustered into
-more resilient reef clusters (@sfig-ts-cluster-pdp-twoway-outgoing). These results suggest
-that interventions targetting deep reefs will also benefit from high incoming and outgoing
-connectivity levels, allowing for high potential for site resilience and outgoing flow of
-benefits and recovery. Transient, and difficult to measure, properties such as reef
+intervention sites [@hock2017]. Transient, and difficult to measure, properties such as reef
 connectivity are likely to increase uncertainty in intervention planning to a greater degree
 than environmental characteristics such as reef depth. Overall, reef intervention planning
 is a complex and challenging decision-making process [@anthony2020], and our results suggest
@@ -756,26 +743,20 @@ assessing the long-term resilience of sites.
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the supply of recruits that a reef receives following disturbance [@hock2017; @mumby2008;
 @torres2024]. Our results suggest that incoming connectivity contributes positively to high
-cover cluster allocation for reefs over 10m deep. At depths of less than 10m thermal stress
-may be too high for incoming juveniles to contribute to long term recovery. While there is
-interaction between incoming connectivity and depth for reef cluster prediction, according
-to available input data, there are few reefs in the GBR that occur at depths \>10m and have
-Log10 weighted incoming connectivity levels below 0 (@sfig-access-esm1-5-mean-carb-budget),
-resulting in overall low importance of connectivity as an individual feature for clustering
-across the GBR. Furthermore, our results suggest no direct, first order, relationship
-between weighted incoming connectivity and the ability of reefs to maintain positive
-carbonate budgets under future conditions. There has been contrasting evidence [@bode2018;
-@hock2017] surrounding whether recent generation connectivity modelling is able to identify
-reefs that are important for recovery processes, with findings dependent on the larval
-connectivity model used. These investigations were performed using prior generations of
-larval connectivity models parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018]
-time periods, without considering the influence of reef depth on resilience. Using updated
-1km^2^ resolution larval connectivity across the whole GBR, with a limited temporal sample
-of particle flows, our results suggest that larval connectivity alone may not be important
-or reef resilience and recovery, but should be considered in combination with more
-influential factors such as depth. Comprehensive comparisons and validation of multiple
-connectivity model outputs would improve certainty and allow for the targetting of reefs by
-combining abiotic factors such as depth with connectivity.
+cover cluster allocation for reefs around 15m deep. However, our results suggest no direct,
+first order, relationship between weighted incoming connectivity and the ability of reefs to
+maintain positive carbonate budgets under future conditions. There has been contrasting
+evidence [@bode2018; @hock2017] surrounding whether recent generation connectivity modelling
+is able to identify reefs that are important for recovery processes, with findings dependent
+on the larval connectivity model used. These investigations were performed using prior
+generations of larval connectivity models parameterised for 2008-2013 [@hock2017] and
+1996-2002 [@bode2018] time periods, without considering the influence of reef depth on
+resilience. Using updated 1km^2^ resolution larval connectivity across the whole GBR, with a
+limited temporal sample of particle flows, our results suggest that larval connectivity
+alone may not be important or reef resilience and recovery, but should be considered in
+combination with more influential factors such as depth. Comprehensive comparisons and
+validation of multiple connectivity model outputs would improve certainty and allow for the
+targetting of reefs by combining abiotic factors such as depth with connectivity.
 
 Our findings on the importance of connectivity may differ from literature due to the highly
 uncertain nature of larval connectivity modelling [@vogt-vincent2023], the way larval flows
@@ -899,11 +880,11 @@ ecological stressors such as wave activity, ocean acidification, and Crown-of-Th
 The results presented suggest that when modelled as part of a large and complex ecosystem,
 reef depth is a key factor contributing to ongoing reef resilience. We provide evidence in
 support of depth as a form of thermal refugia for shallow-water reefs on the GBR. Targetting
-reefs with median depths greater than 10m and high incoming and ougoing larval connections
-may aid in identifying the most resilient reefs under climate change. We suggest further
-analyses that investigate the benefits of incorporating depth-based resilience into reef
-intervention decision making, as well as further research and development in connectivity
-modelling methods for whole-ecosystem scales.
+reefs with median depths greater than 10m may aid in identifying the most resilient reefs
+under climate change. We suggest further analyses that investigate the benefits of
+incorporating depth-based resilience into reef intervention decision making, as well as
+further research and development in connectivity modelling methods for whole-ecosystem
+scales.
 
 # References
 
