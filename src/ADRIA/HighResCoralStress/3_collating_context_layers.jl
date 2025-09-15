@@ -271,7 +271,8 @@ outliers_removed = (
     (context_layers[:, "ACCESS-ESM1-5_weighted_incoming_conn"] .> quantile(context_layers[:, "ACCESS-ESM1-5_weighted_incoming_conn"], 0.05)) .&
     (context_layers[:, "ACCESS-CM2_weighted_incoming_conn"] .> quantile(context_layers[:, "ACCESS-CM2_weighted_incoming_conn"], 0.05)) .&
     (context_layers[:, "GFDL-CM4_weighted_incoming_conn"] .> quantile(context_layers[:, "GFDL-CM4_weighted_incoming_conn"], 0.05)) .&
-    (context_layers[:, "NorESM2-MM_weighted_incoming_conn"] .> quantile(context_layers[:, "NorESM2-MM_weighted_incoming_conn"], 0.05))
+    (context_layers[:, "NorESM2-MM_weighted_incoming_conn"] .> quantile(context_layers[:, "NorESM2-MM_weighted_incoming_conn"], 0.05)) .&
+    (context_layers.out_strength .> quantile(context_layers.out_strength, 0.05))
 )
 sum(outliers_removed)
 context_layers = context_layers[outliers_removed, :]
