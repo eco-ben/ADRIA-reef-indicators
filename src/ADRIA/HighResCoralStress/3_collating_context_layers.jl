@@ -66,7 +66,7 @@ source_to_sink = DataFrame(
 )
 
 for GCM in GCMs
-    context_layers[!, "$(GCM)_weighted_incoming_conn"] .= 1*10^-5
+    context_layers[!, "$(GCM)_weighted_incoming_conn"] .= 1 * 10^-5
     context_layers[!, "$(GCM)_weighted_outgoing_conn"] .= 0.0
 end
 
@@ -78,11 +78,11 @@ for reef in eachindex(reefs)
     end
 
     outgoing = connectivity_matrix[connectivity_matrix.Source.==reef_id, :]
-    self_strength = first(outgoing[1, outgoing.Sink .== reef_id].data) # Calculate larval retention
+    self_strength = first(outgoing[1, outgoing.Sink.==reef_id].data) # Calculate larval retention
 
-    outgoing = outgoing[:, outgoing.Sink .!= reef_id] # Ensure outgoing connectivity does not include retained larvae
+    outgoing = outgoing[:, outgoing.Sink.!=reef_id] # Ensure outgoing connectivity does not include retained larvae
     incoming = connectivity_matrix[:, connectivity_matrix.Sink.==reef_id]
-    incoming = incoming[incoming.Source .!= reef_id, :] # Ensure incoming connectivity is only externally sourced larval flow
+    incoming = incoming[incoming.Source.!=reef_id, :] # Ensure incoming connectivity is only externally sourced larval flow
 
     income_strength = sum(incoming)
     income_count = count(incoming .> 0)
@@ -112,19 +112,19 @@ for reef in eachindex(reefs)
         absolute_cover = readcubedata(open_dataset(joinpath(output_path, "processed_model_outputs/median_cover_$(GCM).nc")).layer)
         target_reef_cover = absolute_cover[locations=At(reef_id)]
         weighted_outconn = out_strength * mean(target_reef_cover.data)
-        context_layers[context_layers.UNIQUE_ID .== reef_id, "$(GCM)_weighted_outgoing_conn"] .= sum(weighted_outconn)
+        context_layers[context_layers.UNIQUE_ID.==reef_id, "$(GCM)_weighted_outgoing_conn"] .= sum(weighted_outconn)
 
 
         if !isempty(incoming_positive)
             absolute_cover = absolute_cover[locations=At(String.(incoming.Source[incoming_positive]))]
-            
+
             weighted_inconn_sources = zeros(length(incoming_positive))
             for (i, in_conn) in enumerate(incoming_positive)
                 weighted_inconn = incoming[in_conn, 1] * mean(absolute_cover[:, i].data)
                 weighted_inconn_sources[i] = weighted_inconn
             end
 
-            context_layers[context_layers.UNIQUE_ID .== reef_id, "$(GCM)_weighted_incoming_conn"] .= sum(weighted_inconn_sources)
+            context_layers[context_layers.UNIQUE_ID.==reef_id, "$(GCM)_weighted_incoming_conn"] .= sum(weighted_inconn_sources)
         end
     end
 
@@ -148,7 +148,7 @@ for reef in eachindex(reefs)
 end
 
 context_layers = leftjoin(context_layers, source_to_sink; on=:UNIQUE_ID, order=:left)
-context_layers.self_strength .= ifelse.(context_layers.self_strength .== 0, 1*10^-5, context_layers.self_strength) # Need to add a tiny buffer to reefs that have 0 retention probability
+context_layers.self_strength .= ifelse.(context_layers.self_strength .== 0, 1 * 10^-5, context_layers.self_strength) # Need to add a tiny buffer to reefs that have 0 retention probability
 
 context_layers.initial_coral_cover = vec(
     sum(gbr_dom.init_coral_cover[locations=At(context_layers.UNIQUE_ID)]; dims=1).data' .*
