@@ -82,7 +82,7 @@ for reef in eachindex(reefs)
 
     outgoing = outgoing[:, outgoing.Sink .!= reef_id] # Ensure outgoing connectivity does not include retained larvae
     incoming = connectivity_matrix[:, connectivity_matrix.Sink.==reef_id]
-    incoming = incoming[:, incoming.Source .!= reef_id] # Ensure incoming connectivity is only externally sourced larval flow
+    incoming = incoming[incoming.Source .!= reef_id, :] # Ensure incoming connectivity is only externally sourced larval flow
 
     income_strength = sum(incoming)
     income_count = count(incoming .> 0)
@@ -264,6 +264,17 @@ context_layers.total_count .= convert.(Int64, context_layers.total_count)
 context_layers.total_comb .= convert.(Float64, context_layers.total_comb)
 context_layers.so_to_si .= convert.(Float64, context_layers.so_to_si)
 context_layers.man_area_consistent_reefs .= convert.(String, context_layers.man_area_consistent_reefs)
+
+# Remove outlier reefs with low connectivity levels
+outliers_removed = (
+    (context_layers[:, "EC-Earth3-Veg_weighted_incoming_conn"] .> quantile(context_layers[:, "EC-Earth3-Veg_weighted_incoming_conn"], 0.05)) .&
+    (context_layers[:, "ACCESS-ESM1-5_weighted_incoming_conn"] .> quantile(context_layers[:, "ACCESS-ESM1-5_weighted_incoming_conn"], 0.05)) .&
+    (context_layers[:, "ACCESS-CM2_weighted_incoming_conn"] .> quantile(context_layers[:, "ACCESS-CM2_weighted_incoming_conn"], 0.05)) .&
+    (context_layers[:, "GFDL-CM4_weighted_incoming_conn"] .> quantile(context_layers[:, "GFDL-CM4_weighted_incoming_conn"], 0.05)) .&
+    (context_layers[:, "NorESM2-MM_weighted_incoming_conn"] .> quantile(context_layers[:, "NorESM2-MM_weighted_incoming_conn"], 0.05))
+)
+sum(outliers_removed)
+context_layers = context_layers[outliers_removed, :]
 
 GDF.write(joinpath(output_path, "analysis_context_layers_carbonate.gpkg"), context_layers; crs=GFT.EPSG(7844), overwrite=true)
 
