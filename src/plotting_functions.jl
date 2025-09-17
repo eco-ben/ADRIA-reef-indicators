@@ -821,8 +821,7 @@ function grouped_GCM_cluster_timeseries_plots(
                 fig[plot_layout_xi[1], 0],
                 mgmt_area[plot_layout_xi[1]],
                 tellheight=false,
-                tellwidth=true,
-                fontsize=6
+                tellwidth=true
             )
         end
 
@@ -832,8 +831,7 @@ function grouped_GCM_cluster_timeseries_plots(
                 fig[0, plot_layout_xi[2]],
                 gcm_header[plot_layout_xi[2]],
                 tellheight=true,
-                tellwidth=false,
-                fontsize=6
+                tellwidth=false
             )
             current_col = plot_layout_xi[2]
         end
