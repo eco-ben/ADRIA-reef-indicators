@@ -22,8 +22,8 @@ author:
         corresponding: true
 abstract: |
     Coral reefs globally face unprecedented threats from climate change, with the Great Barrier
-    Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral cover from thermal stress
-    events.
+    Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral 
+    cover from thermal stress events.
     Understanding drivers behind reef resilience to climate impacts is critical for conservation
     planning and intervention strategies. A scenario-based population modelling approach was
     adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
@@ -261,6 +261,7 @@ reefs to create DHW projections spanning from 2025 to 2075. Code used to calcula
 and perform analyses involved in this investigation can be found at Grier and Iwanaga
 [-@grier2025].
 
+::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C)     | Interpreted relative severity | Results found in |
 |-----------------------|-----------------------|------------------------|-----------------------|
 | ACCESS-CM2                  | 4.66 [@grose2023]  | High                          | [@grier2025]     |
@@ -269,12 +270,13 @@ and perform analyses involved in this investigation can be found at Grier and Iw
 | ACCESS-ESM1-5               | 3.87 [@ziehn2020]  | Intermediate                  | Main text        |
 | NorESM2-MM                  | 2.5 [@seland2020]  | Low                           | [@grier2025]     |
 
-: Information for each GCM used in this investigation including Equilibrium Climate
+Information for each GCM used in this investigation including Equilibrium Climate
 Sensitivity (ECS) value, interpreted relative severity and where results for an individual
 GCM results are found. GCMs in context with assessed plausible ranges of ECS values are
 displayed in [@sfig-ecs]. ACCESS-ESM1-5 has an ECS closest to the midpoint of the
 very-likely ECS range and was taken as an intermediate model with results displayed in the
-main text. {#tbl-gcms}
+main text.
+:::
 
 ![Degree Heating Week time series (in °C - Weeks) for the GCMs selected. Colours represent
 the different Management areas across the Great Barrier Reef. Green represents
@@ -921,17 +923,20 @@ represented five times (for each GCM), with each GCM displayed
 horizontally.](../figs/GCM_dhw_timeseries_plot.png){#sfig-gcm-dhw-trajectories
 fig-align="center" width="14.82cm"}
 
+::: {#stbl-metrics}
 | Metric | Used in | Definition | Justification |
 |-----------------------|-----------------------|-----------------------|-----------------------|
-| Percentage coral cover time series | Time series clustering, Carbonate budget analysis | Total coral cover as a percentage of reef area | To summarise coral population health over time |
+| Percentage coral cover time series | Time series clustering, Carbonate budget analysis | Total coral cover as a percentage of reef area | To summarise coral population health over time. |
 | Median depth | Time series cluster assessment Carbonate budget analysis | Reef median depth as calculated with zonal raster analysis | Depth is a critical form of environmental refugia from high thermal stress |
-| Mean time series DHW | Time series cluster assessment | Reef mean DHW value across time series | Resilient reefs may experience reduced surface DHWs |
-| Source - to - sink connectivity ratio | Time series cluster assessment | Ratio of reef outgoing to incoming connectivity | Reefs with greater source than sink connectivity may have lower recovery |
-| Weighted incoming connectivity | Time series cluster assessment, Carbonate budget analysis | Incoming connectivity strength weighted by mean time series coral cover of source reefs | High incoming larval flow assists reef recovery |
-| Weighted outgoing connectivity | Time series cluster assessment | Outgoing connectivity strength weighted by mean coral cover | High outgoing larval flow may lower recovery capacity of the target reef |
-| Carrying capacity | Time series cluster assessment | Reef habitable area \[m^2^\] | Captures the size of the viable reef extent |
+| Mean time series DHW | Time series cluster assessment | Reef mean DHW value across time series | To quantify the surface thermal stress experienced on each reef over time series. |
+| Source - to - sink connectivity ratio | Time series cluster assessment | Ratio of reef outgoing to incoming connectivity | To examine whether a reef may be a 'net contributor' or 'net receiver' of larvae in the connectivity network. |
+| Weighted incoming connectivity | Time series cluster assessment, Carbonate budget analysis | Incoming connectivity strength weighted by mean time series coral cover of source reefs | To approximate the larval flow received by a reef over the projected time series. |
+| Outgoing connectivity strength | Time series cluster assessment, Carbonate budget analysis | Sum of a reef's outgoing larval transition probability values. | To understand the contribution of a reef to the connectivity network and the possibility for flow-on effects from reef states. |
+| Larval retention probability | Time series cluster assessment | Diagonal larval transition matrix values. | To understand the relative proportion of larvae retained on a reef. |
+| Carrying capacity | Time series cluster assessment | Reef habitable area \[m^2^\] | Captures the size of the viable reef extent. |
 
-: Quantitative metrics used in this investigation
+Quantitative metrics used in this investigation.
+:::
 
 ```{julia}
 #| echo: false
