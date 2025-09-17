@@ -344,21 +344,21 @@ clustered based on their temporal behaviour.
 
 ### Connectivity modelling
 
-\*\* need information on generation of GBR1 connectivity used \*\*
-
-Connectivity data from 24 days in total were used in this investigation to estimate coral
-larval flows. These data span six years from 2015 to 2020. The years 2015, 2016, 2018 and
-2019 are each represented by connectivity matrices covering spawning periods over three days
-in each year (12 days in total), while 2017 and 2020 are each represented by six spawning
-days each, coming to a total of 24 days of connectivity matrices. The values in these
-matrices indicate the probability of larval transfer between each pair of reefs in the GBR,
-herein referred to as connectivity strengths. Indicative connectivity strengths are
-implemented in ADRIA-CoralBlox as the mean of all available data for each location (i.e.,
-mean of all 24 spawning days). While the connectivity strengths do not vary from year to
-year within each ADRIA-CoralBlox simulation, they do vary between reefs which are of varying
-sizes, providing sufficient heterogeneity to capture spatial patterns in larval dispersal
-and settlement dynamics. This spatial variability also enables investigations into the
-influence of connectivity strength and its role in driving recovery processes.
+Larval transition probability matrices were generated using the EReefs Great Barrier Reef
+1km resolution hydrodynamic model and particle tracking simulations. Connectivity data from
+24 days in total were used in this investigation to estimate coral larval flows. These data
+span six years from 2015 to 2020. The years 2015, 2016, 2018 and 2019 are each represented
+by connectivity matrices covering spawning periods over three days in each year (12 days in
+total), while 2017 and 2020 are each represented by six spawning days each, coming to a
+total of 24 days of connectivity matrices. The values in these matrices indicate the
+probability of larval transfer between each pair of reefs in the GBR, herein referred to as
+connectivity strengths. Indicative connectivity strengths are implemented in ADRIA-CoralBlox
+as the mean of all available data for each location (i.e., mean of all 24 spawning days).
+While the connectivity strengths do not vary from year to year within each ADRIA-CoralBlox
+simulation, they do vary between reefs which are of varying sizes, providing sufficient
+heterogeneity to capture spatial patterns in larval dispersal and settlement dynamics. This
+spatial variability also enables investigations into the influence of connectivity strength
+and its role in driving recovery processes.
 
 To assess the impact of reef connectivity on modelled outcomes we summarise incoming
 connectivity (weighted incoming connectivity), outgoing connectivity (outgoing connection
