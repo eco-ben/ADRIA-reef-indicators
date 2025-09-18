@@ -2,7 +2,7 @@
 
 julia_version = "1.11.5"
 manifest_format = "2.0"
-project_hash = "9f0f63901a303095439daaf994672015d7bf45a4"
+project_hash = "235640f57e17520387e4f8dbffcfb08b8ecfaebb"
 
 [[deps.ADRIA]]
 deps = ["ArchGDAL", "Bootstrap", "CSV", "Clustering", "Combinatorics", "CoralBlox", "CpuId", "DataEnvelopmentAnalysis", "DataFrames", "DataStructures", "Dates", "DimensionalData", "DiskArrays", "Distances", "Distributed", "Distributions", "FLoops", "FileIO", "GDAL_jll", "GeoDataFrames", "GeoFormatTypes", "GeoInterface", "Graphs", "HypothesisTests", "ImageIO", "InteractiveUtils", "Interpolations", "JMcDM", "JSON", "JuliennedArrays", "LERC_jll", "LinearAlgebra", "Logging", "MAT", "MLJ", "ModelParameters", "NetCDF", "OnlineStats", "OrderedCollections", "Pkg", "PkgVersion", "PrecompileTools", "Printf", "ProgressMeter", "Random", "Reexport", "RelocatableFolders", "SIRUS", "Setfield", "SimpleWeightedGraphs", "SparseArrays", "SpecialFunctions", "StableRNGs", "StaticArrays", "Statistics", "StatsBase", "StatsFuns", "Surrogates", "TOML", "YAXArrays", "Zarr"]
@@ -822,6 +822,11 @@ deps = ["LRUCache", "OffsetArrays"]
 git-tree-sha1 = "ef25c513cad08d7ebbed158c91768ae32f308336"
 uuid = "3c3547ce-8d99-4f5e-a174-61eb10b00ae3"
 version = "0.3.23"
+
+[[deps.DisplayAs]]
+git-tree-sha1 = "43c017d5dd3a48d56486055973f443f8a39bb6d9"
+uuid = "0b91fe84-8a4c-11e9-3e1d-67c38462b6d6"
+version = "0.1.6"
 
 [[deps.Distances]]
 deps = ["LinearAlgebra", "Statistics", "StatsAPI"]
@@ -2147,6 +2152,12 @@ deps = ["Base64"]
 pinned = true
 uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 version = "1.11.0"
+
+[[deps.MarkdownTables]]
+deps = ["ArgCheck", "DisplayAs", "DocStringExtensions", "Tables"]
+git-tree-sha1 = "65dff26519116033543e644fb8cf2e5869469c0b"
+uuid = "1862ce21-31c7-451e-824c-f20fa3f90fa2"
+version = "1.1.0"
 
 [[deps.MathOptInterface]]
 deps = ["BenchmarkTools", "CodecBzip2", "CodecZlib", "DataStructures", "ForwardDiff", "JSON3", "LinearAlgebra", "MutableArithmetics", "NaNMath", "OrderedCollections", "PrecompileTools", "Printf", "SparseArrays", "SpecialFunctions", "Test"]

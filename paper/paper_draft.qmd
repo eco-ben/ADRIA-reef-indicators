@@ -104,7 +104,7 @@ acidification, tropical cyclones, and crown-of-thorns starfish outbreaks [@death
 @fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. The 2023-24 Summer mass
 bleaching event may be signalling a shift towards this reef future, with some level of
 bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs)
-[@australianinstituteofmarinescience2024]; @cantin2024\].
+[@australianinstituteofmarinescience2024; @cantin2024].
 
 At the individual coral scale, survival during thermal stress events depends on both
 environmental and biological factors. Environmental factors can either amplify or reduce
@@ -938,25 +938,31 @@ fig-align="center" width="14.82cm"}
 Quantitative metrics used in this investigation.
 :::
 
+
 ```{julia}
 #| echo: false
 #| warning: false
 #| message: false
-#| results: asis
-#| label: stbl-cluster-cid
-#| tbl-cap: Complexity invariant distance (CID) between low and high cluster median time series in each management area under each GCM. CID values are calculated for percentage cover time series (@fig-gcm-cover-trajectories) and Degree Heating Week (DHW) time series (@sfig-gcm-dhw-trajectories). Complexity invariant distance represents the Euclidean distance between time series, corrected by the complexity of the two time series. CID values are used to quantify overall differences between these two cluster levels at management area and GCM levels. CID values for percentage cover and DHW time series are not directly comparable as the time series use different units.
+#| output: asis
 
-using PrettyTables, Markdown
+cap = """
+Complexity invariant distance (CID) between low and high cluster median time series in each management area under each GCM. CID values are calculated for percentage cover time series (@fig-gcm-cover-trajectories) and Degree Heating Week (DHW) time series (@sfig-gcm-dhw-trajectories). Complexity invariant distance represents the Euclidean distance between time series, corrected by the complexity of the two time series. CID values are used to quantify overall differences between these two cluster levels at management area and GCM levels. CID values for percentage cover and DHW time series are not directly comparable as the time series use different units.
+"""
+using Markdown,Tables,MarkdownTables
 cd("../src")
 include("../src/ADRIA/HighResCoralStress/6_quantifying_cluster_differences.jl"); # Quantify low-high cluster differences using CID metric.
+rename!(distances, 
+    "management_area" => "Management area",
+    "CID_cover" => "CID - cover",
+    "CID_dhw" => "CID - DHW"
+)
+print("""
+::: {.table #stbl-cluster-cid}
+$(markdown_table(distances, String))
 
-io = IOBuffer()
-
-header = ["GCM", "Management area", "CID - cover", "CID - DHW"]
-pretty_table(io, distances, backend=Val(:markdown), header=header)
-
-md_string = (String(take!(io)))
-Markdown.parse(md_string)
+$(cap)
+:::
+""")
 ```
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all

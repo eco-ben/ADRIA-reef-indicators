@@ -23,6 +23,7 @@ outputs/
 # word document files rendered by quarto
 *.docx
 .vscode/
+*.pdf
 
 *.nc
 *.csv
