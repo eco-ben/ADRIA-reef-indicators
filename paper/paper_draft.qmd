@@ -309,6 +309,7 @@ interacting and compounding sources of uncertainty, and a lack of broad agreemen
 their likelihood, create inherently uncertain outcomes. Here, exploratory modelling was
 applied to identify the environmental and reef characteristics, such as thermal stress,
 depth, and connectivity, that support favourable outcomes in reef recovery and resilience.
+Metrics used in analyses can be found in @stbl-metrics.
 
 All data preparation, modelling and analyses were performed using the Julia programming
 language (The Julia Project; https://julialang.org/; [@bezanson2017]), with visualisations
@@ -902,8 +903,8 @@ scales.
 **Benjamin Grier:** conceptualisation, data curation, formal analysis, investigation,
 methodology, visualization, writing – original draft, writing – review and editing. **Takuya
 Iwanaga:** conceptualisation, data curation, formal analysis, investigation, methodology,
-visualization, writing – original draft, writing – review and editing.
-**\[BG: To be completed.\]**
+visualization, writing – original draft, writing – review and editing. **\[BG: To be
+completed.\]**
 
 # Acknowledgements
 
