@@ -85,15 +85,15 @@ reefs to provide ecological functions such as benthic habitat and nutrient cycli
 tourism and Indigenous cultural value [@eddy2021; @stoeckl2021].
 
 Understanding the characteristics of reefs that will persist under projected climate
-conditions requires examining reef resilience across multiple scales and processes.
-Structural resilience - the capacity to maintain coral populations and avoid ecosystem
+conditions requires examining reef resilience across multiple scales and processes. Coral
+reef ecosystem resilience - the capacity to maintain coral populations and avoid ecosystem
 regime shifts - depends on three interconnected mechanisms. First, the ability of individual
 corals to survive thermal stress. Second, the connectivity networks that enable
 recolonisation after disturbances [@hock2017; @mumby2008; @torres2024]. Third, the
-maintenance of the carbonate framework that provides reef structure [@perry2012]. We aim to
-assess how these mechanisms interact under projected climate conditions to identify the
-characteristics of structurally resilient reefs through scenario-based coral population
-modelling for the Great Barrier Reef ecosystem.
+maintenance, and accretion, of the carbonate framework that provides reef structure
+[@perry2012]. We aim to assess how these mechanisms interact under projected climate
+conditions to identify the characteristics of resilient reefs through scenario-based coral
+population modelling for the Great Barrier Reef ecosystem.
 
 The Great Barrier Reef (GBR) is the world's largest coral reef ecosystem consisting of
 thousands of individual reefs. They are interconnected through coral and fish larval
@@ -707,16 +707,16 @@ mesophotic reefs (\> 30m deep) as thermal refugia [@bongaerts2010; @holstein2015
 depth and the alleviation of heat stress across a range of shallow reefs in the Pacific.
 
 Our findings support the hypothesis that reefs at greater depths will exhibit
-characteristics of refugia and more prolonged structural resilience under climate change
-compared to shallower reefs. Additionally, Liu, Callaghan and Baldock [-@liu2024] suggest
-that rubble instability is inversely correlated with reef depth, possibly limiting juvenile
-coral recruitment capacity of shallow reefs. A caveat to our depth-resilience findings is
-the quality of the bathymetry data used to calculate median reef depth. As detailed
-previously, estimates of median reef depth are derived from satellite imagery (at $10m^2$
-resolution) which can be subject to high degrees of uncertainty, both in terms of the
-estimated depth for each pixel as well as their alignment to the established GBRMPA reef
-outlines. Additionally, we do not incorporate light-based decreases in coral growth rates as
-depth increases [@baker1975; @huston1985; @ruiz-diaz2022].
+characteristics of refugia and more prolonged resilience under climate change compared to
+shallower reefs. Additionally, Liu, Callaghan and Baldock [-@liu2024] suggest that rubble
+instability is inversely correlated with reef depth, possibly limiting juvenile coral
+recruitment capacity of shallow reefs. A caveat to our depth-resilience findings is the
+quality of the bathymetry data used to calculate median reef depth. As detailed previously,
+estimates of median reef depth are derived from satellite imagery (at $10m^2$ resolution)
+which can be subject to high degrees of uncertainty, both in terms of the estimated depth
+for each pixel as well as their alignment to the established GBRMPA reef outlines.
+Additionally, we do not incorporate light-based decreases in coral growth rates as depth
+increases [@baker1975; @huston1985; @ruiz-diaz2022].
 
 Current reef restoration and intervention efforts on the GBR, such as deployment of coral
 seeding, coral fragment devices and Crown of Thorns Starfish control, target reefs with
@@ -865,7 +865,7 @@ model's ability to meaningfully capture ecological signals at the GBR-scale. The
 basis of the model, combined with qualitative assessment of model behavior, supports the
 robustness of our findings for understanding broad-scale coral cover responses to climatic
 drivers. The aim here, however, was to assess the relative influence of reef characteristics
-on structural resilience under future conditions, rather than provide spatially explicit and
+on reef resilience under future conditions, rather than provide spatially explicit and
 precise predictions of reef outcomes. Using this approach, we suggest that reef depth is an
 important factor for reef resilience under thermal stress.
 
@@ -937,7 +937,6 @@ fig-align="center" width="14.82cm"}
 
 Quantitative metrics used in this investigation.
 :::
-
 
 ```{julia}
 #| echo: false
