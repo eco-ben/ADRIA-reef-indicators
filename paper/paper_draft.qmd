@@ -762,23 +762,27 @@ resilience. Using updated 1km^2^ resolution larval connectivity across the whole
 limited temporal sample of particle flows, our results suggest that larval connectivity
 alone may not be important or reef resilience and recovery, but should be considered in
 combination with more influential factors such as depth. Comprehensive comparisons and
-validation of multiple connectivity model outputs would improve certainty and allow for the
-targetting of reefs by combining abiotic factors such as depth with connectivity.
+validation of multiple connectivity models, as well as use of a model ensemble, would
+improve certainty and allow for the targetting of reefs by combining abiotic factors such as
+depth with connectivity.
 
-Our findings on the importance of connectivity may differ from literature due to the highly
-uncertain nature of larval connectivity modelling [@vogt-vincent2023], the way larval flows
-and juvenile recruitment are implemented in ADRIA - CoralBlox, and the magnitude of early
-bleaching events decreasing the breeding capacity of strongly connected reefs. Analysing
-daily connectivity data Vogt-Vincent et al. [-@vogt-vincent2023] suggest that time-mean
-connectivity may not be suitable for capturing the seasonal - ecological time scale
-connectivity between locations due to high daily variability in connectivity data. This is
-supported by the connectivity data used in our investigation, which have large relative
-standard deviations for connectivity between reefs over the 24 days used
-(@sfig-connectivity-rsd). Using alternative summarisation methods that capture
-ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
+Our findings on the importance of connectivity likely differ from literature due to the
+highly uncertain nature of larval connectivity modelling [@choukroun2025;
+@vogt-vincent2023], the way larval flows and juvenile recruitment are implemented in ADRIA -
+CoralBlox, and the magnitude of early bleaching events decreasing the breeding capacity of
+strongly connected reefs. Analysing daily connectivity data Vogt-Vincent et al.
+[-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for capturing
+the seasonal - ecological time scale connectivity between locations due to high daily
+variability in connectivity data. This is supported by the connectivity data used in our
+investigation, which have large relative standard deviations for connectivity between reefs
+over the 24 days used (@sfig-connectivity-rsd). Using alternative summarisation methods that
+capture ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
 connectivity [@vogt-vincent2023], future investigations may find increased importance of
 both depth and reef connectivity for resilience, in line with other investigations
-[@hock2017; @torres2024]. Further improvements and research in connectivity modelling are
+[@hock2017; @torres2024]. Choukroun et al [-@choukroun2025] performed a comparison of three
+GBR-scale connectivity models, including GBR1, and suggest the use of a model ensemble
+approach to estimate connectivity metrics due to the high sensitivity of connectivity to
+model specification. Further improvements and research in connectivity modelling are
 necessary when incorporating connectivity as a supplementary factor in reef resilience and
 intervention-planning analyses.
 
@@ -827,16 +831,17 @@ implementation methods that better capture the ecological-timescale trends in re
 connections rather than the high daily variability, would improve confidence in the
 connectivity findings of this investigation [@vogt-vincent2023]. Additionally greater year -
 sample sizes for baseline connectivity data as future computation improvements are made,
-along with GBR scale validation efforts, will improve confidence in connectivity data for
-ecological modelling and management applications. The DHW data used in this investigation
-have not been bias corrected for the Great Barrier Reef region and are part of a wider
-Australian dataset [@dixon2022] developed using statistical downscaling. Additionally, Lachs
-et al. [@lachs2021] suggest the utility of DHW levels for prediction of coral bleaching can
-be improved by reducing the threshold for HotSpot Anomaly values from MMM +1 to MMM and
-reducing the accumulation window from 12 weeks to 8 weeks. We investigate a range of future
-climate responses, thermal projections and ecological parameterisations of ADRIA - CoralBlox
-to account for many possible futures, and our results suggest the factors that influence
-reef resilience are consistent across these scenarios.
+along with the derivation of connectivity from an ensemble of biophysical models, will
+improve confidence in connectivity data for ecological modelling and management applications
+[@choukroun2025]. The DHW data used in this investigation have not been bias corrected for
+the Great Barrier Reef region and are part of a wider Australian dataset [@dixon2022]
+developed using statistical downscaling. Additionally, Lachs et al. [@lachs2021] suggest the
+utility of DHW levels for prediction of coral bleaching can be improved by reducing the
+threshold for HotSpot Anomaly values from MMM +1 to MMM and reducing the accumulation window
+from 12 weeks to 8 weeks. We investigate a range of future climate responses, thermal
+projections and ecological parameterisations of ADRIA - CoralBlox to account for many
+possible futures, and our results suggest the factors that influence reef resilience are
+consistent across these scenarios.
 
 Additionally, it is currently not possible to obtain highly accurate and precise estimates
 of reef depth at the GBR-scale. Data adopted for the given assessment are said to be
