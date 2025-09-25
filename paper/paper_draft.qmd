@@ -313,41 +313,7 @@ Metrics used in analyses can be found in @stbl-metrics.
 
 All data preparation, modelling and analyses were performed using the Julia programming
 language (The Julia Project; https://julialang.org/; [@bezanson2017]), with visualisations
-created using the Makie ecosystem [@danisch2021].
-
-### Scenario modelling
-
-Two separate systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
-Intervention Algorithms platform) and CoralBlox. ADRIA is a multi-criteria decision support
-platform designed for the assessment and analysis of coral reef intervention strategies
-under uncertainty [@iwanaga2023]. The ADRIA platform provides functionality for scenario
-generation and analysis as well as providing the technical infrastructure to couple
-environmental and ecosystem representations. CoralBlox is a computationally efficient coral
-population model. It simulates functional/morphological groups of corals over their life
-cycles, competing for available space over time [@ribeirodealmeida2024]. The coupled
-framework is referred to as ADRIA-CoralBlox.
-
-The coral demographic representation and associated model implementation are further
-detailed in the supplementary material. Of important note is that the representation of
-bleaching mortalities followed Bozec et al., [-@bozec2022] albeit with a scaling coefficient
-to incorporate the amelioration effect that depth may have, following Baird et al.,
-[@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
-heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
-Thorns Starfish or coral disease were not included in this investigation, in order to focus
-on assessing reef resilience under possible future warming scenarios.
-
-ADRIA-CoralBlox was run for 4096 scenarios for each GCM (20,480 total model runs). Here, a
-scenario represents a unique combination of assumed environmental (namely one of the five
-DHW trajectories) and ecological factors including coral growth and mortality rates, and
-coral thermal tolerances. Scenarios were generated using the low-discrepancy Sobol' sampling
-method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a randomised Quasi Monte
-Carlo approach which balances scenario exploration with improved convergence properties
-compared to pseudo-random sampling. A detailed comparative analysis of sampling methods can
-be found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
-cover time series for each model run were scaled by the total area of each reef to represent
-cover as a percentage of the total estimated reef area. The scenario-median time series for
-each reef was used for further analyses. These time series of coral cover were then
-clustered based on their temporal behaviour.
+created using the Makie plotting ecosystem [@danisch2021].
 
 ### Connectivity modelling
 
@@ -394,6 +360,40 @@ breeding populations from which connections are coming from are not represented.
 source-to-sink ratio greater than 1 (a value greater than 0 on a log scale) indicates a reef
 has greater outgoing than incoming larval flow. Reef larval retention probability indicates
 the proportion of spawned larvae from a target reef that remain to settlement.
+
+### Scenario modelling
+
+Two separate systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
+Intervention Algorithms platform) and CoralBlox. ADRIA is a multi-criteria decision support
+platform designed for the assessment and analysis of coral reef intervention strategies
+under uncertainty [@iwanaga2023]. The ADRIA platform provides functionality for scenario
+generation and analysis as well as providing the technical infrastructure to couple
+environmental and ecosystem representations. CoralBlox is a computationally efficient coral
+population model. It simulates functional/morphological groups of corals over their life
+cycles, competing for available space over time [@ribeirodealmeida2024]. The coupled
+framework is referred to as ADRIA-CoralBlox.
+
+The coral demographic representation and associated model implementation are further
+detailed in the supplementary material. Of important note is that the representation of
+bleaching mortalities followed Bozec et al., [-@bozec2022] albeit with a scaling coefficient
+to incorporate the amelioration effect that depth may have, following Baird et al.,
+[@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
+heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
+Thorns Starfish or coral disease were not included in this investigation, in order to focus
+on assessing reef resilience under possible future warming scenarios.
+
+ADRIA-CoralBlox was run for 4096 scenarios for each GCM (20,480 total model runs). Here, a
+scenario represents a unique combination of assumed environmental (namely one of the five
+DHW trajectories) and ecological factors including coral growth and mortality rates, and
+coral thermal tolerances. Scenarios were generated using the low-discrepancy Sobol' sampling
+method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a randomised Quasi Monte
+Carlo approach which balances scenario exploration with improved convergence properties
+compared to pseudo-random sampling. A detailed comparative analysis of sampling methods can
+be found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
+cover time series for each model run were scaled by the total area of each reef to represent
+cover as a percentage of the total estimated reef area. The scenario-median time series for
+each reef was used for further analyses. These time series of coral cover were then
+clustered based on their temporal behaviour.
 
 ### Time series clustering
 
