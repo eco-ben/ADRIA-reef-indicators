@@ -1471,7 +1471,7 @@ function carbonate_budget_biscatter(
     )
     ax2 = Axis(
         gr1[1,2],
-        ylabel=conn_label
+        xlabel=conn_label
     )
     scat2 = scatter!(
         ax2, 
