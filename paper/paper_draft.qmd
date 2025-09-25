@@ -656,15 +656,14 @@ contrast, weighted incoming connectivity strength (log10 scale) was found to hav
 correlation with the number of years a reef maintains cover above the required thresholds
 (@sfig-access-esm1-5-carb-budget-corr).
 
-![Number of years reef coral cover exceeds the assumed carbonate budget threshold in terms
+\![Number of years reef coral cover exceeds the assumed carbonate budget threshold in terms
 of coral cover ($\theta_0$) between 2025 to 2075 (y-axis) under ACCESS-ESM1-5. Left panel
 shows relationship between reef median depth, while the right panel shows the same for
 log10-weighted incoming connectivity values. Point colour (purple to yellow) represents
 ($\theta_0$), with brighter shades indicating a higher $\theta_0$. Deeper reefs have
 increased number of years above the considered range of $\theta_0$, while no relationship
-between weighted incoming connectivity and carbonate budget maintenance was found. **\[Ben,
-no x-axis label for Right
-Panel?\]**](../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
+between weighted incoming connectivity and carbonate budget maintenance was found.
+(../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
 fig-align="center" width="14.82cm"}
 
 # Discussion
