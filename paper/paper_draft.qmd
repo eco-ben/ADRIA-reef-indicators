@@ -608,16 +608,13 @@ predictor value distribution across
 reefs.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp fig-align="center"
 width="14.82cm"}
 
-Analyses for source-to-sink ratio and incoming and outgoing connectivity metrics suggest
-that reefs with greater outgoing connectivity and lower incoming connectivity levels have
-higher probability of being clustered into the Low cover cluster compared to other reefs
-**\[Ben, I disagree with this assessment and the next sentence seems to contradict it?\]**.
-Additionally, two-way analyses revealed little interaction between depth and incoming and
-outgoing connectivity metrics for reef clustering probabilities
-(@fig-ts-cluster-pdp-twoway-incoming; @sfig-ts-cluster-pdp-twoway-outgoing). Reefs with a
-median depth around 15m and high incoming connectivity may benefit slightly, with higher
-probability of High cover cluster assignment compared to 15m - depth reefs with lower
-connectivity.
+First-order partial dependence analysis showed minimal influence of incoming, outgoing and
+source-to-sink ratio connectivity metrics on cluster assignment probabilities. Two-way
+analyses revealed little interaction between depth and incoming and outgoing connectivity
+metrics for reef clustering probabilities (@fig-ts-cluster-pdp-twoway-incoming;
+@sfig-ts-cluster-pdp-twoway-outgoing). Reefs with a median depth around 15m and high
+incoming connectivity may benefit slightly, with higher probability of High cover cluster
+assignment compared to 15m - depth reefs with lower connectivity.
 
 ![Partial Dependence Plot indicating the estimated probability (via Random Forest
 classification) of cluster assignment along interacting values of median reef depth (meters)
