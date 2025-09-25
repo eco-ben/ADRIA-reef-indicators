@@ -1,5 +1,5 @@
 ---
-title: Think deep for reef resilience
+title: Importance of depth refugia for reef resilience and intervention on the Great Barrier Reef under future climate change
 author:
   - name: Benjamin Grier
     email: grierben777@gmail.com
@@ -18,8 +18,30 @@ author:
           address: Cape Cleveland Rd
           city: Cape Cleveland
           state: QLD
-    attributes:
-        corresponding: true
+  - name: Chinenye Ani
+    email: c.ani@aims.gov.au
+    affiliations:
+        - id: AIMS
+          name: Australian Institute of Marine Science
+          address: Cape Cleveland Rd
+          city: Cape Cleveland
+          state: QLD
+  - name: Pedro Ribeiro De Almeida
+    email: p.ribeirodealmeida@aims.gov.au
+    affiliations:
+        - id: AIMS
+          name: Australian Institute of Marine Science
+          address: Cape Cleveland Rd
+          city: Cape Cleveland
+          state: QLD
+  - name: Sam Matthews
+    email: s.matthews@aims.gov.au
+    affiliations:
+        - id: AIMS
+          name: Australian Institute of Marine Science
+          address: Cape Cleveland Rd
+          city: Cape Cleveland
+          state: QLD
 abstract: |
     Coral reefs globally face unprecedented threats from climate change, with the Great Barrier
     Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral
@@ -902,7 +924,7 @@ scales.
 methodology, visualization, writing – original draft, writing – review and editing. **Takuya
 Iwanaga:** conceptualisation, data curation, formal analysis, investigation, methodology,
 visualization, writing – original draft, writing – review and editing. **\[BG: To be
-completed.\]**
+completed.\] ...**
 
 # Acknowledgements
 
@@ -912,7 +934,8 @@ facilitated by the Australian Institute of Marine Science. We acknowledge therma
 data sourced from HighResCoralStress datasets, model parameterisation data sourced from the
 Ecological Intelligence for Reef Restoration (EcoRRAP) subprogram, larval transition
 probability data derived from the eReefs GBR1 hydrodynamic model, and spatial and depth data
-available from the Great Barrier Reef Marine Park Authority.
+available from the Great Barrier Reef Marine Park Authority. All authors are funded by the
+Reef Restoration and Adaptation Program **\[BG: To be completed.\]**.
 
 # Conflict of Interest Statement
 
