@@ -1306,12 +1306,12 @@ classified into the Low cluster, and the number of Low samples incorrectly class
 being in either the Medium or High coral cover clusters. There were 4580 samples used for
 testing.
 
-|              |         |            |          |
-|--------------|---------|------------|----------|
-|              | **Low** | **Medium** | **High** |
-| Test samples | 1715    | 1587       | 1278     |
-| Precision    | 0.622   | 0.507      | 0.664    |
-| Recall       | 0.799   | 0.38       | 0.616    |
-| F1           | 0.7     | 0.434      | 0.639    |
+|                  |         |            |          |
+|------------------|---------|------------|----------|
+|                  | **Low** | **Medium** | **High** |
+| **Test samples** | 1715    | 1587       | 1278     |
+| **Precision**    | 0.622   | 0.507      | 0.664    |
+| **Recall**       | 0.799   | 0.38       | 0.616    |
+| **F1**           | 0.7     | 0.434      | 0.639    |
 
 : Performance metrics for the Random Forest classifier for each of the time series clusters.
