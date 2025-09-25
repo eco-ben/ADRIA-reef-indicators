@@ -672,9 +672,9 @@ fig-align="center" width="14.82cm"}
 Our results show increasing reef depth has a strong positive impact on modelled reef
 resilience in temporal behaviour and maintenance of positive carbonate budgets under
 possible future conditions. Reefs with a median depth of 10m or greater, with high incoming
-connectivity, are the most likely to be assigned to a high cover time series cluster. As an
-individual feature, incoming connectivity alone does not correlate with maintenance of
-positive carbonate budgets. These findings highlight the importance of depth and incoming
+connectivity, are the most likely to be assigned to a high cover time series cluster. By
+itself, incoming connectivity alone does not correlate with maintenance of positive
+carbonate budgets. These findings highlight the importance of depth and incoming
 connectivity as coupled selection features when assessing potential reef resilience under
 future thermal stress.
 
