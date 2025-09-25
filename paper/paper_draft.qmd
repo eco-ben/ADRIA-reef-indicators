@@ -75,22 +75,22 @@ editor:
 
 Climate change is impacting species survival, persistence and ecosystem functions globally.
 This is particularly true for coral reefs, which are vulnerable to increasing magnitude and
-variation in environmental stressors such as ocean temperature, acidification and nutrient
-loading [@foster2021; @gattuso2014]. Mass bleaching and mortality events driven by climate
-change can cause reef-building coral population declines [@hughes2017; @hughes2018;
-@bozec2025], possibly leading to long-term and large-scale coral-macroalgae regime shifts
-[@arif2022; @wild2011]. Climate impacts on coral reefs are decreasing the ability of coral
-reefs to provide ecological functions such as benthic habitat and nutrient cycling
-[@forster2021; @williams2019] as well as ecosystem services such as food, protection,
-tourism and Indigenous cultural value [@eddy2021; @stoeckl2021].
+variation in environmental stressors such as ocean temperature [@foster2021; @gattuso2014].
+Mass bleaching and associated mortality events driven by climate change can cause
+reef-building coral population declines [@hughes2017; @hughes2018; @bozec2025], possibly
+leading to long-term and large-scale coral-macroalgae regime shifts [@arif2022; @wild2011].
+Climate impacts on coral reefs are decreasing the ability of coral reefs to provide
+ecological functions such as benthic habitat and nutrient cycling [@forster2021;
+@williams2019] as well as ecosystem services such as food, protection, tourism and
+Indigenous cultural value [@eddy2021; @stoeckl2021].
 
 Understanding the characteristics of reefs that will persist under projected climate
 conditions requires examining reef resilience across multiple scales and processes. Coral
 reef ecosystem resilience - the capacity to maintain coral populations and avoid ecosystem
-regime shifts - depends on three interconnected mechanisms. First, the ability of individual
-corals to survive thermal stress. Second, the connectivity networks that enable
-recolonisation after disturbances [@hock2017; @mumby2008; @torres2024]. Third, the
-maintenance, and accretion, of the carbonate framework that provides reef structure
+regime shifts - is conceptualised to depend on three interconnected mechanisms. First, the
+ability of individual corals to survive thermal stress. Second, the connectivity networks
+that enable recolonisation after disturbances [@hock2017; @mumby2008; @torres2024]. Third,
+the maintenance, and accretion, of the carbonate framework that provides reef structure
 [@perry2012]. We aim to assess how these mechanisms interact under projected climate
 conditions to identify the characteristics of resilient reefs through scenario-based coral
 population modelling for the Great Barrier Reef ecosystem.
@@ -436,15 +436,15 @@ interested.
 #### Partial Dependence Analysis
 
 Partial Dependence Analysis was conducted to understand the relationship between features
-and bioregion-scale time series cluster predictions using a trained Random Forest (RF)
-classifier [@friedman2001]. The analysis utilised the reef characteristics of interest as
-the predictors, including the median reef depth, mean DHW for the given GCM, log10-weighted
-incoming connectivity, log10-weighted outgoing connectivity, and log10-outgoing-to-incoming
-connectivity ratio. The full dataset consisted of the time series cluster assignment of each
-of the 2197 reefs under the five GCMs explored, for a total of 10,985 samples. The dataset
-\*\*\[\] was randomly split into training (60%) and testing (40%) subsets to ensure model
-generalisability. The RF classifier achieved 80% accuracy on the training set and 59% on the
-test set.
+and bioregion-scale time series cluster predictions using a Random Forest (RF) classifier
+[@friedman2001]. The analysis utilised the reef characteristics of interest as the
+predictors, including the estimated median reef depth, mean DHW for the given GCM,
+log10-weighted incoming connectivity, log10-weighted outgoing connectivity, and
+log10-outgoing-to-incoming connectivity ratio. The full dataset consisted of the time series
+cluster assignment of each of the 2197 reefs under the five GCMs explored, for a total of
+10,985 samples. The dataset was randomly split into training (60%) and testing (40%) subsets
+to train and assess classification performance. The RF classifier achieved 80% accuracy on
+the training set and 60% on the test set.
 
 A 3-fold cross-validation was also conducted, arriving at a similar 59% accuracy rate.
 Furthermore, F1 performance scores for Low, Medium, and High clusters were determined to be
@@ -456,14 +456,14 @@ performance of the RF classifier, while not accurate, was deemed sufficiently in
 for the purpose of assessing the influence of reef characteristics.
 
 Partial dependence analysis was performed by applying the trained model to the test dataset.
-Values for individual predictors were systematically (one-at-a-time) varied across a grid of
+Values for individual predictors were systematically varied (one-at-a-time) across a grid of
 50 equally spaced points spanning the predictor's range, while all other features were left
 at their modelled values. The procedure creates (1) a modified test dataset, where the
 target predictor was set to the grid value for all samples, (2) probabilistic predictions
 for all three cluster classes using the trained RF classifier, and (3) the mean predicted
 probability for each class across all test observations. Use of the median predicted
 probability was also assessed but was found not to substantially influence the
-interpretation of results (and so, are not shown here). The process isolates the marginal
+interpretation of results (and so are not shown here). The process isolates the marginal
 effect of each predictor by averaging over the natural distribution of all other
 representative reef characteristics in the test dataset. Additionally, to assess possible
 interaction between reef depth and incoming connectivity, two-way partial dependence
