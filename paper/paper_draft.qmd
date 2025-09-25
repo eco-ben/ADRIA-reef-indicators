@@ -610,7 +610,8 @@ width="14.82cm"}
 
 Analyses for source-to-sink ratio and incoming and outgoing connectivity metrics suggest
 that reefs with greater outgoing connectivity and lower incoming connectivity levels have
-higher probability of being clustered into the Low cover cluster compared to other reefs.
+higher probability of being clustered into the Low cover cluster compared to other reefs
+**\[Ben, I disagree with this assessment and the next sentence seems to contradict it?\]**.
 Additionally, two-way analyses revealed little interaction between depth and incoming and
 outgoing connectivity metrics for reef clustering probabilities
 (@fig-ts-cluster-pdp-twoway-incoming; @sfig-ts-cluster-pdp-twoway-outgoing). Reefs with a
