@@ -1180,6 +1180,10 @@ function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_la
     scatter!((150.733333, -23.133333); color=:black)
     text!((150.0, -23.133333); text="Yeppoon", align=(:center, :top))
 
+    lines!([152.5, 152.5], [-12, -11]; color=:black)
+    scatter!(152.5, -11; color=:black, marker=:utriangle)
+    text!((152.5, -10.5); text="N", align = (:center, :top))
+
     # lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
     # text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
 
@@ -1207,7 +1211,15 @@ function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_la
     return fig
 end
 
-function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize)
+function map_gbr_reefs_cont(
+    reef_df, 
+    color_col::Union{Symbol, String},
+    color_bar_label;
+    management_region_fn="../data/GBRMPA_Management_Areas.gpkg",
+    mainland_fn="../data/GBRMPA_Reef_Features.gpkg",
+    fig_sizes=fig_sizes, 
+    fontsize=fontsize
+)
     regions = GDF.read(management_region_fn)
     regions.region_name = replace.(regions.AREA_DESCR, [" Management Area" => ""])
     qld = GDF.read(mainland_fn)
@@ -1262,6 +1274,10 @@ function map_gbr_reefs_cont(reef_df, color_col::Union{Symbol, String}, color_bar
 
     scatter!((150.733333, -23.133333); color=:black)
     text!((150.0, -23.133333); text="Yeppoon", align=(:center, :top))
+
+    lines!([152.5, 152.5], [-12, -11]; color=:black)
+    scatter!(152.5, -11; color=:black, marker=:utriangle)
+    text!((152.5, -10.5); text="N", align = (:center, :top))
 
     # lines!([(146.25, -20.5), (147.0559, -19.2697)]; color=:black)
     # text!((146.25, -20.5); text="AIMS - Cape Cleveland", align=(:center, :top))
