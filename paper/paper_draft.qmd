@@ -289,14 +289,16 @@ width="14.82cm"}
 ## Assessment framework
 
 An exploratory scenario modelling approach was adopted for this investigation. The method
-involves exploring a wide range of potential futures under different assumptions of
-environmental (climatic) and ecological conditions. Exploratory modelling approaches have
-gained favour in recent years to explore the implications of deep uncertainty; where there
-is little or no agreement on the key drivers of a system, the extent of the relationship,
-how best to represent them or their probability distributions [@conradt2024; @lempert2013].
-The approach embraces uncertainty as an inherent characteristic of complex environmental
-systems [@lempert2010; @lempert2013] and is a core methodology underpinning the development
-of robust and adaptive management strategies [@haasnoot2013].
+involves exploring a wide range of potential futures and model parameterisations under
+different assumptions of environmental (climatic) and ecological conditions. Exploratory
+modelling approaches have gained favour in recent years to explore the implications of deep
+uncertainty; where there is little or no agreement on the key drivers of a system, the
+extent of the relationship, how best to represent them or their probability distributions
+[@conradt2024; @lempert2013]. The approach embraces uncertainty as an inherent
+characteristic of complex environmental systems [@lempert2010; @lempert2013] in an attempt
+to address limitations of calibrated ecosystem models with a singular set of parameter
+values [@lubianabotelho2025]. Exploratory scenario modelling is a core methodology
+underpinning the development of robust and adaptive management strategies [@haasnoot2013].
 
 Rather than attempting to forecast precise outcomes, the exploratory approach aims to
 systematically search many possible futures to identify patterns that lead to outcomes of
@@ -652,14 +654,14 @@ contrast, weighted incoming connectivity strength (log10 scale) was found to hav
 correlation with the number of years a reef maintains cover above the required thresholds
 (@sfig-access-esm1-5-carb-budget-corr).
 
-\![Number of years reef coral cover exceeds the assumed carbonate budget threshold in terms
+![Number of years reef coral cover exceeds the assumed carbonate budget threshold in terms
 of coral cover ($\theta_0$) between 2025 to 2075 (y-axis) under ACCESS-ESM1-5. Left panel
 shows relationship between reef median depth, while the right panel shows the same for
 log10-weighted incoming connectivity values. Point colour (purple to yellow) represents
 ($\theta_0$), with brighter shades indicating a higher $\theta_0$. Deeper reefs have
 increased number of years above the considered range of $\theta_0$, while no relationship
-between weighted incoming connectivity and carbonate budget maintenance was found.
-(../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
+between weighted incoming connectivity and carbonate budget maintenance was
+found.](../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
 fig-align="center" width="14.82cm"}
 
 # Discussion
@@ -860,16 +862,15 @@ Program (<https://gbrrestoration.org>; [@thereef]).
 
 The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
 one, a formal mechanistic and spatial validation of the model represents an area for future
-refinement and is the focus of a future publication. Indicative results are included in the
-supplementary **\[TI: For Pedro to include! :`D`\].** The consistency of projected patterns
+refinement and is the focus of a future publication. The consistency of projected patterns
 with known coral-climate relationships and reef characteristics provides confidence in the
 model's ability to meaningfully capture ecological signals at the GBR-scale. The mechanistic
-basis of the model, combined with qualitative assessment of model behavior, supports the
-robustness of our findings for understanding broad-scale coral cover responses to climatic
-drivers. The aim here, however, was to assess the relative influence of reef characteristics
-on reef resilience under future conditions, rather than provide spatially explicit and
-precise predictions of reef outcomes. Using this approach, we suggest that reef depth is an
-important factor for reef resilience under thermal stress.
+basis of the model supports the robustness of our findings for understanding broad-scale
+coral cover responses to climatic drivers. The aim here, however, was to assess the relative
+influence of reef characteristics on reef resilience across a range of future conditions and
+parameterisations, rather than provide spatially explicit and precise predictions of reef
+outcomes. Using this approach, we suggest that reef depth is an important factor for reef
+resilience under thermal stress.
 
 Improvements in remote sensing approaches for broad scale bathymetry measurement and
 understanding of how depth impacts experienced thermal stress on reefs will further enhance
@@ -1138,6 +1139,48 @@ susceptible to bleaching (i.e. has a thermal threshold below the experienced DHW
 Starting distributions for thermal tolerance levels are informed by Bairos-Novak et al.
 [-@bairos-novak2021].
 
+### Calibration
+
+The growth and mortality rate parameters of ADRIA-CoralBlox were calibrated using hard coral
+cover and benthic composition data from the Long-Term Monitoring Program (LTMP). From all
+the reefs for which there is LTMP data available, 99 were selected for having at least 4
+observations that span more than 10 years. These locations were randomly split into a
+calibration set (with 73 reefs) and a validation set (with 26 reefs), as evenly spatially
+distributed as possible. The error function used in the calibration process is composed of
+three elements [@eq-calibration]. The first is a Mean Absolute Exponential Error ($MAEE$)
+that captures the difference between modeled and observed hard coral cover. The second is a
+Coral Composition Error ($CCE$) that captures the differences in the benthic composition
+between modeled and observed coral cover. The third ($Err~p~$) is an error that emphasizes
+differences between observed and modelled cover at the beginning and end of the series, as
+well as on peaks and troughs:
+
+$$
+err = MAEE_\sigma_  *  w_1_  +  CEE_t_  *  w_c_  +  Err_p_  *  w_p_
+$$ {#eq-calibration}
+
+[@sfig-reef-scale-calibration] shows a comparison between modeled and observed relative
+coral cover for 6 reefs with distinct disturbance patterns. For each one, a Root Mean Square
+Error (RMSE), the MAEE and Spearman’s Rank Correlation Coefficient (SRCC) is also shown.
+[@sfig-man-area-calibration] presents another comparison between observed and modeled hard
+coral cover aggregated by GBRMPA management area.
+
+![Time series comparing modelled and observed relative coral cover for selected validation
+reefs. These reefs were selected to show distinct disturbance patterns and behaviors. reefs
+(a) and (b), with low heat stress and a single disturbance at the beginning, show the
+model’s ability of reproducing the reef’s recovery under low or no disturbance; reefs (c)
+and (d), with moderate to high heat stress and disturbance events in the middle of the
+considered timeframe, show the model’s ability to reproduce disturbances reasonably well but
+some difficulty in representing the post-disturbance recovery ; reefs (e) and (f) illustrate
+the challenge of reproducing the observed behavior in a high disturbance
+scenario.](../figs/reef_scale_calibration.png){#sfig-reef-scale-calibration
+fig-align="center" width="14.82cm"}
+
+![Comparison between observed and modelled coral relative cover aggregated, for each GBRMPA
+management area, for the calibration set (first row) and validation set (second row). For
+each one the aggregated RMSE and MAE are
+presented.](../figs/management_area_calibration.png){#sfig-man-area-calibration
+fig-align="center" width="14.82cm"}
+
 ### Time series clustering
 
 The CID time series clustering metric corrects the Euclidean distance between pairs of time
@@ -1287,31 +1330,3 @@ represented in this figure. This map depicts values from the ACCESS-ESM1-5 GCM. 
 represent major coastal settlements along the
 GBR.](../figs/ACCESS-ESM1-5/weighted_incoming_conn_input_map.png){#sfig-incoming-conn-map
 fig-align="center" width="14.82cm"}
-
-## Random Forest Performance
-
-|               |         |                  |          |
-|---------------|---------|------------------|----------|
-|               |         | **Ground Truth** |          |
-| **Predicted** | **Low** | **Medium**       | **High** |
-| **Low**       | 1371    | 682              | 151      |
-| **Medium**    | 247     | 603              | 340      |
-| **High**      | 97      | 302              | 787      |
-
-: Confusion matrix for the Random Forest classifier used to assess partial dependence.
-Diagonals indicate correctly classified time series clusters. Columns are the "true" cluster
-memberships and indicate the samples that were correctly or incorrectly classified as
-Low/Medium/High. For example, the first column shows the number of samples correctly
-classified into the Low cluster, and the number of Low samples incorrectly classified as
-being in either the Medium or High coral cover clusters. There were 4580 samples used for
-testing.
-
-|                  |         |            |          |
-|------------------|---------|------------|----------|
-|                  | **Low** | **Medium** | **High** |
-| **Test samples** | 1715    | 1587       | 1278     |
-| **Precision**    | 0.622   | 0.507      | 0.664    |
-| **Recall**       | 0.799   | 0.38       | 0.616    |
-| **F1**           | 0.7     | 0.434      | 0.639    |
-
-: Performance metrics for the Random Forest classifier for each of the time series clusters.
