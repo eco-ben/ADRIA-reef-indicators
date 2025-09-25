@@ -95,38 +95,34 @@ editor:
 
 # Introduction
 
-Climate change is impacting species survival, persistence and ecosystem functions globally.
-This is particularly true for coral reefs, which are vulnerable to increasing magnitude and
-variation in environmental stressors such as ocean temperature [@foster2021; @gattuso2014].
-Mass bleaching and associated mortality events driven by climate change can cause
-reef-building coral population declines [@hughes2017; @hughes2018; @bozec2025], possibly
-leading to long-term and large-scale coral-macroalgae regime shifts [@arif2022; @wild2011].
-Climate impacts on coral reefs are decreasing the ability of coral reefs to provide
-ecological functions such as benthic habitat and nutrient cycling [@forster2021;
-@williams2019] as well as ecosystem services such as food, protection, tourism and
-Indigenous cultural value [@eddy2021; @stoeckl2021].
+Climate change is impacting species survival, persistence and ecosystem functions on coral
+reefs, which are vulnerable to increasing magnitude and variation in environmental stressors
+such as ocean temperature [@foster2021; @gattuso2014]. Mass bleaching and associated
+mortality events driven by climate change can cause reef-building coral population declines
+[@hughes2017; @hughes2018; @bozec2025], possibly leading to coral-macroalgae regime shifts
+[@arif2022; @wild2011]. Climate impacts on coral reefs are decreasing the ability of coral
+reefs to provide ecological functions such as benthic habitat and nutrient cycling
+[@forster2021; @williams2019] and services such as food, protection, tourism and Indigenous
+cultural value [@eddy2021; @stoeckl2021].
 
-Understanding the characteristics of reefs that will persist under projected climate
-conditions requires examining reef resilience across multiple scales and processes. Coral
-reef ecosystem resilience - the capacity to maintain coral populations and avoid ecosystem
-regime shifts - is conceptualised to depend on three interconnected mechanisms. First, the
-ability of individual corals to survive thermal stress. Second, the connectivity networks
-that enable recolonisation after disturbances [@hock2017; @mumby2008; @torres2024]. Third,
-the maintenance, and accretion, of the carbonate framework that provides reef structure
-[@perry2012]. We aim to assess how these mechanisms interact under projected climate
-conditions to identify the characteristics of resilient reefs through scenario-based coral
-population modelling for the Great Barrier Reef ecosystem.
+Coral reef ecosystem resilience - the capacity to maintain coral populations and avoid
+ecosystem regime shifts - is conceptualised to depend on three interconnected mechanisms.
+First, the ability of individual corals to survive thermal stress. Second, the connectivity
+networks that enable recolonisation after disturbances [@hock2017; @mumby2008; @torres2024].
+Third, the maintenance, and accretion, of the carbonate framework that provides reef
+structure [@perry2012]. We aim to assess how these mechanisms interact under projected
+climate conditions to identify the characteristics of resilient reefs through scenario-based
+coral population modelling for the Great Barrier Reef ecosystem.
 
 The Great Barrier Reef (GBR) is the world's largest coral reef ecosystem consisting of
-thousands of individual reefs. They are interconnected through coral and fish larval
-dispersal patterns mediated by hydrodynamic, spatial, and ecological processes [@cappo2000].
-The GBR faces severe projected coral cover declines under climate change [@bozec2025;
-@bozec2022; @condie2021]. These coral cover declines will be compounded by ocean
-acidification, tropical cyclones, and crown-of-thorns starfish outbreaks [@death2012;
-@fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. The 2023-24 Summer mass
-bleaching event may be signalling a shift towards this reef future, with some level of
-bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs)
-[@australianinstituteofmarinescience2024; @cantin2024].
+thousands of individual reefs interconnected through larval dispersal patterns mediated by
+hydrodynamic, spatial, and ecological processes [@cappo2000]. The GBR faces severe projected
+coral cover declines under climate change [@bozec2025; @bozec2022; @condie2021]. Coral cover
+declines will be compounded by ocean acidification, tropical cyclones, and crown-of-thorns
+starfish outbreaks [@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011;
+@wolff2018]. The 2023-24 Summer mass bleaching event may be signalling a shift towards this
+reef future, with some level of bleaching recorded on 79% of surveyed reefs (total 1001
+surveyed reefs) [@australianinstituteofmarinescience2024; @cantin2024].
 
 At the individual coral scale, survival during thermal stress events depends on both
 environmental and biological factors. Environmental factors can either amplify or reduce
@@ -154,8 +150,7 @@ corals build the primary habitat framework, but reef persistence depends on the 
 between carbonate accumulation [@perry2015] and loss through bioerosion, physical damage
 [@kenyon2023], and dissolution [@eyre2014; @eyre2018]. This balance is influenced by coral
 cover and community complexity [@perry2012; @desbiens2021], environmental processes, and
-ocean chemistry [@perry2015; @eyre2018]. For GBR mid-shelf and offshore reefs, maintaining
-positive carbonate budgets requires approximately 17% live coral cover [@desbiens2021].
+ocean chemistry [@perry2015; @eyre2018].
 
 Recent advances in whole-ecosystem larval connectivity modelling **\[Insert GBR1
 connectivity citation.\]** and coral thermal response research [@bairos-novak2021] enable
@@ -164,21 +159,20 @@ By incorporating the latest coral population models [@ribeirodealmeida2024], eco
 connectivity data, and updated climate projections [@dixon2022], we can examine which
 factors most strongly influence reef persistence under different scenarios. While
 connectivity has been emphasized as critical for GBR resilience [@hock2017], and remains an
-important consideration, our integrated modelling reveals depth may play a fundamental role
-in determining maintenance of reef coral populations and positive carbonate budgets under
+important consideration, our integrated modelling reveals depth plays a fundamental role in
+determining maintenance of reef coral populations and positive carbonate budgets under
 current projections of climate change.
 
 # Methods
 
 ## Reef definitions
 
-The spatial extent of the GBR reefs represented in this investigation follows the reef
-definitions available via the Great Barrier Reef Marine Park Authority (GBRMPA)
-[@GBRMPA2022]. The reef definitions define 3806 reefs across the GBR. An indicative map of
-the GBR marine park including the Marine Park Management areas [@GBRMPA2007] and the
-corresponding bioregion for each reef is shown in (@fig-region-map; [@GBRMPA2024]).
-Estimates of coral carrying capacity for each reef were taken from prior analyses undertaken
-in [@bozec2022].
+The spatial extent of reefs represented in this investigation follows reef definitions
+available via the Great Barrier Reef Marine Park Authority (GBRMPA) [@GBRMPA2022]. The reef
+definitions define 3806 reefs across the GBR. An indicative map of the GBR marine park
+including the Marine Park Management areas [@GBRMPA2007] and the corresponding bioregion for
+each reef is shown in [@fig-region-map] [@GBRMPA2024]. Estimates of coral carrying capacity
+for each reef were taken from prior analyses undertaken in Bozec et al. [-@bozec2022].
 
 Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
 available in GBRMPA [-@GBRMPA2020]. While the bathymetry data adopted for the given
@@ -223,18 +217,18 @@ ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GFDL-CM4. The selected GCMs are a part
 Sixth Phase of the Coupled Model Intercomparison Project (CMIP6), spanning four 'model
 development families' as defined by Brunner et al., [-@brunner2020].
 
-These GCMs were selected based on evaluation conducted by Grose et al., [-@grose2023],
-indicating their ability to recreate historical atmospheric temperature and precipitation
-conditions in the Australasian region. They span a range of Equilibrium Climate Sensitivity
-(ECS) values within the Intergovernmental Panel on Climate Change (IPCC) assessed likely
-range. The IPCC defines ECS as the long-term warming caused by a doubling of carbon dioxide
-above its pre-industrial concentration [@forster2021]. While this assessment does not
-consider oceanic data, Grose et al. [-@grose2023] provide a region-specific selection
-mechanism which we use as an indicator of general performance of GCMs for the region. An
-overview of the selected GCMs is provided in @tbl-gcms. Note here that Grose et al.,
-[-@grose2023] assessed GFDL-ESM4, whereas Dixon et al., [-@dixon2022; -@dixon2023] provides
-data based on GFDL-CM4. This substitution is assumed appropriate given they share the same
-fundamental representation of the physical climate system.
+These GCMs were selected based on evaluation by Grose et al., [-@grose2023], indicating
+their ability to recreate historical atmospheric temperature and precipitation conditions in
+the Australasian region. They span a range of Equilibrium Climate Sensitivity (ECS) values
+within the Intergovernmental Panel on Climate Change (IPCC) assessed likely range. The IPCC
+defines ECS as the long-term warming caused by a doubling of carbon dioxide above its
+pre-industrial concentration [@forster2021]. While this assessment does not consider oceanic
+data, Grose et al. [-@grose2023] provide a region-specific selection mechanism which we use
+as an indicator of general performance of GCMs for the region. An overview of the selected
+GCMs is provided in @tbl-gcms. Note here that Grose et al., [-@grose2023] assessed
+GFDL-ESM4, whereas Dixon et al., [-@dixon2022; -@dixon2023] provides data based on GFDL-CM4.
+This substitution is assumed appropriate given they share the same fundamental
+representation of the physical climate system.
 
 Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the plausible emission
 pathway. It represents a moderate emissions scenario with continued CO~2~ emissions
@@ -244,44 +238,22 @@ atmospheric warming in the 2081-2100 period relative to 1850-1900. The use of th
 therefore allow for a range of possible climate futures to be explored, capturing
 uncertainty in future responses to CO~2~ increases (@sfig-ecs; @fig-methods-dhws;
 [@grose2023; @shepherd2018]) and enables the assessment of modelled coral reef behaviour
-over a broad range of independently derived climate futures [@abramowitz2019].
+over a broad range of independently derived climate futures [@abramowitz2019; @brunner2020].
 
-Monthly mean SST climatological baselines, for each 1km^2^ pixel, were calculated from the
-daily SST data following NOAA methodology [@liu2017; @skirving2020]. For each pixel of SST
-data, the Monthly Mean SST climatology was calculated by computing the mean SST value for
-each calendar month (January through December) across the 28-year baseline period from 1985
-to 2012. For each month separately, this climatological baseline was adjusted to centre at
-year 1988.2857, which attempts to account for any long-term trends within the baseline years
-themselves (see Skirving et al. [@skirving2020]). The adjustment ensures that the
-climatology represents conditions at a specific temporal reference point rather than being
-influenced by gradual warming or cooling trends that may have occurred during the 1985-2012
-period. The resulting monthly climatologies serve as a standardized reference against which
-current SST conditions can be compared to identify thermal anomalies and assess coral
-bleaching risk, following the methodology established by Skirving et al. [-@skirving2020].
-
-Degree Heating Weeks (DHWs) were derived using the "HotSpot SST Anomaly" approach
-[@skirving2020]. The "HotSpot SST Anomaly" represents thermal stress experienced by coral
-reefs and is calculated as the difference between daily SST values and the maximum of a
-pixel's monthly mean climatology across all twelve months (i.e., the maximum monthly mean
-SST). This approach uses the annual maximum temperature as the baseline because corals are
-adapted to withstand their local warmest conditions under normal seasonal cycles. When
-temperatures exceed this seasonal maximum, corals experience thermal stress that can lead to
-bleaching. Only positive anomalies, greater than 1°C, are considered relevant for coral
-stress, as temperatures below the seasonal maximum do not contribute to bleaching risk.
-
-DHW values on a per-pixel basis at 1km^2^ resolution were then calculated as the 12-week
-rolling sum of HotSpot SST Anomaly values that are greater than 1°C, expressed in units of
-°C-weeks. The 12-week accumulation period reflects the cumulative nature of coral thermal
-stress. Brief temperature spikes may be tolerable, but sustained or repeated exposure to
-elevated temperatures causes progressively greater physiological stress and bleaching
-severity. DHW values integrate both the magnitude and duration of thermal stress: a moderate
-anomaly (e.g., 1°C) sustained for 12 weeks produces the same DHW value as a severe anomaly
-(e.g., 3°C) lasting 4 weeks, though the biological impacts may differ. DHW estimates for
-each indicative reef (see @GBRMPA2022) were then determined by taking the mean DHW value for
-all pixels touching each reef outline. The process described here was conducted for all 2197
-reefs to create DHW projections spanning from 2025 to 2075. Code used to calculate DHW data
-and perform analyses involved in this investigation can be found at Grier and Iwanaga
-[-@grier2025].
+Daily SST data [@dixon2023] were used to calculate climatological baselines and “HotSpot
+Anomaly” values for each pixel following NOAA methodology [@liu2017; @skirving2020].
+Additional information about DHW calculation methods is provided in the supplemental
+material. DHW values on a per-pixel basis at 1km^2^ resolution were then calculated as the
+12-week rolling sum of HotSpot SST Anomaly values that are greater than 1°C, expressed in
+units of °C-weeks. The 12-week accumulation period reflects the cumulative nature of coral
+thermal stress. Brief temperature spikes may be tolerable, but sustained or repeated
+exposure to elevated temperatures causes progressively greater physiological stress and
+bleaching severity. DHW values integrate both the magnitude and duration of thermal stress:
+a moderate anomaly (e.g., 1°C) sustained for 12 weeks produces the same DHW value as a
+severe anomaly (e.g., 3°C) lasting 4 weeks, though the biological impacts may differ. DHW
+estimates for each indicative reef (see @GBRMPA2022) were then determined by taking the mean
+DHW value for all pixels touching each reef outline. The process described here was
+conducted for all 2197 reefs to create DHW projections spanning from 2025 to 2075.
 
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C)     | Interpreted relative severity | Results found in |
@@ -332,11 +304,12 @@ interacting and compounding sources of uncertainty, and a lack of broad agreemen
 their likelihood, create inherently uncertain outcomes. Here, exploratory modelling was
 applied to identify the environmental and reef characteristics, such as thermal stress,
 depth, and connectivity, that support favourable outcomes in reef recovery and resilience.
-Metrics used in analyses can be found in @stbl-metrics.
 
 All data preparation, modelling and analyses were performed using the Julia programming
 language (The Julia Project; https://julialang.org/; [@bezanson2017]), with visualisations
-created using the Makie plotting ecosystem [@danisch2021].
+created using the Makie plotting ecosystem [@danisch2021]. Code used to process DHW data and
+perform analyses involved in this investigation can be found at Grier and Iwanaga
+[-@grier2025].
 
 ### Connectivity modelling
 
@@ -350,11 +323,9 @@ total of 24 days of connectivity matrices. The values in these matrices indicate
 probability of larval transfer between each pair of reefs in the GBR, herein referred to as
 connectivity strengths. Indicative connectivity strengths are implemented in ADRIA-CoralBlox
 as the mean of all available data for each location (i.e., mean of all 24 spawning days).
-While the connectivity strengths do not vary from year to year within each ADRIA-CoralBlox
-simulation, they do vary between reefs which are of varying sizes, providing sufficient
-heterogeneity to capture spatial patterns in larval dispersal and settlement dynamics. This
-spatial variability also enables investigations into the influence of connectivity strength
-and its role in driving recovery processes.
+While the connectivity strengths do not vary temporally within each ADRIA-CoralBlox
+simulation, they do vary between reefs. This spatial variability enables investigations into
+the influence of connectivity strength and its role in driving recovery processes.
 
 To assess the impact of reef connectivity on modelled outcomes we summarise incoming
 connectivity (weighted incoming connectivity), outgoing connectivity (outgoing connection
@@ -365,7 +336,7 @@ reef) and the mean timeseries absolute coral cover (km^2^) of each matching sour
 This metric provides an approximation of overall larval flow into a reef, with high values
 indicating the target reef is supplied high volumes of larvae via strong connections and low
 values indicating the target reef has weak (or no) incoming connections or is supplied by
-small source populations. A limitation of weighted incoming connectivity is it does not
+small source populations. A limitation of weighted incoming connectivity is that it does not
 incorporate the proportion of the source reef's population that is reproducing and producing
 larvae, instead taking the total coral cover area as an indicator of larval productivity.
 Outgoing connection strength is calculated as the sum of all outgoing transition
@@ -416,7 +387,8 @@ be found in [@kucherenko2015]. For the purpose of scenario assessment, the resul
 cover time series for each model run were scaled by the total area of each reef to represent
 cover as a percentage of the total estimated reef area. The scenario-median time series for
 each reef was used for further analyses. These time series of coral cover were then
-clustered based on their temporal behaviour.
+clustered based on their temporal behaviour. Assessment metrics used in analyses can be
+found in @stbl-metrics.
 
 ### Time series clustering
 
@@ -437,14 +409,14 @@ to, for example, naively clustering by their mean coral cover. Time series clust
 achieved through the use of k-medoids clustering [cf. @steinmann2020]. Further details on
 the time series clustering approach are found in the supplementary materials.
 
-The time series clustering was applied over the time frame between 2025 and 2075. The
-clustering was conducted for three spatial scales: (1) the whole of GBR; (2) each GBR
-management area; and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). The
-analyses was conducted at the different spatial scales as, conceptually, the temporal
-behaviour constituting "low", "medium" or "high" coral cover may differ at the different
-spatial scales. As it was, analyses at the whole-of-GBR scale were found to lead to
-identical conclusions regarding reef characteristics which influence coral cover and so for
-brevity are not shown here.
+Time series clustering was applied over the time frame between 2025 and 2075. The clustering
+was conducted for three spatial scales: (1) the whole of GBR; (2) each GBR management area;
+and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). The analyses were
+conducted at the different spatial scales as, conceptually, the temporal behaviour
+constituting "low", "medium" or "high" coral cover may differ at the different spatial
+scales. As it was, analyses at the whole-of-GBR scale were found to lead to identical
+conclusions regarding reef characteristics which influence coral cover and so for brevity
+are not shown here.
 
 To compare time series clustering results across GCMs, management area scale clustering
 results are used to preserve coarse scale latitudinal differences between regions, while
@@ -464,20 +436,20 @@ and bioregion-scale time series cluster predictions using a Random Forest (RF) c
 predictors, including the estimated median reef depth, mean DHW for the given GCM,
 log10-weighted incoming connectivity, outgoing connectivity, and log10-transformed
 outgoing-to-incoming connectivity ratio. The full dataset consisted of the time series
-cluster assignment of each of the 2197 reefs under the five GCMs explored, for a total of
+cluster assignment for each of the 2197 reefs under the five GCMs explored, for a total of
 10,985 samples. The dataset was randomly split into training (60%) and testing (40%) subsets
 to train and assess classification performance. The RF classifier achieved 80% accuracy on
 the training set and 60% on the test set.
 
-A 3-fold cross-validation was also conducted, arriving at a similar 59% accuracy rate.
-Furthermore, F1 performance scores for Low, Medium, and High clusters were determined to be
-0.70, 0.43 and 0.64 respectively, with precision of 0.62, 0.51 and 0.66 when evaluated with
-the test set (consisting of 4394 samples) [@stbl-confusion-matrix;
-@stbl-rf-cluster-performance]. Lower performance with the Medium cluster reflects the
-inherent difficulty of classifying transitional states in natural systems. The consistent
-level of accuracy across test and cross-validation demonstrates the generalised performance
-of the RF classifier, while not accurate, was deemed sufficiently informative for the
-purpose of assessing the influence of reef characteristics.
+A 3-fold cross-validation was also conducted, arriving at a similar 59% accuracy rate. F1
+performance scores for Low, Medium, and High clusters were determined to be 0.70, 0.43 and
+0.64 respectively, with precision of 0.62, 0.51 and 0.66 when evaluated with the test set
+(consisting of 4394 samples) (@stbl-confusion-matrix; @stbl-rf-cluster-performance). Lower
+performance with the Medium cluster reflects the inherent difficulty of classifying
+transitional states in natural systems. The consistent level of accuracy across test and
+cross-validation demonstrates the generalised performance of the RF classifier, while not
+accurate, was deemed sufficiently informative for the purpose of assessing the influence of
+reef characteristics.
 
 Partial dependence analysis was performed by applying the trained model to the test dataset.
 Values for individual predictors were systematically varied (one-at-a-time) across a grid of
@@ -490,8 +462,9 @@ probability was also assessed but was found not to substantially influence the
 interpretation of results (and so are not shown here). The process isolates the marginal
 effect of each predictor by averaging over the natural distribution of all other
 representative reef characteristics in the test dataset. Additionally, to assess possible
-interaction between reef depth and incoming connectivity, two-way partial dependence
-analysis was performed on grids along the range of these two features.
+interaction between reef depth and connectivity metrics, two-way partial dependence analysis
+was performed on grids along the ranges of depth and weighted incoming connectivity, and
+depth and outgoing connection strength.
 
 ### Carbonate budget analysis
 
@@ -571,37 +544,15 @@ trajectories.
 
 In contrast to the broad temporal behaviour at the Management area scale, the relationship
 between reef characteristics and assigned clusters were found to be similar at the bioregion
-scale across GCMs. Results are only shown and discussed for ACCESS-ESM1-5, an intermediate
-ECS scenario (@sfig-ecs). Those interested in results for the other assessed GCMs are
-referred to Grier and Iwanaga [-@grier2025]. Across bioregions, reefs in the High cluster
-not only had greater levels of coral recovery but displayed persistence to 2050
-(@sfig-access-esm1-5-bioregion-timeseries). Reefs in the High cluster were consistently
-found to have the greatest median reef depths across bioregions
-(@fig-access-esm1-5-bioregion-depth).
-
-![Median depth for reefs within each bioregion under ACCESS-ESM1-5, separated into clusters
-assigned by time series clustering. Time series were clustered based on their behaviour
-between 2030 and 2060. Time series with comparatively low median area-relative cover is
-indicated in green, intermediate cover in orange, and high in blue. Solid lines represent
-the median depth for each cluster across reefs and bands represent the distribution of depth
-values within each
-cluster.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
-fig-align="center" width="14.82cm"}
-
-Across bioregions, there were no consistent patterns between reef clusters in mean DHW
-values (@sfig-access-esm1-5-bioregion-dhwmean), log10-weighted incoming connectivity
-(@sfig-access-esm1-5-bioregion-weightedincoming), log10 outgoing connection strength
-(@sfig-access-esm1-5-bioregion-outgoingconn), log10 source-to-sink connectivity ratio
-(@sfig-access-esm1-5-bioregion-logsosi) and log10 larval retention probability
-(@sfig-access-esm1-5-bioregion-selfconn). Across six of the 29 bioregions reefs in the high
-cover cluster have lower log10 carrying capacity values than reefs in other clusters
-(@sfig-access-esm1-5-bioregion-carrying-capacity).
+scale across GCMs. Across bioregions, reefs in the High cluster not only had greater levels
+of coral recovery but displayed persistence to 2050
+(@sfig-access-esm1-5-bioregion-timeseries). Qualitative representations of bioregion scale
+clustering results across assessed reef characteristics can be found in the supplementary
+material, with Partial Dependence Analysis results displayed in the main text.
 
 #### Partial dependence
 
-A Partial Dependence Analysis was conducted using a Random Forest classifier to identify
-reef characteristics that influence its temporal behaviour, and thus its assignment into
-Low, Medium, or High cover clusters. Reef median depth, carrying capacity and mean time
+Partial Dependence Analysis revealed reef median depth, carrying capacity and mean time
 series DHW level have the highest feature importance scores, accounting for 29%, 15% and 15%
 predictive importance respectively (@fig-ts-cluster-pdp; Panel A). Area weighted incoming
 connectivity, outgoing connectivity strength, source-to-sink connectivity ratio and larval
@@ -961,12 +912,10 @@ investigation.](../figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
 ![Reef Degree Heating Week time series clustered within each management area, for each GCM
-analysed. ‘Low’ clusters (green) are clusters with the lowest median area-relative cover
-between 2030 and 2060 within each bioregion. ‘Medium’ clusters (orange) are clusters with
-intermediate median area-relative cover between 2030 and 2060 within each bioregion. ‘High’
-clusters (blue) are clusters with the highest median area-relative cover between 2030 and
-2060 within each bioregion. Solid lines represent the cluster median time series and bands
-represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
+analysed. Time series were clustered based on their behaviour between 2030 and 2060. Time
+series with comparatively low median area-relative cover is indicated in green, intermediate
+cover in orange, and high in blue. Solid lines represent the cluster median time series and
+bands represent the 2.5 to 97.5 percentile confidence intervals. Each management area is
 represented five times (for each GCM), with each GCM displayed
 horizontally.](../figs/GCM_dhw_timeseries_plot.png){#sfig-gcm-dhw-trajectories
 fig-align="center" width="14.82cm"}
@@ -1116,6 +1065,31 @@ figure. Annotations represent major coastal settlements along the
 GBR.](../figs/log_self_strength_input_map.png){#sfig-self-conn-map fig-align="center"
 width="14.82cm"}
 
+## Degree Heating Week data processing
+
+Monthly mean SST climatological baselines, for each 1km^2^ pixel, were calculated from the
+daily SST data following NOAA methodology [@liu2017; @skirving2020]. For each pixel of SST
+data, the Monthly Mean SST climatology was calculated by computing the mean SST value for
+each calendar month (January through December) across the 28-year baseline period from 1985
+to 2012. For each month separately, this climatological baseline was adjusted to centre at
+year 1988.2857, which attempts to account for any long-term trends within the baseline years
+themselves (see Skirving et al. [@skirving2020]). The adjustment ensures that the
+climatology represents conditions at a specific temporal reference point rather than being
+influenced by gradual warming or cooling trends that may have occurred during the 1985-2012
+period. The resulting monthly climatologies serve as a standardized reference against which
+current SST conditions can be compared to identify thermal anomalies and assess coral
+bleaching risk, following the methodology established by Skirving et al. [-@skirving2020].
+
+Degree Heating Weeks (DHWs) were derived using the "HotSpot SST Anomaly" approach
+[@skirving2020]. The "HotSpot SST Anomaly" represents thermal stress experienced by coral
+reefs and is calculated as the difference between daily SST values and the maximum of a
+pixel's monthly mean climatology across all twelve months (i.e., the maximum monthly mean
+SST). This approach uses the annual maximum temperature as the baseline because corals are
+adapted to withstand their local warmest conditions under normal seasonal cycles. When
+temperatures exceed this seasonal maximum, corals experience thermal stress that can lead to
+bleaching. Only positive anomalies, greater than 1°C, are considered relevant for coral
+stress, as temperatures below the seasonal maximum do not contribute to bleaching risk.
+
 ## ADRIA-CoralBlox
 
 The CoralBlox model incorporates linear extension (growth) and background mortality rates
@@ -1251,107 +1225,114 @@ fig-align="center" width="14.82cm"}
 
 ### Bioregion scale clustering
 
-![Reef area-relative coral cover time series clustered within each bioregion. ‘Low’ clusters
-(green) are clusters with the lowest median area-relative cover between 2030 and 2060 within
-each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median
-area-relative cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are
-clusters with the highest median area-relative cover between 2030 and 2060 within each
-bioregion. Solid lines represent the cluster median time series and bands represent the 95th
-percentile confidence intervals. Displays results for ACCESS-ESM1-5
+Results are only shown and discussed for ACCESS-ESM1-5, an intermediate ECS scenario
+(@sfig-ecs). Those interested in results for the other assessed GCMs are referred to Grier
+and Iwanaga [-@grier2025]. Reefs in the High cluster were consistently found to have the
+greatest median reef depths across bioregions (@sfig-access-esm1-5-bioregion-depth). Across
+bioregions, there were no consistent patterns between reef clusters in mean DHW values
+(@sfig-access-esm1-5-bioregion-dhwmean), log10-weighted incoming connectivity
+(@sfig-access-esm1-5-bioregion-weightedincoming), log10 outgoing connection strength
+(@sfig-access-esm1-5-bioregion-outgoingconn), log10 source-to-sink connectivity ratio
+(@sfig-access-esm1-5-bioregion-logsosi) and log10 larval retention probability
+(@sfig-access-esm1-5-bioregion-selfconn). Across six of the 29 bioregions reefs in the high
+cover cluster have lower log10 carrying capacity values than reefs in other clusters
+(@sfig-access-esm1-5-bioregion-carrying-capacity).
+
+![Reef area-relative coral cover time series clustered within each bioregion. Time series
+were clustered based on their behaviour between 2030 and 2060. Time series with
+comparatively low median area-relative cover is indicated in green, intermediate cover in
+orange, and high in blue. Solid lines represent the cluster median time series and bands
+represent the 95th percentile confidence intervals. Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/bioregion/bioregion_cover_timeseries.png){#sfig-access-esm1-5-bioregion-timeseries
 fig-align="center" width="14.82cm"}
 
+![Median depth for reefs within each bioregion under ACCESS-ESM1-5, separated into clusters
+assigned by time series clustering. Time series were clustered based on their behaviour
+between 2030 and 2060. Time series with comparatively low median area-relative cover is
+indicated in green, intermediate cover in orange, and high in blue. Solid lines represent
+the median depth for each cluster across reefs and bands represent the distribution of depth
+values within each
+cluster.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#sfig-access-esm1-5-bioregion-depth
+fig-align="center" width="14.82cm"}
+
 ![Mean time series DHW values for reefs within each bioregion, separated into clusters
-assigned by time series clustering. ‘Low’ clusters (green) are clusters with the lowest
-median area-relative cover between 2030 and 2060 within each bioregion. ‘Medium’ clusters
-(orange) are clusters with intermediate median area-relative cover between 2030 and 2060
-within each bioregion. ‘High’ clusters (blue) are clusters with the highest median
-area-relative cover between 2030 and 2060 within each bioregion. Solid lines represent the
-median DHW level for each cluster and bands represent the distribution of mean DHW levels
-within each cluster. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/mean_dhw_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwmean
+assigned by time series clustering, under ACCESS-ESM1-5. Time series were clustered based on
+their behaviour between 2030 and 2060. Time series with comparatively low median
+area-relative cover is indicated in green, intermediate cover in orange, and high in blue.
+Solid lines represent the median DHW level for each cluster and bands represent the
+distribution of mean DHW levels within each
+cluster.](../figs/ACCESS-ESM1-5/bioregion/mean_dhw_bioregion_violin.png){#sfig-access-esm1-5-bioregion-dhwmean
 fig-align="center" width="14.82cm"}
 
 ![Reef carrying capacity (coral habitable area, in base-10 log scale) for reefs within each
-bioregion, separated into clusters assigned by time series clustering. ‘Low’ clusters
-(green) are clusters with the lowest median area-relative cover between 2030 and 2060 within
-each bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median
-area-relative cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are
-clusters with the highest median area-relative cover between 2030 and 2060 within each
-bioregion. Solid lines represent the median carrying capacity for each cluster and bands
-represent the distribution of values within each cluster. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/carrying_capacity_bioregion_violin.png){#sfig-access-esm1-5-bioregion-carrying-capacity
+bioregion, separated into clusters assigned by time series clustering, under ACCESS-ESM1-5.
+Time series were clustered based on their behaviour between 2030 and 2060. Time series with
+comparatively low median area-relative cover is indicated in green, intermediate cover in
+orange, and high in blue. Solid lines represent the median carrying capacity for each
+cluster and bands represent the distribution of values within each
+cluster.](../figs/ACCESS-ESM1-5/bioregion/carrying_capacity_bioregion_violin.png){#sfig-access-esm1-5-bioregion-carrying-capacity
 fig-align="center" width="14.82cm"}
 
 ![Source-to-sink connectivity ratios (in base-10 log scale) for reefs within each bioregion,
-separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
-clusters with the lowest median area-relative cover between 2030 and 2060 within each
-bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
-cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
-the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
-lines within each violin represent the median source-to-sink ratio for each cluster and
-bands represent the distribution of source-to-sink ratios within each cluster. The vertical
-grey line represent a source-to-sink ratio of 0 (in base-10 log scale) indicating equal
-outgoing and incoming connectivity levels. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-access-esm1-5-bioregion-logsosi
+separated into clusters assigned by time series clustering, under ACCESS-ESM1-5. Time series
+were clustered based on their behaviour between 2030 and 2060. Time series with
+comparatively low median area-relative cover is indicated in green, intermediate cover in
+orange, and high in blue. Solid lines within each violin represent the median source-to-sink
+ratio for each cluster and bands represent the distribution of source-to-sink ratios within
+each cluster. The vertical grey line represent a source-to-sink ratio of 0 (in base-10 log
+scale) indicating equal outgoing and incoming connectivity
+levels.](../figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-access-esm1-5-bioregion-logsosi
 fig-align="center" width="14.82cm"}
 
 ![Weighted incoming connectivity (in base-10 log scale) for reefs within each bioregion,
-separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
-clusters with the lowest median area-relative cover between 2030 and 2060 within each
-bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
-cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
-the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
-lines within each violin represent the median base-10 log of weighted incoming connectivity
-for each cluster and bands represent the distribution of connectivity values within each
-cluster. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/weighted_incoming_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-weightedincoming
+separated into clusters assigned by time series clustering, under ACCESS-ESM1-5. Time series
+were clustered based on their behaviour between 2030 and 2060. Time series with
+comparatively low median area-relative cover is indicated in green, intermediate cover in
+orange, and high in blue. Solid lines within each violin represent the median base-10 log of
+weighted incoming connectivity for each cluster and bands represent the distribution of
+connectivity values within each
+cluster.](../figs/ACCESS-ESM1-5/bioregion/weighted_incoming_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-weightedincoming
 fig-align="center" width="14.82cm"}
 
 ![Outgoing connection strength (in base-10 log scale) for reefs within each bioregion,
-separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
-clusters with the lowest median area-relative cover between 2030 and 2060 within each
-bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
-cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
-the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
-lines within each violin represent the median base-10 log of outgoing connection strength
-for each cluster and bands represent the distribution of connectivity values within each
-cluster. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/outgoing_strength_bioregion_violin.png){#sfig-access-esm1-5-bioregion-outgoingconn
+separated into clusters assigned by time series clustering, under ACCESS-ESM1-5. Time series
+were clustered based on their behaviour between 2030 and 2060. Time series with
+comparatively low median area-relative cover is indicated in green, intermediate cover in
+orange, and high in blue. Solid lines within each violin represent the median base-10 log of
+outgoing connection strength for each cluster and bands represent the distribution of
+connectivity values within each
+cluster.](../figs/ACCESS-ESM1-5/bioregion/outgoing_strength_bioregion_violin.png){#sfig-access-esm1-5-bioregion-outgoingconn
 fig-align="center" width="14.82cm"}
 
 ![Larval retention probability (in base-10 log scale) for reefs within each bioregion,
-separated into clusters assigned by time series clustering. ‘Low’ clusters (green) are
-clusters with the lowest median area-relative cover between 2030 and 2060 within each
-bioregion. ‘Medium’ clusters (orange) are clusters with intermediate median area-relative
-cover between 2030 and 2060 within each bioregion. ‘High’ clusters (blue) are clusters with
-the highest median area-relative cover between 2030 and 2060 within each bioregion. Solid
-lines within each violin represent the median base-10 log of larval retention probability
-for each cluster and bands represent the distribution of probability values within each
-cluster. Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/self_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-selfconn
+separated into clusters assigned by time series clustering, under ACCESS-ESM1-5. Time series
+were clustered based on their behaviour between 2030 and 2060. Time series with
+comparatively low median area-relative cover is indicated in green, intermediate cover in
+orange, and high in blue. Solid lines within each violin represent the median base-10 log of
+larval retention probability for each cluster and bands represent the distribution of
+probability values within each
+cluster.](../figs/ACCESS-ESM1-5/bioregion/self_conn_bioregion_violin.png){#sfig-access-esm1-5-bioregion-selfconn
 fig-align="center" width="14.82cm"}
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
-considered reefs (points), coloured by mean time series DHW value. Colour-coded areas
-outline GBR marine park management regions, where orange represents the Far Northern
-management region, green represents Cairns/Cooktown, red covers Townsville/Whitsunday and
-blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are marked individually for
-visual clarity. Darker colours represent higher mean DHW values than lighter colours. All
-2197 reefs included in this investigation are represented in this figure. This map depicts
-values from the ACCESS-ESM1-5 GCM. Annotations represent major coastal settlements along the
+considered reefs (points), coloured by mean time series DHW value under ACCESS-ESM1-5.
+Colour-coded areas outline GBR marine park management regions, where orange represents the
+Far Northern management region, green represents Cairns/Cooktown, red covers
+Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
+marked individually for visual clarity. Darker colours represent higher mean DHW values than
+lighter colours. All 2197 reefs included in this investigation are represented in this
+figure. Annotations represent major coastal settlements along the
 GBR.](../figs/ACCESS-ESM1-5/mean_dhw_input_map.png){#sfig-mean-dhw-map fig-align="center"
 width="14.82cm"}
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
-considered reefs (points), coloured by weighted incoming connectivity levels (Log10).
-Colour-coded areas outline GBR marine park management regions, where orange represents the
-Far Northern management region, green represents Cairns/Cooktown, red covers
+considered reefs (points), coloured by weighted incoming connectivity levels (Log10) under
+ACCESS-ESM1-5. Colour-coded areas outline GBR marine park management regions, where orange
+represents the Far Northern management region, green represents Cairns/Cooktown, red covers
 Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
 marked individually for visual clarity. Darker colours represent higher weighted incoming
 connectivity values than lighter colours. All 2197 reefs included in this investigation are
-represented in this figure. This map depicts values from the ACCESS-ESM1-5 GCM. Annotations
-represent major coastal settlements along the
+represented in this figure. Annotations represent major coastal settlements along the
 GBR.](../figs/ACCESS-ESM1-5/weighted_incoming_conn_input_map.png){#sfig-incoming-conn-map
 fig-align="center" width="14.82cm"}
 
