@@ -493,7 +493,7 @@ uncertainty in the precise value of $\theta_{0}$ for all reefs can then be asses
 the indicative range.
 
 The relationships between the number of years above $\theta_{0}$ and characteristics such as
-median reef depth and Log-10 total connectivity strength were then assessed with Spearman's
+median reef depth and log10 total connectivity strength were then assessed with Spearman's
 rank correlation. Spearman's correlation coefficient was adopted as reef depth and
 connectivity strength distributions are expected to be non-normal and highly skewed.
 Furthermore, reefs are naturally of different types and experience different conditions, and
@@ -569,12 +569,12 @@ GCM.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-es
 fig-align="center" width="14.82cm"}
 
 Across bioregions there were no consistent patterns between reef clusters in mean DHW values
-(@sfig-access-esm1-5-bioregion-dhwmean), Log-10 weighted incoming connectivity
-(@sfig-access-esm1-5-bioregion-weightedincoming), Log-10 outgoing connection strength
-(@sfig-access-esm1-5-bioregion-outgoingconn), Log-10 source-to-sink connectivity ratio
-(@sfig-access-esm1-5-bioregion-logsosi) and Log-10 larval retention probability
+(@sfig-access-esm1-5-bioregion-dhwmean), log10 weighted incoming connectivity
+(@sfig-access-esm1-5-bioregion-weightedincoming), log10 outgoing connection strength
+(@sfig-access-esm1-5-bioregion-outgoingconn), log10 source-to-sink connectivity ratio
+(@sfig-access-esm1-5-bioregion-logsosi) and log10 larval retention probability
 (@sfig-access-esm1-5-bioregion-selfconn). Across six of the 29 bioregions reefs in the high
-cover cluster have lower Log-10 carrying capacity values than reefs in other clusters
+cover cluster have lower log10 carrying capacity values than reefs in other clusters
 (@sfig-access-esm1-5-bioregion-carrying-capacity).
 
 #### Partial dependence
@@ -658,7 +658,7 @@ does the Spearman's correlation (@sfig-access-esm1-5-carb-budget-corr). Decreasi
 correlation levels are likely due to an increasing number of reefs being unable to maintain
 coral cover above $\theta_0$ as it is increased, with the distribution of years above
 threshold becoming increasingly right-skewed (@fig-access-esm1-5-depth-conn-carbonate). In
-contrast, weighted incoming connectivity strength (Log-10 scale) was found to have no
+contrast, weighted incoming connectivity strength (log10 scale) was found to have no
 correlation with the number of years a reef maintains cover above the required thresholds
 (@sfig-access-esm1-5-carb-budget-corr).
 
