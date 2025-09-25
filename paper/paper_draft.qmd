@@ -506,17 +506,15 @@ than the exact quantitative relationship was of interest for this analysis.
 
 There were substantial differences in the maintenance of coral cover post 2030 between the
 GCMs. Figure [-@fig-gcm-cover-trajectories] illustrates the temporal behaviour of reefs
-across clusters (Low, Medium and High).
-
-Of the GCMs explored, NorESM2-MM had the lowest Equilibrium Climate Sensitivity (2.5°C) and
-reefs exhibit continuing recovery and decline dynamics up to 2075 under this hypothetical
-climate future. Unsurprisingly, recovery phases were predominantly seen in the reefs in the
-High cluster, with Medium and Low exhibiting lesser probability of such periods of recovery.
-Generally, recovery and increases in coral cover were visible in simulated results up to
-2045. Under NorESM2-MM, the Far Northern Management area were found to have the most similar
-temporal behaviour between Low and High clusters compared to other Management areas
-(@stbl-cluster-cid) due to the low degree of coral cover overall
-(@fig-gcm-cover-trajectories).
+across clusters (Low, Medium and High). Of the GCMs explored, NorESM2-MM had the lowest
+Equilibrium Climate Sensitivity (2.5°C) and reefs exhibit continuing recovery and decline
+dynamics up to 2075 under this hypothetical climate future. Unsurprisingly, recovery phases
+were predominantly seen in the reefs in the High cover cluster, with Medium and Low
+exhibiting lesser probability of such periods of recovery. Generally, recovery and increases
+in coral cover were visible in simulated results up to 2045. Under NorESM2-MM, the Far
+Northern Management area were found to have the most similar temporal behaviour between Low
+and High clusters compared to other Management areas (@stbl-cluster-cid) due to the low
+degree of coral cover overall (@fig-gcm-cover-trajectories).
 
 Intermediate levels of coral cover maintenance can be seen in ACCESS-ESM1-5 (ECS value of
 3.87°C) when compared to the other GCMs (of higher and lower ECS values). Under these
