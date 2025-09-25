@@ -622,7 +622,7 @@ connectivity.
 ![Partial Dependence Plot indicating the estimated probability (via Random Forest
 classification) of cluster assignment along interacting values of median reef depth (meters)
 and log10-weighted incoming connectivity. Colour (ranging from dark purple to yellow)
-indicates the probability of assignment to each cluster, with brighter colour indicating
+indicates the probability of assignment to each cluster, with brighter shades indicating
 higher probability of assignment. Panels A, B, and C illustrates the assignment probability
 for Low, Medium, and High cover clusters respectively. The distribution of reef depth and
 incoming connectivity values are shown in Panels D and
@@ -633,13 +633,12 @@ Individual feature analysis for carrying capacity indicates that its influence o
 assignment is concentrated at the low range of predictor values (@fig-ts-cluster-pdp). This
 aligns with the right-skewed distribution of carrying capacity across reefs for these three
 predictor variables. Beyond this low-end range, the partial dependence becomes near
-constant, indicating that outlier values for these factors are not influential.
-
-Assessing random forest prediction accuracy across bioregions, reveals increasing
-performance as bioregion mean reef depth increases (@sfig-rf-predictor-perf). This
-highlights that unexplained variation in the test dataset (33% of variation) may be
-concentrated in shallow bioregions where the available model predictors do not capture
-differences between clustered reefs.
+constant, indicating that outlier values for these factors are not influential. Assessing
+random forest prediction accuracy across bioregions, reveals increasing performance as
+bioregion mean reef depth increases (@sfig-rf-predictor-perf). This highlights that
+unexplained variation in the test dataset (33% of variation) may be concentrated in shallow
+bioregions where the available model predictors do not capture differences between clustered
+reefs.
 
 ## Reef carbonate budget
 
@@ -657,14 +656,15 @@ contrast, weighted incoming connectivity strength (log10 scale) was found to hav
 correlation with the number of years a reef maintains cover above the required thresholds
 (@sfig-access-esm1-5-carb-budget-corr).
 
-![Number of years reef coral cover exceeds the carbonate budget threshold from 2025 to 2075
-(y-axis) and reef median depth (left panel) and reef log10 weighted incoming connectivity
-values (right panel). Point colour represents the threshold assessment values used to assess
-positive carbonate budget status ($\theta_0$). Deeper reefs are better able to maintain
-cover above the indicative carbonate budget threshold, while there is no considerable
-relationship between weighted incoming connectivity and carbonate budget maintenance.
-Displays results from median time series using
-ACCESS-ESM1-5.](../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
+![Number of years reef coral cover exceeds the assumed carbonate budget threshold in terms
+of coral cover ($\theta_0$) between 2025 to 2075 (y-axis) under ACCESS-ESM1-5. Left panel
+shows relationship between reef median depth, while the right panel shows the same for
+log10-weighted incoming connectivity values. Point colour (purple to yellow) represents
+($\theta_0$), with brighter shades indicating a higher $\theta_0$. Deeper reefs have
+increased number of years above the considered range of $\theta_0$, while no relationship
+between weighted incoming connectivity and carbonate budget maintenance was found. **\[Ben,
+no x-axis label for Right
+Panel?\]**](../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
 fig-align="center" width="14.82cm"}
 
 # Discussion
