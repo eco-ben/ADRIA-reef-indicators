@@ -564,8 +564,8 @@ values within each
 cluster.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 fig-align="center" width="14.82cm"}
 
-Across bioregions there were no consistent patterns between reef clusters in mean DHW values
-(@sfig-access-esm1-5-bioregion-dhwmean), log10 weighted incoming connectivity
+Across bioregions, there were no consistent patterns between reef clusters in mean DHW
+values (@sfig-access-esm1-5-bioregion-dhwmean), log10-weighted incoming connectivity
 (@sfig-access-esm1-5-bioregion-weightedincoming), log10 outgoing connection strength
 (@sfig-access-esm1-5-bioregion-outgoingconn), log10 source-to-sink connectivity ratio
 (@sfig-access-esm1-5-bioregion-logsosi) and log10 larval retention probability
