@@ -527,9 +527,9 @@ reefs are largely in decline across all management areas from 2055 (@stbl-cluste
 
 ![Time series of coral cover (relative to reef area) categorised within each Management area
 (rows), for each GCM analysed (columns) based on temporal behaviour over 2030 and 2060. The
-time series are categorised as "Low" (green), "Medium" (in orange), and "High" median cover
-(in blue). Solid lines represent the cluster median time series and bands represent the 95th
-percentile confidence
+time series were clustered into "Low" (green), "Medium" (orange), and "High" (blue) clusters
+indicating their relative median coral cover. Solid lines represent the cluster median time
+series and bands represent the 95th percentile confidence
 intervals.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
 fig-align="center" width="14.82cm"}
 
@@ -555,15 +555,13 @@ not only had greater levels of coral recovery but displayed persistence to 2050
 found to have the greatest median reef depths across bioregions
 (@fig-access-esm1-5-bioregion-depth).
 
-![Median depth for reefs within each bioregion, separated into clusters assigned by time
-series clustering. ‘Low’ clusters (green) are clusters with the lowest median area-relative
-cover between 2030 and 2060 within each bioregion. ‘Medium’ clusters (orange) are clusters
-with intermediate median area-relative cover between 2030 and 2060 within each bioregion.
-‘High’ clusters (blue) are clusters with the highest median area-relative cover between 2030
-and 2060 within each bioregion. Solid lines represent the median depth for each cluster
-across reefs and bands represent the distribution of depth values within each cluster.
-Displays results for ACCESS-ESM1-5
-GCM.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
+![Median depth for reefs within each bioregion under ACCESS-ESM1-5, separated into clusters
+assigned by time series clustering. Time series were clustered based on their behaviour
+between 2030 and 2060. Time series with comparatively low median area-relative cover is
+indicated in green, intermediate cover in orange, and high in blue. Solid lines represent
+the median depth for each cluster across reefs and bands represent the distribution of depth
+values within each
+cluster.](../figs/ACCESS-ESM1-5/bioregion/depth_bioregion_violin.png){#fig-access-esm1-5-bioregion-depth
 fig-align="center" width="14.82cm"}
 
 Across bioregions there were no consistent patterns between reef clusters in mean DHW values
