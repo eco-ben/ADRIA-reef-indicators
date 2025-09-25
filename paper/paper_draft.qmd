@@ -288,16 +288,15 @@ width="14.82cm"}
 
 ## Assessment framework
 
-We adapted an exploratory scenario modelling approach for this investigation. Specifically,
-we use combinations of model factors to investigate a wide range of potential futures under
-different assumptions of environmental (climatic) and ecological conditions. Exploratory
-modelling approaches have gained favour in recent years to explore the implications of deep
-uncertainty; where there is little or no agreement on the key drivers of a system, the
-extent of the relationship, how best to represent them or their probability distributions
-[@conradt2024; @lempert2013]. Exploratory modelling embraces uncertainty as an inherent
-characteristic of complex environmental systems [@lempert2010; @lempert2013] and is a core
-methodology underpinning the development of robust and adaptive management strategies
-[@haasnoot2013].
+An exploratory scenario modelling approach was adopted for this investigation. The method
+involves exploring a wide range of potential futures under different assumptions of
+environmental (climatic) and ecological conditions. Exploratory modelling approaches have
+gained favour in recent years to explore the implications of deep uncertainty; where there
+is little or no agreement on the key drivers of a system, the extent of the relationship,
+how best to represent them or their probability distributions [@conradt2024; @lempert2013].
+The approach embraces uncertainty as an inherent characteristic of complex environmental
+systems [@lempert2010; @lempert2013] and is a core methodology underpinning the development
+of robust and adaptive management strategies [@haasnoot2013].
 
 Rather than attempting to forecast precise outcomes, the exploratory approach aims to
 systematically search many possible futures to identify patterns that lead to outcomes of
