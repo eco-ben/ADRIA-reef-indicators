@@ -576,12 +576,12 @@ cover cluster have lower log10 carrying capacity values than reefs in other clus
 #### Partial dependence
 
 A Partial Dependence Analysis was conducted using a Random Forest classifier to identify
-reef characteristics that influence its temporal behaviour, and thus its cluster assignment
-into Low, Medium, or High. Reef median depth, carrying capacity and mean time series DHW
-level have the highest feature importance scores, accounting for 29%, 15% and 15% predictive
-importance respectively (@fig-ts-cluster-pdp; Panel A). Reef weighted incoming connectivity,
-outgoing connectivity strength, source-to-sink connectivity ratio and larval retention
-probability account for \~12%, 11%, 10% and 8% respectively.
+reef characteristics that influence its temporal behaviour, and thus its assignment into
+Low, Medium, or High cover clusters. Reef median depth, carrying capacity and mean time
+series DHW level have the highest feature importance scores, accounting for 29%, 15% and 15%
+predictive importance respectively (@fig-ts-cluster-pdp; Panel A). Area weighted incoming
+connectivity, outgoing connectivity strength, source-to-sink connectivity ratio and larval
+retention probability account for \~12%, 11%, 10% and 8% respectively.
 
 Reefs have the greatest probability of being clustered into Low if shallow, and High at
 greater depths, with medium cluster reefs exhibiting a lower, and more stable, assignment
