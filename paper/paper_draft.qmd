@@ -345,9 +345,9 @@ one (all larvae reach settlement on sink reefs), however the large size of the G
 with larval mortality considerations result in outgoing connection strength values much
 lower than one. The ratio of source-to-sink connectivity ($O:I$) for a target reef
 represents the strength of the reef's outgoing larval flow relative to it's incoming larval
-flow. This is calculated as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where S represents the sum of
-connectivity probabilities, N represents the number of connections, O denotes outgoing
-connectivity from the target reef and I denotes incoming connectivity to the target reef. If
+flow. This is calculated as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum of
+connectivity probabilities, $N$ represents the number of connections, $O$ denotes outgoing
+connectivity from the target reef and $I$ denotes incoming connectivity to the target reef. If
 a reef has no incoming connections, the $O:I$ equals the $S_O/N_O$ value. Incoming
 connections in this calculation, do not directly represent the larval supply gained as the
 breeding populations from which connections are coming from are not represented. A
