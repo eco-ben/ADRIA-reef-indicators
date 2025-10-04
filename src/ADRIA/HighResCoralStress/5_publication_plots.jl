@@ -92,23 +92,23 @@ linkaxes!(filter(x -> x isa Axis, fig.content)...)
 
 legend_entries = []
 for (i, col) in enumerate([:orange, :green, :red, :blue])
-    LE = LineElement(; color=col, marker=:circle)
-    push!(legend_entries, [LE])
+    LE = [PolyElement(; color=(col, 0.5), marker=:circle), LineElement(; color=col)]
+    push!(legend_entries, LE)
 end
 
 Legend(
     fig[length(GCMs)+1, 1],
     legend_entries,
-    ["Far Northern", "Cairns/Cooktown", "Mackay/Capricorn", "Townsville/Whitsunday"],
+    ["Far Northern", "Cairns/Cooktown", "Townsville/Whitsunday", "Mackay/Capricorn"],
     nbanks=2,
     tellwidth=false,
     padding=(2.0, 2.0, 2.0, 2.0),             # shrink padding inside legend box
     labelsize=fontsize,    # smaller font
     framevisible=false,        # optional: remove box
     # markerlabelgap = 3,          # reduce space between marker and label
-    rowgap=0,                  # reduce vertical spacing between items
-    colgap=4,                  # reduce horizontal spacing
-    patchsize=(5, 5)
+    rowgap=5,                  # reduce vertical spacing between items
+    colgap=5,                  # reduce horizontal spacing
+    patchsize=(20, 10)
 )
 rowsize!(fig.layout, maximum(first.(plot_layout)) + 1, Relative(0.03))
 feat = dhw_arrays.properties[:metric_feature]
@@ -119,4 +119,5 @@ Label(
     tellheight=false,
     tellwidth=true
 )
+
 save(joinpath(figs_path, "methods_dhw_timeseries.png"), fig, px_per_unit=dpi)
