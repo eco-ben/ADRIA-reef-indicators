@@ -502,14 +502,13 @@ than the exact quantitative relationship was of interest for this analysis.
 ## Reef trajectories across futures
 
 There were substantial differences in the maintenance of coral cover post 2030 between the
-GCMs. Figure [-@fig-gcm-cover-trajectories] illustrates the temporal behaviour of reefs
-across clusters (Low, Medium and High). Of the GCMs explored, NorESM2-MM had the lowest
-Equilibrium Climate Sensitivity (2.5°C) and reefs exhibit continuing recovery and decline
+GCMs (@fig-gcm-cover-trajectories). Of the GCMs explored, NorESM2-MM had the lowest
+ECS (2.5°C) and reefs exhibit continuing recovery and decline
 dynamics up to 2075 under this hypothetical climate future. Unsurprisingly, recovery phases
 were predominantly seen in the reefs in the High cover cluster, with Medium and Low
 exhibiting lesser probability of such periods of recovery. Generally, recovery and increases
 in coral cover were visible in simulated results up to 2045. Under NorESM2-MM, the Far
-Northern Management area were found to have the most similar temporal behaviour between Low
+Northern Management area was found to have the most similar temporal behaviour between Low
 and High clusters compared to other Management areas (@stbl-cluster-cid) due to the low
 degree of coral cover overall (@fig-gcm-cover-trajectories).
 
@@ -520,13 +519,12 @@ cluster to maintain coral cover levels around 20% to 2050. The highest peak DHW 
 under GFDL-CM4 between 2045 and 2050, while greater increases in overall DHWs time series
 occur under ACCESS-CM2 (@fig-methods-dhws). Under conditions represented by high ECS value
 GCMs - specifically, ACCESS-CM2 (4.66°C), EC-Earth3-Veg (4.30°C) and GFDL-CM4 (4.1°C) - all
-reefs are largely in decline across all management areas from 2055 (@stbl-cluster-cid).
+reefs are largely in decline across all management areas from 2035 (@stbl-cluster-cid).
 
-![Time series of coral cover (relative to reef area) categorised within each Management area
-(rows), for each GCM analysed (columns) based on temporal behaviour over 2030 and 2060. The
-time series were clustered into "Low" (green), "Medium" (orange), and "High" (blue) clusters
-indicating their relative median coral cover. Solid lines represent the cluster median time
-series and bands represent the 95th percentile confidence
+![Time series of coral cover (relative to reef area) clustered within each Management area
+(rows), for each GCM analysed (columns) based on temporal behaviour over 2030 and 2060. Time series were clustered into "Low" (green), "Medium" (orange), and "High" (blue) clusters
+indicating their relative median coral cover. Solid lines represent cluster median time
+series and bands represent 95th percentile confidence
 intervals.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
 fig-align="center" width="14.82cm"}
 
@@ -534,7 +532,7 @@ Comparing across GCMs, it is common for reefs to switch between clusters, includ
 to High and vice versa (@sfig-gcm-bioregion-cluster-assignment). Of 2197 reefs, 21% (462) of
 reefs have consistent cluster assignment across all GCMs. Of the 462 consistently assigned
 reefs, 23% are within the Far Northern Management area, with 1%, 55% and 21% occurring in
-the Cairns-Cooktown, Townsville-Whitsunday and Mackay-Capricorn Management areas
+Cairns-Cooktown, Townsville-Whitsunday and Mackay-Capricorn Management areas
 respectively (@sfig-gcm-cluster-map). Of the 462 consistently assigned reefs, 34%, 18% and
 47% are clustered into Low, Medium and High clusters respectively. High levels of assignment
 variability across GCMs are expected as due to spatial differences in each given GCM’s DHW
@@ -542,9 +540,7 @@ trajectories.
 
 ### Bioregion scale clustering
 
-In contrast to the broad temporal behaviour at the Management area scale, the relationship
-between reef characteristics and assigned clusters were found to be similar at the bioregion
-scale across GCMs. Across bioregions, reefs in the High cluster not only had greater levels
+Relationships between reef characteristics and bioregion-scale time series clusters were found to be similar across GCMs. Across bioregions, reefs in the High cluster not only had greater levels
 of coral recovery but displayed persistence to 2050
 (@sfig-access-esm1-5-bioregion-timeseries). Qualitative representations of bioregion scale
 clustering results across assessed reef characteristics can be found in the supplementary
