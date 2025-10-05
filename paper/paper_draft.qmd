@@ -51,13 +51,13 @@ abstract: |
     adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
     to assess coral reef resilience across GBR locations under future climate projections.
     Using five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities,
-    we analysed reef coral cover time series and the ability of reefs to maintain positive carbonate
+    reefs were analysed for reef coral cover time series and their ability of reefs to maintain positive carbonate
     production budgets under future conditions. Contrary to expectations, larval connectivity
     patterns did not correlate with increases in maintenance of positive carbonate budgets.
     Instead, reef depth emerged as the primary predictor of cover-time series resilience and
     maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
     refugia that reduce bleaching impacts. Interaction between reef depth and incoming
-    connectivity was found to influence reef temporal behaviour at 15m depth. Our findings suggest that
+    connectivity was found to influence reef temporal behaviour at 15m depth. These findings suggest that
     depth provides critical protection against thermal stress, with high incoming connectivity enhancing the
     performance of deep reefs, contrasting current intervention
     practices that primarily target easily accessible sites in the 1-10m depth range. These results have
@@ -110,58 +110,56 @@ ecosystem regime shifts - is conceptualised to depend on three interconnected me
 First, the ability of individual corals to survive thermal stress. Second, the connectivity
 networks that enable recolonisation after disturbances [@hock2017; @mumby2008; @torres2024].
 Third, the maintenance, and accretion, of the carbonate framework that provides reef
-structure [@perry2012]. We aim to assess how these mechanisms interact under projected
-climate conditions to identify the characteristics of resilient reefs through scenario-based
-coral population modelling for the Great Barrier Reef ecosystem.
+structure [@perry2012]. This investigation aims to assess how these mechanisms interact
+under projected climate conditions to identify the characteristics of resilient reefs in the
+Great Barrier Reef (GBR) ecosystem.
 
-The Great Barrier Reef (GBR) is the world's largest coral reef ecosystem consisting of
-thousands of individual reefs interconnected through larval dispersal patterns mediated by
-hydrodynamic, spatial, and ecological processes [@cappo2000]. The GBR faces severe projected
-coral cover declines under climate change [@bozec2025; @bozec2022; @condie2021]. Coral cover
-declines will be compounded by ocean acidification, tropical cyclones, and crown-of-thorns
-starfish outbreaks [@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011;
-@wolff2018]. The 2023-24 Summer mass bleaching event may be signalling a shift towards this
-reef future, with some level of bleaching recorded on 79% of surveyed reefs (total 1001
-surveyed reefs) [@australianinstituteofmarinescience2024; @cantin2024].
+The GBR is the world's largest coral reef ecosystem consisting of thousands of individual
+reefs interconnected through larval dispersal patterns mediated by hydrodynamic, spatial,
+and ecological processes [@cappo2000]. The GBR faces severe projected coral cover declines
+under climate change [@bozec2025; @bozec2022; @condie2021]. Coral cover declines will be
+compounded by ocean acidification, tropical cyclones, and crown-of-thorns starfish outbreaks
+[@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. The 2023-24
+Summer mass bleaching event may be signalling a shift towards this reef future, with some
+level of bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs)
+[@australianinstituteofmarinescience2024; @cantin2024].
 
 At the individual coral scale, survival during thermal stress events depends on both
-environmental and biological factors. Environmental factors can either amplify or reduce
-thermal stress exposure. Depth is a crucial factor that can provide a refuge from thermal
-stress [@álvarez-noriega2018; @baird2018; @smith2014]. Biological factors including coral
-size [@brandt2009], taxa [@álvarez-noriega2018; @mcclanahan2005], and thermal tolerance
-through acclimation and inheritance [@humanes2022; @lachs2024] all influence survival
-outcomes. Importantly, corals demonstrate adaptive capacity to develop thermal tolerance
-that could delay widespread bleaching under moderate emission scenarios [@bairos-novak2021;
-@humanes2022], representing a crucial mechanism for reef persistence.
+environmental and biological factors that can either amplify or reduce thermal stress. Depth
+is a crucial factor that can provide a refuge from thermal stress [@álvarez-noriega2018;
+@baird2018; @smith2014]. Biological factors including coral size [@brandt2009], taxa
+[@álvarez-noriega2018; @mcclanahan2005], and thermal tolerance through acclimation and
+inheritance [@humanes2022; @lachs2024] all influence survival outcomes. Corals demonstrate
+adaptive capacity to develop thermal tolerance that could delay widespread bleaching under
+moderate emission scenarios [@bairos-novak2021; @humanes2022], representing a crucial
+mechanism for reef persistence.
 
 Beyond individual survival, reef-scale resilience depends on connectivity networks that
-enable recolonization after disturbances [@angeler2023; @elmhirst2009; @hock2017]. However,
-connectivity creates both strengths and vulnerabilities. Larval source populations that
-export more larvae than they import are essential for system-wide recovery, providing larvae
-that enable recolonization at distant locations [@hock2017; @thomas2015]. Yet these source
-reefs are paradoxically more vulnerable individually, relying heavily on local recruitment
-for their own recovery. When disturbances impact major source populations, cascading effects
-reduce larval export and slow recovery throughout the connected network [@figueiredo2022;
-@hock2017; @munday2009].
+enable recolonization after disturbances [@angeler2023; @elmhirst2009; @hock2017]. Larval
+source populations that export more larvae than they import are essential for system-wide
+recovery, providing larvae that enable recolonization at distant locations [@hock2017;
+@thomas2015]. Yet these source reefs are paradoxically more vulnerable individually, relying
+heavily on local recruitment for their own recovery. When disturbances impact major source
+populations, cascading effects reduce larval export and slow recovery throughout the
+connected network [@figueiredo2022; @hock2017; @munday2009].
 
 Long-term reef viability requires not only coral survival and recolonization, but also
-maintenance of the physical reef structure through positive carbonate budgets. Scleractinian
+maintenance of physical reef structures through positive carbonate budgets. Scleractinian
 corals build the primary habitat framework, but reef persistence depends on the balance
 between carbonate accumulation [@perry2015] and loss through bioerosion, physical damage
 [@kenyon2023], and dissolution [@eyre2014; @eyre2018]. This balance is influenced by coral
 cover and community complexity [@perry2012; @desbiens2021], environmental processes, and
 ocean chemistry [@perry2015; @eyre2018].
 
-Recent advances in whole-ecosystem larval connectivity modelling **\[Insert GBR1
-connectivity citation.\]** and coral thermal response research [@bairos-novak2021] enable
-integrated investigation of how multiple factors interact to determine climate resilience.
-By incorporating the latest coral population models [@ribeirodealmeida2024], ecosystem-wide
-connectivity data, and updated climate projections [@dixon2022], we can examine which
-factors most strongly influence reef persistence under different scenarios. While
-connectivity has been emphasized as critical for GBR resilience [@hock2017], and remains an
-important consideration, our integrated modelling reveals depth plays a fundamental role in
-determining maintenance of reef coral populations and positive carbonate budgets under
-current projections of climate change.
+Recent advances in whole-ecosystem larval connectivity modelling [@choukroun2025] and coral
+thermal response research [@bairos-novak2021] enable integrated investigation of how
+multiple factors interact to determine climate resilience. By incorporating the latest coral
+population models [@ribeirodealmeida2024], ecosystem-wide connectivity data, and updated
+climate projections [@dixon2022], we can examine which factors most strongly influence reef
+persistence under different scenarios. While connectivity has been emphasized as critical
+for GBR resilience [@hock2017], and remains an important consideration, integrated modelling
+reveals depth plays a fundamental role for maintenance of reef coral populations and
+positive carbonate budgets under current projections of climate change.
 
 # Methods
 
