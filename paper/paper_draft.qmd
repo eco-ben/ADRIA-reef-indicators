@@ -640,54 +640,50 @@ fig-align="center" width="14.82cm"}
 
 # Discussion
 
-Our results show increasing reef depth has a strong positive impact on modelled reef
-resilience in temporal behaviour and maintenance of positive carbonate budgets under
-possible future conditions. Reefs with a median depth of 10m or greater, with high incoming
-connectivity, are the most likely to be assigned to a high cover time series cluster. By
-itself, incoming connectivity alone does not correlate with maintenance of positive
-carbonate budgets. These findings highlight the importance of depth and incoming
+This investigation's results show increasing reef depth has a strong positive impact on
+modelled reef resilience in temporal behaviour and maintenance of positive carbonate budgets
+under possible future conditions. Reefs with a median depth of 10m or greater, with high
+incoming connectivity, are the most likely to be assigned to a high cover time series
+cluster. By itself, incoming connectivity alone does not correlate with maintenance of
+positive carbonate budgets. These findings highlight the importance of depth and incoming
 connectivity as coupled selection features when assessing potential reef resilience under
 future thermal stress.
 
 Reefs in different temporal clusters largely do not differ in mean modelled DHW levels
 experienced and exhibit overall similar DHW time series. While reefs experience similar
 magnitude DHWs based on SST, the proportion of a reefs' coral population impacted by heat
-stress events depends on reef depth. Reefs at deeper depths are likely to be clustered into
-High cover clusters. Reefs at shallow depths experience no, or few, years with coral cover
-exceeding levels likely required to maintain positive carbonate budgets. Movement of shallow
-reefs towards negative carbonate budgets in the future may contribute to phase shifts in
-reef dominant CaCO~3~ production. Shifting from coral driven to encrusting algae driven
-production, or to bioerosion dominated systems with rapid erosion of physical reef
-frameworks [@dudgeon2010; @perry2008]. Reefs at increased depths may be able to maintain
-coral driven CaCO~3~ production and accumulation into the future for longer. Our results
-suggest that for non-mesophotic reef ecosystems (i.e., \< 30m), depth contributes greatly to
-reef resilience and the ability of reefs to maintain positive carbonate budgets under future
-conditions. Spatially our results indicate that regions of positive carbonate budget
-maintenance, under ACCESS-ESM1-5, and high depth levels were concentrated in the Far
-Northern, offshore Townsville/Whitsunday, and Mackay/Capricorn management areas
-(@sfig-carb-budget-map; @sfig-depth-map). Resilient reefs in the Far Northern management
-area were exposed to lower mean DHW levels than other reefs under ACCESS-ESM1-5
-(@sfig-mean-dhw-map), however similar spatial patterns were observed across GCMs for reefs
-clustered into the high cover cluster (@sfig-gcm-cluster-map). We do not interpret these
-spatial findings as accurate predictions of future resilience due to high uncertainty in
-input data, particularly depth and connectivity. While similar findings have been
-demonstrated in the Pacific [@smith2014; @baird2018] and Indo-Pacific [@bridge2014] regions,
-depth refugia analyses have often focused on the potential of mesophotic reefs (\> 30m deep)
-as thermal refugia [@bongaerts2010; @holstein2015; @semmler2017]. In contrast, Venegas et
-al. [-@venegas2019] found no association between depth and the alleviation of heat stress
-across a range of shallow reefs in the Pacific.
+stress events depends on reef depth. Our results suggest that for non-mesophotic reef
+ecosystems (i.e., \< 30m), depth contributes greatly to reef resilience and maintenance
+positive carbonate budgets under future conditions. Movement of shallow reefs towards
+negative carbonate budgets in the future may contribute to phase shifts in reef dominant
+CaCO~3~ production. Shifting from coral driven to encrusting algae driven production, or to
+bioerosion dominated systems with rapid erosion of physical reef frameworks [@dudgeon2010;
+@perry2008]. Reefs at increased depths may be able to maintain coral driven CaCO~3~
+production and accumulation into the future for longer. Spatially these results indicate
+that regions of positive carbonate budget maintenance, under ACCESS-ESM1-5, and high depth
+levels were concentrated in the Far Northern, offshore Townsville/Whitsunday, and
+Mackay/Capricorn management areas (@sfig-depth-map; @sfig-carb-budget-map). Resilient reefs
+in the Far Northern management area were exposed to lower mean DHW levels than other reefs
+under ACCESS-ESM1-5 (@sfig-mean-dhw-map), however similar spatial patterns were observed
+across GCMs for reefs clustered into the high cover cluster (@sfig-gcm-cluster-map). Spatial
+findings are not interpreted as accurate predictions of future resilience due to high
+uncertainty in input data, particularly depth and connectivity. While similar findings have
+been demonstrated in the Pacific [@smith2014; @baird2018] and Indo-Pacific [@bridge2014]
+regions, depth refugia analyses have often focused on the potential of mesophotic reefs (\>
+30m deep) as thermal refugia [@bongaerts2010; @holstein2015; @semmler2017]. In contrast,
+Venegas et al. [-@venegas2019] found no association between depth and the alleviation of
+heat stress across a range of shallow reefs in the Pacific.
 
-Our findings support the hypothesis that reefs at greater depths will exhibit
-characteristics of refugia and prolonged resilience (in terms of coral cover) under climate
-change compared to shallower reefs. Additionally, Liu, Callaghan and Baldock [-@liu2024]
-suggest that rubble instability is inversely correlated with reef depth, possibly limiting
-juvenile coral recruitment capacity of shallow reefs. A caveat to our depth-resilience
-findings is the quality of the bathymetry data used to calculate median reef depth. As
-detailed previously, estimates of median reef depth are derived from satellite imagery (at
-$10m^2$ resolution) which can be subject to high degrees of uncertainty, both in terms of
-the estimated depth for each pixel as well as their alignment to the established GBRMPA reef
-outlines. Additionally, we do not incorporate light-based decreases in coral growth rates as
-depth increases [@baker1975; @huston1985; @ruiz-diaz2022].
+The results of this investigation support the hypothesis that reefs at greater depths will
+exhibit characteristics of refugia and prolonged resilience (in terms of coral cover) under
+climate change compared to shallower reefs. Additionally, Liu, Callaghan and Baldock
+[-@liu2024] suggest that rubble instability is inversely correlated with reef depth,
+possibly limiting juvenile coral recruitment capacity of shallow reefs. A caveat to
+depth-resilience findings is the quality of the bathymetry data used to calculate median
+reef depth. As detailed previously, estimates of median reef depth are derived from
+satellite imagery (at $10m^2$ resolution) which can be subject to high degrees of
+uncertainty, both in terms of the estimated depth for each pixel as well as their alignment
+to the established GBRMPA reef outlines.
 
 Current reef restoration and intervention efforts across the GBR, such as deployment of
 coral seeding, coral fragment devices and Crown of Thorns Starfish control, target reefs
@@ -695,70 +691,68 @@ with sites in the 1-10m depth range [@howlett2021; @randall2021; @whitman2024]. 
 are no explicit justifications for this depth range, intervention depth is likely
 constrained by snorkelling and diving deployment and monitoring logistical accessibility,
 visual identification of sites from the surface, in combination with tourism return value.
-Our results suggest that of the assessed reefs occurring within the 1-10m depth range (1551
-reefs), 59% (920) of reefs are consistently clustered into the Low and Medium cover clusters
-across the GCMs (at the GBRMPA management region scale), with many found to be unable to
-maintain positive carbonate budgets under projected conditions. Partial dependence analysis
-revealed a range of depths from 10-15m where the probability of a reef being clustered into
-the High cover cluster increased substantially. Additionally, two-way partial dependence
-analysis revealed that high incoming connectivity is important for High cluster assignment
-for reefs at depths of \>10m. Considering this 10-15m depth range when assessing possible
-intervention sites may reduce the exposure of planted and seeded corals to high thermal
-stress, while still maintaining effective logistical access to sites.
+Of the assessed reefs occurring within the 1-10m depth range (1551 reefs), 59% (920) of
+reefs are consistently clustered into the Low and Medium cover clusters across the GCMs (at
+the GBRMPA management region scale), with many found to be unable to maintain positive
+carbonate budgets under projected conditions. PDA revealed a range of depths from 10-15m
+where the probability of a reef being clustered into the High cover cluster increased
+substantially. Additionally, two-way partial dependence analysis revealed high incoming
+connectivity is important for High cluster assignment for reefs at depths of \>10m.
+Considering this 10-15m depth range when assessing possible intervention sites may reduce
+the exposure of planted and seeded corals to high thermal stress, while still maintaining
+effective logistical access to sites.
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the supply of recruits that a reef receives following disturbance [@hock2017; @mumby2008;
-@torres2024]. Our results suggest that incoming connectivity contributes positively to high
-cover cluster allocation for reefs around 15m deep. However, our results suggest no direct,
-first order, relationship between weighted incoming connectivity and the ability of reefs to
-maintain positive carbonate budgets under future conditions. There has been contrasting
-evidence [@bode2018; @hock2017] surrounding whether recent generation connectivity modelling
-is able to identify reefs that are important for recovery processes, with findings dependent
-on the larval connectivity model used. These investigations were performed using prior
-generations of larval connectivity models parameterised for 2008-2013 [@hock2017] and
-1996-2002 [@bode2018] time periods, without considering the influence of reef depth on
-resilience. Using updated 1km^2^ resolution larval connectivity across the whole GBR, with a
-limited temporal sample of particle flows, our results suggest that larval connectivity
-alone may not be important or reef resilience and recovery, but should be considered in
-combination with more influential factors such as depth. Comprehensive comparisons and
-validation of multiple connectivity models, as well as use of a model ensemble, would
-improve certainty and allow for the targeting of reefs by combining abiotic factors such as
-depth with connectivity.
+@torres2024]. Two-way partial dependence analyses suggest that incoming and outgoing
+connectivity contribute positively to high cover cluster allocation for reefs around 15m
+deep. However, our results suggest no direct, first order, relationship between weighted
+incoming connectivity and the ability of reefs to maintain positive carbonate budgets under
+future conditions was found. There has been contrasting evidence [@bode2018; @hock2017]
+surrounding whether recent generation connectivity modelling is able to identify reefs that
+are important for recovery processes, with findings dependent on the larval connectivity
+model used. These investigations were performed using prior generations of larval
+connectivity models parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time
+periods, without considering the influence of reef depth on resilience. Using updated 1km^2^
+resolution larval connectivity across the whole GBR, with a limited temporal sample of
+particle flows, it was found that larval connectivity alone may not be important or reef
+resilience and recovery, but should be considered in combination with more influential
+factors such as depth.
 
-Our findings on the importance of connectivity likely differ from literature due to the
-highly uncertain nature of larval connectivity modelling [@choukroun2025;
-@vogt-vincent2023], the way larval flows and juvenile recruitment are implemented in ADRIA -
-CoralBlox, and the magnitude of early bleaching events decreasing the breeding capacity of
-strongly connected reefs. Analysing daily connectivity data Vogt-Vincent et al.
-[-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for capturing
-the seasonal - ecological time scale connectivity between locations due to high daily
-variability in connectivity data. This is supported by the connectivity data used in our
-investigation, which have large relative standard deviations for connectivity between reefs
-over the 24 days used (@sfig-connectivity-rsd). Using alternative summarisation methods that
-capture ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
+Findings on the importance of connectivity likely differ from literature due to the highly
+uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023], the
+way larval flows and juvenile recruitment are implemented in ADRIA - CoralBlox, and the
+magnitude of early bleaching events decreasing the breeding capacity of strongly connected
+reefs. Analysing daily connectivity data Vogt-Vincent et al. [-@vogt-vincent2023] suggest
+that time-mean connectivity may not be suitable for capturing the seasonal - ecological time
+scale connectivity between locations due to high daily variability in connectivity data.
+Connectivity matrices used in this investigation have large relative standard deviations for
+larval transition probabilities between reefs over the 24 days used
+(@sfig-connectivity-rsd). Using alternative summarisation methods that capture
+ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
 connectivity [@vogt-vincent2023], future investigations may find increased importance of
 both depth and reef connectivity for resilience, in line with other investigations
 [@hock2017; @torres2024]. Choukroun et al [-@choukroun2025] performed a comparison of three
 GBR-scale connectivity models, including GBR1, and suggest the use of a model ensemble
-approach to estimate connectivity metrics due to the high sensitivity of connectivity to
-model specification. Further improvements and research in connectivity modelling are
-necessary when incorporating connectivity as a supplementary factor in reef resilience and
-intervention-planning analyses.
+approach to estimate larval dispersal due to the high sensitivity of connectivity
+predictions to model specification. Further improvements and research in connectivity
+modelling are necessary when incorporating connectivity as a supplementary factor in reef
+resilience and intervention-planning analyses.
 
 Under all GCMs many reefs are projected to suffer substantial declines in coral cover
 relative to 2025 levels, with an average of 38% of reefs (924 reefs) clustered into the Low
 cover cluster at the management area scale across GCMs. NorESM2-MM and ACCESS-ESM1-5 GCMs
 convey the most coral cover maintenance into the future. Differences between Low, Medium and
 High reef clusters in cover time series are most notable under these two GCMs
-(@stbl-cluster-cid; @fig-gcm-cover-trajectories). Maintenance of coral cover into the future
+(@fig-gcm-cover-trajectories; @stbl-cluster-cid). Maintenance of coral cover into the future
 is linked to the Equilibrium Climate Sensitivity of the GCM used as levels of future
 recovery and timespan of cover maintenance increase as GCM ECS increases
 (@fig-gcm-cover-trajectories). Under high-ECS GCMs (GFDL-CM4, EC-Earth3-Veg and ACCESS-CM2)
 large declines and lower rates of recovery in high cover clusters are common compared to
 lower-ECS GCMs.
 
-The large differences in cover time series seen across the GCMs suggest that it is important
-to consider uncertainty in future conditions when assessing possible biological responses to
+Large differences in cover time series seen across the GCMs suggest it is important to
+consider uncertainty in future conditions when assessing possible biological responses to
 change. This is supported by recent literature suggesting an effective approach to capturing
 climate change uncertainty is to model responses using GCMs separately [@shepherd2018].
 Despite large differences in coral cover across GCMs, the patterns identified between low,
@@ -766,14 +760,14 @@ medium and high clusters of reefs suggest that the relative importance of enviro
 biological factors such as depth refugia, connectivity and surface DHW levels is consistent
 across scenarios.
 
-Given the above, reef managers may consider the potential for positive flow-on effects due
-to outgoing connectivity when selecting intervention sites. The necessary connectivity data,
-however, must first be available to provide a sufficient degree of confidence to support
-such site selection decisions (compare the ongoing discussion in [-@mumby2018] and
-[-@bode2018]). Given connectivity is a transient, and much more difficult, property to
-measure that is subject to comparatively higher sources of uncertainty, depth may be a more
-reliable indicator of long-term resilience, particularly where no further information is
-available.
+Reef managers may consider the potential for positive flow-on effects due to outgoing
+connectivity when selecting intervention sites. The necessary connectivity data, however,
+must first be available to provide a sufficient degree of confidence to support such site
+selection decisions (compare the ongoing discussion in Mumby et al. [-@mumby2018], Bode et
+al. [-@bode2018] and Choukroun et al. [-@choukroun2025]). Given connectivity is a transient,
+and much more difficult, property to measure that is subject to comparatively higher sources
+of uncertainty, depth may be a more reliable indicator of long-term resilience, particularly
+where no further information is available.
 
 ## Limitations
 
