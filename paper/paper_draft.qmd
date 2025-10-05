@@ -345,12 +345,12 @@ one (all larvae reach settlement on sink reefs), however the large size of the G
 with larval mortality considerations result in outgoing connection strength values much
 lower than one. The ratio of source-to-sink connectivity ($O:I$) for a target reef
 represents the strength of the reef's outgoing larval flow relative to it's incoming larval
-flow. This is calculated as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum of
-connectivity probabilities, $N$ represents the number of connections, $O$ denotes outgoing
-connectivity from the target reef and $I$ denotes incoming connectivity to the target reef. If
-a reef has no incoming connections, the $O:I$ equals the $S_O/N_O$ value. Incoming
-connections in this calculation, do not directly represent the larval supply gained as the
-breeding populations from which connections are coming from are not represented. A
+flow. This is calculated as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum
+of connectivity probabilities, $N$ represents the number of connections, $O$ denotes
+outgoing connectivity from the target reef and $I$ denotes incoming connectivity to the
+target reef. If a reef has no incoming connections, the $O:I$ equals the $S_O/N_O$ value.
+Incoming connections in this calculation, do not directly represent the larval supply gained
+as the breeding populations from which connections are coming from are not represented. A
 source-to-sink ratio greater than 1 (a value greater than 0 on a log scale) indicates a reef
 has greater outgoing than incoming larval flow. Reef larval retention probability indicates
 the proportion of spawned larvae from a target reef that remain to settlement.
@@ -1182,18 +1182,24 @@ fig-align="center" width="14.82cm"}
 ### Time series clustering
 
 The CID time series clustering metric corrects the Euclidean distance between pairs of time
-series (which accounts for magnitude differences) with the complexity of each time series
-(obtained through a measure of their variability) to ensure reefs are clustered based on
-their underlying temporal dynamics rather than simply their average coral cover. The process
-creates a distance matrix of n \* n dimensions (where n is the number of time series in the
-group) that is clustered using a k-medoids clustering algorithm [cf. @steinmann2020]. The
-three reef clusters are labelled with qualitative-ordered clusters from Low, Medium and High
-based on their median cover relative to each other cluster over the 2030-2060 period. The
-selected time frame prevents the classification from being overly influenced by any steep
-declines in the initial years of simulations and avoids the post-2060 time period where
-reefs are projected to be under severe stress and in a declined state [@bozec2025].
+series with their relative complexity (which is the quotient of their variability). This is
+to ensure reefs are clustered based on their underlying temporal dynamics rather than
+aggregating the coral cover across all timesteps. The process creates a n \* n distance
+matrix (where n is the number of time series in the group) that is used as an input to a
+k-medoids clustering algorithm [cf. @steinmann2020]. The three reef clusters are labelled
+with qualitative-ordered labels from Low, Medium and High based on their median cover
+relative to each other cluster over the 2030-2060 period. The selected time frame prevents
+the classification from being overly influenced by any steep declines in the initial years
+of simulations and avoids the post-2060 time period where reefs are projected to be under
+severe stress and in a declined state [@bozec2025].
 
-## ACCESS-ESM1-5
+## ACCESS-ESM1-5 results
+
+ACCESS-ESM1-5 was selected for GCM-level results as an intermediate severity GCM, with an
+ECS value closest to the midpoint of the IPCC likely range of ECS values (3.87 °C). The
+following section includes supplemental results for analyses under this GCM. A comparison of
+results across GCMs can be found in the main text, and individual GCM-level results for
+other GCMs can be found at Grier and Iwanaga [-@grier2025].
 
 ![Bar plot indicating the Spearman's rank correlation values for the number of years above
 carbonate budget threshold and, median reef depth and log10 weighted incoming connectivity
@@ -1204,7 +1210,7 @@ fig-align="center" width="14.82cm"}
 
 ![Scatter plot indicating reef median depth (metres) and log10 weighted incoming
 connectivity for each reef. Point colours represent the median number of years each reef
-maintains positive carbonate budgets across each $theta$ value from 10-20% live coral cover.
+maintains positive carbonate budgets across $theta$ values from 10-20% live coral cover.
 Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/depth_conn_mean_carbonate_budget.png){#sfig-access-esm1-5-mean-carb-budget
 fig-align="center" width="14.82cm"}
@@ -1225,6 +1231,8 @@ fig-align="center" width="14.82cm"}
 
 ### Bioregion scale clustering
 
+The following section includes bioregion scale clustering results, full results for other
+spatial scales (management area and GBR) can be found at Grier and Iwanaga [-@grier2025].
 Results are only shown and discussed for ACCESS-ESM1-5, an intermediate ECS scenario
 (@sfig-ecs). Those interested in results for the other assessed GCMs are referred to Grier
 and Iwanaga [-@grier2025]. Reefs in the High cluster were consistently found to have the
@@ -1336,7 +1344,7 @@ represented in this figure. Annotations represent major coastal settlements alon
 GBR.](../figs/ACCESS-ESM1-5/weighted_incoming_conn_input_map.png){#sfig-incoming-conn-map
 fig-align="center" width="14.82cm"}
 
-#### Random Forest Performance
+## Random Forest Performance
 
 ::: {#stbl-confusion-matrix}
 |               |         | **Ground Truth** |          |
