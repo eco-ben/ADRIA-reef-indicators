@@ -857,13 +857,13 @@ ecological stressors such as wave activity, ocean acidification, and Crown-of-Th
 ## Conclusion
 
 The results presented suggest that when modelled as part of a large and complex ecosystem,
-reef depth is a key factor contributing to ongoing reef resilience. We provide evidence in
-support of depth as a form of thermal refugia for shallow-water reefs on the GBR. Targetting
-reefs with median depths greater than 10m may aid in identifying the most resilient reefs
-under climate change. We suggest further analyses that investigate the benefits of
+reef depth is a key factor contributing to ongoing reef resilience. This investigation
+provides evidence in support of depth as a form of thermal refugia for shallow-water reefs
+on the GBR. Targeting reefs with median depths greater than 10m may aid in identifying the
+most resilient reefs under climate change. Further analyses that investigate the benefits of
 incorporating depth-based resilience into reef intervention decision making, as well as
 further research and development in connectivity modelling methods for whole-ecosystem
-scales.
+scales are recommended.
 
 # Acknowledgements
 
