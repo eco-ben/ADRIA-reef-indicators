@@ -168,44 +168,42 @@ current projections of climate change.
 ## Reef definitions
 
 The spatial extent of reefs represented in this investigation follows reef definitions
-available via the Great Barrier Reef Marine Park Authority (GBRMPA) [@GBRMPA2022]. The reef
-definitions define 3806 reefs across the GBR. An indicative map of the GBR marine park
-including the Marine Park Management areas [@GBRMPA2007] and the corresponding bioregion for
-each reef is shown in [@fig-region-map] [@GBRMPA2024]. Estimates of coral carrying capacity
-for each reef were taken from prior analyses undertaken in Bozec et al. [-@bozec2022].
+available via the Great Barrier Reef Marine Park Authority (GBRMPA), defining 3806 reefs
+across the GBR [@GBRMPA2022] (@fig-region-map). Estimates of coral carrying capacity for
+each reef were taken from prior analyses [@bozec2022].
 
-Depth characteristics for each reef were extracted using 10m resolution bathymetry data made
-available in GBRMPA [-@GBRMPA2020]. While the bathymetry data adopted for the given
-assessment are said to be accurate up to 15m from Mean Sea Level [@GBRMPA2020], there are
-many sources of uncertainty in the depth estimates used for this study. Notably, the adopted
-depth estimates were derived from bathymetries based on satellite imagery. The bathymetry
+Depths for each reef were extracted using 10m resolution bathymetry data made available in
+GBRMPA [-@GBRMPA2020]. While the bathymetry data are said to be accurate up to 15m from Mean
+Sea Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimates used
+for this study. Notably, bathymetry data were derived from satellite imagery. The bathymetry
 data can be limited in their alignment with the established GBRMPA reef outlines used to
 characterise reef locations and their areal extent. For each reef, bathymetry data were
-spatially matched with the 3806 reef outlines through geometric intersections.
+spatially matched with the 3806 reef outlines through geometric intersections. All depth
+values were converted to positive values (depths below sea level). The median depth was used
+to provide an indicative depth value for each reef. Further limitations are outlined in the
+Discussion. Code to extract depth estimates, and the resulting depth estimates themselves,
+are available at [@iwanaga2025].
 
 A Quality Assessment and Control process identified reefs with potential data limitations:
 reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
 (indicating potential data artifacts), and reefs where bathymetry pixels covered less than
 5% of the reef polygon area. This process removed 842 reefs, or 22%, from the initial set of
 3806 reefs. Furthermore, reefs that are not associated with GBRMPA Management areas
-[@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were also removed from the investigation.
-Bioregions which contained fewer than three reefs after these processes were also excluded.
-As a result, 1377 reefs were excluded (36%), leaving a total of 2429 remaining. All depth
-values were converted to positive values (depths below sea level). The median depth was used
-to provide an indicative depth value for each reef. Further limitations are outlined in the
-Discussion. Code to extract depth estimates, and the resulting depth estimates themselves,
-are available at [@iwanaga2025]. To ensure effective data analysis, reefs with incoming or
-outgoing connectivity values below the 5th percentile were removed from post-hoc analyses,
-leaving 2197 reefs remaining for display in results.
+[@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were removed. Bioregions which contained
+fewer than three reefs after these processes were also excluded. As a result, 1377 reefs
+were excluded, leaving a total of 2429 remaining for time series clustering. To ensure
+effective data analysis, reefs with incoming or outgoing connectivity values below the 5th
+percentile were removed from post-hoc analyses, leaving 2197 reefs remaining for display in
+results (@fig-region-map).
 
 ![Map of the Great Barrier Reef region, including GBRMPA Management areas (polygons) and all
-considered reefs (points). Colour-coded polygons outline GBR marine park management regions,
-where orange represents the Far Northern management region, green represents
-Cairns/Cooktown, red covers Townsville/Whitsunday and blue covers Mackay/Capricorn
-[@GBRMPA2007]. Reef centroids are marked individually for visual clarity and are coloured
-according to its bioregion [@GBRMPA2024]. All 2197 reefs included in this investigation are
-represented in this figure. Annotations represent major coastal settlements along the
-GBR.](../figs/region_map.png){#fig-region-map fig-align="center" width="14.8cm"}
+considered reefs (points). Colour-coded polygons outline GBR marine park management regions:
+Far Northern (orange), Cairns-Cooktown (green), Townsville-Whitsunday (blue) and
+Mackay-Capricorn (red) [@GBRMPA2007]. Reef centroids are marked individually for visual
+clarity and are coloured by bioregions [@GBRMPA2024]. All 2197 reefs included in this
+investigation are represented in this figure. Annotations represent major coastal
+settlements along the GBR.](../figs/region_map.png){#fig-region-map fig-align="center"
+width="14.8cm"}
 
 ## Degree Heating Week trajectories
 
@@ -215,35 +213,32 @@ estimated from Sea Surface Temperature (SST) data for the GBR. Statistically dow
 HighResCoralStress database [@dixon2022; @dixon2023]. These five GCMs were EC-Earth3-Veg,
 ACCESS-CM2, ACCESS-ESM1-5, NorESM2-MM and GFDL-CM4. The selected GCMs are a part of the
 Sixth Phase of the Coupled Model Intercomparison Project (CMIP6), spanning four 'model
-development families' as defined by Brunner et al., [-@brunner2020].
+development families' as defined by Brunner et al., [-@brunner2020]. Shared Socio-economic
+Pathway (SSP) 2-4.5 was used to represent the plausible emission pathway. It represents a
+moderate emissions scenario with continued CO~2~ emissions comparable to present day until
+2050, after which emissions gradually decline [@hausfather2020; IPCC -@climate2023].
 
 These GCMs were selected based on evaluation by Grose et al., [-@grose2023], indicating
 their ability to recreate historical atmospheric temperature and precipitation conditions in
 the Australasian region. They span a range of Equilibrium Climate Sensitivity (ECS) values
 within the Intergovernmental Panel on Climate Change (IPCC) assessed likely range. The IPCC
 defines ECS as the long-term warming caused by a doubling of carbon dioxide above its
-pre-industrial concentration [@forster2021]. While this assessment does not consider oceanic
-data, Grose et al. [-@grose2023] provide a region-specific selection mechanism which we use
-as an indicator of general performance of GCMs for the region. An overview of the selected
-GCMs is provided in @tbl-gcms. Note here that Grose et al., [-@grose2023] assessed
-GFDL-ESM4, whereas Dixon et al., [-@dixon2022; -@dixon2023] provides data based on GFDL-CM4.
-This substitution is assumed appropriate given they share the same fundamental
-representation of the physical climate system.
-
-Shared Socio-economic Pathway (SSP) 2-4.5 was used to represent the plausible emission
-pathway. It represents a moderate emissions scenario with continued CO~2~ emissions
-comparable to present day until 2050, after which emissions gradually decline
-[@hausfather2020; IPCC -@climate2023]. The selected GCMs represent 2.5°C to 4.66°C of global
-atmospheric warming in the 2081-2100 period relative to 1850-1900. The use of these GCMs
-therefore allow for a range of possible climate futures to be explored, capturing
-uncertainty in future responses to CO~2~ increases (@sfig-ecs; @fig-methods-dhws;
-[@grose2023; @shepherd2018]) and enables the assessment of modelled coral reef behaviour
-over a broad range of independently derived climate futures [@abramowitz2019; @brunner2020].
+pre-industrial concentration [@forster2021]. While Grose et al. [-@grose2023] do not
+consider oceanic data, they provide a region-specific selection mechanism which is used as
+an indicator of general performance of GCMs for the region. An overview of the selected GCMs
+is provided in @tbl-gcms. Note here that Grose et al., [-@grose2023] assessed GFDL-ESM4,
+whereas Dixon et al., [-@dixon2022; -@dixon2023] provides data based on GFDL-CM4. This
+substitution is assumed appropriate given they share the same fundamental representation of
+the physical climate system. The use of these GCMs therefore allows for a range of possible
+futures to be explored, capturing uncertainty in future responses to CO~2~ increases
+(@fig-methods-dhws; @sfig-ecs;[@grose2023; @shepherd2018]) and enables the assessment of
+modelled coral reef behaviour over a broad range of independently derived climate futures
+[@abramowitz2019; @brunner2020].
 
 Daily SST data [@dixon2023] were used to calculate climatological baselines and “HotSpot
 Anomaly” values for each pixel following NOAA methodology [@liu2017; @skirving2020].
 Additional information about DHW calculation methods is provided in the supplemental
-material. DHW values on a per-pixel basis at 1km^2^ resolution were then calculated as the
+material. DHW values on a per-pixel basis at 1km^2^ resolution were calculated as the
 12-week rolling sum of HotSpot SST Anomaly values that are greater than 1°C, expressed in
 units of °C-weeks. The 12-week accumulation period reflects the cumulative nature of coral
 thermal stress. Brief temperature spikes may be tolerable, but sustained or repeated
@@ -267,18 +262,16 @@ conducted for all 2197 reefs to create DHW projections spanning from 2025 to 207
 Information for each GCM used in this investigation including Equilibrium Climate
 Sensitivity (ECS) value, interpreted relative severity and where results for an individual
 GCM results are found. GCMs in context with assessed plausible ranges of ECS values are
-displayed in [@sfig-ecs]. ACCESS-ESM1-5 has an ECS closest to the midpoint of the
-very-likely ECS range and was taken as an intermediate model with results displayed in the
-main text.
+displayed in [@sfig-ecs]. ACCESS-ESM1-5 has an ECS closest to the midpoint of the likely ECS
+range and was taken as an intermediate model with results displayed in the main text.
 :::
 
 ![Degree Heating Week time series (in °C - Weeks) for the GCMs selected. Colours represent
-the different Management areas across the Great Barrier Reef. Green represents
-Cairns-Cooktown, orange represents Far-Northern, blue represents Mackay-Capricorn and red
-represents the Townsville-Whitsunday Management area. Solid lines represent the
-management-area median time series and bands represent the 95th percentile confidence
-intervals.](../figs/methods_dhw_timeseries.png){#fig-methods-dhws fig-align="center"
-width="14.82cm"}
+the different Management areas across the Great Barrier Reef: Far Northern (orange),
+Cairns-Cooktown (green), Townsville-Whitsunday (blue) and Mackay-Capricorn (red). Solid
+lines represent management-area median time series and bands represent 95th percentile
+confidence intervals.](../figs/methods_dhw_timeseries.png){#fig-methods-dhws
+fig-align="center" width="14.82cm"}
 
 ## Assessment framework
 
@@ -290,20 +283,9 @@ uncertainty; where there is little or no agreement on the key drivers of a syste
 extent of the relationship, how best to represent them or their probability distributions
 [@conradt2024; @lempert2013]. The approach embraces uncertainty as an inherent
 characteristic of complex environmental systems [@lempert2010; @lempert2013] in an attempt
-to address limitations of calibrated ecosystem models with a singular set of parameter
+to address limitations of calibrated ecosystem models that use a singular set of parameter
 values [@lubianabotelho2025]. Exploratory scenario modelling is a core methodology
 underpinning the development of robust and adaptive management strategies [@haasnoot2013].
-
-Rather than attempting to forecast precise outcomes, the exploratory approach aims to
-systematically search many possible futures to identify patterns that lead to outcomes of
-interest. The approach allows for the identification of robust management strategies that
-perform well across a diversity of future conditions rather than attempting to identify a
-single most optimal strategy. Concurrently, assessing the wide swathe of scenarios allows
-contextual understanding of the conditions in which strategies may fail. Multiple
-interacting and compounding sources of uncertainty, and a lack of broad agreement as to
-their likelihood, create inherently uncertain outcomes. Here, exploratory modelling was
-applied to identify the environmental and reef characteristics, such as thermal stress,
-depth, and connectivity, that support favourable outcomes in reef recovery and resilience.
 
 All data preparation, modelling and analyses were performed using the Julia programming
 language (The Julia Project; https://julialang.org/; [@bezanson2017]), with visualisations
@@ -313,67 +295,89 @@ perform analyses involved in this investigation can be found at Grier and Iwanag
 
 ### Connectivity modelling
 
-Larval transition probability matrices were generated using the EReefs Great Barrier Reef
-1km resolution hydrodynamic model and particle tracking simulations. Connectivity data from
-24 days in total were used in this investigation to estimate coral larval flows. These data
-span six years from 2015 to 2020. The years 2015, 2016, 2018 and 2019 are each represented
-by connectivity matrices covering spawning periods over three days in each year (12 days in
-total), while 2017 and 2020 are each represented by six spawning days each, coming to a
-total of 24 days of connectivity matrices. The values in these matrices indicate the
-probability of larval transfer between each pair of reefs in the GBR, herein referred to as
-connectivity strengths. Indicative connectivity strengths are implemented in ADRIA-CoralBlox
-as the mean of all available data for each location (i.e., mean of all 24 spawning days).
-While the connectivity strengths do not vary temporally within each ADRIA-CoralBlox
-simulation, they do vary between reefs. This spatial variability enables investigations into
-the influence of connectivity strength and its role in driving recovery processes.
+The coral larval connectivity model used in this study comprises 3D hourly velocities from
+the 1 km grid resolution hydrodynamic model (GBR-1 version 2.0) [@steven2019], as input to
+OceanParcels [@delandmeter2019], a particle tracking model. The connectivity model was used
+to simulate larval dispersal and settlement of broadcast-spawning Acropora corals in the
+GBR, following annual mass spawning events in 2015, 2016, 2018, 2019 and split-spawning
+events in 2017 and 2020. Split spawning occurs when the annual reproductive event of a coral
+population is split over two consecutive months. Coral mass spawning usually occurs 4-6 days
+after the full moon during the spring-summer transition in the GBR with variations across
+species and locations. The spawning days identified are: 2015 - November 30, December 1 and
+2; 2016 - November 18, 19 and 20; 2017 - November 8, 9 and 10, December 8, 9 and 10; 2018 –
+November 18, 19, 20; 2019 – November 16, 17, 18; 2020 – November 5, 6 and 7, December 4, 5,
+6.  
 
-To assess the impact of reef connectivity on modelled outcomes we summarise incoming
-connectivity (weighted incoming connectivity), outgoing connectivity (outgoing connection
-strength), the ratio of source-to-sink connectivity, and larval retention probability for
-each reef. Weighted incoming connectivity is calculated by summing the product of each
-connection strength incoming to a target reef (excluding retained larvae from the target
-reef) and the mean timeseries absolute coral cover (km^2^) of each matching source reef.
-This metric provides an approximation of overall larval flow into a reef, with high values
-indicating the target reef is supplied high volumes of larvae via strong connections and low
-values indicating the target reef has weak (or no) incoming connections or is supplied by
-small source populations. A limitation of weighted incoming connectivity is that it does not
-incorporate the proportion of the source reef's population that is reproducing and producing
-larvae, instead taking the total coral cover area as an indicator of larval productivity.
-Outgoing connection strength is calculated as the sum of all outgoing transition
-probabilities from a target reef. Outgoing connection strength has a theoretical maximum of
-one (all larvae reach settlement on sink reefs), however the large size of the GBR combined
-with larval mortality considerations result in outgoing connection strength values much
-lower than one. The ratio of source-to-sink connectivity ($O:I$) for a target reef
-represents the strength of the reef's outgoing larval flow relative to it's incoming larval
-flow. This is calculated as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum
-of connectivity probabilities, $N$ represents the number of connections, $O$ denotes
-outgoing connectivity from the target reef and $I$ denotes incoming connectivity to the
-target reef. If a reef has no incoming connections, the $O:I$ equals the $S_O/N_O$ value.
-Incoming connections in this calculation, do not directly represent the larval supply gained
-as the breeding populations from which connections are coming from are not represented. A
-source-to-sink ratio greater than 1 (a value greater than 0 on a log scale) indicates a reef
-has greater outgoing than incoming larval flow. Reef larval retention probability indicates
-the proportion of spawned larvae from a target reef that remain to settlement.
+For each spawning night, particles were released from random locations within each reef
+polygon as neutrally buoyant virtual larvae every 27 seconds from 8:00 pm to 11:00 pm at
+2.25 m below the surface. In each of the reef polygons, 401 particles were released
+resulting in a total of 1,526,206 particles every night of spawning. The model was run for
+30 days with a 3-minute timestep, and the locations of the released particles were updated
+every 15 minutes until the end of the simulation. Larvae were assumed to become competent to
+settle from 4 to 28 days post release with a daily mortality rate of 0.4 [@ani2024], which
+was implemented in 15-minute timestep as probabilistic mortality, corresponding to 0.0053
+mortality rate per timestep. To incorporate the stochastic sensory behaviour of larvae
+during settlement, a 0.01 probability of settlement is assumed when larvae are over a reef
+during the competency period per 15-minute timestep. The information obtained on larvae
+settlement was used to compute a connectivity matrix among reef polygons for each spawning
+night (see Ani et al. [-@ani2024] for more details). A total of 24 connectivity matrices
+were generated for the spawning nights that were considered.
+
+Larval transition matrices indicate the probability of larval transfer between pairs of
+reefs in the GBR, herein referred to as connectivity strengths. Indicative connectivity
+strengths are implemented in ADRIA-CoralBlox as the mean of matrices for each location
+(i.e., mean of all 24 spawning days). While the connectivity strengths do not vary
+temporally within each ADRIA-CoralBlox simulation, spatial variability enables
+investigations into the influence of connectivity strength and its role in driving recovery
+processes.
+
+To assess the impact of reef connectivity on modelled outcomes, connectivity was summarised
+by incoming connectivity (weighted incoming connectivity), outgoing connectivity (outgoing
+connection strength), the ratio of source-to-sink connectivity, and larval retention
+probability for each reef. Weighted incoming connectivity was calculated by summing the
+product of each connection strength incoming to a target reef (excluding retained larvae
+from the target reef) and the mean timeseries absolute coral cover (km^2^) of each matching
+source reef. This metric provides an approximation of overall larval flow into a reef, with
+high values indicating the target reef is supplied high volumes of larvae via strong
+connections and low values indicating the target reef has weak (or no) incoming connections
+or is supplied by small source populations. A limitation of weighted incoming connectivity
+is that it does not incorporate the proportion of the source reef's population that is
+reproducing and producing larvae, instead it takes total coral cover area as an indicator of
+larval productivity. Outgoing connection strength was calculated as the sum of all outgoing
+transition probabilities from a target reef. Outgoing connection strength has a theoretical
+maximum of one (all larvae reach settlement on sink reefs), however the large size of the
+GBR combined with larval mortality result in much lower outgoing connection strength values.
+The ratio of source-to-sink connectivity ($O:I$) for a target reef represents the strength
+of the reef's outgoing larval flow relative to it's incoming larval flow. This is calculated
+as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum of connectivity
+probabilities, $N$ represents the number of connections, $O$ denotes outgoing connectivity
+from the target reef and $I$ denotes incoming connectivity to the target reef. If a reef has
+no incoming connections, the $O:I$ equals the $S_O/N_O$ value. Incoming connections in this
+calculation, do not directly represent the larval supply gained as the breeding populations
+from which connections are coming from are not represented. A source-to-sink ratio greater
+than 1 (a value greater than 0 on a log scale) indicates a reef has greater outgoing than
+incoming larval flow. Reef larval retention probability indicates the proportion of spawned
+larvae that settle on their natal reefs.
 
 ### Scenario modelling
 
-Two separate systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
-Intervention Algorithms platform) and CoralBlox. ADRIA is a multi-criteria decision support
-platform designed for the assessment and analysis of coral reef intervention strategies
-under uncertainty [@iwanaga2023]. The ADRIA platform provides functionality for scenario
-generation and analysis as well as providing the technical infrastructure to couple
-environmental and ecosystem representations. CoralBlox is a computationally efficient coral
-population model. It simulates functional/morphological groups of corals over their life
-cycles, competing for available space over time [@ribeirodealmeida2024]. The coupled
-framework is referred to as ADRIA-CoralBlox.
+Two systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
+Intervention Algorithms platform) and CoralBlox, referred to as the coupled framework
+ADRIA-CoralBlox. ADRIA is a multi-criteria decision support platform designed for the
+assessment and analysis of coral reef intervention strategies under uncertainty
+[@iwanaga2023]. The ADRIA platform provides functionality for scenario generation and
+analysis as well as providing technical infrastructure to couple environmental and ecosystem
+representations. CoralBlox is a computationally efficient coral population model. It
+simulates functional/morphological groups of corals over their life cycles, competing for
+available space over time [@ribeirodealmeida2024].
 
 The coral demographic representation and associated model implementation are further
-detailed in the supplementary material. Of important note is that the representation of
-bleaching mortalities followed Bozec et al., [-@bozec2022] albeit with a scaling coefficient
-to incorporate the amelioration effect that depth may have, following Baird et al.,
+detailed in the supplementary material. Of note is that the representation of bleaching
+mortalities followed Bozec et al., [-@bozec2022] albeit with a scaling coefficient to
+incorporate the amelioration effect that depth may have, following Baird et al.,
 [@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
 heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
-Thorns Starfish or coral disease were not included in this investigation, in order to focus
+Thorns Starfish or coral disease were not included in this investigation in order to focus
 on assessing reef resilience under possible future warming scenarios.
 
 ADRIA-CoralBlox was run for 4096 scenarios for each GCM (20,480 total model runs). Here, a
@@ -383,12 +387,11 @@ coral thermal tolerances. Scenarios were generated using the low-discrepancy Sob
 method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a randomised Quasi Monte
 Carlo approach which balances scenario exploration with improved convergence properties
 compared to pseudo-random sampling. A detailed comparative analysis of sampling methods can
-be found in [@kucherenko2015]. For the purpose of scenario assessment, the resulting coral
-cover time series for each model run were scaled by the total area of each reef to represent
-cover as a percentage of the total estimated reef area. The scenario-median time series for
-each reef was used for further analyses. These time series of coral cover were then
-clustered based on their temporal behaviour. Assessment metrics used in analyses can be
-found in @stbl-metrics.
+be found in [@kucherenko2015]. For scenario assessment, coral cover time series for each
+model run were scaled to represent cover as a percentage of the total estimated reef area.
+The scenario-median time series for each reef was used for further analyses. Time series of
+coral cover were then clustered based on their temporal behaviour. Assessment metrics used
+in analyses can be found in @stbl-metrics.
 
 ### Time series clustering
 
@@ -406,17 +409,17 @@ similarities in temporal behaviour [@batista2014]. The CID applies a correction 
 the Euclidean distance between pairs of time series to obtain a measure of their similarity.
 The adopted approach ensures reefs are clustered based on their temporal dynamics as opposed
 to, for example, naively clustering by their mean coral cover. Time series clustering is
-achieved through the use of k-medoids clustering [cf. @steinmann2020]. Further details on
-the time series clustering approach are found in the supplementary materials.
+achieved using k-medoids clustering [cf. @steinmann2020]. Further details on the time series
+clustering approach are found in the supplementary materials.
 
 Time series clustering was applied over the time frame between 2025 and 2075. The clustering
-was conducted for three spatial scales: (1) the whole of GBR; (2) each GBR management area;
-and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). The analyses were
+was conducted at three spatial scales: (1) the whole of GBR; (2) each GBR management area;
+and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were
 conducted at the different spatial scales as, conceptually, the temporal behaviour
-constituting "low", "medium" or "high" coral cover may differ at the different spatial
-scales. As it was, analyses at the whole-of-GBR scale were found to lead to identical
-conclusions regarding reef characteristics which influence coral cover and so for brevity
-are not shown here.
+constituting "low", "medium" or "high" coral cover may differ at different spatial scales.
+As it was, analyses at the whole-of-GBR scale were found to lead to identical conclusions
+regarding reef characteristics which influence coral cover and so for brevity are not shown
+here.
 
 To compare time series clustering results across GCMs, management area scale clustering
 results are used to preserve coarse scale latitudinal differences between regions, while
@@ -430,16 +433,20 @@ interested.
 
 #### Partial Dependence Analysis
 
-Partial Dependence Analysis was conducted to understand the relationship between features
+Partial Dependence Analysis (PDA) was conducted to understand relationships between features
 and bioregion-scale time series cluster predictions using a Random Forest (RF) classifier
 [@friedman2001]. The analysis utilised the reef characteristics of interest as the
 predictors, including the estimated median reef depth, mean DHW for the given GCM,
 log10-weighted incoming connectivity, outgoing connectivity, and log10-transformed
-outgoing-to-incoming connectivity ratio. The full dataset consisted of the time series
-cluster assignment for each of the 2197 reefs under the five GCMs explored, for a total of
-10,985 samples. The dataset was randomly split into training (60%) and testing (40%) subsets
-to train and assess classification performance. The RF classifier achieved 80% accuracy on
-the training set and 60% on the test set.
+outgoing-to-incoming connectivity ratio. Conceptually, PDA is related to a Regional
+Sensitivity Analysis [@hornberger1981; @pianosi2016], as model results are assessed to map
+the influence of X - the predictors or model factors - on Y - the modelled outcomes
+according to a metric of interest.
+
+The full dataset consisted of the time series cluster assignment for each of the 2197 reefs
+under the each GCM (totalling 10,985 samples). The dataset was randomly split into training
+(60%) and testing (40%) subsets to train and assess classification performance. The RF
+classifier achieved 80% accuracy on the training set and 60% on the test set.
 
 A 3-fold cross-validation was also conducted, arriving at a similar 59% accuracy rate. F1
 performance scores for Low, Medium, and High clusters were determined to be 0.70, 0.43 and
@@ -448,7 +455,7 @@ performance scores for Low, Medium, and High clusters were determined to be 0.70
 performance with the Medium cluster reflects the inherent difficulty of classifying
 transitional states in natural systems. The consistent level of accuracy across test and
 cross-validation demonstrates the generalised performance of the RF classifier, while not
-accurate, was deemed sufficiently informative for the purpose of assessing the influence of
+accurate, is still sufficiently informative for the purpose of assessing the influence of
 reef characteristics.
 
 Partial dependence analysis was performed by applying the trained model to the test dataset.
@@ -457,25 +464,23 @@ Values for individual predictors were systematically varied (one-at-a-time) acro
 at their modelled values. The procedure creates (1) a modified test dataset, where the
 target predictor was set to the grid value for all samples, (2) probabilistic predictions
 for all three cluster classes using the trained RF classifier, and (3) the mean predicted
-probability for each class across all test observations. Use of the median predicted
-probability was also assessed but was found not to substantially influence the
-interpretation of results (and so are not shown here). The process isolates the marginal
+probability for each class across all test observations. The process isolates the marginal
 effect of each predictor by averaging over the natural distribution of all other
 representative reef characteristics in the test dataset. Additionally, to assess possible
-interaction between reef depth and connectivity metrics, two-way partial dependence analysis
-was performed on grids along the ranges of depth and weighted incoming connectivity, and
-depth and outgoing connection strength.
+interaction between reef depth and connectivity metrics, two-way PDA was performed on grids
+along the ranges of depth and weighted incoming connectivity, and depth and outgoing
+connection strength.
 
 ### Carbonate budget analysis
 
-Using coral cover time series for each reef we calculated the number of years each reef
-maintains coral cover above a given percent threshold. The threshold represents the level of
+Using coral cover time series for each reef, the number of years each reef maintains coral
+cover above a given percent threshold were calculated. The threshold represents the level of
 live coral cover necessary to maintain a positive carbonate budget (denoted here as
-$\theta_{0}$ to indicate the budget equilibrium). Greater number of years above $\theta_{0}$
-suggests greater resilience and opportunity for recovery.
+$\theta_{0}$ to indicate the budget equilibrium). A greater number of years above
+$\theta_{0}$ suggests greater resilience and opportunity for recovery.
 
 Recent analyses suggest a general threshold of \~17% live coral cover in the case of the
-mid-shelf and offshore GBR reefs [@desbiens2021]. Given in situ carbonate budgets are
+mid-shelf and offshore GBR reefs [@desbiens2021]. Given in-situ carbonate budgets are
 influenced by (1) a range of processes; (2) the variety of approaches that could be used to
 measure those processes; and (3) the uncertainty surrounding these, it would be unreasonable
 to assume all reefs adhere to a single precise $\theta_{0}$ value. Concurrently, it is
@@ -490,27 +495,27 @@ uncertainty in the precise value of $\theta_{0}$ for all reefs can then be asses
 the indicative range.
 
 The relationships between the number of years above $\theta_{0}$ and characteristics such as
-median reef depth and log10 total connectivity strength were then assessed with Spearman's
-rank correlation. Spearman's correlation coefficient was adopted as reef depth and
-connectivity strength distributions are expected to be non-normal and highly skewed.
-Furthermore, reefs are naturally of different types and experience different conditions, and
-so the monotonic trends (whether the relationship consistently increase or decrease) rather
-than the exact quantitative relationship was of interest for this analysis.
+median reef depth and log10 total connectivity strength were assessed with Spearman's rank
+correlation. Spearman's correlation was adopted as distributions of reef depths and number
+of years above $\theta_{0}$ were expected to be non-normal and highly skewed. Furthermore,
+reefs are naturally of different types and experience different conditions, and so the
+monotonic trends (whether the relationship consistently increase or decrease) rather than
+the exact quantitative relationship was of interest.
 
 # Results
 
 ## Reef trajectories across futures
 
 There were substantial differences in the maintenance of coral cover post 2030 between the
-GCMs (@fig-gcm-cover-trajectories). Of the GCMs explored, NorESM2-MM had the lowest
-ECS (2.5°C) and reefs exhibit continuing recovery and decline
-dynamics up to 2075 under this hypothetical climate future. Unsurprisingly, recovery phases
-were predominantly seen in the reefs in the High cover cluster, with Medium and Low
-exhibiting lesser probability of such periods of recovery. Generally, recovery and increases
-in coral cover were visible in simulated results up to 2045. Under NorESM2-MM, the Far
-Northern Management area was found to have the most similar temporal behaviour between Low
-and High clusters compared to other Management areas (@stbl-cluster-cid) due to the low
-degree of coral cover overall (@fig-gcm-cover-trajectories).
+GCMs (@fig-gcm-cover-trajectories). Of the GCMs explored, NorESM2-MM had the lowest ECS
+(2.5°C) and reefs exhibit continuing recovery and decline dynamics up to 2075 under this
+hypothetical climate future. Unsurprisingly, recovery phases were predominantly seen in the
+reefs in the High cover cluster, with Medium and Low exhibiting lesser probability of such
+periods of recovery. Generally, recovery and increases in coral cover were visible in
+simulated results up to 2045. Under NorESM2-MM, the Far Northern Management area was found
+to have the most similar temporal behaviour between Low and High clusters compared to other
+Management areas (@stbl-cluster-cid) due to the low degree of coral cover overall
+(@fig-gcm-cover-trajectories).
 
 Intermediate levels of coral cover maintenance can be seen in ACCESS-ESM1-5 (ECS value of
 3.87°C) when compared to the other GCMs (of higher and lower ECS values). Under these
@@ -522,7 +527,8 @@ GCMs - specifically, ACCESS-CM2 (4.66°C), EC-Earth3-Veg (4.30°C) and GFDL-CM4 
 reefs are largely in decline across all management areas from 2035 (@stbl-cluster-cid).
 
 ![Time series of coral cover (relative to reef area) clustered within each Management area
-(rows), for each GCM analysed (columns) based on temporal behaviour over 2030 and 2060. Time series were clustered into "Low" (green), "Medium" (orange), and "High" (blue) clusters
+(rows), for each GCM analysed (columns) based on temporal behaviour over 2030 and 2060. Time
+series were clustered into "Low" (green), "Medium" (orange), and "High" (blue) clusters
 indicating their relative median coral cover. Solid lines represent cluster median time
 series and bands represent 95th percentile confidence
 intervals.](../figs/GCM_cover_timeseries_plot.png){#fig-gcm-cover-trajectories
@@ -532,16 +538,17 @@ Comparing across GCMs, it is common for reefs to switch between clusters, includ
 to High and vice versa (@sfig-gcm-bioregion-cluster-assignment). Of 2197 reefs, 21% (462) of
 reefs have consistent cluster assignment across all GCMs. Of the 462 consistently assigned
 reefs, 23% are within the Far Northern Management area, with 1%, 55% and 21% occurring in
-Cairns-Cooktown, Townsville-Whitsunday and Mackay-Capricorn Management areas
-respectively (@sfig-gcm-cluster-map). Of the 462 consistently assigned reefs, 34%, 18% and
-47% are clustered into Low, Medium and High clusters respectively. High levels of assignment
+Cairns-Cooktown, Townsville-Whitsunday and Mackay-Capricorn Management areas respectively
+(@sfig-gcm-cluster-map). Of the 462 consistently assigned reefs, 34%, 18% and 47% are
+clustered into Low, Medium and High clusters respectively. High levels of assignment
 variability across GCMs are expected as due to spatial differences in each given GCM’s DHW
 trajectories.
 
 ### Bioregion scale clustering
 
-Relationships between reef characteristics and bioregion-scale time series clusters were found to be similar across GCMs. Across bioregions, reefs in the High cluster not only had greater levels
-of coral recovery but displayed persistence to 2050
+Relationships between reef characteristics and bioregion-scale time series clusters were
+found to be similar across GCMs. Across bioregions, reefs in the High cluster not only had
+greater levels of coral recovery but displayed persistence to 2050
 (@sfig-access-esm1-5-bioregion-timeseries). Qualitative representations of bioregion scale
 clustering results across assessed reef characteristics can be found in the supplementary
 material, with Partial Dependence Analysis results displayed in the main text.
