@@ -859,18 +859,22 @@ scales are recommended.
 
 # Acknowledgements
 
-The authors acknowledge the Bindal people, Traditional Owners of the land on which the work
-took place at the AIMS Townsville site. The authors acknowledge the contributions of Barbara
-Robson and Jessica Benthuysen to manuscript preparation. This research was funded by the
-Reef Restoration and Adaptation Program, and facilitated by the Australian Institute of
-Marine Science. The authors acknowledge thermal projection data sourced from
-HighResCoralStress datasets, model parameterisation data sourced from the Ecological
-Intelligence for Reef Restoration (EcoRRAP) subprogram, larval transition probability data
-derived from the eReefs GBR1 hydrodynamic model, and spatial and depth data available from
-the Great Barrier Reef Marine Park Authority. The eReefs Project is a private-public
-collabroation between Australia's leading operational and scientific research agencies,
-government and corporate Australia. All authors are funded by the Reef Restoration and
-Adaptation Program **\[BG: To be completed.\]**.
+The authors acknowledge the Traditional Owners of the Sea Country on which the modelling was
+conducted for. The authors additionally acknowledge the Bindal, Jagera, and Ngunnawal
+Peoples on which the authors conducted the model development, analysis and writing. The
+authors acknowledge the contributions of Barbara Robson and Jessica Benthuysen for comments
+provided early in the manuscript preparation. The authors would like to additionally
+acknowledge and thank Shaun Wilson and Juan Carlos Ortiz for discussions around carbonate
+budget thresholds.
+
+This research was funded by the Reef Restoration and Adaptation Program and facilitated by
+the Australian Institute of Marine Science. The authors acknowledge thermal projection data
+sourced from HighResCoralStress datasets, model parameterisation data sourced from the
+Ecological Intelligence for Reef Restoration (EcoRRAP) subprogram, larval transition
+probability data derived from the eReefs GBR1 hydrodynamic model, and spatial and depth data
+available from the Great Barrier Reef Marine Park Authority. The eReefs Project is a
+public-private collaboration between Australia’s leading operational and scientific research
+agencies, government, and corporate Australia.
 
 # References
 
