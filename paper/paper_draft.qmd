@@ -43,27 +43,25 @@ author:
           city: Cape Cleveland
           state: QLD
 abstract: |
-    Coral reefs globally face unprecedented threats from climate change, with the Great Barrier
-    Reef (GBR) experiencing cumulative stressors and increasingly severe declines in coral
-    cover from thermal stress events.
-    Understanding drivers behind reef resilience to climate impacts is critical for conservation
-    planning and intervention strategies. A scenario-based population modelling approach was
-    adopted with larval connectivity dynamics, thermal adaptation, and environmental factors
-    to assess coral reef resilience across GBR locations under future climate projections.
-    Using five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities,
-    reefs were analysed for reef coral cover time series and their ability of reefs to maintain positive carbonate
-    production budgets under future conditions. Contrary to expectations, larval connectivity
-    patterns did not correlate with increases in maintenance of positive carbonate budgets.
-    Instead, reef depth emerged as the primary predictor of cover-time series resilience and
-    maintenance of positive carbonate budgets, with deeper reefs benefiting from thermal
-    refugia that reduce bleaching impacts. Interaction between reef depth and incoming
-    connectivity was found to influence reef temporal behaviour at 15m depth. These findings suggest that
-    depth provides critical protection against thermal stress, with high incoming connectivity enhancing the
-    performance of deep reefs, contrasting current intervention
-    practices that primarily target easily accessible sites in the 1-10m depth range. These results have
-    important implications for reef management, indicating that depth refugia should be
-    prioritized for further consideration in conservation planning alongside connectivity
-    considerations to maximize coral survival under continuing climate change.
+    Coral reefs globally face unprecedented threats from climate change, with the Great 
+    Barrier Reef (GBR) experiencing cumulative stressors and increasingly severe declines 
+    in coral cover from thermal stress events. Understanding drivers behind reef resilience 
+    to climate impacts is critical for conservation planning and intervention strategies. A 
+    scenario-based population modelling approach was adopted with larval connectivity dynamics, 
+    thermal adaptation, and environmental factors to assess coral reef resilience across GBR 
+    locations under future climate projections. Using five Global Climate Models (GCMs) 
+    spanning five Equilibrium Climate Sensitivities,  reefs were analysed for coral cover 
+    time series and their ability of reefs to maintain positive carbonate production budgets 
+    under future conditions. Contrary to expectations, larval connectivity patterns did not 
+    correlate with increases in maintenance of positive carbonate budgets. Instead, reef depth 
+    emerged as the primary predictor of cover-time series resilience and maintenance of positive 
+    carbonate budgets, with deeper reefs benefiting from thermal refugia that reduce bleaching 
+    impacts. These findings suggest that depth provides critical 
+    protection against thermal stress, contrasting current intervention practices that primarily target easily 
+    accessible sites in the 1-10m depth range. These results have important implications 
+    for reef management, indicating that depth refugia should be prioritized for further 
+    consideration in conservation planning alongside connectivity modelling advancements 
+    to maximize coral survival under continuing climate change. 
 keywords:
   - Coral reef
   - Climate change
@@ -651,27 +649,28 @@ future thermal stress.
 Reefs in different temporal clusters largely do not differ in mean modelled DHW levels
 experienced and exhibit overall similar DHW time series. While reefs experience similar
 magnitude DHWs based on SST, the proportion of a reefs' coral population impacted by heat
-stress events depends on reef depth. Our results suggest that for non-mesophotic reef
-ecosystems (i.e., \< 30m), depth contributes greatly to reef resilience and maintenance
-positive carbonate budgets under future conditions. Movement of shallow reefs towards
-negative carbonate budgets in the future may contribute to phase shifts in reef dominant
-CaCO~3~ production. Shifting from coral driven to encrusting algae driven production, or to
-bioerosion dominated systems with rapid erosion of physical reef frameworks [@dudgeon2010;
-@perry2008]. Reefs at increased depths may be able to maintain coral driven CaCO~3~
-production and accumulation into the future for longer. Spatially these results indicate
-that regions of positive carbonate budget maintenance, under ACCESS-ESM1-5, and high depth
-levels were concentrated in the Far Northern, offshore Townsville/Whitsunday, and
-Mackay/Capricorn management areas (@sfig-depth-map; @sfig-carb-budget-map). Resilient reefs
-in the Far Northern management area were exposed to lower mean DHW levels than other reefs
-under ACCESS-ESM1-5 (@sfig-mean-dhw-map), however similar spatial patterns were observed
-across GCMs for reefs clustered into the high cover cluster (@sfig-gcm-cluster-map). Spatial
-findings are not interpreted as accurate predictions of future resilience due to high
-uncertainty in input data, particularly depth and connectivity. While similar findings have
-been demonstrated in the Pacific [@smith2014; @baird2018] and Indo-Pacific [@bridge2014]
-regions, depth refugia analyses have often focused on the potential of mesophotic reefs (\>
-30m deep) as thermal refugia [@bongaerts2010; @holstein2015; @semmler2017]. In contrast,
-Venegas et al. [-@venegas2019] found no association between depth and the alleviation of
-heat stress across a range of shallow reefs in the Pacific.
+stress events depends on reef depth. Results of this investigation suggest that for
+non-mesophotic reef ecosystems (i.e., \< 30m), depth contributes greatly to reef resilience
+and maintenance positive carbonate budgets under future conditions. Movement of shallow
+reefs towards negative carbonate budgets in the future may contribute to phase shifts in
+reef dominant CaCO~3~ production. Shifting from coral driven to encrusting algae driven
+production, or to bioerosion dominated systems with rapid erosion of physical reef
+frameworks [@dudgeon2010; @perry2008]. Reefs at increased depths may be able to maintain
+coral driven CaCO~3~ production and accumulation into the future for longer. Spatially these
+results indicate that regions of positive carbonate budget maintenance, under ACCESS-ESM1-5,
+and high depth levels were concentrated in the Far Northern, offshore Townsville/Whitsunday,
+and Mackay/Capricorn management areas (@sfig-depth-map; @sfig-carb-budget-map). Resilient
+reefs in the Far Northern management area were exposed to lower mean DHW levels than other
+reefs under ACCESS-ESM1-5 (@sfig-mean-dhw-map), however similar spatial patterns were
+observed across GCMs for reefs clustered into the high cover cluster
+(@sfig-gcm-cluster-map). Spatial findings are not interpreted as accurate predictions of
+future resilience due to high uncertainty in input data, particularly depth and
+connectivity. While similar findings have been demonstrated in the Pacific [@smith2014;
+@baird2018] and Indo-Pacific [@bridge2014] regions, depth refugia analyses have often
+focused on the potential of mesophotic reefs (\> 30m deep) as thermal refugia
+[@bongaerts2010; @holstein2015; @semmler2017]. In contrast, Venegas et al. [-@venegas2019]
+found no association between depth and the alleviation of heat stress across a range of
+shallow reefs in the Pacific.
 
 The results of this investigation support the hypothesis that reefs at greater depths will
 exhibit characteristics of refugia and prolonged resilience (in terms of coral cover) under
@@ -695,28 +694,24 @@ reefs are consistently clustered into the Low and Medium cover clusters across t
 the GBRMPA management region scale), with many found to be unable to maintain positive
 carbonate budgets under projected conditions. PDA revealed a range of depths from 10-15m
 where the probability of a reef being clustered into the High cover cluster increased
-substantially. Additionally, two-way partial dependence analysis revealed high incoming
-connectivity is important for High cluster assignment for reefs at depths of \>10m.
-Considering this 10-15m depth range when assessing possible intervention sites may reduce
-the exposure of planted and seeded corals to high thermal stress, while still maintaining
-effective logistical access to sites.
+substantially compared to shallower depths. Considering this 10-15m depth range when
+assessing possible intervention sites may reduce the exposure of planted and seeded corals
+to high thermal stress, while still maintaining effective logistical access to sites.
 
 It is a common conclusion in coral reef ecology that a primary facet of reef resilience is
 the supply of recruits that a reef receives following disturbance [@hock2017; @mumby2008;
-@torres2024]. Two-way partial dependence analyses suggest that incoming and outgoing
-connectivity contribute positively to high cover cluster allocation for reefs around 15m
-deep. However, our results suggest no direct, first order, relationship between weighted
-incoming connectivity and the ability of reefs to maintain positive carbonate budgets under
-future conditions was found. There has been contrasting evidence [@bode2018; @hock2017]
-surrounding whether recent generation connectivity modelling is able to identify reefs that
-are important for recovery processes, with findings dependent on the larval connectivity
-model used. These investigations were performed using prior generations of larval
-connectivity models parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time
-periods, without considering the influence of reef depth on resilience. Using updated 1km^2^
-resolution larval connectivity across the whole GBR, with a limited temporal sample of
-particle flows, it was found that larval connectivity alone may not be important or reef
-resilience and recovery, but should be considered in combination with more influential
-factors such as depth.
+@torres2024]. No direct, first order, relationship between weighted incoming connectivity
+and the ability of reefs to maintain positive carbonate budgets under future conditions was
+found. There has been contrasting evidence [@bode2018; @hock2017] surrounding whether recent
+generation connectivity modelling is able to identify reefs that are important for recovery
+processes, with findings dependent on the larval connectivity model used. These
+investigations were performed using prior generations of larval connectivity models
+parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods, without
+considering the influence of reef depth on resilience. Using updated 1km^2^ resolution
+larval connectivity across the whole GBR, with a limited temporal sample of particle flows,
+it was found that larval connectivity alone may not be important or reef resilience and
+recovery, but should be considered in combination with more influential factors such as
+depth.
 
 Findings on the importance of connectivity likely differ from literature due to the highly
 uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023], the
