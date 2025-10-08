@@ -1335,8 +1335,8 @@ function carbonate_budget_subplot!(
     grid_x = GridLayout(fig[grid_layout_pos...])
     ax = Axis(
         grid_x[1, 1],
-        xlabel="Carbonate budget threshold [%] (correlation)",
-        ylabel="Years above carbonate budget threshold",
+        xlabel="Carbonate budget threshold (θ) [%] (correlation)",
+        ylabel="Years above θ",
         xticks=(1:1:11, labels),
         xticklabelsize=fontsize-2,
         yaxisposition = yaxis_pos
@@ -1448,7 +1448,7 @@ function carbonate_budget_variable_scatter(
     Makie.trim!(fig.layout)
     colgap!(fig.layout, 3.5)
 
-    Label(fig[0, 1:2], "Number of years exceeding positive carbonate budget threshold", tellwidth=false)
+    Label(fig[0, 1:2], "Number of years above θ", tellwidth=false)
     Label(fig[2, 1:2, Top()], "Carbonate budget threshold [%] (correlation)", tellwidth=false)
     rowsize!(fig.layout, 2, Relative(0.025))
 

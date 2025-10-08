@@ -115,7 +115,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     
     depth_conn_carbonate_correlations = carbonate_budget_correlations(
         depth_year_correlation, log_incoming_conn_year_correlation;
-        correlation_label="Spearman's rank correlation \n(Reef feature - Number of years above carbonate budget threshold)"
+        correlation_label="SRCC \n(Reef feature - Number of years above θ)"
     )
     save(
         joinpath(fig_out_dir, "depth_conn_carbonate_correlations.png"),
@@ -185,7 +185,7 @@ for (i_gcm, GCM) in enumerate(GCMs)
     carbonate_budget_map = map_gbr_reefs_cont(
         median_cover_years,
         :median_years,
-        "Number of years exceeding positive carbonate budget threshold"
+        "Median number of positive carbonate budget years \nacross θ"
     )
     save(
         joinpath(fig_out_dir, "median_carbonate_budget_map.png"),
