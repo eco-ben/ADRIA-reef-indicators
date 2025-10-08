@@ -164,9 +164,8 @@ positive carbonate budgets under current projections of climate change.
 ## Reef definitions
 
 The spatial extent of reefs represented in this investigation follows reef definitions
-available via the Great Barrier Reef Marine Park Authority (GBRMPA), defining 3806 reefs
-across the GBR [@GBRMPA2022] (@fig-region-map). Estimates of coral carrying capacity for
-each reef were taken from prior analyses [@bozec2022].
+available via the Great Barrier Reef Marine Park Authority (GBRMPA). Reef definitions outline 3806 reefs
+across the GBR [@GBRMPA2022] (@fig-region-map). Prior analyses by Bozec et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef that were adopted by this study.
 
 Depths for each reef were extracted using 10m resolution bathymetry data made available in
 GBRMPA [-@GBRMPA2020]. While the bathymetry data are said to be accurate up to 15m from Mean
@@ -273,18 +272,18 @@ fig-align="center" width="14.82cm"}
 
 An exploratory scenario modelling approach was adopted for this investigation. The method
 involves exploring a wide range of potential futures and model parameterisations under
-different assumptions of environmental (climatic) and ecological conditions. Exploratory
+different assumptions of climatic and ecological conditions. Exploratory
 modelling approaches have gained favour in recent years to explore the implications of deep
 uncertainty; where there is little or no agreement on the key drivers of a system, the
 extent of the relationship, how best to represent them or their probability distributions
 [@conradt2024; @lempert2013]. The approach embraces uncertainty as an inherent
-characteristic of complex environmental systems [@lempert2010; @lempert2013] in an attempt
+characteristic of complex environmental systems [@lempert2010; @lempert2013] 
 to address limitations of calibrated ecosystem models that use a singular set of parameter
 values [@lubianabotelho2025]. Exploratory scenario modelling is a core methodology
 underpinning the development of robust and adaptive management strategies [@haasnoot2013].
 
 All data preparation, modelling and analyses were performed using the Julia programming
-language (The Julia Project; https://julialang.org/; [@bezanson2017]), with visualisations
+language [@bezanson2017], with visualisations
 created using the Makie plotting ecosystem [@danisch2021]. Code used to process DHW data and
 perform analyses involved in this investigation can be found at Grier and Iwanaga
 [-@grier2025].
@@ -292,7 +291,7 @@ perform analyses involved in this investigation can be found at Grier and Iwanag
 ### Connectivity modelling
 
 The coral larval connectivity model used in this study comprises 3D hourly velocities from
-the 1 km grid resolution hydrodynamic model (GBR-1 version 2.0) [@steven2019], as input to
+the 1 km grid resolution hydrodynamic model [GBR-1 version 2.0; @steven2019], as input to
 OceanParcels [@delandmeter2019], a particle tracking model. The connectivity model was used
 to simulate larval dispersal and settlement of broadcast-spawning Acropora corals in the
 GBR, following annual mass spawning events in 2015, 2016, 2018, 2019 and split-spawning
@@ -321,7 +320,7 @@ were generated for the spawning nights that were considered.
 
 Larval transition matrices indicate the probability of larval transfer between pairs of
 reefs in the GBR, herein referred to as connectivity strengths. Indicative connectivity
-strengths are implemented in ADRIA-CoralBlox as the mean of matrices for each location
+strengths are implemented in ADRIA-CoralBlox (described in the next section) as the mean of matrices for each location
 (i.e., mean of all 24 spawning days). While the connectivity strengths do not vary
 temporally within each ADRIA-CoralBlox simulation, spatial variability enables
 investigations into the influence of connectivity strength and its role in driving recovery
@@ -339,7 +338,9 @@ connections and low values indicating the target reef has weak (or no) incoming 
 or is supplied by small source populations. A limitation of weighted incoming connectivity
 is that it does not incorporate the proportion of the source reef's population that is
 reproducing and producing larvae, instead it takes total coral cover area as an indicator of
-larval productivity. Outgoing connection strength was calculated as the sum of all outgoing
+larval productivity. 
+
+Outgoing connection strength was calculated as the sum of all outgoing
 transition probabilities from a target reef. Outgoing connection strength has a theoretical
 maximum of one (all larvae reach settlement on sink reefs), however the large size of the
 GBR combined with larval mortality result in much lower outgoing connection strength values.
@@ -369,9 +370,9 @@ available space over time [@ribeirodealmeida2024].
 
 The coral demographic representation and associated model implementation are further
 detailed in the supplementary material. Of note is that the representation of bleaching
-mortalities followed Bozec et al., [-@bozec2022] albeit with a scaling coefficient to
+mortalities followed Bozec et al., [-@bozec2022] and  albeit with a scaling coefficient to
 incorporate the amelioration effect that depth may have, following Baird et al.,
-[@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
+[-@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
 heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
 Thorns Starfish or coral disease were not included in this investigation in order to focus
 on assessing reef resilience under possible future warming scenarios.
@@ -386,12 +387,12 @@ compared to pseudo-random sampling. A detailed comparative analysis of sampling 
 be found in [@kucherenko2015]. For scenario assessment, coral cover time series for each
 model run were scaled to represent cover as a percentage of the total estimated reef area.
 The scenario-median time series for each reef was used for further analyses. Time series of
-coral cover were then clustered based on their temporal behaviour. Assessment metrics used
+coral cover were then clustered based on their behaviour. Assessment metrics used
 in analyses can be found in @stbl-metrics.
 
 ### Time series clustering
 
-Reefs were clustered based on the temporal behaviour of their median coral cover time
+Reefs were clustered based on the behaviour of their median coral cover time
 series. Put simply, reefs that have similar trends and trajectories are more likely to be
 clustered together. Reefs are clustered into Low, Medium, or High, indicating their relative
 ability to maintain coral cover over time. Reefs in each time series cluster were compared
