@@ -861,11 +861,11 @@ scales are recommended.
 
 The authors acknowledge the Traditional Owners of the Sea Country on which the modelling was
 conducted for. The authors additionally acknowledge the Bindal, Jagera, and Ngunnawal
-Peoples on which the authors conducted the model development, analysis and writing. The
-authors acknowledge the contributions of Barbara Robson and Jessica Benthuysen for comments
-provided early in the manuscript preparation. The authors would like to additionally
-acknowledge and thank Shaun Wilson and Juan Carlos Ortiz for discussions around carbonate
-budget thresholds.
+Peoples, the lands on which the authors conducted the model development, analysis, and
+writing. The authors also acknowledge the contributions of Barbara Robson and Jessica
+Benthuysen for comments provided early in the manuscript preparation. The authors would like
+to additionally acknowledge and thank Shaun Wilson and Juan Carlos Ortiz for discussions
+around carbonate budget thresholds.
 
 This research was funded by the Reef Restoration and Adaptation Program and facilitated by
 the Australian Institute of Marine Science. The authors acknowledge thermal projection data
