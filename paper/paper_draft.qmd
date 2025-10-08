@@ -164,8 +164,10 @@ positive carbonate budgets under current projections of climate change.
 ## Reef definitions
 
 The spatial extent of reefs represented in this investigation follows reef definitions
-available via the Great Barrier Reef Marine Park Authority (GBRMPA). Reef definitions outline 3806 reefs
-across the GBR [@GBRMPA2022] (@fig-region-map). Prior analyses by Bozec et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef that were adopted by this study.
+available via the Great Barrier Reef Marine Park Authority (GBRMPA). Reef definitions
+outline 3806 reefs across the GBR [@GBRMPA2022] (@fig-region-map). Prior analyses by Bozec
+et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef that were
+adopted by this study.
 
 Depths for each reef were extracted using 10m resolution bathymetry data made available in
 GBRMPA [-@GBRMPA2020]. While the bathymetry data are said to be accurate up to 15m from Mean
@@ -272,21 +274,20 @@ fig-align="center" width="14.82cm"}
 
 An exploratory scenario modelling approach was adopted for this investigation. The method
 involves exploring a wide range of potential futures and model parameterisations under
-different assumptions of climatic and ecological conditions. Exploratory
-modelling approaches have gained favour in recent years to explore the implications of deep
+different assumptions of climatic and ecological conditions. Exploratory modelling
+approaches have gained favour in recent years to explore the implications of deep
 uncertainty; where there is little or no agreement on the key drivers of a system, the
 extent of the relationship, how best to represent them or their probability distributions
 [@conradt2024; @lempert2013]. The approach embraces uncertainty as an inherent
-characteristic of complex environmental systems [@lempert2010; @lempert2013] 
-to address limitations of calibrated ecosystem models that use a singular set of parameter
-values [@lubianabotelho2025]. Exploratory scenario modelling is a core methodology
-underpinning the development of robust and adaptive management strategies [@haasnoot2013].
+characteristic of complex environmental systems [@lempert2010; @lempert2013] to address
+limitations of calibrated ecosystem models that use a singular set of parameter values
+[@lubianabotelho2025]. Exploratory scenario modelling is a core methodology underpinning the
+development of robust and adaptive management strategies [@haasnoot2013].
 
 All data preparation, modelling and analyses were performed using the Julia programming
-language [@bezanson2017], with visualisations
-created using the Makie plotting ecosystem [@danisch2021]. Code used to process DHW data and
-perform analyses involved in this investigation can be found at Grier and Iwanaga
-[-@grier2025].
+language [@bezanson2017], with visualisations created using the Makie plotting ecosystem
+[@danisch2021]. Code used to process DHW data and perform analyses involved in this
+investigation can be found at Grier and Iwanaga [-@grier2025].
 
 ### Connectivity modelling
 
@@ -320,11 +321,11 @@ were generated for the spawning nights that were considered.
 
 Larval transition matrices indicate the probability of larval transfer between pairs of
 reefs in the GBR, herein referred to as connectivity strengths. Indicative connectivity
-strengths are implemented in ADRIA-CoralBlox (described in the next section) as the mean of matrices for each location
-(i.e., mean of all 24 spawning days). While the connectivity strengths do not vary
-temporally within each ADRIA-CoralBlox simulation, spatial variability enables
-investigations into the influence of connectivity strength and its role in driving recovery
-processes.
+strengths are implemented in ADRIA-CoralBlox (described in the next section) as the mean of
+matrices for each location (i.e., mean of all 24 spawning days). While the connectivity
+strengths do not vary temporally within each ADRIA-CoralBlox simulation, spatial variability
+enables investigations into the influence of connectivity strength and its role in driving
+recovery processes.
 
 To assess the impact of reef connectivity on modelled outcomes, connectivity was summarised
 by incoming connectivity (weighted incoming connectivity), outgoing connectivity (outgoing
@@ -338,23 +339,23 @@ connections and low values indicating the target reef has weak (or no) incoming 
 or is supplied by small source populations. A limitation of weighted incoming connectivity
 is that it does not incorporate the proportion of the source reef's population that is
 reproducing and producing larvae, instead it takes total coral cover area as an indicator of
-larval productivity. 
+larval productivity.
 
-Outgoing connection strength was calculated as the sum of all outgoing
-transition probabilities from a target reef. Outgoing connection strength has a theoretical
-maximum of one (all larvae reach settlement on sink reefs), however the large size of the
-GBR combined with larval mortality result in much lower outgoing connection strength values.
-The ratio of source-to-sink connectivity ($O:I$) for a target reef represents the strength
-of the reef's outgoing larval flow relative to it's incoming larval flow. This is calculated
-as: $O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum of connectivity
-probabilities, $N$ represents the number of connections, $O$ denotes outgoing connectivity
-from the target reef and $I$ denotes incoming connectivity to the target reef. If a reef has
-no incoming connections, the $O:I$ equals the $S_O/N_O$ value. Incoming connections in this
-calculation, do not directly represent the larval supply gained as the breeding populations
-from which connections are coming from are not represented. A source-to-sink ratio greater
-than 1 (a value greater than 0 on a log scale) indicates a reef has greater outgoing than
-incoming larval flow. Reef larval retention probability indicates the proportion of spawned
-larvae that settle on their natal reefs.
+Outgoing connection strength was calculated as the sum of all outgoing transition
+probabilities from a target reef. Outgoing connection strength has a theoretical maximum of
+one (all larvae reach settlement on sink reefs), however the large size of the GBR combined
+with larval mortality result in much lower outgoing connection strength values. The ratio of
+source-to-sink connectivity ($O:I$) for a target reef represents the strength of the reef's
+outgoing larval flow relative to it's incoming larval flow. This is calculated as:
+$O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum of connectivity probabilities,
+$N$ represents the number of connections, $O$ denotes outgoing connectivity from the target
+reef and $I$ denotes incoming connectivity to the target reef. If a reef has no incoming
+connections, the $O:I$ equals the $S_O/N_O$ value. Incoming connections in this calculation,
+do not directly represent the larval supply gained as the breeding populations from which
+connections are coming from are not represented. A source-to-sink ratio greater than 1 (a
+value greater than 0 on a log scale) indicates a reef has greater outgoing than incoming
+larval flow. Reef larval retention probability indicates the proportion of spawned larvae
+that settle on their natal reefs.
 
 ### Scenario modelling
 
@@ -370,7 +371,7 @@ available space over time [@ribeirodealmeida2024].
 
 The coral demographic representation and associated model implementation are further
 detailed in the supplementary material. Of note is that the representation of bleaching
-mortalities followed Bozec et al., [-@bozec2022] and  albeit with a scaling coefficient to
+mortalities followed Bozec et al., [-@bozec2022] and albeit with a scaling coefficient to
 incorporate the amelioration effect that depth may have, following Baird et al.,
 [-@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
 heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
@@ -384,19 +385,19 @@ coral thermal tolerances. Scenarios were generated using the low-discrepancy Sob
 method [@sobol1967; @sobol1993] with Owen Scrambling [@owen1995], a randomised Quasi Monte
 Carlo approach which balances scenario exploration with improved convergence properties
 compared to pseudo-random sampling. A detailed comparative analysis of sampling methods can
-be found in [@kucherenko2015]. For scenario assessment, coral cover time series for each
-model run were scaled to represent cover as a percentage of the total estimated reef area.
-The scenario-median time series for each reef was used for further analyses. Time series of
-coral cover were then clustered based on their behaviour. Assessment metrics used
-in analyses can be found in @stbl-metrics.
+be found in [@lecuyer2018; @kucherenko2015]. For scenario assessment, coral cover time
+series for each model run were scaled to represent cover as a percentage of the total
+estimated reef area. The scenario-median time series for each reef was used for further
+analyses. Time series of coral cover were then clustered based on their behaviour.
+Assessment metrics used in analyses can be found in @stbl-metrics.
 
 ### Time series clustering
 
-Reefs were clustered based on the behaviour of their median coral cover time
-series. Put simply, reefs that have similar trends and trajectories are more likely to be
-clustered together. Reefs are clustered into Low, Medium, or High, indicating their relative
-ability to maintain coral cover over time. Reefs in each time series cluster were compared
-to identify characteristics that differ between Low, Medium and High clusters. These
+Reefs were clustered based on the behaviour of their median coral cover time series. Put
+simply, reefs that have similar trends and trajectories are more likely to be clustered
+together. Reefs are clustered into Low, Medium, or High, indicating their relative ability
+to maintain coral cover over time. Reefs in each time series cluster were compared to
+identify characteristics that differ between Low, Medium and High clusters. These
 characteristics include reef median depth, mean time series DHW, weighted incoming
 connectivity, outgoing connection strength, ratio of source-to-sink larval connectivity,
 larval retention probability and reef carrying capacity (coral habitable area).
@@ -414,9 +415,8 @@ was conducted at three spatial scales: (1) the whole of GBR; (2) each GBR manage
 and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were
 conducted at the different spatial scales as, conceptually, the temporal behaviour
 constituting "low", "medium" or "high" coral cover may differ at different spatial scales.
-As it was, analyses at the whole-of-GBR scale were found to lead to identical conclusions
-regarding reef characteristics which influence coral cover and so for brevity are not shown
-here.
+Analyses at the whole-of-GBR scale were found to lead to identical conclusions regarding
+reef characteristics which influence coral cover and so for brevity are not shown here.
 
 To compare time series clustering results across GCMs, management area scale clustering
 results are used to preserve coarse scale latitudinal differences between regions, while
@@ -437,7 +437,7 @@ predictors, including the estimated median reef depth, mean DHW for the given GC
 log10-weighted incoming connectivity, outgoing connectivity, and log10-transformed
 outgoing-to-incoming connectivity ratio. Conceptually, PDA is related to a Regional
 Sensitivity Analysis [@hornberger1981; @pianosi2016], as model results are assessed to map
-the influence of X - the predictors or model factors - on Y - the modelled outcomes
+the influence of $X$ - the predictors or model factors - on $y$ - the modelled outcomes
 according to a metric of interest.
 
 The full dataset consisted of the time series cluster assignment for each of the 2197 reefs
@@ -606,9 +606,9 @@ aligns with the right-skewed distribution of carrying capacity across reefs for 
 predictor variables. Beyond this low-end range, partial dependence becomes near constant,
 indicating outlier values for these factors are not influential. Assessing random forest
 prediction accuracy across bioregions, reveals increasing performance as mean bioregion reef
-depth increases (@sfig-rf-predictor-perf). This highlights that unexplained variation in the
-test dataset (33% of variation) may be concentrated in shallow bioregions where available
-model predictors do not capture differences between clustered reefs.
+depth increases (@sfig-rf-predictor-perf). Unexplained variation in the test dataset (33% of
+variation) may be concentrated in shallow bioregions where considered model predictors do
+not capture differences between clustered reefs.
 
 ## Reef carbonate budget
 
@@ -638,51 +638,54 @@ fig-align="center" width="14.82cm"}
 
 # Discussion
 
-This investigation's results show increasing reef depth has a strong positive impact on
-modelled reef resilience in temporal behaviour and maintenance of positive carbonate budgets
-under possible future conditions. Reefs with a median depth of 10m or greater, with high
-incoming connectivity, are the most likely to be assigned to a high cover time series
-cluster. By itself, incoming connectivity alone does not correlate with maintenance of
-positive carbonate budgets. These findings highlight the importance of depth and incoming
-connectivity as coupled selection features when assessing potential reef resilience under
-future thermal stress.
+Results show increasing reef depth has a strong positive impact on modelled reef resilience
+in temporal behaviour and maintenance of positive carbonate budgets under possible future
+conditions. Reefs with a median depth of 10m or greater, with high incoming connectivity,
+are the most likely to be assigned to a high cover time series cluster. By itself, incoming
+connectivity alone does not correlate with maintenance of positive carbonate budgets. These
+findings highlight the importance of depth and incoming connectivity as coupled selection
+features when assessing potential reef resilience under future thermal stress.
 
 Reefs in different temporal clusters largely do not differ in mean modelled DHW levels
 experienced and exhibit overall similar DHW time series. While reefs experience similar
 magnitude DHWs based on SST, the proportion of a reefs' coral population impacted by heat
 stress events depends on reef depth. Results of this investigation suggest that for
 non-mesophotic reef ecosystems (i.e., \< 30m), depth contributes greatly to reef resilience
-and maintenance positive carbonate budgets under future conditions. Movement of shallow
-reefs towards negative carbonate budgets in the future may contribute to phase shifts in
-reef dominant CaCO~3~ production. Shifting from coral driven to encrusting algae driven
+and maintenance positive carbonate budgets under future conditions.
+
+Movement of shallow reefs towards negative carbonate budgets in the future may contribute to
+phase shifts in dominant sources of CaCO~3~ production. Reefs may switch away from
+coral-driven processes, and CaCO~3~ accretion, to encrusting algae driven CaCO~3~
 production, or to bioerosion dominated systems with rapid erosion of physical reef
 frameworks [@dudgeon2010; @perry2008]. Reefs at increased depths may be able to maintain
-coral driven CaCO~3~ production and accumulation into the future for longer. Spatially these
-results indicate that regions of positive carbonate budget maintenance, under ACCESS-ESM1-5,
-and high depth levels were concentrated in the Far Northern, offshore Townsville/Whitsunday,
-and Mackay/Capricorn management areas (@sfig-depth-map; @sfig-carb-budget-map). Resilient
-reefs in the Far Northern management area were exposed to lower mean DHW levels than other
-reefs under ACCESS-ESM1-5 (@sfig-mean-dhw-map), however similar spatial patterns were
-observed across GCMs for reefs clustered into the high cover cluster
-(@sfig-gcm-cluster-map). Spatial findings are not interpreted as accurate predictions of
-future resilience due to high uncertainty in input data, particularly depth and
-connectivity. While similar findings have been demonstrated in the Pacific [@smith2014;
-@baird2018] and Indo-Pacific [@bridge2014] regions, depth refugia analyses have often
-focused on the potential of mesophotic reefs (\> 30m deep) as thermal refugia
-[@bongaerts2010; @holstein2015; @semmler2017]. In contrast, Venegas et al. [-@venegas2019]
-found no association between depth and the alleviation of heat stress across a range of
-shallow reefs in the Pacific.
+coral driven CaCO~3~ production and accumulation into the future for longer.
 
-The results of this investigation support the hypothesis that reefs at greater depths will
-exhibit characteristics of refugia and prolonged resilience (in terms of coral cover) under
-climate change compared to shallower reefs. Additionally, Liu, Callaghan and Baldock
-[-@liu2024] suggest that rubble instability is inversely correlated with reef depth,
-possibly limiting juvenile coral recruitment capacity of shallow reefs. A caveat to
-depth-resilience findings is the quality of the bathymetry data used to calculate median
-reef depth. As detailed previously, estimates of median reef depth are derived from
-satellite imagery (at $10m^2$ resolution) which can be subject to high degrees of
-uncertainty, both in terms of the estimated depth for each pixel as well as their alignment
-to the established GBRMPA reef outlines.
+Spatially, these results indicate that regions of positive carbonate budget maintenance,
+under ACCESS-ESM1-5, and high depth levels were concentrated in the Far Northern, offshore
+Townsville/Whitsunday, and Mackay/Capricorn management areas (@sfig-depth-map;
+@sfig-carb-budget-map). Resilient reefs in the Far Northern management area were exposed to
+lower mean DHW levels than other reefs under ACCESS-ESM1-5 (@sfig-mean-dhw-map), however
+similar spatial patterns were observed across GCMs for reefs clustered into the high cover
+cluster (@sfig-gcm-cluster-map).
+
+These findings are not to be interpreted as accurate predictions of future resilience due to
+high uncertainty in input data, particularly depth and connectivity. While similar findings
+have been demonstrated in the Pacific [@smith2014; @baird2018] and Indo-Pacific
+[@bridge2014] regions, depth refugia analyses have often focused on the potential of
+mesophotic reefs (\> 30m deep) as thermal refugia [@bongaerts2010; @holstein2015;
+@semmler2017]. In contrast, Venegas et al. [-@venegas2019] found no association between
+depth and the alleviation of heat stress across a range of shallow reefs in the Pacific.
+
+This investigation supports the hypothesis that reefs at greater depths will exhibit
+characteristics of refugia and prolonged resilience (in terms of coral cover) under climate
+change compared to shallower reefs. Additionally, Liu, Callaghan and Baldock [-@liu2024]
+suggest that rubble instability is inversely correlated with reef depth, possibly limiting
+juvenile coral recruitment capacity of shallow reefs. A caveat to depth-resilience findings
+is the quality of the bathymetry data used to calculate median reef depth. As detailed
+previously, estimates of median reef depth are derived from satellite imagery (at 10m^2^
+resolution) which can be subject to high degrees of uncertainty, both in terms of the
+estimated depth for each pixel as well as their alignment to the established GBRMPA reef
+outlines.
 
 Current reef restoration and intervention efforts across the GBR, such as deployment of
 coral seeding, coral fragment devices and Crown of Thorns Starfish control, target reefs
@@ -711,7 +714,7 @@ parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods, 
 considering the influence of reef depth on resilience. Using updated 1km^2^ resolution
 larval connectivity across the whole GBR, with a limited temporal sample of particle flows,
 it was found that larval connectivity alone may not be important or reef resilience and
-recovery, but should be considered in combination with more influential factors such as
+recovery but should be considered in combination with more influential factors such as
 depth.
 
 Findings on the importance of connectivity likely differ from literature due to the highly
