@@ -371,12 +371,12 @@ available space over time [@ribeirodealmeida2024].
 
 The coral demographic representation and associated model implementation are further
 detailed in the supplementary material. Of note is that the representation of bleaching
-mortalities followed Bozec et al., [-@bozec2022] and albeit with a scaling coefficient to
-incorporate the amelioration effect that depth may have, following Baird et al.,
-[-@baird2018]. This depth-scaling reduces the proportion of coral colonies impacted by high
-heat stress as depth increases. The impacts of tropical cyclones, wave activity, Crown of
-Thorns Starfish or coral disease were not included in this investigation in order to focus
-on assessing reef resilience under possible future warming scenarios.
+mortalities followed Bozec et al., [-@bozec2022] and Baird et al. [-@baird2018] which
+applies a scaling coefficient to incorporate the amelioration effect that depth may have.
+This depth-scaling reduces the proportion of coral colonies impacted by high heat stress as
+depth increases. The impacts of tropical cyclones, wave activity, Crown of Thorns Starfish
+or coral disease were not included in this investigation in order to focus on assessing reef
+resilience under possible future warming scenarios.
 
 ADRIA-CoralBlox was run for 4096 scenarios for each GCM (20,480 total model runs). Here, a
 scenario represents a unique combination of assumed environmental (namely one of the five
@@ -605,7 +605,7 @@ assignment is concentrated at the low range of predictor values (@fig-ts-cluster
 aligns with the right-skewed distribution of carrying capacity across reefs for these three
 predictor variables. Beyond this low-end range, partial dependence becomes near constant,
 indicating outlier values for these factors are not influential. Assessing random forest
-prediction accuracy across bioregions, reveals increasing performance as mean bioregion reef
+prediction accuracy across bioregions reveals increasing performance as mean bioregion reef
 depth increases (@sfig-rf-predictor-perf). Unexplained variation in the test dataset (33% of
 variation) may be concentrated in shallow bioregions where considered model predictors do
 not capture differences between clustered reefs.
@@ -660,7 +660,7 @@ production, or to bioerosion dominated systems with rapid erosion of physical re
 frameworks [@dudgeon2010; @perry2008]. Reefs at increased depths may be able to maintain
 coral driven CaCO~3~ production and accumulation into the future for longer.
 
-Spatially, these results indicate that regions of positive carbonate budget maintenance,
+Spatially these results indicate that regions of positive carbonate budget maintenance,
 under ACCESS-ESM1-5, and high depth levels were concentrated in the Far Northern, offshore
 Townsville/Whitsunday, and Mackay/Capricorn management areas (@sfig-depth-map;
 @sfig-carb-budget-map). Resilient reefs in the Far Northern management area were exposed to
@@ -1093,13 +1093,11 @@ stress, as temperatures below the seasonal maximum do not contribute to bleachin
 
 The CoralBlox model incorporates linear extension (growth) and background mortality rates
 that are dependent on the size and functional group of a coral colony. Environmental
-disturbances and reproduction are not directly considered within CoralBlox. Instead, these
-factors are considered by making changes to the distribution of colonies within CoralBlox
-timesteps using the ADRIA (Adaptive Dynamic Reef Intervention Algorithms) platform
-[@iwanaga2023]. Within ADRIA, we incorporate coral life history and environmental events in
+disturbances and reproduction are not directly considered within CoralBlox, and are instead
+provided by the ADRIA (Adaptive Dynamic Reef Intervention Algorithms) platform
+[@iwanaga2023]. Within ADRIA, coral life history and environmental events are implemented in
 the following order: coral colony growth; coral reproduction; larval connectivity and
-settlement; and coral bleaching due to heat stress. As ADRIA and CoralBlox are coupled
-together to represent the system, we refer to both as ADRIA-CoralBlox.
+settlement; and coral bleaching due to heat stress.
 
 Coral fecundity rates are dependent on colony size and functional group following the
 results of Hall & Hughes [-@hall1996]. Coral fertilization rates are not considered within
@@ -1107,8 +1105,55 @@ this model, however larval survival and viability are incorporated in connectivi
 (see Connectivity modelling). Viable larvae settle at a reef location and are incorporated
 into the model as the smallest size class but are not directly impacted by modelled
 bleaching mortality. There has been contrasting evidence for juvenile corals being immune to
-thermal bleaching events [@depczynski2013], we assume the high background mortality of
+thermal bleaching events [@depczynski2013], it is assumed the high background mortality of
 juveniles includes thermal stress [@álvarez-noriega2018].
+
+### Model implementation
+
+ADRIA-CoralBlox implements five functional groups common to the GBR, tabular Acropora,
+corymbose Acropora, corymbose non-Acropora, small massives and large massives. CoralBlox
+uses user-defined size classes that influence size-dependent growth and mortality rates,
+through which the coral colonies progress as they grow in diameter. Size classes were
+initially informed by Bozec et al. [-@bozec2022].
+
+The area of each coral colony is tracked in CoralBlox by the area of a circumference. A
+coral population is then represented by a discretised distribution of **eq** coral
+diameters, composed of smaller uniform distributions, each representing the number of corals
+within a certain diameter range:
+
+**eq**
+
+where **eq** represents the number of intervals used to discretise **eq**, and **eq** and
+**eq** are the diameters of the smallest and biggest coral colonies, in that order. The
+coral cover for the entire population is given by:
+
+**eq**
+
+These are uniform distributions that compose **eq**, a coral block characteristed by a
+diameter density **eq** (the block's height) and a diameter range **eq** (the base of the
+block). Therefore, instead of working with a continuous diameter's distribution, CoralBlox
+updates each coral block separately. A mortality event is modelled as a decrease in a coral
+block's density, and a growth event as an increase in a coral block's diameter range limits.
+Both growth and mortality rates are size class dependent, which means the same growth and
+mortality rates are used for blocks within a size class. Figure S14 shows a model's
+behaviour under low disturbance and no interventions.
+
+![Time series comparing modelled and observed relative coral cover for Ben reef showing a
+recovery process under very low disturbance and no interventions. The observed data used
+here is from the AIMS Long-Term Monitoring Program (LTMP). Error metrics including Root Mean
+Square Error (0.06) and the Spearman Rank Correlation Coefficient (0.9) is also shown. The
+second plot shows the DHW and Cyclone or COTS events. The third plot shows the benthic
+composition for each functional group as a proportion of the reef’s cover at each
+year.](../figs/coralblox_reef_example.png){#sfig-coralblox-example width fig-align="center"
+width="14.82cm"}
+
+In ADRIA we track the thermal tolerance of each functional group and size class as a
+truncated normal distribution that is updated in each timestep following growth and
+recruitment. This distribution determines the proportion of the population on a reef that is
+susceptible to bleaching (i.e. has a thermal threshold below the experienced DHW value).
+Starting distributions for thermal tolerance levels are informed by Bairos-Novak et al.
+[-@bairos-novak2021] and expert opinion, and are additionally varied in the scenario
+exploration.
 
 ### Scenario generation
 
@@ -1118,65 +1163,19 @@ low-discrepancy Sobol' sampling method [@sobol1967; @sobol1993] with Owen scramb
 factors were sampled using a +/- 10% range relative to their nominal (assumed best guess)
 value.
 
-### Model parameterisation
+### Sensitivity analysis
 
-In this investigation we model five functional groups common to the GBR, tabular Acropora,
-corymbose Acropora, corymbose non-Acropora, small massives and large massives. We do not
-model arborescent Acropora forms due to their distinct life history from other morphological
-groups. CoralBlox uses user-defined size classes that influence size-dependent growth and
-mortality rates, through which the coral colonies progress as they grow in diameter. Within
-ADRIA, we define the distributions of these parameters, and the size classes based on
-ecological monitoring data from the Ecological Intelligence for Reef Restoration Program
-(EcoRRAP) ([@australianinstituteofmarinescience2025; @ribeirodealmeida2024]).
-
-In ADRIA we track the thermal tolerance of each functional group and size class as a
-truncated normal distribution that is updated in each timestep following growth and
-recruitment. This distribution determines the proportion of the population on a reef that is
-susceptible to bleaching (i.e. has a thermal threshold below the experienced DHW value).
-Starting distributions for thermal tolerance levels are informed by Bairos-Novak et al.
-[-@bairos-novak2021].
-
-### Calibration
-
-The growth and mortality rate parameters of ADRIA-CoralBlox were calibrated using hard coral
-cover and benthic composition data from the Long-Term Monitoring Program (LTMP). From all
-the reefs for which there is LTMP data available, 99 were selected for having at least 4
-observations that span more than 10 years. These locations were randomly split into a
-calibration set (with 73 reefs) and a validation set (with 26 reefs), as evenly spatially
-distributed as possible. The error function used in the calibration process is composed of
-three elements [@eq-calibration]. The first is a Mean Absolute Exponential Error ($MAEE$)
-that captures the difference between modeled and observed hard coral cover. The second is a
-Coral Composition Error ($CCE$) that captures the differences in the benthic composition
-between modeled and observed coral cover. The third ($Err~p~$) is an error that emphasizes
-differences between observed and modelled cover at the beginning and end of the series, as
-well as on peaks and troughs:
-
-$$
-err = MAEE_\sigma_  *  w_1_  +  CEE_t_  *  w_c_  +  Err_p_  *  w_p_
-$$ {#eq-calibration}
-
-[@sfig-reef-scale-calibration] shows a comparison between modeled and observed relative
-coral cover for 6 reefs with distinct disturbance patterns. For each one, a Root Mean Square
-Error (RMSE), the MAEE and Spearman’s Rank Correlation Coefficient (SRCC) is also shown.
-[@sfig-man-area-calibration] presents another comparison between observed and modeled hard
-coral cover aggregated by GBRMPA management area.
-
-![Time series comparing modelled and observed relative coral cover for selected validation
-reefs. These reefs were selected to show distinct disturbance patterns and behaviors. reefs
-(a) and (b), with low heat stress and a single disturbance at the beginning, show the
-model’s ability of reproducing the reef’s recovery under low or no disturbance; reefs (c)
-and (d), with moderate to high heat stress and disturbance events in the middle of the
-considered timeframe, show the model’s ability to reproduce disturbances reasonably well but
-some difficulty in representing the post-disturbance recovery ; reefs (e) and (f) illustrate
-the challenge of reproducing the observed behavior in a high disturbance
-scenario.](../figs/reef_scale_calibration.png){#sfig-reef-scale-calibration
-fig-align="center" width="14.82cm"}
-
-![Comparison between observed and modelled coral relative cover aggregated, for each GBRMPA
-management area, for the calibration set (first row) and validation set (second row). For
-each one the aggregated RMSE and MAE are
-presented.](../figs/management_area_calibration.png){#sfig-man-area-calibration
-fig-align="center" width="14.82cm"}
+A global sensitivity analysis was performed using Shapley Effects **goda etal** implemented
+in the SAShE.jl package **SAShE citation**. For this analysis, 10,000 samples were simulated
+for a single reef and timestep. Two metrics were considered, difference in coral cover and
+difference in evenness. The factors analysed were heritability, mean colony diameter, linear
+extension, mortality base rate, mean and standard deviation of the tolerance distribution,
+linear extension scale factor, mortality rate scale factor reef habitable area, reef depth,
+DHW, and initial coral cover. @sfig-coralblox-sa shows the result of such analysis for
+different ranges of DHW. In both cases a similar effect takes place: when DHW = 0, initial
+cover is the most influential factor then, when DHW \> 0, depth and DHW start to appear as
+influential factors and, as DHW values get higher, depth becomes more influential in
+detriment of DHW.
 
 ### Time series clustering
 
