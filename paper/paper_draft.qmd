@@ -237,7 +237,7 @@ conducted for all 2197 reefs to create DHW projections spanning from 2025 to 207
 
 ::: {#tbl-gcms}
 | Global Climate Model source | ECS value (°C)     | Interpreted relative severity | Results found in |
-|-----------------------|-----------------------|------------------------|-----------------------|
+|-----------------------|-----------------------|-----------------------|-----------------------|
 | ACCESS-CM2                  | 4.66 [@grose2023]  | High                          | [@grier2025]     |
 | EC-Earth3-Veg               | 4.30 [@wyser2020]  | High                          | [@grier2025]     |
 | GFDL-CM4                    | 4.1 [@sentman2025] | High                          | [@grier2025]     |
@@ -708,13 +708,13 @@ Findings on the importance of connectivity likely differ from literature due to 
 uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023], the
 way larval flows and juvenile recruitment are implemented in ADRIA - CoralBlox, and the
 magnitude of early bleaching events decreasing the breeding capacity of strongly connected
-reefs. Analysing daily connectivity data Vogt-Vincent, Mitarai and Johnson [-@vogt-vincent2023] suggest
-that time-mean connectivity may not be suitable for capturing the seasonal - ecological time
-scale connectivity between locations due to high daily variability in connectivity data.
-Connectivity matrices used in this investigation have large relative standard deviations for
-larval transition probabilities between reefs over the 24 days used
-(@sfig-connectivity-rsd). Using alternative summarisation methods that capture
-ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
+reefs. Analysing daily connectivity data Vogt-Vincent, Mitarai and Johnson
+[-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for capturing
+the seasonal - ecological time scale connectivity between locations due to high daily
+variability in connectivity data. Connectivity matrices used in this investigation have
+large relative standard deviations for larval transition probabilities between reefs over
+the 24 days used (@sfig-connectivity-rsd). Using alternative summarisation methods that
+capture ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
 connectivity [@vogt-vincent2023], future investigations may find increased importance of
 both depth and reef connectivity for resilience, in line with other investigations
 [@hock2017; @torres2024]. Choukroun et al [-@choukroun2025] performed a comparison of three
@@ -1147,8 +1147,8 @@ here is from the AIMS Long-Term Monitoring Program (LTMP) . Error metrics includ
 Mean Square Error (0.06) and the Spearman Rank Correlation Coefficient (0.9) is also shown.
 The second plot shows the DHW and Cyclone or COTS events. The third plot shows the benthic
 composition for each functional group as a proportion of the reef’s cover at each
-year.](../figs/coralblox_reef_example.png){#sfig-coralblox-example
-fig-align="center" width="14.82cm"}
+year.](../figs/coralblox_reef_example.png){#sfig-coralblox-example fig-align="center"
+width="14.82cm"}
 
 In ADRIA we track the thermal tolerance of each functional group and size class as a
 truncated normal distribution that is updated in each timestep following growth and
@@ -1185,8 +1185,8 @@ sampling of different DHW ranges. The first column represents model runs with DH
 the remaining columns represent models runs with DHW valued between 0 and 8, 8 and 16, 16
 and 30, and 0 and 30. The first row shows the Shapley effect for change in coral cover and
 the second for change in evenness of species
-abundance.](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa
-fig-align="center" width="14.82cm"}
+abundance.](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa fig-align="center"
+width="14.82cm"}
 
 ### Time series clustering
 
