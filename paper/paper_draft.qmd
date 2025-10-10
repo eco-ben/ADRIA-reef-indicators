@@ -158,16 +158,16 @@ et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef
 adopted by this study.
 
 Depths for each reef were extracted using 10m resolution bathymetry data made available in
-GBRMPA [-@GBRMPA2020]. While the bathymetry data are said to be accurate up to 15m from Mean
+GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched with the 3806
+reef outlines through geometric intersection. All depth values were converted to positive
+values (depths below sea level). The median depth was used to provide an indicative depth
+value for each reef. While the bathymetry data are said to be accurate up to 15m from Mean
 Sea Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimates used
-for this study. Notably, bathymetry data were derived from satellite imagery. The bathymetry
-data can be limited in their alignment with the established GBRMPA reef outlines used to
-characterise reef locations and their areal extent. For each reef, bathymetry data were
-spatially matched with the 3806 reef outlines through geometric intersections. All depth
-values were converted to positive values (depths below sea level). The median depth was used
-to provide an indicative depth value for each reef. Further limitations are outlined in the
-Discussion. Code to extract depth estimates, and the resulting depth estimates themselves,
-are available at [@iwanaga2025].
+for this study. Notably, bathymetry data were derived from satellite imagery and can be
+limited in their alignment with the established GBRMPA reef outlines used to characterise
+reef locations and their areal extent. Further limitations are outlined in the Discussion.
+Code to extract depth estimates, and the resulting depth estimates themselves, are available
+at [@iwanaga2025].
 
 A Quality Assessment and Control process identified reefs with potential data limitations:
 reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
