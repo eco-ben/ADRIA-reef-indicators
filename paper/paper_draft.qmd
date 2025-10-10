@@ -711,7 +711,7 @@ Findings on the importance of connectivity likely differ from literature due to 
 uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023], the
 way larval flows and juvenile recruitment are implemented in ADRIA - CoralBlox, and the
 magnitude of early bleaching events decreasing the breeding capacity of strongly connected
-reefs. Analysing daily connectivity data Vogt-Vincent et al. [-@vogt-vincent2023] suggest
+reefs. Analysing daily connectivity data Vogt-Vincent, Mitarai and Johnson [-@vogt-vincent2023] suggest
 that time-mean connectivity may not be suitable for capturing the seasonal - ecological time
 scale connectivity between locations due to high daily variability in connectivity data.
 Connectivity matrices used in this investigation have large relative standard deviations for
@@ -813,7 +813,7 @@ false positives, where features identified as reefs were sand banks or rocky ree
 than coral reefs). Reefs with bathymetry data covering less than 5% of their indicative area
 were excluded from analyses (see @sfig-depth-cutoff). Existing GBRMPA reef outlines were
 adopted to align with other ongoing modelling and analyses conducted as part of the Reef
-Restoration and Adaptation Program (<https://gbrrestoration.org>; [@thereef]).
+Restoration and Adaptation Program (<https://gbrrestoration.org>; RRAP [-@thereef]).
 
 The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
 one, a formal mechanistic and spatial validation of the model represents an area for future
@@ -1064,7 +1064,7 @@ data, the Monthly Mean SST climatology was calculated by computing the mean SST 
 each calendar month (January through December) across the 28-year baseline period from 1985
 to 2012. For each month separately, this climatological baseline was adjusted to centre at
 year 1988.2857, which attempts to account for any long-term trends within the baseline years
-themselves (see Skirving et al. [@skirving2020]). The adjustment ensures that the
+themselves (see Skirving et al. [-@skirving2020]). The adjustment ensures that the
 climatology represents conditions at a specific temporal reference point rather than being
 influenced by gradual warming or cooling trends that may have occurred during the 1985-2012
 period. The resulting monthly climatologies serve as a standardized reference against which
@@ -1150,8 +1150,8 @@ here is from the AIMS Long-Term Monitoring Program (LTMP) . Error metrics includ
 Mean Square Error (0.06) and the Spearman Rank Correlation Coefficient (0.9) is also shown.
 The second plot shows the DHW and Cyclone or COTS events. The third plot shows the benthic
 composition for each functional group as a proportion of the reef’s cover at each
-year.](../figs/coralblox_reef_example.png){#sfig-coralblox-example width fig-align="center"
-width="14.82cm"}
+year.](../figs/coralblox_reef_example.png){#sfig-coralblox-example
+fig-align="center" width="14.82cm"}
 
 In ADRIA we track the thermal tolerance of each functional group and size class as a
 truncated normal distribution that is updated in each timestep following growth and
@@ -1188,8 +1188,8 @@ sampling of different DHW ranges. The first column represents model runs with DH
 the remaining columns represent models runs with DHW valued between 0 and 8, 8 and 16, 16
 and 30, and 0 and 30. The first row shows the Shapley effect for change in coral cover and
 the second for change in evenness of species
-abundance.](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa width fig-align="center"
-width="14.82cm"}
+abundance.](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa
+fig-align="center" width="14.82cm"}
 
 ### Time series clustering
 
