@@ -1117,26 +1117,40 @@ through which the coral colonies progress as they grow in diameter. Size classes
 initially informed by Bozec et al. [-@bozec2022].
 
 The area of each coral colony is tracked in CoralBlox by the area of a circumference. A
-coral population is then represented by a discretised distribution of **eq** coral
+coral population is then represented by a discretised distribution of $p(x)$ coral
 diameters, composed of smaller uniform distributions, each representing the number of corals
 within a certain diameter range:
 
-**eq**
+$$
+\rho(x) =
+\begin{cases}
+\lambda_1, & d_0 < x < d_1 \\
+\vdots & \vdots \\
+\lambda_N, & d_{N-1} < x < d_N \\
+0, & x \notin [d_0, d_N]
+\end{cases}
+$$
 
-where **eq** represents the number of intervals used to discretise **eq**, and **eq** and
-**eq** are the diameters of the smallest and biggest coral colonies, in that order. The
-coral cover for the entire population is given by:
+where $N$ represents the number of intervals used to discretise $p(x)$, and $d_0$ and $d_N$
+are the diameters of the smallest and biggest coral colonies, in that order. The coral cover
+for the entire population is given by:
 
-**eq**
+$$
+\begin{aligned}
+C &= \int_{d_0}^{d_N} \pi x^2 \rho(x) \, dx \\
+  &= \sum_{n=1}^{N} \pi \lambda_n \int_{d_{n-1}}^{d_n} x^2 \, dx \\
+  &= \sum_{n=1}^{N} \pi \lambda_n \left( \frac{d_n^3 - d_{n-1}^3}{3} \right)
+\end{aligned}
+$$
 
-These are uniform distributions that compose **eq**, a coral block characteristed by a
-diameter density **eq** (the block's height) and a diameter range **eq** (the base of the
-block). Therefore, instead of working with a continuous diameter's distribution, CoralBlox
-updates each coral block separately. A mortality event is modelled as a decrease in a coral
-block's density, and a growth event as an increase in a coral block's diameter range limits.
-Both growth and mortality rates are size class dependent, which means the same growth and
-mortality rates are used for blocks within a size class. Figure S14 shows a model's
-behaviour under low disturbance and no interventions.
+These are uniform distributions that compose $p(x)$, a coral block characteristed by a
+diameter density $\lambda_n$ (the block's height) and a diameter range $[d_{n-1},d_n]$ (the
+base of the block). Therefore, instead of working with a continuous diameter's distribution,
+CoralBlox updates each coral block separately. A mortality event is modelled as a decrease
+in a coral block's density, and a growth event as an increase in a coral block's diameter
+range limits. Both growth and mortality rates are size class dependent, which means the same
+growth and mortality rates are used for blocks within a size class. @sfig-coralblox-example
+shows a model's behaviour under low disturbance and no interventions.
 
 ![Time series comparing modelled and observed relative coral cover for Ben reef showing a
 recovery process under very low disturbance and no interventions. The observed data used
