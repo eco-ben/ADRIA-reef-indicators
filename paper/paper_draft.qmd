@@ -34,25 +34,22 @@ author:
           name: Australian Institute of Marine Science
           address: Townsville, Queensland, Australia
 abstract: |
-    Coral reefs globally face unprecedented threats from climate change, with the Great 
-    Barrier Reef (GBR) experiencing cumulative stressors and increasingly severe declines 
-    in coral cover from thermal stress events. Understanding drivers behind reef resilience 
-    to climate impacts is critical for conservation planning and intervention strategies. A 
-    scenario-based population modelling approach was adopted with larval connectivity dynamics, 
-    thermal adaptation, and environmental factors to assess coral reef resilience across GBR 
-    locations under future climate projections. Using five Global Climate Models (GCMs) 
-    spanning five Equilibrium Climate Sensitivities,  reefs were analysed for coral cover 
-    time series and their ability of reefs to maintain positive carbonate production budgets 
-    under future conditions. Contrary to expectations, larval connectivity patterns did not 
-    correlate with increases in maintenance of positive carbonate budgets. Instead, reef depth 
-    emerged as the primary predictor of cover-time series resilience and maintenance of positive 
-    carbonate budgets, with deeper reefs benefiting from thermal refugia that reduce bleaching 
-    impacts. These findings suggest that depth provides critical 
-    protection against thermal stress, contrasting current intervention practices that primarily target easily 
-    accessible sites in the 1-10m depth range. These results have important implications 
-    for reef management, indicating that depth refugia should be prioritized for further 
-    consideration in conservation planning alongside connectivity modelling advancements 
-    to maximize coral survival under continuing climate change. 
+    Coral reefs globally face unprecedented threats from climate change, with the Great
+    Barrier Reef (GBR) experiencing cumulative stressors and increasingly severe declines
+    in coral cover from thermal stress events. Understanding drivers behind reef resilience
+    to climate impacts is critical for conservation planning and intervention strategies. A
+    scenario-based population modelling approach was adopted with larval connectivity dynamics and
+    environmental factors to assess coral reef resilience across the GBR using projected conditions under
+    five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities. Projected coral
+    cover were analysed for each reefs ability to maintain positive carbonate production budgets under
+    future conditions using coral cover as a proxy. Larval connectivity patterns did not correlate with
+    increases in maintenance of positive carbonate budgets. Instead, reef depth emerged as the primary
+    predictor, with deeper reefs benefitting from thermal refugia that reduce bleaching impacts. These
+    findings suggest that depth is a tangible and pragmatic reef characteristic to consider in future
+    intervention practices for coral reef restoration. These results have important implications for reef
+    management, indicating that depth refugia should be prioritized for further consideration in
+    conservation planning to maximize coral survival under continuing climate change.
+
 keywords:
   - Coral reef
   - Climate change
