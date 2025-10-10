@@ -1183,6 +1183,14 @@ place: when DHW = 0, initial cover is the most influential factor then, when DHW
 and DHW start to appear as influential factors and, as DHW values get higher, depth becomes
 more influential in detriment of DHW.
 
+![Parametric sensitivity analysis conducted with Shapley effects. Each column reflects
+sampling of different DHW ranges. The first column represents model runs with DHW = 0, and
+the remaining columns represent models runs with DHW valued between 0 and 8, 8 and 16, 16
+and 30, and 0 and 30. The first row shows the Shapley effect for change in coral cover and
+the second for change in evenness of species
+abundance.](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa width fig-align="center"
+width="14.82cm"}
+
 ### Time series clustering
 
 The CID time series clustering metric corrects the Euclidean distance between pairs of time
