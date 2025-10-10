@@ -84,19 +84,19 @@ editor:
 Climate change is impacting species survival, persistence and ecosystem functions on coral
 reefs, which are vulnerable to increasing magnitude and variation in environmental stressors
 such as ocean temperature [@foster2021; @gattuso2014]. Mass bleaching and associated
-mortality events driven by climate change can cause reef-building coral population declines
-[@hughes2017; @hughes2018; @bozec2025], possibly leading to coral-macroalgae regime shifts
-[@arif2022; @wild2011]. Climate impacts on coral reefs are decreasing the ability of coral
-reefs to provide ecological functions such as benthic habitat and nutrient cycling
-[@forster2021; @williams2019] and services such as food, protection, tourism and Indigenous
-cultural value [@eddy2021; @stoeckl2021].
+mortality events driven by climate change can cause coral population declines [@hughes2017;
+@hughes2018; @bozec2025], possibly leading to coral-macroalgae regime shifts [@arif2022;
+@wild2011]. Climate impacts on coral reefs are decreasing the ability of coral reefs to
+provide ecological functions such as benthic habitat and nutrient cycling [@forster2021;
+@williams2019] and services such as food, protection, tourism and Indigenous cultural value
+[@eddy2021; @stoeckl2021].
 
-Coral reef ecosystem resilience - the capacity to maintain coral populations and avoid
+Here, coral reef ecosystem resilience - the capacity to maintain coral populations and avoid
 ecosystem regime shifts - is conceptualised to depend on three interconnected mechanisms.
 First, the ability of individual corals to survive thermal stress. Second, the connectivity
 networks that enable recolonisation after disturbances [@hock2017; @mumby2008; @torres2024].
 Third, the maintenance, and accretion, of the carbonate framework that provides reef
-structure [@perry2012]. This investigation aims to assess how these mechanisms interact
+structure [@perry2012]. This investigation aims to assess how these mechanisms may interact
 under projected climate conditions to identify the characteristics of resilient reefs in the
 Great Barrier Reef (GBR) ecosystem.
 
