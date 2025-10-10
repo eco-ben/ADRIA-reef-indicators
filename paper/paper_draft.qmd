@@ -1146,9 +1146,9 @@ shows a model's behaviour under low disturbance and no interventions.
 
 ![Time series comparing modelled and observed relative coral cover for Ben reef showing a
 recovery process under very low disturbance and no interventions. The observed data used
-here is from the AIMS Long-Term Monitoring Program (LTMP). Error metrics including Root Mean
-Square Error (0.06) and the Spearman Rank Correlation Coefficient (0.9) is also shown. The
-second plot shows the DHW and Cyclone or COTS events. The third plot shows the benthic
+here is from the AIMS Long-Term Monitoring Program (LTMP) . Error metrics including Root
+Mean Square Error (0.06) and the Spearman Rank Correlation Coefficient (0.9) is also shown.
+The second plot shows the DHW and Cyclone or COTS events. The third plot shows the benthic
 composition for each functional group as a proportion of the reef’s cover at each
 year.](../figs/coralblox_reef_example.png){#sfig-coralblox-example width fig-align="center"
 width="14.82cm"}
