@@ -65,8 +65,6 @@ format:
       cite-style: authoryear
 bibliography: references.bib
 engine: julia
-julia:
-  exeflags: ["+1.11.5"]
 crossref:
   custom:
   - kind: float
@@ -934,7 +932,7 @@ Quantitative metrics used in this investigation.
 cap = """
 Complexity invariant distance (CID) between low and high cluster median time series in each management area under each GCM. CID values are calculated for percentage cover time series (@fig-gcm-cover-trajectories) and Degree Heating Week (DHW) time series (@sfig-gcm-dhw-trajectories). Complexity invariant distance represents the Euclidean distance between time series, corrected by the complexity of the two time series. CID values are used to quantify overall differences between these two cluster levels at management area and GCM levels. CID values for percentage cover and DHW time series are not directly comparable as the time series use different units.
 """
-using Markdown,Tables,MarkdownTables
+using Markdown, Tables, MarkdownTables
 cd("../src")
 include("../src/ADRIA/HighResCoralStress/6_quantifying_cluster_differences.jl"); # Quantify low-high cluster differences using CID metric.
 rename!(distances,
