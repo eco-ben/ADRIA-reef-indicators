@@ -65,6 +65,8 @@ format:
       cite-style: authoryear
 bibliography: references.bib
 engine: julia
+julia:
+  exeflags: ["+1.11.5"]
 crossref:
   custom:
   - kind: float
