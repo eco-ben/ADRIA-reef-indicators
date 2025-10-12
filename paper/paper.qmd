@@ -40,9 +40,9 @@ abstract: |
     to climate impacts is critical for conservation planning and intervention strategies. A
     scenario-based population modelling approach was adopted with larval connectivity dynamics and
     environmental factors to assess coral reef resilience across the GBR using projected conditions under
-    five Global Climate Models (GCMs) spanning five Equilibrium Climate Sensitivities. Projected coral
-    cover were analysed for each reefs ability to maintain positive carbonate production budgets under
-    future conditions using coral cover as a proxy. Larval connectivity patterns did not correlate with
+    five Global Climate Models (GCMs). Projected coral
+    cover was analysed for each reef's ability to maintain positive carbonate production budgets under
+    future conditions, using coral cover as a proxy. Larval connectivity patterns did not correlate with
     increases in maintenance of positive carbonate budgets. Instead, reef depth emerged as the primary
     predictor, with deeper reefs benefitting from thermal refugia that reduce bleaching impacts. These
     findings suggest that depth is a tangible and pragmatic reef characteristic to consider in future
@@ -212,11 +212,11 @@ pre-industrial concentration [@forster2021]. While Grose et al. [-@grose2023] do
 consider oceanic data, they provide a region-specific selection mechanism which is used as
 an indicator of general performance of GCMs for the region. An overview of the selected GCMs
 is provided in @tbl-gcms. Note here that Grose et al., [-@grose2023] assessed GFDL-ESM4,
-whereas Dixon et al., [-@dixon2022; -@dixon2023] provides data based on GFDL-CM4. This
+whereas Dixon et al., [-@dixon2022; -@dixon2023] provide data based on GFDL-CM4. This
 substitution is assumed appropriate given they share the same fundamental representation of
 the physical climate system. The use of these GCMs therefore allows for a range of possible
 futures to be explored, capturing uncertainty in future responses to CO~2~ increases
-(@fig-methods-dhws; @sfig-ecs;[@grose2023; @shepherd2018]) and enables the assessment of
+(@fig-methods-dhws; @sfig-ecs; @grose2023; @shepherd2018) and enables the assessment of
 modelled coral reef behaviour over a broad range of independently derived climate futures
 [@abramowitz2019; @brunner2020].
 
@@ -280,7 +280,7 @@ investigation can be found at Grier and Iwanaga [-@grier2025].
 ### Connectivity modelling
 
 The coral larval connectivity model used in this study comprises 3D hourly velocities from
-the 1 km grid resolution hydrodynamic model [GBR-1 version 2.0; @steven2019], as input to
+the 1 km grid resolution hydrodynamic model (GBR-1 version 2.0; @steven2019), as input to
 OceanParcels [@delandmeter2019], a particle tracking model. The connectivity model was used
 to simulate larval dispersal and settlement of broadcast-spawning Acropora corals in the
 GBR, following annual mass spawning events in 2015, 2016, 2018, 2019 and split-spawning
@@ -525,7 +525,7 @@ reefs, 23% are within the Far Northern Management area, with 1%, 55% and 21% occ
 Cairns-Cooktown, Townsville-Whitsunday and Mackay-Capricorn Management areas respectively
 (@sfig-gcm-cluster-map). Of the 462 consistently assigned reefs, 34%, 18% and 47% are
 clustered into Low, Medium and High clusters respectively. High levels of assignment
-variability across GCMs are expected as due to spatial differences in each given GCM’s DHW
+variability across GCMs are expected due to spatial differences in each given GCM’s DHW
 trajectories.
 
 ### Bioregion scale clustering
@@ -955,13 +955,14 @@ Colour-coded areas outline GBR marine park management regions, where orange repr
 Far Northern management region, green represents Cairns/Cooktown, red covers
 Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
 marked individually for visual clarity. Reefs that do not have a consistent cluster
-assignment level across all GCMs at mangement area scale are coloured grey. All consistently
-clustered reefs are coloured according to their management area scale cluster assignment.
-Green represents reefs in the low cover cluster, orange represents reefs in the medium cover
-cluster and blue represents reefs in the high cover cluster. All 2197 reefs included in this
-investigation are represented in this figure. Annotations represent major coastal
-settlements along the GBR.](../figs/gcm_cluster_assignment_map.png){#sfig-gcm-cluster-map
-fig-align="center" width="14.82cm"}
+assignment level across all GCMs at management area scale are coloured grey. All
+consistently clustered reefs are coloured according to their management area scale cluster
+assignment. Green represents reefs in the low cover cluster, orange represents reefs in the
+medium cover cluster and blue represents reefs in the high cover cluster. All 2197 reefs
+included in this investigation are represented in this figure. Annotations represent major
+coastal settlements along the
+GBR.](../figs/gcm_cluster_assignment_map.png){#sfig-gcm-cluster-map fig-align="center"
+width="14.82cm"}
 
 ![Heatmaps indicating reef cluster assignments within each bioregion across the five GCMs.
 Green indicates a low cover cluster assignment, orange represents a medium cover assignment
