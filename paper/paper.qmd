@@ -1221,7 +1221,7 @@ fig-align="center" width="14.82cm"}
 
 ![Scatter plot indicating reef median depth (metres) and log10 weighted incoming
 connectivity for each reef. Point colours represent the median number of years each reef
-maintains positive carbonate budgets across $theta$ values from 10-20% live coral cover.
+maintains positive carbonate budgets across $\theta$ values from 10-20% live coral cover.
 Displays results for ACCESS-ESM1-5
 GCM.](../figs/ACCESS-ESM1-5/depth_conn_mean_carbonate_budget.png){#sfig-access-esm1-5-mean-carb-budget
 fig-align="center" width="14.82cm"}
