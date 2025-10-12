@@ -1,6 +1,6 @@
 # ADRIA-reef-indicators
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16878443.svg)](https://doi.org/10.5281/zenodo.16878443)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17333564.svg)](https://doi.org/10.5281/zenodo.17333564)
 
 Time series analyses for GBR resilience using ADRIA - CoralBlox reef ecosystem modelling suite.
 - Clustering reef timeseries to identify what characteristics define resilient clusters.
@@ -154,7 +154,7 @@ flowchart LR;
 ### Pregenerated data availability
 
 - `ADRIA Result Set outputs from script 1 (100GB total size!)` : https://registry.mds.gbrrestoration.org/item/102.100.100/708082
-- `pregenerated intermediate outputs from scripts 2 & 3` : https://registry.mds.gbrrestoration.org/item/102.100.100/708366
+- `pregenerated intermediate outputs from scripts 2 & 3` : https://doi.org/10.5281/zenodo.17333893
 - `pregenerated figure outputs` : GitHub /figs/ folder
 
 ## Methods
