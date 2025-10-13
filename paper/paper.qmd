@@ -879,12 +879,7 @@ available from the Great Barrier Reef Marine Park Authority. The eReefs Project 
 public-private collaboration between Australia’s leading operational and scientific research
 agencies, government, and corporate Australia.
 
-# References
-
-::: {#refs}
-:::
-
-# Author Contributions
+# CRediT Statement
 
 **Benjamin Grier:** conceptualisation, data curation, formal analysis, investigation,
 methodology, visualization, writing – original draft, writing – review and editing. **Takuya
@@ -902,6 +897,11 @@ The authors declare no conflicts of interest.
 
 The full reproducible investigation, and links to required data sources, can be found at
 Grier and Iwanaga [-@grier2025].
+
+# References
+
+::: {#refs}
+:::
 
 # Supplementary Material
 
