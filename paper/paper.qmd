@@ -1,38 +1,43 @@
 ---
 title: Importance of depth refugia for reef resilience and intervention on the Great Barrier Reef under future climate change
-author:
+
+authors:
   - name: Benjamin Grier
     email: grierben777@gmail.com
     affiliations:
-        - id: AIMS
-          name: Australian Institute of Marine Science
-          address: Townsville, Queensland, Australia
+      - ref: aims
+    orcid: 0009-0005-1444-6198
     attributes:
-        corresponding: true
+      corresponding: true
+
   - name: Takuya Iwanaga
     email: t.iwanaga@aims.gov.au
     affiliations:
-        - id: AIMS
-          name: Australian Institute of Marine Science
-          address: Townsville, Queensland, Australia
+      - ref: aims
+    orcid: 0000-0001-8173-0870
+
   - name: Pedro Ribeiro De Almeida
     email: p.ribeirodealmeida@aims.gov.au
     affiliations:
-        - id: AIMS
-          name: Australian Institute of Marine Science
-          address: Townsville, Queensland, Australia
+      - ref: aims
+    orcid: 0009-0007-4814-3261
+
   - name: Chinenye Ani
     email: c.ani@aims.gov.au
     affiliations:
-        - id: AIMS
-          name: Australian Institute of Marine Science
-          address: Townsville, Queensland, Australia
+      - ref: aims
+    orcid: 0000-0002-2112-0840
+
   - name: Sam Matthews
     email: s.matthews@aims.gov.au
     affiliations:
-        - id: AIMS
-          name: Australian Institute of Marine Science
-          address: Townsville, Queensland, Australia
+      - ref: aims
+    orcid: 0000-0003-1936-1220
+
+affiliations:
+  - id: aims
+    name: Australian Institute of Marine Science, Townsville, Queensland, Australia
+
 abstract: |
     Coral reefs globally face unprecedented threats from climate change, with the Great
     Barrier Reef (GBR) experiencing cumulative stressors and increasingly severe declines
@@ -56,15 +61,26 @@ keywords:
   - Ecosystem resilience
   - Reef depth
   - Reef connectivity
+
+filters:
+  - _extensions/authors-block
+
 date: last-modified
+
 format:
   elsevier-docx:
     journal:
-      name: Journal Name
+      name: Global Change Biology
       formatting: preprint
       cite-style: authoryear
+
 bibliography: references.bib
+csl: global-change-biology.csl
+
 engine: julia
+julia:
+  exeflags: ["+1.11.5"]
+
 crossref:
   custom:
   - kind: float
@@ -73,6 +89,7 @@ crossref:
   - kind: float
     reference-prefix: STable
     key: stbl
+
 editor:
   markdown:
     wrap: 92
