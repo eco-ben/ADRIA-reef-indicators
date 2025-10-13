@@ -167,7 +167,7 @@ for this study. Notably, bathymetry data were derived from satellite imagery and
 limited in their alignment with the established GBRMPA reef outlines used to characterise
 reef locations and their areal extent. Further limitations are outlined in the Discussion.
 Code to extract depth estimates, and the resulting depth estimates themselves, are available
-at [@iwanaga2025].
+at @iwanaga2025.
 
 A Quality Assessment and Control process identified reefs with potential data limitations:
 reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
