@@ -693,8 +693,8 @@ It is a common conclusion in coral reef ecology that a primary facet of reef res
 the supply of recruits that a reef receives following disturbance [@hock2017; @mumby2008;
 @torres2024]. No direct, first order, relationship between weighted incoming connectivity
 and the ability of reefs to maintain positive carbonate budgets under future conditions was
-found. There has been contrasting evidence [@bode2018; @hock2017] surrounding whether recent
-generation connectivity modelling is able to identify reefs that are important for recovery
+found. There has been contrasting evidence [@bode2018; @hock2017] as to whether current
+connectivity modelling is able to identify reefs that are important for recovery
 processes, with findings dependent on the larval connectivity model used. These
 investigations were performed using prior generations of larval connectivity models
 parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods, without
