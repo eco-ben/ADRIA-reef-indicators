@@ -895,7 +895,7 @@ The authors declare no conflicts of interest.
 # Data Availability Statement
 
 The full reproducible investigation, and links to required data sources, can be found at
-Grier and Iwanaga [-@grier2025; https://doi.org/10.5281/zenodo.17333564].
+Grier and Iwanaga (-@grier2025; https://doi.org/10.5281/zenodo.17333564).
 
 # References
 
