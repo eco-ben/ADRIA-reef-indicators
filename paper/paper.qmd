@@ -49,10 +49,10 @@ abstract: |
     cover was analysed for each reef's ability to maintain positive carbonate production budgets under
     future conditions, using coral cover as a proxy. Larval connectivity patterns did not correlate with
     increases in maintenance of positive carbonate budgets. Instead, reef depth emerged as the primary
-    predictor, with deeper reefs benefitting from thermal refugia that reduce bleaching impacts. These
+    predictor, with deeper reefs benefitting from reduced thermal exposure. These
     findings suggest that depth is a tangible and pragmatic reef characteristic to consider in future
     intervention practices for coral reef restoration. These results have important implications for reef
-    management, indicating that depth refugia should be prioritized for further consideration in
+    management, indicating that depth should be considered as a key variable in
     conservation planning to maximize coral survival under continuing climate change.
 
 keywords:
@@ -118,33 +118,35 @@ under projected climate conditions to identify the characteristics of resilient 
 Great Barrier Reef (GBR) ecosystem.
 
 The GBR is the world's largest coral reef ecosystem consisting of thousands of individual
-reefs interconnected through larval dispersal patterns mediated by hydrodynamic, spatial,
+reefs interconnected through larval dispersal pathways mediated by hydrodynamic, spatial,
 and ecological processes [@cappo2000]. The GBR faces severe projected coral cover declines
 under climate change [@bozec2025; @bozec2022; @condie2021]. Coral cover declines will be
 compounded by ocean acidification, tropical cyclones, and crown-of-thorns starfish outbreaks
 [@death2012; @fox-kemper2021; @seneviratne2021; @sweatman2011; @wolff2018]. The 2023-24
 Summer mass bleaching event may be signalling a shift towards this reef future, with some
-level of bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs)
-[@australianinstituteofmarinescience2024; @cantin2024].
+level of bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs),
+representing the most widespread bleaching event on the GBR and largest single year decline
+in the history of the Long Term Monitoring Program (LTMP;
+@australianinstituteofmarinescience2024; @cantin2024).
 
 At the individual coral scale, survival during thermal stress events depends on both
-environmental and biological factors that can either amplify or reduce thermal stress. Depth
-is a crucial factor that can provide a refuge from thermal stress [@álvarez-noriega2018;
-@baird2018; @smith2014]. Biological factors including coral size [@brandt2009], taxa
-[@álvarez-noriega2018; @mcclanahan2005], and thermal tolerance through acclimation and
-inheritance [@humanes2022; @lachs2024] all influence survival outcomes. Corals demonstrate
-adaptive capacity to develop thermal tolerance that could delay widespread bleaching under
-moderate emission scenarios [@bairos-novak2021; @humanes2022], representing a crucial
-mechanism for reef persistence.
+environmental and biological factors that can either amplify or reduce the effects of
+thermal stress. Depth is a crucial factor that can provide a refuge from thermal stress
+[@álvarez-noriega2018; @baird2018; @smith2014]. Biological factors including coral size
+[@brandt2009], taxa [@álvarez-noriega2018; @mcclanahan2005], and thermal tolerance through
+acclimation and inheritance [@humanes2022; @lachs2024] all influence survival outcomes.
+Corals demonstrate adaptive capacity to develop thermal tolerance that could delay
+widespread bleaching under moderate emission scenarios [@bairos-novak2021; @humanes2022],
+representing a crucial mechanism for reef persistence.
 
-Beyond individual survival, reef-scale resilience depends on connectivity networks that
-enable recolonization after disturbances [@angeler2023; @elmhirst2009; @hock2017]. Larval
-source populations that export more larvae than they import are essential for system-wide
-recovery, providing larvae that enable recolonization at distant locations [@hock2017;
-@thomas2015]. Yet these source reefs are paradoxically more vulnerable individually, relying
-heavily on local recruitment for their own recovery. When disturbances impact major source
-populations, cascading effects reduce larval export and slow recovery throughout the
-connected network [@figueiredo2022; @hock2017; @munday2009].
+Beyond individual survival, reef-scale resilience in part depends on connectivity networks
+that enable recolonization after disturbances [@angeler2023; @elmhirst2009; @hock2017].
+Larval source populations that export more larvae than they import are essential for
+system-wide recovery, providing larvae that enable recolonization at distant locations
+[@hock2017; @thomas2015]. Yet these source reefs are paradoxically more vulnerable
+individually, relying heavily on local recruitment for their own recovery. When disturbances
+impact major source populations, cascading effects reduce larval export and slow recovery
+throughout the connected network [@figueiredo2022; @hock2017; @munday2009].
 
 Long-term reef viability requires not only coral survival and recolonization, but also
 maintenance of physical reef structures through positive carbonate budgets. Scleractinian
@@ -711,26 +713,26 @@ the supply of recruits that a reef receives following disturbance [@hock2017; @m
 @torres2024]. No direct, first order, relationship between weighted incoming connectivity
 and the ability of reefs to maintain positive carbonate budgets under future conditions was
 found. There has been contrasting evidence [@bode2018; @hock2017] as to whether current
-connectivity modelling is able to identify reefs that are important for recovery
-processes, with findings dependent on the larval connectivity model used. These
-investigations were performed using prior generations of larval connectivity models
-parameterised for 2008-2013 [@hock2017] and 1996-2002 [@bode2018] time periods, without
-considering the influence of reef depth on resilience. Using updated 1km^2^ resolution
-larval connectivity across the whole GBR, with a limited temporal sample of particle flows,
-it was found that larval connectivity alone may not be important or reef resilience and
-recovery but should be considered in combination with more influential factors such as
-depth.
+connectivity modelling is able to identify reefs that are important for recovery processes,
+with findings dependent on the larval connectivity model used. These investigations were
+performed using prior generations of larval connectivity models parameterised for 2008-2013
+[@hock2017] and 1996-2002 [@bode2018] time periods, without considering the influence of
+reef depth on resilience. Using updated 1km^2^ resolution larval connectivity across the
+whole GBR, with a limited temporal sample of particle flows, it was found that larval
+connectivity alone may not be important or reef resilience and recovery but should be
+considered in combination with more influential factors such as depth.
 
 Findings on the importance of connectivity likely differ from literature due to the highly
-uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023], the
-way larval flows and juvenile recruitment are implemented in ADRIA - CoralBlox, and the
-magnitude of early bleaching events decreasing the breeding capacity of strongly connected
-reefs. Analysing daily connectivity data Vogt-Vincent, Mitarai and Johnson
-[-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for capturing
-the seasonal - ecological time scale connectivity between locations due to high daily
-variability in connectivity data. Connectivity matrices used in this investigation have
-large relative standard deviations for larval transition probabilities between reefs over
-the 24 days used (@sfig-connectivity-rsd). Using alternative summarisation methods that
+uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023] and
+the way larval flows and juvenile recruitment are implemented in ADRIA - CoralBlox.
+Additionally, and the high magnitude of early bleaching events (2025-2035) may decrease the
+breeding capacity of strongly connected reefs, resulting in reduced importance of
+connectivity in recovery. Analysing daily connectivity data Vogt-Vincent, Mitarai and
+Johnson [-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for
+capturing the seasonal - ecological time scale connectivity between locations due to high
+daily variability in connectivity data. Connectivity matrices used in this investigation
+have large relative standard deviations for larval transition probabilities between reefs
+over the 24 days used (@sfig-connectivity-rsd). Using alternative summarisation methods that
 capture ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
 connectivity [@vogt-vincent2023], future investigations may find increased importance of
 both depth and reef connectivity for resilience, in line with other investigations
@@ -827,7 +829,7 @@ false positives, where features identified as reefs were sand banks or rocky ree
 than coral reefs). Reefs with bathymetry data covering less than 5% of their indicative area
 were excluded from analyses (see @sfig-depth-cutoff). Existing GBRMPA reef outlines were
 adopted to align with other ongoing modelling and analyses conducted as part of the Reef
-Restoration and Adaptation Program (<https://gbrrestoration.org>; RRAP -@thereef).
+Restoration and Adaptation Program (<https://gbrrestoration.org>; RRAP [-@thereef]).
 
 The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
 one, a formal mechanistic and spatial validation of the model represents an area for future
@@ -895,7 +897,7 @@ The authors declare no conflicts of interest.
 # Data Availability Statement
 
 The full reproducible investigation, and links to required data sources, can be found at
-Grier and Iwanaga (-@grier2025; https://doi.org/10.5281/zenodo.17333564).
+Grier and Iwanaga ([-@grier2025]; https://doi.org/10.5281/zenodo.17333564).
 
 # References
 
