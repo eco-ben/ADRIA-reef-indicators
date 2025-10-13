@@ -616,8 +616,8 @@ correlation with the number of years a reef maintains cover above the required t
 ![Number of years reef coral cover exceeds the assumed carbonate budget threshold in terms
 of coral cover ($\theta_0$) between 2025 to 2075 (y-axis) under ACCESS-ESM1-5. Left panel
 shows the relationship between reef median depth, while the right panel shows the same for
-log10-weighted incoming connectivity. Point colour (purple to yellow) represents
-($\theta_0$), with brighter shades indicating a higher $\theta_0$. Deeper reefs have an
+log10-weighted incoming connectivity. Marker colour (purple to yellow) represents
+$\theta_0$, with brighter shades indicating a higher $\theta_0$. Deeper reefs have an
 increased number of years above the considered range of $\theta_0$, while no relationship
 between weighted incoming connectivity and carbonate budget maintenance was
 found.](../figs/ACCESS-ESM1-5/depth_conn_carbonate_comparison.png){#fig-access-esm1-5-depth-conn-carbonate
