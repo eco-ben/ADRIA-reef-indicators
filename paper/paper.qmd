@@ -827,7 +827,7 @@ false positives, where features identified as reefs were sand banks or rocky ree
 than coral reefs). Reefs with bathymetry data covering less than 5% of their indicative area
 were excluded from analyses (see @sfig-depth-cutoff). Existing GBRMPA reef outlines were
 adopted to align with other ongoing modelling and analyses conducted as part of the Reef
-Restoration and Adaptation Program (<https://gbrrestoration.org>; RRAP [-@thereef]).
+Restoration and Adaptation Program (<https://gbrrestoration.org>; RRAP -@thereef).
 
 The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
 one, a formal mechanistic and spatial validation of the model represents an area for future
