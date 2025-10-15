@@ -3,7 +3,7 @@ title: Importance of depth refugia for reef resilience and intervention on the G
 
 authors:
   - name: Benjamin Grier
-    email: grierben777@gmail.com
+    email: bengrier1@outlook.com
     affiliations:
       - ref: aims
     orcid: 0009-0005-1444-6198
