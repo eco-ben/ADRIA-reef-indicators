@@ -141,12 +141,13 @@ representing a crucial mechanism for reef persistence.
 
 Beyond individual survival, reef-scale resilience in part depends on connectivity networks
 that enable recolonization after disturbances [@angeler2023; @elmhirst2009; @hock2017].
-Larval source populations that export more larvae than they import are essential for
-system-wide recovery, providing larvae that enable recolonization at distant locations
-[@hock2017; @thomas2015]. Yet these source reefs are paradoxically more vulnerable
-individually, relying heavily on local recruitment for their own recovery. When disturbances
-impact major source populations, cascading effects reduce larval export and slow recovery
-throughout the connected network [@figueiredo2022; @hock2017; @munday2009].
+Larval source populations that have disproportionately numerous and/or strong connections to
+other reefs are essential for system-wide recovery, providing larvae that enable recovery at
+other reefs after disturbance [@hock2017; @thomas2015]. When disturbances impact major
+source populations, cascading effects reduce larval export and slow recovery throughout the
+connected network [@figueiredo2022; @hock2017; @munday2009]. Identifying and protecting
+source reefs has understandably been a major focus of research and management in recent
+years [@greatba2017].
 
 Long-term reef viability requires not only coral survival and recolonization, but also
 maintenance of physical reef structures through positive carbonate budgets. Scleractinian
@@ -162,9 +163,10 @@ multiple factors interact to determine climate resilience. By incorporating the 
 population models [@ribeirodealmeida2024], ecosystem-wide connectivity data, and updated
 climate projections [@dixon2022], we can examine which factors most strongly influence reef
 persistence under different scenarios. While connectivity has been emphasized as critical
-for GBR resilience [@hock2017], and remains an important consideration, integrated modelling
-reveals depth plays a fundamental role for maintenance of reef coral populations and
-positive carbonate budgets under current projections of climate change.
+for GBR resilience [@hock2017], and remains an important consideration, our integrated
+modelling approach reveals that depth emerges as a dominant predictor for maintenance of
+reef coral populations and positive carbonate budgets under current projections of climate
+change.
 
 # Methods
 
