@@ -49,7 +49,7 @@ abstract: |
     cover was analysed for each reef's ability to maintain positive carbonate production budgets under
     future conditions, using coral cover as a proxy. Larval connectivity patterns did not correlate with
     increases in maintenance of positive carbonate budgets. Instead, reef depth emerged as the primary
-    predictor, with deeper reefs benefitting from reduced thermal exposure. These
+    predictor, with deeper reefs (>10m) benefitting from reduced thermal exposure. These
     findings suggest that depth is a tangible and pragmatic reef characteristic to consider in future
     intervention practices for coral reef restoration. These results have important implications for reef
     management, indicating that depth should be considered as a key variable in
@@ -103,7 +103,7 @@ reefs, which are vulnerable to increasing magnitude and variation in environment
 such as ocean temperature [@foster2021; @gattuso2014]. Mass bleaching and associated
 mortality events driven by climate change can cause coral population declines [@hughes2017;
 @hughes2018; @bozec2025], possibly leading to coral-macroalgae regime shifts [@arif2022;
-@wild2011]. Climate impacts on coral reefs are decreasing the ability of coral reefs to
+@graham2015]. Climate impacts on coral reefs are decreasing the ability of coral reefs to
 provide ecological functions such as benthic habitat and nutrient cycling [@forster2021;
 @williams2019] and services such as food, protection, tourism and Indigenous cultural value
 [@eddy2021; @stoeckl2021].
@@ -336,21 +336,21 @@ recovery processes.
 
 To assess the impact of reef connectivity on modelled outcomes, connectivity was summarised
 by incoming connectivity (weighted incoming connectivity), outgoing connectivity (outgoing
-connection strength), and larval retention
-probability for each reef. Weighted incoming connectivity was calculated by summing the
-product of each connection strength incoming to a target reef (excluding retained larvae
-from the target reef) and the mean timeseries absolute coral cover (km^2^) of each matching
-source reef. This metric provides an approximation of overall larval flow into a reef, with
-high values indicating the target reef is supplied high volumes of larvae via strong
-connections and low values indicating the target reef has weak (or no) incoming connections
-or is supplied by small source populations. A limitation of weighted incoming connectivity
-is that it does not incorporate the proportion of the source reef's population that is
-reproducing and producing larvae, instead it takes total coral cover area as an indicator of
-larval productivity. Outgoing connection strength was calculated as the sum of all outgoing transition
-probabilities from a target reef. Outgoing connection strength has a theoretical maximum of
-one (all larvae reach settlement on sink reefs), however the large size of the GBR combined
-with larval mortality result in much lower outgoing connection strength values. Reef larval retention probability indicates the proportion of spawned larvae
-that settle on their natal reefs.
+connection strength), and larval retention probability for each reef. Weighted incoming
+connectivity was calculated by summing the product of each connection strength incoming to a
+target reef (excluding retained larvae from the target reef) and the mean timeseries
+absolute coral cover (km^2^) of each matching source reef. This metric provides an
+approximation of overall larval flow into a reef, with high values indicating the target
+reef is supplied high volumes of larvae via strong connections and low values indicating the
+target reef has weak (or no) incoming connections or is supplied by small source
+populations. A limitation of weighted incoming connectivity is that it does not incorporate
+the proportion of the source reef's population that is reproducing and producing larvae,
+instead it takes total coral cover area as an indicator of larval productivity. Outgoing
+connection strength was calculated as the sum of all outgoing transition probabilities from
+a target reef. Outgoing connection strength has a theoretical maximum of one (all larvae
+reach settlement on sink reefs), however the large size of the GBR combined with larval
+mortality result in much lower outgoing connection strength values. Reef larval retention
+probability indicates the proportion of spawned larvae that settle on their natal reefs.
 
 ### Scenario modelling
 
@@ -394,8 +394,8 @@ together. Reefs are clustered into Low, Medium, or High, indicating their relati
 to maintain coral cover over time. Reefs in each time series cluster were compared to
 identify characteristics that differ between Low, Medium and High clusters. These
 characteristics include reef median depth, mean time series DHW, weighted incoming
-connectivity, outgoing connection strength,
-larval retention probability and reef carrying capacity (coral habitable area).
+connectivity, outgoing connection strength, larval retention probability and reef carrying
+capacity (coral habitable area).
 
 The Complexity-Invariant Distance (CID) between each time series was calculated to identify
 similarities in temporal behaviour [@batista2014]. The CID applies a correction factor to
@@ -502,10 +502,12 @@ GCMs (@fig-gcm-cover-trajectories). Of the GCMs explored, NorESM2-MM had the low
 (2.5°C) and reefs exhibit continuing recovery and decline dynamics up to 2075 under this
 hypothetical climate future. Unsurprisingly, recovery phases were predominantly seen in the
 reefs in the High cover cluster, with Medium and Low exhibiting lesser probability of such
-periods of recovery. Generally, recovery and increases in coral cover were visible in
-simulated results up to 2045. Under NorESM2-MM, the Far Northern Management area was found
-to have the most similar temporal behaviour between Low and High clusters compared to other
-Management areas (@stbl-cluster-cid) due to the low degree of coral cover overall
+periods of recovery. The High cover cluster exhibits greater resilience despite encompassing
+a broad range of initial coral cover conditions at 2025 (\@fig-gcm-cover-trajectories).
+Generally, recovery and increases in coral cover were visible in simulated results up to
+2045. Under NorESM2-MM, the Far Northern Management area was found to have the most similar
+temporal behaviour between Low and High clusters compared to other Management areas
+(@stbl-cluster-cid) due to the low degree of coral cover overall
 (@fig-gcm-cover-trajectories).
 
 Intermediate levels of coral cover maintenance can be seen in ACCESS-ESM1-5 (ECS value of
@@ -547,22 +549,20 @@ material, with Partial Dependence Analysis results displayed in the main text.
 #### Partial dependence
 
 Partial Dependence Analysis revealed reef median depth, carrying capacity and mean time
-series DHW level have the highest feature importance scores, accounting for 32%, 16% and 15%
-predictive importance respectively (@fig-ts-cluster-pdp; Panel A). Outgoing connectivity strength, Source-cover weighted
-incoming connectivity and
-larval retention probability account for \~14%, 14%, and 10% respectively.
+series DHW level have the highest feature importance scores for bioregion-scale cluster
+assignment, accounting for 32%, 16% and 15% predictive importance respectively
+(@fig-ts-cluster-pdp; Panel A). Outgoing connectivity strength, Source-cover weighted
+incoming connectivity and larval retention probability account for \~14%, 14%, and 10%
+respectively.
 
-Reefs have the greatest probability of being clustered into Low if shallow, and High at
-greater depths, with medium cluster reefs exhibiting a lower, and more stable, assignment
+Reefs have the greatest probability of being clustered into Low if shallow (\<10m), and High
+at greater depths, with medium cluster reefs exhibiting a lower, and more stable, assignment
 probability across depth ranges (@fig-ts-cluster-pdp; Panel B). A large increase in the
 probability of a reef being categorised as High can be seen between 10 and 15 meters depth.
-This is at the edge of the depth range used in current deployment efforts [@howlett2021;
-@randall2021; @whitman2024] but indicates a depth range that could be adopted to maximise
-longevity and benefits of, for example, coral seeding activities. Across mean DHW values,
-assignment probability is roughly equal across the three clusters up to 5 DHW. A sharp
-delineation can be seen \> 5 DHW when comparing High with other clusters, with lower
-assignment probability (\~25%) compared to Medium and Low (\~40%) (@fig-ts-cluster-pdp;
-Panel B).
+Across mean DHW values, assignment probability is roughly equal across the three clusters up
+to 5 DHW. A sharp delineation can be seen \> 5 DHW when comparing High with other clusters,
+with lower assignment probability (\~25%) compared to Medium and Low (\~40%)
+(@fig-ts-cluster-pdp; Panel B).
 
 ![Feature importance scores (Panel A) of the Random Forest classifier, and Partial
 Dependence Plots (PDPs) for reef characteristics of interest indicating the probability of a
@@ -576,11 +576,11 @@ predictor value distribution across assessed
 reefs.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp fig-align="center"
 width="14.82cm"}
 
-First-order PDA showed minimal influence of incoming and outgoing
-connectivity metrics on cluster assignment probabilities. Two-way analyses revealed little
-interaction between depth and incoming and outgoing connectivity metrics for reef clustering
-probabilities (@fig-ts-cluster-pdp-twoway-incoming; @sfig-ts-cluster-pdp-twoway-outgoing).
-Reefs with a median depth around 15m and high incoming connectivity may benefit slightly,
+First-order PDA showed minimal influence of incoming and outgoing connectivity metrics on
+cluster assignment probabilities. Two-way analyses revealed little interaction between depth
+and incoming and outgoing connectivity metrics for reef clustering probabilities
+(@fig-ts-cluster-pdp-twoway-incoming; @sfig-ts-cluster-pdp-twoway-outgoing). Reefs with a
+median depth around 15m may benefit slightly from high incoming and outgoing connectivity,
 with higher probability of High cover cluster assignment compared to 15m - depth reefs with
 lower connectivity.
 
@@ -657,7 +657,7 @@ coral driven CaCO~3~ production and accumulation into the future for longer.
 Spatially these results indicate that regions of positive carbonate budget maintenance,
 under ACCESS-ESM1-5, and high depth levels were concentrated in the Far Northern, offshore
 Townsville/Whitsunday, and Mackay/Capricorn management areas (@sfig-depth-map;
-@sfig-carb-budget-map). Resilient reefs in the Far Northern management area were exposed to
+@sfig-carb-budget-map). High cover reefs in the Far Northern management area were exposed to
 lower mean DHW levels than other reefs under ACCESS-ESM1-5 (@sfig-mean-dhw-map), however
 similar spatial patterns were observed across GCMs for reefs clustered into the high cover
 cluster (@sfig-gcm-cluster-map).
@@ -855,10 +855,11 @@ scales are recommended.
 The authors acknowledge the Traditional Owners of the Sea Country on which the modelling was
 conducted for. The authors additionally acknowledge the Bindal, Jagera, and Ngunnawal
 Peoples, the lands on which the authors conducted the model development, analysis, and
-writing. The authors also acknowledge the contributions of Barbara Robson and Jessica
-Benthuysen for comments provided early in the manuscript preparation. The authors would like
-to additionally acknowledge and thank Shaun Wilson and Juan Carlos Ortiz for discussions
-around carbonate budget thresholds.
+writing. The authors would like to acknowledge and thank Shaun Wilson for comments and
+discussion during manuscript revision. The authors also acknowledge the contributions of
+Barbara Robson and Jessica Benthuysen for comments provided early in the manuscript
+preparation. The authors would like to additionally acknowledge and thank Shaun Wilson and
+Juan Carlos Ortiz for discussions around carbonate budget thresholds.
 
 This research was funded by the Reef Restoration and Adaptation Program and facilitated by
 the Australian Institute of Marine Science. The authors acknowledge thermal projection data
@@ -993,7 +994,8 @@ fig-align="center" width="14.82cm"}
 ![Scatter plots indicating the bioregion test-prediction accuracy (proportion of reefs in
 each bioregion assigned correct clusters) from the Random Forest model. Plot panels
 represent the bioregion accuracy across various predictor ranges and bioregion attributes,
-such as mean bioregion depth, carrying capacity, DHW value, total connectivity strength and the number of reefs in each
+such as mean bioregion depth, carrying capacity, DHW value, total connectivity strength and
+the number of reefs in each
 bioregion.](../figs/rf_performance_across_predictors.png){#sfig-rf-predictor-perf
 fig-align="center" width="14.82cm"}
 
