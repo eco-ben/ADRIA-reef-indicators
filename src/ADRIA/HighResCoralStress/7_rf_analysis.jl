@@ -27,7 +27,7 @@ gcm_dhw_cols = [Symbol("$(GCM)_mean_dhw") for GCM in GCMs]
 gcm_bioregion_cluster_cols = [Symbol("$(GCM)_bioregion_clusters") for GCM in GCMs]
 
 collated_reef_properties = Vector{DataFrame}(undef, length(GCMs))
-target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :log_so_to_si, :bioregion, :bioregion_average_latitude, :log_out_strength, :log_self_strength]
+target_cols = [:UNIQUE_ID, :GBRMPA_ID, :depth_med, :bioregion, :bioregion_average_latitude, :log_out_strength, :log_self_strength]
 reef_properties = context_layers[:, target_cols]
 reef_properties.abs_k_area = context_layers.area .* context_layers.k
 for (i, GCM) in enumerate(GCMs)
@@ -57,7 +57,7 @@ reef_properties.GCM .= categorical(reef_properties.GCM)
 reef_properties.bioregion .= categorical(reef_properties.bioregion)
 reef_properties.abs_k_area ./= 1e6  # Convert to km^2 for clarity
 
-target_cols = [:depth_med, :log_so_to_si, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :log_out_strength, :log_self_strength]
+target_cols = [:depth_med, :mean_dhw, :abs_k_area, :weighted_incoming_conn, :log_out_strength, :log_self_strength]
 Xs = reef_properties[:, target_cols]
 y = vec(reef_properties[:, :cluster])
 y = Int64.(getfield.(y, :ref))
@@ -73,7 +73,6 @@ y2 = categorical(map(x -> d[x], y), levels=["low", "med", "high"], ordered=true)
 X2 = coerce(
     X2,
     :depth_med => Continuous,
-    :log_so_to_si => Continuous,
     :mean_dhw => Continuous,
     :abs_k_area => Continuous,
     :weighted_incoming_conn => Continuous,
@@ -85,7 +84,6 @@ readable_names = OrderedDict(
     "mean_dhw" => "Mean DHW",
     "depth_med" => "Median Depth",
     "abs_k_area" => "Carrying Capacity",
-    "log_so_to_si" => "Log10 Outgoing to Incoming\nConnectivity Ratio",
     "weighted_incoming_conn" => "Log10 Weighted\nIncoming Connectivity",
     "weighted_outgoing_conn" => "Log10 Weighted\nOutgoing Connectivity",
     "log_out_strength" => "Log10 Outgoing Connectivity\n Strength",
@@ -97,7 +95,6 @@ sp_cors = Dict(
     "mean_dhw" => round(corspearman(X2.mean_dhw, y); digits=2),
     "depth_med" => round(corspearman(X2.depth_med, y); digits=2),
     "abs_k_area" => round(corspearman(X2.abs_k_area, y); digits=2),
-    "log_so_to_si" => round(corspearman(X2.log_so_to_si, y); digits=2),
     "weighted_incoming_conn" => round(corspearman(X2.weighted_incoming_conn, y); digits=2),
     "log_out_strength" => round(corspearman(X2.log_out_strength, y); digits=2),
     "log_self_strength" => round(corspearman(X2.log_self_strength, y); digits=2)
@@ -127,7 +124,7 @@ cluster_est = MLJ.predict(mach, test_X)
 y_pred_mode = predict_mode(mach, test_X)
 
 μ_accuracy = mean(y_pred_mode .== test_y)
-@info μ_accuracy  # 0.58
+@info μ_accuracy  # 0.59
 
 cm = confusion_matrix(y_pred_mode, test_y)
 cm.mat
@@ -333,7 +330,6 @@ function plot_multiclass_pd(pdp_results::OrderedDict, matching_reef_df::DataFram
         "depth_med" => "Median Depth",
         "bioregion" => "Bioregion",
         "abs_k_area" => "Carrying Capacity [km²]",
-        "log_so_to_si" => "Log10 Outgoing to Incoming\nConnectivity Ratio",
         "weighted_incoming_conn" => "Log10 Weighted\nIncoming Connectivity",
         "weighted_outgoing_conn" => "Log10 Weighted\nOutgoing Connectivity",
         "log_out_strength" => "Log10 Outgoing Connectivity\n Strength",
@@ -570,7 +566,6 @@ perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
         income_conn=mean(sdf.weighted_incoming_conn),
         outgoing_conn=mean(sdf.log_out_strength),
         self_conn=mean(sdf.log_self_strength),
-        log_so_to_si=mean(sdf.log_so_to_si),
         bior_ave_lat=mean(sdf.bioregion_average_lat)
     )
 end
@@ -633,14 +628,6 @@ ax = Axis(
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.self_conn, perf_by_bio.acc, color=bioregion_colors)
-ax = Axis(
-    fig[4, 2],
-    ylabel="Bioregion accuracy",
-    xlabel="Mean Log10 source-to-sink ratio",
-    backgroundcolor=bgcol
-)
-Makie.scatter!(ax, perf_by_bio.log_so_to_si, perf_by_bio.acc, color=bioregion_colors)
-
 Legend(
     fig[1:4, 0],
     [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],

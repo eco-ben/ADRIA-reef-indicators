@@ -336,7 +336,7 @@ recovery processes.
 
 To assess the impact of reef connectivity on modelled outcomes, connectivity was summarised
 by incoming connectivity (weighted incoming connectivity), outgoing connectivity (outgoing
-connection strength), the ratio of source-to-sink connectivity, and larval retention
+connection strength), and larval retention
 probability for each reef. Weighted incoming connectivity was calculated by summing the
 product of each connection strength incoming to a target reef (excluding retained larvae
 from the target reef) and the mean timeseries absolute coral cover (km^2^) of each matching
@@ -346,22 +346,10 @@ connections and low values indicating the target reef has weak (or no) incoming 
 or is supplied by small source populations. A limitation of weighted incoming connectivity
 is that it does not incorporate the proportion of the source reef's population that is
 reproducing and producing larvae, instead it takes total coral cover area as an indicator of
-larval productivity.
-
-Outgoing connection strength was calculated as the sum of all outgoing transition
+larval productivity. Outgoing connection strength was calculated as the sum of all outgoing transition
 probabilities from a target reef. Outgoing connection strength has a theoretical maximum of
 one (all larvae reach settlement on sink reefs), however the large size of the GBR combined
-with larval mortality result in much lower outgoing connection strength values. The ratio of
-source-to-sink connectivity ($O:I$) for a target reef represents the strength of the reef's
-outgoing larval flow relative to it's incoming larval flow. This is calculated as:
-$O:I = \frac{S_O/N_O}{S_I/N_I}$. Where $S$ represents the sum of connectivity probabilities,
-$N$ represents the number of connections, $O$ denotes outgoing connectivity from the target
-reef and $I$ denotes incoming connectivity to the target reef. If a reef has no incoming
-connections, the $O:I$ equals the $S_O/N_O$ value. Incoming connections in this calculation,
-do not directly represent the larval supply gained as the breeding populations from which
-connections are coming from are not represented. A source-to-sink ratio greater than 1 (a
-value greater than 0 on a log scale) indicates a reef has greater outgoing than incoming
-larval flow. Reef larval retention probability indicates the proportion of spawned larvae
+with larval mortality result in much lower outgoing connection strength values. Reef larval retention probability indicates the proportion of spawned larvae
 that settle on their natal reefs.
 
 ### Scenario modelling
@@ -406,7 +394,7 @@ together. Reefs are clustered into Low, Medium, or High, indicating their relati
 to maintain coral cover over time. Reefs in each time series cluster were compared to
 identify characteristics that differ between Low, Medium and High clusters. These
 characteristics include reef median depth, mean time series DHW, weighted incoming
-connectivity, outgoing connection strength, ratio of source-to-sink larval connectivity,
+connectivity, outgoing connection strength,
 larval retention probability and reef carrying capacity (coral habitable area).
 
 The Complexity-Invariant Distance (CID) between each time series was calculated to identify
@@ -452,8 +440,8 @@ under the each GCM (totalling 10,985 samples). The dataset was randomly split in
 (60%) and testing (40%) subsets to train and assess classification performance. The RF
 classifier achieved 80% accuracy on the training set and 60% on the test set. A 3-fold
 cross-validation was also conducted, arriving at a similar 59% accuracy rate. F1 performance
-scores for Low, Medium, and High clusters were determined to be 0.70, 0.43 and 0.64
-respectively, with precision of 0.62, 0.51 and 0.66 when evaluated with the test set
+scores for Low, Medium, and High clusters were determined to be 0.70, 0.42 and 0.63
+respectively, with precision of 0.63, 0.48 and 0.64 when evaluated with the test set
 (consisting of 4394 samples) (@stbl-confusion-matrix; @stbl-rf-cluster-performance). Lower
 performance with the Medium cluster reflects the inherent difficulty of classifying
 transitional states in natural systems. The consistent level of accuracy across test and
@@ -559,10 +547,10 @@ material, with Partial Dependence Analysis results displayed in the main text.
 #### Partial dependence
 
 Partial Dependence Analysis revealed reef median depth, carrying capacity and mean time
-series DHW level have the highest feature importance scores, accounting for 29%, 15% and 15%
-predictive importance respectively (@fig-ts-cluster-pdp; Panel A). Source-cover weighted
-incoming connectivity, outgoing connectivity strength, source-to-sink connectivity ratio and
-larval retention probability account for \~12%, 11%, 10% and 8% respectively.
+series DHW level have the highest feature importance scores, accounting for 32%, 16% and 15%
+predictive importance respectively (@fig-ts-cluster-pdp; Panel A). Outgoing connectivity strength, Source-cover weighted
+incoming connectivity and
+larval retention probability account for \~14%, 14%, and 10% respectively.
 
 Reefs have the greatest probability of being clustered into Low if shallow, and High at
 greater depths, with medium cluster reefs exhibiting a lower, and more stable, assignment
@@ -588,7 +576,7 @@ predictor value distribution across assessed
 reefs.](../figs/ts_cluster_rf_feature_analysis.png){#fig-ts-cluster-pdp fig-align="center"
 width="14.82cm"}
 
-First-order PDA showed minimal influence of incoming, outgoing and source-to-sink ratio
+First-order PDA showed minimal influence of incoming and outgoing
 connectivity metrics on cluster assignment probabilities. Two-way analyses revealed little
 interaction between depth and incoming and outgoing connectivity metrics for reef clustering
 probabilities (@fig-ts-cluster-pdp-twoway-incoming; @sfig-ts-cluster-pdp-twoway-outgoing).
@@ -932,7 +920,6 @@ fig-align="center" width="14.82cm"}
 | Percentage coral cover time series | Time series clustering, Carbonate budget analysis | Total coral cover as a percentage of reef area | To summarise coral population health over time. |
 | Median depth | Time series cluster assessment Carbonate budget analysis | Reef median depth as calculated with zonal raster analysis | Depth is a critical form of environmental refugia from high thermal stress |
 | Mean time series DHW | Time series cluster assessment | Reef mean DHW value across time series | To quantify the surface thermal stress experienced on each reef over time series. |
-| Source - to - sink connectivity ratio | Time series cluster assessment | Ratio of reef outgoing to incoming connectivity | To examine whether a reef may be a 'net contributor' or 'net receiver' of larvae in the connectivity network. |
 | Weighted incoming connectivity | Time series cluster assessment, Carbonate budget analysis | Incoming connectivity strength weighted by mean time series coral cover of source reefs | To approximate the larval flow received by a reef over the projected time series. |
 | Outgoing connectivity strength | Time series cluster assessment, Carbonate budget analysis | Sum of a reef's outgoing larval transition probability values. | To understand the contribution of a reef to the connectivity network and the possibility for flow-on effects from reef states. |
 | Larval retention probability | Time series cluster assessment | Diagonal larval transition matrix values. | To understand the relative proportion of larvae retained on a reef. |
@@ -1006,8 +993,7 @@ fig-align="center" width="14.82cm"}
 ![Scatter plots indicating the bioregion test-prediction accuracy (proportion of reefs in
 each bioregion assigned correct clusters) from the Random Forest model. Plot panels
 represent the bioregion accuracy across various predictor ranges and bioregion attributes,
-such as mean bioregion depth, carrying capacity, DHW value, total connectivity strength,
-Source-to-sink ratio and the number of reefs in each
+such as mean bioregion depth, carrying capacity, DHW value, total connectivity strength and the number of reefs in each
 bioregion.](../figs/rf_performance_across_predictors.png){#sfig-rf-predictor-perf
 fig-align="center" width="14.82cm"}
 
@@ -1048,18 +1034,6 @@ lighter colours. All 2197 reefs included in this investigation are represented i
 figure. Annotations represent major coastal settlements along the
 GBR.](../figs/log_out_strength_input_map.png){#sfig-outgoing-conn-map fig-align="center"
 width="14.82cm"}
-
-![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
-considered reefs (points), coloured by source-to-sink connectivity ratio (log10).
-Colour-coded areas outline GBR marine park management regions, where orange represents the
-Far Northern management region, green represents Cairns/Cooktown, red covers
-Townsville/Whitsunday and blue covers Mackay/Capricorn [@GBRMPA2007]. Reef centroids are
-marked individually for visual clarity. Darker colours represent higher source-to-sink
-values than lighter colours. Source-to-sink ratio values above zero (one on normal scale)
-indicate a reef has greater outgoing than incoming connectivity. All 2197 reefs included in
-this investigation are represented in this figure. Annotations represent major coastal
-settlements along the GBR.](../figs/log_so_to_si_input_map.png){#sfig-sotosi-conn-map
-fig-align="center" width="14.82cm"}
 
 ![Map of the Great Barrier Reef region, including GBRMPA management areas (polygons) and all
 considered reefs (points), coloured by larval retention probability (log10). Colour-coded
@@ -1269,8 +1243,7 @@ greatest median reef depths across bioregions (@sfig-access-esm1-5-bioregion-dep
 bioregions, there were no consistent patterns between reef clusters in mean DHW values
 (@sfig-access-esm1-5-bioregion-dhwmean), log10-weighted incoming connectivity
 (@sfig-access-esm1-5-bioregion-weightedincoming), log10 outgoing connection strength
-(@sfig-access-esm1-5-bioregion-outgoingconn), log10 source-to-sink connectivity ratio
-(@sfig-access-esm1-5-bioregion-logsosi) and log10 larval retention probability
+(@sfig-access-esm1-5-bioregion-outgoingconn) and log10 larval retention probability
 (@sfig-access-esm1-5-bioregion-selfconn). Across six of the 29 bioregions reefs in the high
 cover cluster have lower log10 carrying capacity values than reefs in other clusters
 (@sfig-access-esm1-5-bioregion-carrying-capacity).
@@ -1308,17 +1281,6 @@ comparatively low median area-relative cover is indicated in green, intermediate
 orange, and high in blue. Solid lines represent the median carrying capacity for each
 cluster and bands represent the distribution of values within each
 cluster.](../figs/ACCESS-ESM1-5/bioregion/carrying_capacity_bioregion_violin.png){#sfig-access-esm1-5-bioregion-carrying-capacity
-fig-align="center" width="14.82cm"}
-
-![Source-to-sink connectivity ratios (in base-10 log scale) for reefs within each bioregion,
-separated into clusters assigned by time series clustering, under ACCESS-ESM1-5. Time series
-were clustered based on their behaviour between 2030 and 2060. Time series with
-comparatively low median area-relative cover is indicated in green, intermediate cover in
-orange, and high in blue. Solid lines within each violin represent the median source-to-sink
-ratio for each cluster and bands represent the distribution of source-to-sink ratios within
-each cluster. The vertical grey line represent a source-to-sink ratio of 0 (in base-10 log
-scale) indicating equal outgoing and incoming connectivity
-levels.](../figs/ACCESS-ESM1-5/bioregion/so_to_si_bioregion_violin.png){#sfig-access-esm1-5-bioregion-logsosi
 fig-align="center" width="14.82cm"}
 
 ![Weighted incoming connectivity (in base-10 log scale) for reefs within each bioregion,
@@ -1379,9 +1341,9 @@ fig-align="center" width="14.82cm"}
 |               |         | **Ground Truth** |          |
 |---------------|---------|------------------|----------|
 | **Predicted** | **Low** | **Medium**       | **High** |
-| **Low**       | 1371    | 682              | 151      |
-| **Medium**    | 247     | 603              | 340      |
-| **High**      | 97      | 302              | 787      |
+| **Low**       | 1336    | 633              | 138      |
+| **Medium**    | 297     | 556              | 310      |
+| **High**      | 78      | 324              | 722      |
 
 Confusion matrix for the Random Forest classifier used to assess partial dependence.
 Diagonals indicate correctly classified time series clusters. Columns are the "true" cluster
@@ -1396,9 +1358,9 @@ testing.
 |                  | **Low** | **Medium** | **High** |
 |------------------|---------|------------|----------|
 | **Test samples** | 1715    | 1587       | 1278     |
-| **Precision**    | 0.622   | 0.507      | 0.664    |
-| **Recall**       | 0.799   | 0.38       | 0.616    |
-| **F1**           | 0.7     | 0.434      | 0.639    |
+| **Precision**    | 0.634   | 0.478      | 0.642    |
+| **Recall**       | 0.781   | 0.367      | 0.617    |
+| **F1**           | 0.7     | 0.416      | 0.629    |
 
 Performance metrics for the Random Forest classifier for each of the time series clusters.
 :::
