@@ -316,17 +316,17 @@ November 18, 19, 20; 2019 – November 16, 17, 18; 2020 – November 5, 6 and 7,
 For each spawning night, particles were released from random locations within each reef
 polygon as neutrally buoyant virtual larvae every 27 seconds from 8:00 pm to 11:00 pm at
 2.25 m below the surface. In each of the reef polygons, 401 particles were released
-resulting in a total of 1,526,206 particles every night of spawning. The model was run for
-30 days with a 3-minute timestep, and the locations of the released particles were updated
-every 15 minutes until the end of the simulation. Larvae were assumed to become competent to
-settle from 4 to 28 days post release with a daily mortality rate of 0.4 [@ani2024], which
-was implemented in 15-minute timestep as probabilistic mortality, corresponding to 0.0053
-mortality rate per timestep. To incorporate the stochastic sensory behaviour of larvae
-during settlement, a 0.01 probability of settlement is assumed when larvae are over a reef
-during the competency period per 15-minute timestep. The information obtained on larvae
-settlement was used to compute a connectivity matrix among reef polygons for each spawning
-night (see Ani et al. [-@ani2024] for more details). A total of 24 connectivity matrices
-were generated for the spawning nights that were considered.
+resulting in a total of 1,526,206 particles every night of spawning across the GBR. The
+model was run for 30 days with a 3-minute timestep, and the locations of the released
+particles were updated every 15 minutes until the end of the simulation. Larvae were assumed
+to become competent to settle from 4 to 28 days post release with a daily mortality rate of
+0.4 [@ani2024], which was implemented in 15-minute timestep as probabilistic mortality,
+corresponding to 0.0053 mortality rate per timestep. To incorporate the stochastic sensory
+behaviour of larvae during settlement, a 0.01 probability of settlement is assumed when
+larvae are over a reef during the competency period per 15-minute timestep. The information
+obtained on larvae settlement was used to compute a connectivity matrix among reef polygons
+for each spawning night (see Ani et al. [-@ani2024] for more details). A total of 24
+connectivity matrices were generated for the spawning nights that were considered.
 
 Larval transition matrices indicate the probability of larval transfer between pairs of
 reefs in the GBR, herein referred to as connectivity strengths. Indicative connectivity
