@@ -45,15 +45,13 @@ abstract: |
     to climate impacts is critical for conservation planning and intervention strategies. A
     scenario-based population modelling approach was adopted with larval connectivity dynamics and
     environmental factors to assess coral reef resilience across the GBR using projected conditions under
-    five Global Climate Models (GCMs). Projected coral
-    cover was analysed for each reef's ability to maintain positive carbonate production budgets under
-    future conditions, using coral cover as a proxy. Larval connectivity patterns did not correlate with
-    increases in maintenance of positive carbonate budgets. Instead, reef depth emerged as the primary
-    predictor, with deeper reefs (>10m) benefitting from reduced thermal exposure. These
-    findings suggest that depth is a tangible and pragmatic reef characteristic to consider in future
-    intervention practices for coral reef restoration. These results have important implications for reef
-    management, indicating that depth should be considered as a key variable in
-    conservation planning to maximize coral survival under continuing climate change.
+    five Global Climate Models (GCMs). Projected coral cover was analysed for each reef's ability to maintain positive
+    carbonate production budgets under future conditions, using coral cover as a proxy. Larval connectivity patterns
+    did not correlate with increases in maintenance of positive carbonate budgets. Instead, reef depth emerged as the
+    primary predictor, with deeper reefs (>10m) benefitting from reduced thermal exposure. These findings suggest that
+    depth is a tangible and pragmatic reef characteristic to consider in future intervention practices for coral reef
+    restoration. These results have important implications for reef management, indicating that depth should be
+    considered as a key variable in conservation planning to maximize coral survival under continuing climate change.
 
 keywords:
   - Coral reef
