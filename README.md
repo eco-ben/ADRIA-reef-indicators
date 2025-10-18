@@ -146,7 +146,7 @@ flowchart LR;
 
 ### Raw Data Requirements
 
-- `GBR-wide ADRIADomain data with HighResCoralStress DWHs` : https://registry.mds.gbrrestoration.org/item/102.100.100/708080
+- `GBR-wide ADRIADomain data with HighResCoralStress DWHs` : https://doi.org/10.5281/zenodo.17383091
 - `GBRMPA management areas` : https://geohub-gbrmpa.hub.arcgis.com/datasets/management-areas
 - `GBRMPA reef features` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::great-barrier-reef-features
 - `GBRMPA reefal bioregions` : https://geohub-gbrmpa.hub.arcgis.com/datasets/GBRMPA::reefal-marine-bioregions
