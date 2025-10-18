@@ -286,15 +286,22 @@ approaches have gained favour in recent years to explore the implications of dee
 uncertainty; where there is little or no agreement on the key drivers of a system, the
 extent of the relationship, how best to represent them or their probability distributions
 [@conradt2024; @lempert2013]. The approach embraces uncertainty as an inherent
-characteristic of complex environmental systems [@lempert2010; @lempert2013] to address
-limitations of calibrated ecosystem models that use a singular set of parameter values
-[@lubianabotelho2025]. Exploratory scenario modelling is a core methodology underpinning the
-development of robust and adaptive management strategies [@haasnoot2013].
+characteristic of complex environmental systems [@lempert2010; @lempert2013]. Exploratory
+scenario modelling is a core methodology underpinning the development of robust and adaptive
+management strategies [@haasnoot2013].
+
+Recent critiques have raised concerns around the use of calibrated ecological models - which
+often have poor predictive capacity - for decision support [@lubianabotelho2025]. Here, the
+focus is on exploring the climatic and physical context that pertain to management decisions
+to understand the range of conditions under which conclusions hold true, rather than
+providing precise forecasts of future state. These environmental factors often set the
+context which influences ecological outcomes and have more manageable uncertainties than the
+precise ecological parameterisations [@reichert2005].
 
 All data preparation, modelling and analyses were performed using the Julia programming
 language [@bezanson2017], with visualisations created using the Makie plotting ecosystem
-[@danisch2021]. Code used to process DHW data and perform analyses involved in this
-investigation can be found at Grier and Iwanaga [-@grier2025].
+[@danisch2021]. Code used to process DHW data, perform analyses, and create figures for this
+investigation are openly published and can be found in Grier and Iwanaga [-@grier2025].
 
 ### Connectivity modelling
 
@@ -354,7 +361,7 @@ probability indicates the proportion of spawned larvae that settle on their nata
 
 ### Scenario modelling
 
-Two systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
+Two modelling systems were employed to explore scenarios: ADRIA (the Adaptive Dynamic Reef
 Intervention Algorithms platform) and CoralBlox, referred to as the coupled framework
 ADRIA-CoralBlox. ADRIA is a multi-criteria decision support platform designed for the
 assessment and analysis of coral reef intervention strategies under uncertainty
