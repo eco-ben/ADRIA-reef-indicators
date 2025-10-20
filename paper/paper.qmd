@@ -1183,12 +1183,7 @@ place: when DHW = 0, initial cover is the most influential factor then, when DHW
 and DHW start to appear as influential factors and, as DHW values get higher, depth becomes
 more influential in detriment of DHW.
 
-![Parametric sensitivity analysis conducted with Shapley effects. Each column reflects
-sampling of different DHW ranges. The first column represents model runs with DHW = 0, and
-the remaining columns represent models runs with DHW valued between 0 and 8, 8 and 16, 16
-and 30, and 0 and 30. The first row shows the Shapley effect for change in coral cover and
-the second for change in evenness of species
-abundance.](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa fig-align="center"
+![Parametric sensitivity analysis conducted with Shapley effects. Each column reflects the sampling of different DHW ranges. The first column represents model runs with DHW = 0, and the remaining columns represent model runs with DHW valued between 0 and 30, 0 and 8, 8 and 16, 16 and 30. The first row shows the Shapley effect for relative changes in coral cover and the second for relative changes in evenness of species abundance. The five functional group names were abbreviated for readability as TA (tabular Acropora), CA (corymbose Acropora), CNA (corymbose non-Acropora), SM (small massives) and LM (large massives).](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa fig-align="center"
 width="14.82cm"}
 
 ### Time series clustering
