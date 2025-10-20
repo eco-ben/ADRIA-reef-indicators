@@ -1,5 +1,5 @@
 ---
-title: Importance of depth refugia for reef resilience and intervention on the Great Barrier Reef under future climate change
+title: Depth refugia for reef persistence in the GBR
 
 authors:
   - name: Benjamin Grier
@@ -76,8 +76,7 @@ bibliography: references.bib
 csl: global-change-biology.csl
 
 engine: julia
-julia:
-  exeflags: ["+1.11.5"]
+exeflags: ["--project=."]
 
 crossref:
   custom:
@@ -92,6 +91,7 @@ editor:
   markdown:
     wrap: 92
     canonical: true
+citeproc: true
 ---
 
 # Introduction
@@ -124,8 +124,8 @@ compounded by ocean acidification, tropical cyclones, and crown-of-thorns starfi
 Summer mass bleaching event may be signalling a shift towards this reef future, with some
 level of bleaching recorded on 79% of surveyed reefs (total 1001 surveyed reefs),
 representing the most widespread bleaching event on the GBR and largest single year decline
-in the history of the Long Term Monitoring Program (LTMP;
-@australianinstituteofmarinescience2024; @cantin2024).
+in the history of the Long Term Monitoring Program [LTMP,
+@australianinstituteofmarinescience2024; @cantin2024].
 
 At the individual coral scale, survival during thermal stress events depends on both
 environmental and biological factors that can either amplify or reduce the effects of
@@ -172,9 +172,9 @@ change.
 
 The spatial extent of reefs represented in this investigation follows reef definitions
 available via the Great Barrier Reef Marine Park Authority (GBRMPA). Reef definitions
-outline 3806 reefs across the GBR [@GBRMPA2022] (@fig-region-map). Prior analyses by Bozec
-et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef that were
-adopted by this study.
+outline 3806 reefs across the GBR (@fig-region-map; GBRMPA [-@GBRMPA2022]). Prior analyses
+by Bozec et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef
+that were adopted by this study.
 
 Depths for each reef were extracted using 10m resolution bathymetry data made available in
 GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched with the 3806
@@ -235,7 +235,7 @@ whereas Dixon et al., [-@dixon2022; -@dixon2023] provide data based on GFDL-CM4.
 substitution is assumed appropriate given they share the same fundamental representation of
 the physical climate system. The use of these GCMs therefore allows for a range of possible
 futures to be explored, capturing uncertainty in future responses to CO~2~ increases
-(@fig-methods-dhws; @sfig-ecs; @grose2023; @shepherd2018) and enables the assessment of
+(@fig-methods-dhws; @sfig-ecs; [@grose2023; @shepherd2018]) and enables the assessment of
 modelled coral reef behaviour over a broad range of independently derived climate futures
 [@abramowitz2019; @brunner2020].
 
@@ -266,7 +266,7 @@ conducted for all 2197 reefs to create DHW projections spanning from 2025 to 207
 Information for each GCM used in this investigation including Equilibrium Climate
 Sensitivity (ECS) value, interpreted relative severity and where results for an individual
 GCM results are found. GCMs in context with assessed plausible ranges of ECS values are
-displayed in [@sfig-ecs]. ACCESS-ESM1-5 has an ECS closest to the midpoint of the likely ECS
+displayed in (@sfig-ecs). ACCESS-ESM1-5 has an ECS closest to the midpoint of the likely ECS
 range and was taken as an intermediate model with results displayed in the main text.
 :::
 
@@ -306,7 +306,7 @@ investigation are openly published and can be found in Grier and Iwanaga [-@grie
 ### Connectivity modelling
 
 The coral larval connectivity model used in this study comprises 3D hourly velocities from
-the 1 km grid resolution hydrodynamic model (GBR-1 version 2.0; @steven2019), as input to
+the 1 km grid resolution hydrodynamic model [GBR-1 version 2.0, @steven2019], as input to
 OceanParcels [@delandmeter2019], a particle tracking model. The connectivity model was used
 to simulate larval dispersal and settlement of broadcast-spawning Acropora corals in the
 GBR, following annual mass spawning events in 2015, 2016, 2018, 2019 and split-spawning
@@ -330,8 +330,8 @@ corresponding to 0.0053 mortality rate per timestep. To incorporate the stochast
 behaviour of larvae during settlement, a 0.01 probability of settlement is assumed when
 larvae are over a reef during the competency period per 15-minute timestep. The information
 obtained on larvae settlement was used to compute a connectivity matrix among reef polygons
-for each spawning night (see Ani et al. [-@ani2024] for more details). A total of 24
-connectivity matrices were generated for the spawning nights that were considered.
+for each spawning night (see @ani2024 for more details). A total of 24 connectivity matrices
+were generated for the spawning nights that were considered.
 
 Larval transition matrices indicate the probability of larval transfer between pairs of
 reefs in the GBR, herein referred to as connectivity strengths. Indicative connectivity
@@ -414,11 +414,11 @@ clustering approach are found in the supplementary materials.
 
 Time series clustering was applied over the time frame between 2025 and 2075. The clustering
 was conducted at three spatial scales: (1) the whole of GBR; (2) each GBR management area;
-and (3) for each reefal bioregion (defined in GBRMPA [-@GBRMPA2024]). Analyses were
-conducted at the different spatial scales as, conceptually, the temporal behaviour
-constituting "low", "medium" or "high" coral cover may differ at different spatial scales.
-Analyses at the whole-of-GBR scale were found to lead to identical conclusions regarding
-reef characteristics which influence coral cover and so for brevity are not shown here.
+and (3) for each reefal bioregion (defined in @GBRMPA2024). Analyses were conducted at the
+different spatial scales as, conceptually, the temporal behaviour constituting "low",
+"medium" or "high" coral cover may differ at different spatial scales. Analyses at the
+whole-of-GBR scale were found to lead to identical conclusions regarding reef
+characteristics which influence coral cover and so for brevity are not shown here.
 
 To compare time series clustering results across GCMs, management area scale clustering
 results are used to preserve coarse scale latitudinal differences between regions, while
@@ -510,7 +510,7 @@ GCMs (@fig-gcm-cover-trajectories). Of the GCMs explored, NorESM2-MM had the low
 hypothetical climate future. Unsurprisingly, recovery phases were predominantly seen in the
 reefs in the High cover cluster, with Medium and Low exhibiting lesser probability of such
 periods of recovery. The High cover cluster exhibits greater resilience despite encompassing
-a broad range of initial coral cover conditions at 2025 (\@fig-gcm-cover-trajectories).
+a broad range of initial coral cover conditions at 2025 (@fig-gcm-cover-trajectories).
 Generally, recovery and increases in coral cover were visible in simulated results up to
 2045. Under NorESM2-MM, the Far Northern Management area was found to have the most similar
 temporal behaviour between Low and High clusters compared to other Management areas
@@ -614,9 +614,9 @@ not capture differences between clustered reefs.
 ## Reef carbonate budget
 
 Reef median depth had a moderate positive correlation with the number of years a reef
-maintains coral cover above the assumed carbonate budget threshold required to sustain live
-coral cover ($\theta_{0}$). Greater median depth was a key characteristic defining reefs
-that sustain coral cover above $\theta_{0}$ (@fig-access-esm1-5-depth-conn-carbonate;
+maintains coral cover above the assumed threshold required to sustain a positive carbonate
+budget ($\theta_{0}$). Greater median depth was a key characteristic defining reefs that
+sustain coral cover above $\theta_{0}$ (@fig-access-esm1-5-depth-conn-carbonate;
 @sfig-access-esm1-5-carb-budget-corr; @sfig-access-esm1-5-mean-carb-budget). Unsurprisingly,
 the number of years above $\theta_0$ substantially decreased as $\theta_0$ is increased, as
 does the Spearman's correlation (@sfig-access-esm1-5-carb-budget-corr). Decreasing
@@ -714,29 +714,30 @@ performed using prior generations of larval connectivity models parameterised fo
 [@hock2017] and 1996-2002 [@bode2018] time periods, without considering the influence of
 reef depth on resilience. Using updated 1km^2^ resolution larval connectivity across the
 whole GBR, with a limited temporal sample of particle flows, it was found that larval
-connectivity alone may not be important or reef resilience and recovery but should be
+connectivity alone may not be enough to support reef resilience and recovery but should be
 considered in combination with more influential factors such as depth.
 
 Findings on the importance of connectivity likely differ from literature due to the highly
 uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023] and
 the way larval flows and juvenile recruitment are implemented in ADRIA - CoralBlox.
-Additionally, and the high magnitude of early bleaching events (2025-2035) may decrease the
-breeding capacity of strongly connected reefs, resulting in reduced importance of
-connectivity in recovery. Analysing daily connectivity data Vogt-Vincent, Mitarai and
-Johnson [-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for
-capturing the seasonal - ecological time scale connectivity between locations due to high
-daily variability in connectivity data. Connectivity matrices used in this investigation
-have large relative standard deviations for larval transition probabilities between reefs
-over the 24 days used (@sfig-connectivity-rsd). Using alternative summarisation methods that
-capture ecological-timescale patterns in coral larval dispersal, such as cumulated implicit
-connectivity [@vogt-vincent2023], future investigations may find increased importance of
-both depth and reef connectivity for resilience, in line with other investigations
-[@hock2017; @torres2024]. Choukroun et al [-@choukroun2025] performed a comparison of three
-GBR-scale connectivity models, including GBR1, and suggest the use of a model ensemble
-approach to estimate larval dispersal due to the high sensitivity of connectivity
-predictions to model specification. Further improvements and research in connectivity
-modelling are necessary when incorporating connectivity as a supplementary factor in reef
-resilience and intervention-planning analyses.
+Additionally, and the high magnitude of early bleaching events (2025-2035) may increase the
+influence of temperature mediators (i.e. depth) in our simulations decrease the breeding
+capacity of strongly connected reefs, resulting in reduced importance of connectivity in
+recovery. Analysing daily connectivity data Vogt-Vincent, Mitarai and Johnson
+[-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for capturing
+the seasonal - ecological time scale connectivity between locations due to high daily
+variability in connectivity data. Connectivity matrices used in this investigation have
+large relative standard deviations for larval transition probabilities between reefs over
+the 24 days used (@sfig-connectivity-rsd). Using alternative summarisation methods that
+capture ecological-timescale patterns in coral larval dispersal in future investigations,
+such as cumulated implicit connectivity [@vogt-vincent2023], may find increased importance
+of both depth and reef connectivity for resilience, in line with other studies [@hock2017;
+@torres2024]. Choukroun et al [-@choukroun2025] performed a comparison of three GBR-scale
+connectivity models, including GBR1, and suggest the use of a model ensemble approach to
+estimate larval dispersal due to the high sensitivity of connectivity predictions to model
+specification. Further improvements and research in connectivity modelling are necessary
+when incorporating connectivity as a supplementary factor in reef resilience and
+intervention-planning analyses.
 
 Under all GCMs many reefs are projected to suffer substantial declines in coral cover
 relative to 2025 levels, with an average of 38% of reefs (924 reefs) clustered into the Low
@@ -781,7 +782,7 @@ resilience. Additionally, reduced growth rates at increased depths may reduce ca
 budget maintenance due to lower rates of CaCO~3~ accretion. Due to the availability of
 quality future projected data this investigation does not consider other important impacts
 such as waves, cyclones, ocean currents and Crown of Thorns Starfish (CoTS) on coral colony
-survival and bleaching [@massel1993; @deaker2022].
+survival and bleaching [@emslie2024a; @emslie2024b].
 
 Uncertainty in connectivity modelling outputs, satellite-derived bathymetry data and future
 thermal stress projections likely influence the results obtained in this investigation.
@@ -824,7 +825,7 @@ false positives, where features identified as reefs were sand banks or rocky ree
 than coral reefs). Reefs with bathymetry data covering less than 5% of their indicative area
 were excluded from analyses (see @sfig-depth-cutoff). Existing GBRMPA reef outlines were
 adopted to align with other ongoing modelling and analyses conducted as part of the Reef
-Restoration and Adaptation Program (<https://gbrrestoration.org>; RRAP [-@thereef]).
+Restoration and Adaptation Program [<https://gbrrestoration.org>, @thereef].
 
 The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
 one, a formal mechanistic and spatial validation of the model represents an area for future
@@ -893,7 +894,7 @@ The authors declare no conflicts of interest.
 # Data Availability Statement
 
 The full reproducible investigation, and links to required data sources, can be found at
-Grier and Iwanaga ([-@grier2025]; https://doi.org/10.5281/zenodo.17333564).
+Grier and Iwanaga [-@grier2025, https://doi.org/10.5281/zenodo.17333564].
 
 # References
 
