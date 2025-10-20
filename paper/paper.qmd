@@ -1,5 +1,5 @@
 ---
-title: Depth refugia for reef persistence in the GBR
+title: Importance of depth refugia for reef resilience and intervention on the Great Barrier Reef under future climate change
 
 authors:
   - name: Benjamin Grier
