@@ -521,6 +521,7 @@ rowsize!(figure.layout, 1, Relative(0.3))
 Label(figure[2, 1, Left()], "Probability", rotation=π / 2, tellwidth=false)
 Label(figure[1, 1, TopLeft()], "A", font=:bold, tellwidth=false, fontsize=fontsize + 3)
 Label(figure[2, 1, TopLeft()], "B", font=:bold, tellwidth=false, fontsize=fontsize + 3)
+rowsize!(gr2, 3, Relative(0.025))
 
 save(
     joinpath(figs_path, "ts_cluster_rf_feature_analysis.png"),
