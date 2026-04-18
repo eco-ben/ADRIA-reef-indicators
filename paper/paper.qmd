@@ -71,6 +71,7 @@ format:
       name: Global Change Biology
       formatting: preprint
       cite-style: authoryear
+    number-sections: true
 
 bibliography: references.bib
 csl: global-change-biology.csl
@@ -172,9 +173,9 @@ change.
 
 The spatial extent of reefs represented in this investigation follows reef definitions
 available via the Great Barrier Reef Marine Park Authority (GBRMPA). Reef definitions
-outline 3806 reefs across the GBR (@fig-region-map; GBRMPA [-@GBRMPA2022]). Prior analyses
-by Bozec et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef
-that were adopted by this study.
+outline 3806 reefs across the GBR [@fig-region-map; GBRMPA @GBRMPA2022]. Prior analyses by
+Bozec et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef that
+were adopted by this study.
 
 Depths for each reef were extracted using 10m resolution bathymetry data made available in
 GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched with the 3806
@@ -235,7 +236,7 @@ whereas Dixon et al., [-@dixon2022; -@dixon2023] provide data based on GFDL-CM4.
 substitution is assumed appropriate given they share the same fundamental representation of
 the physical climate system. The use of these GCMs therefore allows for a range of possible
 futures to be explored, capturing uncertainty in future responses to CO~2~ increases
-(@fig-methods-dhws; @sfig-ecs; [@grose2023; @shepherd2018]) and enables the assessment of
+[@fig-methods-dhws; @sfig-ecs; @grose2023; @shepherd2018] and enables the assessment of
 modelled coral reef behaviour over a broad range of independently derived climate futures
 [@abramowitz2019; @brunner2020].
 
@@ -369,7 +370,7 @@ assessment and analysis of coral reef intervention strategies under uncertainty
 analysis as well as providing technical infrastructure to couple environmental and ecosystem
 representations. CoralBlox is a computationally efficient coral population model. It
 simulates functional/morphological groups of corals over their life cycles, competing for
-available space over time [@ribeirodealmeida2024].
+available space over time [@ribeirodealmeida2026; @ribeirodealmeida2024].
 
 The coral demographic representation and associated model implementation are further
 detailed in the supplementary material. Of note is that the representation of bleaching
@@ -652,7 +653,9 @@ experienced and exhibit overall similar DHW time series. While reefs experience 
 magnitude DHWs based on SST, the proportion of a reefs' coral population impacted by heat
 stress events depends on reef depth. Results of this investigation suggest that for
 non-mesophotic reef ecosystems (i.e., \< 30m), depth contributes greatly to reef resilience
-and maintenance positive carbonate budgets under future conditions.
+and maintenance positive carbonate budgets under future conditions. Global sensitivity
+analysis of CoralBlox identified high sensitivity of coral cover, among multiple demographic
+metrics, to depth [@ribeirodealmeida2026].
 
 Movement of shallow reefs towards negative carbonate budgets in the future may contribute to
 phase shifts in dominant sources of CaCO~3~ production. Reefs may switch away from
@@ -679,7 +682,7 @@ depth and the alleviation of heat stress across a range of shallow reefs in the 
 
 This investigation supports the hypothesis that reefs at greater depths will exhibit
 characteristics of refugia and prolonged resilience (in terms of coral cover) under climate
-change compared to shallower reefs. Additionally, Liu, Callaghan and Baldock [-@liu2024]
+change compared to shallower reefs. Additionally, Liu, Callaghan and Baldock [-@liu2025]
 suggest that rubble instability is inversely correlated with reef depth, possibly limiting
 juvenile coral recruitment capacity of shallow reefs. A caveat to depth-resilience findings
 is the quality of the bathymetry data used to calculate median reef depth. As detailed
@@ -827,17 +830,16 @@ were excluded from analyses (see @sfig-depth-cutoff). Existing GBRMPA reef outli
 adopted to align with other ongoing modelling and analyses conducted as part of the Reef
 Restoration and Adaptation Program [<https://gbrrestoration.org>, @thereef].
 
-The modelling conducted with ADRIA-CoralBlox itself is subject to many uncertainties. For
-one, a formal mechanistic and spatial validation of the model represents an area for future
-refinement and is the focus of a future publication. The consistency of projected patterns
-with known coral-climate relationships and reef characteristics provides confidence in the
-model's ability to meaningfully capture ecological signals at the GBR-scale. The mechanistic
-basis of the model supports the robustness of these findings for understanding broad-scale
-coral cover responses to climatic drivers. The aim here, however, was to assess the relative
-influence of reef characteristics on reef resilience across a range of future conditions and
-parameterisations, rather than provide spatially explicit and precise predictions of reef
-outcomes. Using this approach, results suggest reef depth is an important factor for reef
-resilience under thermal stress.
+The modelling and future projection conducted with ADRIA-CoralBlox itself is subject to many
+uncertainties. Validation of CoralBlox using coral cover observations from a subset of GBR
+reefs [@ribeirodealmeida2026], and the consistency of projected patterns with known
+coral-climate relationships provides confidence in the model's ability to meaningfully
+capture ecological signals at the GBR scale. The mechanistic basis of the model supports the
+robustness of these findings for understanding broad-scale coral cover responses to climatic
+drivers. The aim here, however, was to assess the relative influence of reef characteristics
+on reef resilience across a range of future conditions and parameterisations, rather than
+provide spatially explicit and precise predictions of reef outcomes. Using this approach,
+results suggest reef depth is an important factor for reef resilience under thermal stress.
 
 Improvements in remote sensing approaches for broad scale bathymetry measurement and
 understanding of how depth impacts experienced thermal stress on reefs will further enhance
@@ -845,7 +847,7 @@ investigations of depth as a critical factor for reef resilience. Additional ana
 build on the findings of this study by assessing the impacts of prioritising reef depth for
 reef intervention decision outcomes. Future analyses could incorporate other environmental
 and ecological stressors such as wave activity, ocean acidification, and Crown-of-Thorn
-Starfish [@lin2023; @mcclanahan2005; @grimaldi2023; @grimaldi2022; @liu2024; @eyre2018].
+Starfish [@lin2023; @mcclanahan2005; @grimaldi2023; @grimaldi2022; @liu2025; @eyre2018].
 
 ## Conclusion
 
@@ -884,8 +886,8 @@ methodology, visualization, writing – original draft, writing – review and e
 Iwanaga:** conceptualisation, data curation, formal analysis, investigation, methodology,
 visualization, writing – original draft, writing – review and editing. **Pedro Ribeiro de
 Almeida:** data curation, model development, analysis, writing - methodology, writing -
-review and editing, visualisation. **Chinenye Ani:** data curation, writing - methodology,
-writing - review and editing. **Sam Matthews:** Writing - review and editing.
+review and editing. **Chinenye Ani:** data curation, writing - methodology, writing - review
+and editing. **Sam Matthews:** Writing - review and editing.
 
 # Conflict of Interest Statement
 
@@ -1168,23 +1170,6 @@ low-discrepancy Sobol' sampling method [@sobol1967; @sobol1993] with Owen scramb
 [@owen1995]. A base of 2 and padding of 32 is used for the Owen scrambling. Ecological
 factors were sampled using a +/- 10% range relative to their nominal (assumed best guess)
 value.
-
-### Sensitivity analysis
-
-A global sensitivity analysis was performed using Shapley Effects [@goda2021] implemented in
-the SAShE.jl package [@ribeirodealmeida2025a]. For this analysis, 10,000 samples were
-simulated for a single reef and timestep. Two metrics were considered, difference in coral
-cover and difference in evenness. The factors analysed were heritability, mean colony
-diameter, linear extension, mortality base rate, mean and standard deviation of the
-tolerance distribution, linear extension scale factor, mortality rate scale factor reef
-habitable area, reef depth, DHW, and initial coral cover. @sfig-coralblox-sa shows the
-result of such analysis for different ranges of DHW. In both cases a similar effect takes
-place: when DHW = 0, initial cover is the most influential factor then, when DHW \> 0, depth
-and DHW start to appear as influential factors and, as DHW values get higher, depth becomes
-more influential in detriment of DHW.
-
-![Parametric sensitivity analysis conducted with Shapley effects. Each column reflects the sampling of different DHW ranges. The first column represents model runs with DHW = 0, and the remaining columns represent model runs with DHW valued between 0 and 30, 0 and 8, 8 and 16, 16 and 30. The first row shows the Shapley effect for relative changes in coral cover and the second for relative changes in evenness of species abundance. The five functional group names were abbreviated for readability as TA (tabular Acropora), CA (corymbose Acropora), CNA (corymbose non-Acropora), SM (small massives) and LM (large massives).](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sa fig-align="center"
-width="14.82cm"}
 
 ### Time series clustering
 
