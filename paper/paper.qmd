@@ -2,7 +2,7 @@
 title: Importance of depth refugia for reef resilience and intervention on the Great Barrier Reef under future climate change
 
 authors:
-  - name: Benjamin Grier
+  - name: Benjamin T. Grier
     email: bengrier1@outlook.com
     affiliations:
       - ref: aims
@@ -22,13 +22,14 @@ authors:
       - ref: aims
     orcid: 0009-0007-4814-3261
 
-  - name: Chinenye Ani
+  - name: Chinenye J. Ani
     email: c.ani@aims.gov.au
     affiliations:
       - ref: aims
+      - ref: aimsjcu
     orcid: 0000-0002-2112-0840
 
-  - name: Sam Matthews
+  - name: Samuel A. Matthews
     email: s.matthews@aims.gov.au
     affiliations:
       - ref: aims
@@ -37,6 +38,8 @@ authors:
 affiliations:
   - id: aims
     name: Australian Institute of Marine Science, Townsville, Queensland, Australia
+  - id: aimsjcu
+    name: AIMS@JCU, Australian Institute of Marine Science, College of Science and Engineering, James Cook University, Townsville, Queensland 4811, Australia
 
 abstract: |
     Coral reefs globally face unprecedented threats from climate change, with the Great
@@ -48,7 +51,7 @@ abstract: |
     five Global Climate Models (GCMs). Projected coral cover was analysed for each reef's ability to maintain positive
     carbonate production budgets under future conditions, using coral cover as a proxy. Larval connectivity patterns
     did not correlate with increases in maintenance of positive carbonate budgets. Instead, reef depth emerged as the
-    primary predictor, with deeper reefs (>10m) benefitting from reduced thermal exposure. These findings suggest that
+    primary predictor, with deeper reefs (>10m) benefiting from reduced thermal exposure. These findings suggest that
     depth is a tangible and pragmatic reef characteristic to consider in future intervention practices for coral reef
     restoration. These results have important implications for reef management, indicating that depth should be
     considered as a key variable in conservation planning to maximize coral survival under continuing climate change.
@@ -173,9 +176,9 @@ change.
 
 The spatial extent of reefs represented in this investigation follows reef definitions
 available via the Great Barrier Reef Marine Park Authority (GBRMPA). Reef definitions
-outline 3806 reefs across the GBR [@fig-region-map; GBRMPA @GBRMPA2022]. Prior analyses by
-Bozec et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef that
-were adopted by this study.
+outline 3806 reefs across the GBR (@fig-region-map; GBRMPA [-@GBRMPA2022]). Prior analyses
+by Bozec et al. [-@bozec2022] provided estimates of coral carrying capacity for each reef
+that were adopted by this study.
 
 Depths for each reef were extracted using 10m resolution bathymetry data made available in
 GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched with the 3806
@@ -236,7 +239,7 @@ whereas Dixon et al., [-@dixon2022; -@dixon2023] provide data based on GFDL-CM4.
 substitution is assumed appropriate given they share the same fundamental representation of
 the physical climate system. The use of these GCMs therefore allows for a range of possible
 futures to be explored, capturing uncertainty in future responses to CO~2~ increases
-[@fig-methods-dhws; @sfig-ecs; @grose2023; @shepherd2018] and enables the assessment of
+(@fig-methods-dhws; @sfig-ecs; [@grose2023; @shepherd2018]) and enables the assessment of
 modelled coral reef behaviour over a broad range of independently derived climate futures
 [@abramowitz2019; @brunner2020].
 
@@ -452,10 +455,17 @@ scores for Low, Medium, and High clusters were determined to be 0.70, 0.42 and 0
 respectively, with precision of 0.63, 0.48 and 0.64 when evaluated with the test set
 (consisting of 4394 samples) (@stbl-confusion-matrix; @stbl-rf-cluster-performance). Lower
 performance with the Medium cluster reflects the inherent difficulty of classifying
-transitional states in natural systems. The consistent level of accuracy across test and
-cross-validation demonstrates the generalised performance of the RF classifier, while not
-accurate, is still sufficiently informative for the purpose of assessing the influence of
-reef characteristics.
+transitional states in natural systems.
+
+The RF classifier is adopted here for partial dependence estimation rather than as a
+predictive tool. PDA isolates the marginal effect of each predictor by averaging
+probabilistic predictions across the full test dataset; individual classification errors
+cancel across this averaging procedure and do not propagate into the estimated effect
+curves. The consistent accuracy across test and cross-validation sets demonstrates
+generalized classifier performance across the dataset, supporting its use for assessing the
+relative influence of reef characteristics. Confidence in the PDA results additionally
+benefits from the collation of ADRIA-CoralBlox outputs from five independently simulated
+GCMs.
 
 Partial dependence analysis was performed by applying the trained model to the test dataset.
 Values for individual predictors were systematically varied (one-at-a-time) across a grid of
@@ -723,8 +733,8 @@ considered in combination with more influential factors such as depth.
 Findings on the importance of connectivity likely differ from literature due to the highly
 uncertain nature of larval connectivity modelling [@choukroun2025; @vogt-vincent2023] and
 the way larval flows and juvenile recruitment are implemented in ADRIA - CoralBlox.
-Additionally, and the high magnitude of early bleaching events (2025-2035) may increase the
-influence of temperature mediators (i.e. depth) in our simulations decrease the breeding
+Additionally, the high magnitude of early bleaching events (2025-2035) may increase the
+influence of temperature mediators (i.e. depth) in our simulations, decreasing the breeding
 capacity of strongly connected reefs, resulting in reduced importance of connectivity in
 recovery. Analysing daily connectivity data Vogt-Vincent, Mitarai and Johnson
 [-@vogt-vincent2023] suggest that time-mean connectivity may not be suitable for capturing
@@ -842,16 +852,16 @@ provide spatially explicit and precise predictions of reef outcomes. Using this 
 results suggest reef depth is an important factor for reef resilience under thermal stress.
 
 Improvements in remote sensing approaches for broad scale bathymetry measurement and
-understanding of how depth impacts experienced thermal stress on reefs will further enhance
+understanding of how depth impacts thermal stress experienced on reefs will further enhance
 investigations of depth as a critical factor for reef resilience. Additional analyses could
 build on the findings of this study by assessing the impacts of prioritising reef depth for
 reef intervention decision outcomes. Future analyses could incorporate other environmental
 and ecological stressors such as wave activity, ocean acidification, and Crown-of-Thorn
 Starfish [@lin2023; @mcclanahan2005; @grimaldi2023; @grimaldi2022; @liu2025; @eyre2018].
 
-## Conclusion
+# Conclusion
 
-The results presented suggest that when modelled as part of a large and complex ecosystem,
+The presented results suggest that when modelled as part of a large and complex ecosystem,
 reef depth is a key factor contributing to ongoing reef resilience. This investigation
 provides evidence in support of depth as a form of thermal refugia for shallow-water reefs
 on the GBR. Targeting reefs with median depths greater than 10m may aid in identifying the
@@ -1170,6 +1180,29 @@ low-discrepancy Sobol' sampling method [@sobol1967; @sobol1993] with Owen scramb
 [@owen1995]. A base of 2 and padding of 32 is used for the Owen scrambling. Ecological
 factors were sampled using a +/- 10% range relative to their nominal (assumed best guess)
 value.
+
+### Sensitivity analysis
+
+A global sensitivity analysis was performed using Shapley Effects [@goda2021] implemented in
+the SAShE.jl package [@ribeirodealmeida2025]. The results of this analysis, along with
+description and validation of CoralBlox can be found in @ribeirodealmeida2026. For this
+analysis, 30,000 samples were simulated for a synthetic reef and timestep. Two metrics were
+considered, change in coral cover, evenness, juvenile coral cover and shelter volume
+[@ribeirodealmeida2026]. @sfig-coralblox-sens (taken from @ribeirodealmeida2026) shows the
+result of such analysis for different ranges of DHW. In all cases the importance of depth
+increases as the DHW level increases.
+
+![**Figure and caption taken with permission from @ribeirodealmeida2026**. Shapley effects
+for distinct disturbance scenarios. Factors with a \* represent groups of parameters 197
+across distinct functional groups, size classes or reef groups. Initial proportion of each
+functional group – tabular 198 Acropora (%TA), corymbose Acropora %CA, corymbose
+non-Acropora (%CNA), small massive (%SM), and 199 large massive (%LM) – were included in the
+assessment. (A) DHW = 0: no heat stress scenarios. (B) 0 ≤ 200 DHW ≤ 30: Broad-range heat
+stress scenarios. (C) 0 ≤ DHW ≤ 8: Low-value and narrow-range heat stress 201 scenarios. (D)
+8 ≤ DHW ≤ 16: Mid-value and narrow-range heat stress scenarios. (E) 16 ≤ DHW ≤ 30: 202
+High-value and narrow-range heat stress
+scenarios.](../figs/coralblox_sens_analysis.png){#sfig-coralblox-sens fig-align="center"
+width="14.82cm"}
 
 ### Time series clustering
 
