@@ -1117,7 +1117,7 @@ function gcm_cluster_assignment_heatmap(
     return fig
 end
 
-function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize)
+function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_label; management_region_fn="../data/GBRMPA_Management_Areas.gpkg", mainland_fn="../data/GBRMPA_Reef_Features.gpkg", fig_sizes=fig_sizes, fontsize=fontsize, bgcol=:white, pt_legend_bgcol=:white)
     regions = GDF.read(management_region_fn)
     regions.region_name = replace.(regions.AREA_DESCR, [" Management Area" => ""])
     qld = GDF.read(mainland_fn)
@@ -1149,7 +1149,6 @@ function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_la
 
     # GeoMakie currently has a bug where x/y labels never display.
     # We adjust map size to roughly align with the correct projection.
-    bgcol = :gray90
     fig = Figure(size=(map_width + 75, map_height), fontsize=fontsize, backgroundcolor=bgcol)
     ax = Axis(
         fig[1, 1],
@@ -1205,7 +1204,7 @@ function map_gbr_reefs_cat(reef_df, color_col::Symbol, colormap, color_legend_la
         nbanks=2,
         colgap=6,
         rowgap=1,
-        backgroundcolor=bgcol
+        backgroundcolor=pt_legend_bgcol
     )
 
     return fig
@@ -1218,7 +1217,8 @@ function map_gbr_reefs_cont(
     management_region_fn="../data/GBRMPA_Management_Areas.gpkg",
     mainland_fn="../data/GBRMPA_Reef_Features.gpkg",
     fig_sizes=fig_sizes, 
-    fontsize=fontsize
+    fontsize=fontsize,
+    bgcol=:white
 )
     regions = GDF.read(management_region_fn)
     regions.region_name = replace.(regions.AREA_DESCR, [" Management Area" => ""])
@@ -1243,7 +1243,6 @@ function map_gbr_reefs_cont(
 
     # GeoMakie currently has a bug where x/y labels never display.
     # We adjust map size to roughly align with the correct projection.
-    bgcol = :gray90
     fig = Figure(size=(map_width, map_height), fontsize=fontsize, backgroundcolor=bgcol)
     ax = Axis(
         fig[1, 1],

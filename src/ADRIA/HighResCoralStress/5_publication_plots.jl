@@ -14,7 +14,7 @@ save(joinpath(figs_path, "ecs_plot.png"), ecs, px_per_unit=dpi)
 
 # GBR map plot - methods
 bioregion_colors = distinguishable_colors(length(unique(context_layers.bioregion)));
-gbr_methods_map = map_gbr_reefs_cat(context_layers, :bioregion, bioregion_colors, "Bioregions")
+gbr_methods_map = map_gbr_reefs_cat(context_layers, :bioregion, bioregion_colors, "Bioregions"; pt_legend_bgcol=:gray90)
 
 save(joinpath(figs_path, "region_map.png"), gbr_methods_map, px_per_unit=dpi)
 
@@ -121,3 +121,46 @@ Label(
 )
 
 save(joinpath(figs_path, "methods_dhw_timeseries.png"), fig, px_per_unit=dpi)
+
+### Distribution of reef sizes
+# Reproject to EPSG:9822 Albers Equal Area to measure reef extent area
+area_context_layers = copy(context_layers)
+area_context_layers.geometry = GO.reproject.(area_context_layers.geometry, [GFT.EPSG(9822)])
+area_context_layers.area = GO.area.(area_context_layers.geometry) ./ 1e6
+context_layers.area = area_context_layers.area
+
+reefs_less_than_1km2 = context_layers[context_layers.area .<= 1, :]
+nrow(reefs_less_than_1km2) ./ nrow(context_layers) .* 100
+
+management_areas = categorical(context_layers.management_area)
+
+fig = map_gbr_reefs_cont(
+        context_layers,
+        "area",
+        "Reef area [km²]"
+)
+ax = first(filter(x -> x isa Axis, fig.content))
+centroids = GO.centroid.(reefs_less_than_1km2.geometry)
+scat = scatter!(ax, centroids; color=(:red, 0.3), markersize=4)
+
+save(joinpath(figs_path, "reef_size_map.png"), fig, px_per_unit=dpi)
+
+### Plot distribution of depth data bias
+gbr_dom = ADRIA.load_domain(gbr_domain_path, "45")
+canonical_reefs = gbr_dom.loc_data
+canonical_reefs.depth_rast_perc = canonical_reefs.depth_rast_prop .* 100
+canonical_reefs.depth_rast_perc = min.([100], canonical_reefs.depth_rast_perc)
+
+reefs_more_than_5 = canonical_reefs[canonical_reefs.depth_qc .!= 3, :]
+reefs_less_than_5 = canonical_reefs[canonical_reefs.depth_qc .== 3, :]
+
+fig = map_gbr_reefs_cont(
+    reefs_more_than_5,
+    :depth_rast_perc,
+    "Bathymetry data coverage [%]"
+)
+ax = first(filter(x -> x isa Axis, fig.content))
+centroids = GO.centroid.(reefs_less_than_5.geometry)
+scat = scatter!(ax, centroids; color=(:red, 0.3), markersize=4)
+
+save(joinpath(figs_path, "depth_data_coverage_map.png"), fig, px_per_unit=dpi)

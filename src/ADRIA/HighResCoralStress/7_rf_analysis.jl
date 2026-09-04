@@ -555,11 +555,12 @@ save(
 
 test_X.pred_y = y_pred_mode
 test_X.y = test_y
+test_X.UNIQUE_ID = reef_properties.UNIQUE_ID[shuffle_set[train_size+1:end]]
 test_X.bioregion = reef_properties.bioregion[shuffle_set[train_size+1:end]]
 test_X.bioregion_average_lat = reef_properties.bioregion_average_latitude[shuffle_set[train_size+1:end]]
 
 perf_by_bio = combine(groupby(test_X, :bioregion)) do sdf
-    (; n=nrow(sdf),
+    (; n=length(unique(sdf.UNIQUE_ID)),
         acc=mean(sdf.y .== sdf.pred_y),
         size=mean(sdf.abs_k_area),
         depth=mean(sdf.depth_med),
@@ -577,8 +578,7 @@ bioregion_colors = distinguishable_colors(nrow(perf_by_bio))
 bgcol = :gray90
 fig = Figure(
     size=(fig_sizes["cluster_hm_width"], fig_sizes["cluster_hm_height"] + 3centimetre),
-    fontsize=fontsize,
-    backgroundcolor=bgcol
+    fontsize=fontsize
 )
 ax = Axis(
     fig[1, 1],
@@ -629,6 +629,14 @@ ax = Axis(
     backgroundcolor=bgcol
 )
 Makie.scatter!(ax, perf_by_bio.self_conn, perf_by_bio.acc, color=bioregion_colors)
+ax = Axis(
+    fig[4, 2],
+    ylabel="Bioregion accuracy",
+    xlabel="Mean latitude [°]",
+    backgroundcolor=bgcol
+)
+Makie.scatter!(ax, perf_by_bio.bior_ave_lat, perf_by_bio.acc, color=bioregion_colors)
+
 Legend(
     fig[1:4, 0],
     [MarkerElement(; color=bio_col, marker=:circle) for bio_col in bioregion_colors],
@@ -644,3 +652,5 @@ save(
     fig,
     px_per_unit=dpi
 )
+
+lm(@formula(acc ~ depth + size + dhw + n + income_conn + outgoing_conn + self_conn + bior_ave_lat), perf_by_bio)

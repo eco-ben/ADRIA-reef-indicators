@@ -927,6 +927,15 @@ vertical line) were removed from the
 investigation.](../figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
+![Map of GBRMPA [-@GBRMPA2020] satellite derived depth data coverage levels across
+3806 possible reefs (point centroids). Reefs below the 5% data coverage threshold are represented by the red
+centroid points and were removed from the
+investigation. Reefs with more than 5% depth data coverage are represented by coloured
+centroid points, indicating their depth coverage percentage. Not all reefs displayed
+with more than 5% data coverage were included in this investigation (see Methods).](../figs/depth_data_coverage_map.png){#sfig-depth-coverage-map fig-align="center" width="14.82cm"}
+
+![Map of reef sizes across the ]
+
 ![Reef Degree Heating Week time series clustered within each management area, for each GCM
 analysed. Time series were clustered based on their behaviour between 2030 and 2060. Time
 series with comparatively low median area-relative cover is indicated in green, intermediate
