@@ -774,7 +774,7 @@ geographically close reefs, depending on the species studied [@meziere2025]. Add
 comparisons of biophysical dispersal models with genetic connectivity suggest that
 biophysical models can predict gene flow across multiple generations, particularly at large
 distances [@riginos2019; @legrand2022]. Further understanding of connectivity is necessary
-when incorporating larval supply as additional factor in reef resilience and
+when incorporating larval supply as an additional factor in reef resilience and
 intervention-planning analyses.
 
 Under all GCMs many reefs are projected to suffer substantial declines in coral cover
@@ -818,7 +818,7 @@ are not modelled in this investigation [@baker1975; @harriott2002; @ruiz-diaz202
 If included in this investigation, it is possible that reef recovery ability, via regrowth,
 would be reduced at greater depths, reducing the positive effect of depth refugia for
 temporal resilience. Reduced growth rates at increased depths may reduce carbonate budget
-maintenance due to lower rates of CaCO~3~ accretion. coral cover is an aggregate measure
+maintenance due to lower rates of CaCO~3~ accretion. Coral cover is an aggregate measure
 across genera with differing calcification rates and thermal tolerances. Reefs with
 equivalent coral cover may therefore differ in their carbonate budgets . Further
 investigation to resolve morphological or taxonomic contributions to cover is warranted. Due
@@ -856,7 +856,7 @@ suggest the utility of DHW levels for prediction of coral bleaching can be impro
 reducing the threshold for HotSpot Anomaly values from MMM +1 to MMM and reducing the
 accumulation window from 12 weeks to 8 weeks. Additionally, ADRIA-CoralBlox does not model
 fine-scale spatio-temporal processes such as within-reef hydrodynamics and geomorphology
-which differentially affect exposure to thermal stress[@meoded-stern2025]. The presented
+which differentially affect exposure to thermal stress [@meoded-stern2025]. The presented
 analyses assessed a range of future climate responses, thermal projections and ecological
 parameterisations of ADRIA-CoralBlox to account for many possible futures and suggests the
 factors that influence reef resilience are consistent across these scenarios.
@@ -903,7 +903,9 @@ precise predictions of reef outcomes. This investigation employs Good Modelling 
 advances current coral reef modelling literature, particularly by using open and
 reproducible (FAIR; Findable, Accessible, Interoperable and Reproducible) modelling tools
 and workflow, strategic treatment of uncertainty, and transparency around investigation
-limitations [@jakeman2024; @klein2024].
+limitations [@jakeman2024; @klein2024]. By utilizing future uncertainty and exploring 
+a range of condition scenarios, this investigation highlights the potential of 
+exploratory modelling in robust decision support [@kalra2014].
 
 Improvements in remote sensing approaches for broad scale bathymetry measurement and
 understanding of how depth impacts thermal stress experienced on reefs will further enhance
