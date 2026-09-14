@@ -3,6 +3,8 @@ Create analysis plots for clustering and carbonate budget analyses. Performed fo
 and multi-GCM comparison plot created at end of the script.
 """
 
+using AlgebraOfGraphics
+
 include("../../common.jl")
 
 CairoMakie.activate!()
@@ -39,6 +41,31 @@ end
 reefs_long = stack(
     context_layers[:, ["UNIQUE_ID", "depth_med", "geometry", conn_cols..., year_cols...]],
     year_cols
+)
+
+threshold_reefs_long = copy(reefs_long)
+threshold_reefs_long.GCM = first.(split.(threshold_reefs_long.variable, "_"))
+threshold_reefs_long.threshold = last.(split.(threshold_reefs_long.variable, "_"))
+threshold_counts = combine(
+        groupby(threshold_reefs_long, [:threshold, :GCM]),
+        :value => (x -> (sum(x .> 0) / length(x) * 100)) => :threshold_reefs_percentage
+    )
+
+fig_opts = (; fontsize=fontsize, size=(12centimetre, 10centimetre))
+scale = scales(
+    X = (; label = "Carbonate budget threshold [%]"),
+    Y = (; label = "Percentage of reefs exceeding threshold [%]"),
+    Color = (; label = "GCM")
+)
+
+scat = AlgebraOfGraphics.data(threshold_counts) * mapping(:threshold, :threshold_reefs_percentage, color=:GCM) * visual(Scatter)
+scat_fig = draw(scat, scale; figure=fig_opts)
+save(joinpath(figs_path, "carbonate_budget_reef_percentage.png"), scat_fig; px_per_unit=dpi)
+
+save(
+    joinpath(figs_path, "carbonate_budget_reef_percentage.png"),
+    scat_fig,
+    px_per_unit=dpi
 )
 
 for (i_gcm, GCM) in enumerate(GCMs)
@@ -394,13 +421,15 @@ save(
 
 # Reefs removed - Indicate cutoff based on depth
 per_pct_count = [count((i - 0.01) .<= gbr_dom.loc_data.depth_rast_prop .<= i) for i in 0.01:0.01:1.0] ./ length(gbr_dom.loc_data.depth_rast_prop) * 100.0
-f, ax, sp = barplot(per_pct_count)
+fig = Figure(size=(12centimetre, 12centimetre), fontsize=fontsize)
+ax = Axis(fig[1,1])
+barplot!(ax, per_pct_count)
 vlines!(ax, 5; color=(:red, 0.5))
 text!((10.0, 2.0); text="Cutoff", align=(:center, :bottom))
 ax.ylabel = "Proportion of Reefs [%]"
 ax.xlabel = "Bathymetry data coverage [%]"
 
-save(joinpath(figs_path, "reef_depth_included_cutoff.png"), f, px_per_unit=dpi)
+save(joinpath(figs_path, "reef_depth_included_cutoff.png"), fig, px_per_unit=dpi)
 
 # Plot a map of reef cluster assignments across GCMs at management area scale:
 consistent_reefs_colors = [:gray, :green, :orange, :blue];

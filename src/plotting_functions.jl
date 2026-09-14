@@ -1467,7 +1467,6 @@ function carbonate_budget_biscatter(
     carb_budget_color_label::String="Carbonate budget threshold [%]",
     carb_budget_year_label::String="Number of years above θ"
 )
-
     fig = Figure(size = (fig_sizes["carb_width"], fig_sizes["carb_height"]), fontsize = fontsize)
     gr1 = GridLayout(fig[1,1])
     
