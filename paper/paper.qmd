@@ -184,25 +184,29 @@ Depths for each reef were extracted using 10m resolution bathymetry data made av
 GBRMPA [-@GBRMPA2020]. For each reef, bathymetry data were spatially matched with the 3806
 reef outlines through geometric intersection. All depth values were converted to positive
 values (depths below sea level). The median depth was used to provide an indicative depth
-value for each reef. While the bathymetry data are said to be accurate up to 15m from Mean
-Sea Level [@GBRMPA2020], there are many sources of uncertainty in the depth estimates used
-for this study. Notably, bathymetry data were derived from satellite imagery and can be
-limited in their alignment with the established GBRMPA reef outlines used to characterise
-reef locations and their areal extent. Further limitations are outlined in the Discussion.
-Code to extract depth estimates, and the resulting depth estimates themselves, are available
-at @iwanaga2025.
+value for each reef. Bathymetry mapping field validation suggests high accuracy ($R^{2}$ =
+0.98, Heron Island, GBR, method validation) of satellite derived bathymetry data up to 15m
+from Mean Sea Level [@GBRMPA2020; @li2021]. However, bathymetry data derived from satellite
+imagery can be limited in their alignment with the established GBRMPA reef outlines used to
+characterise reef locations and their areal extent. Reliability of the data product can be
+expected to decrease beyond 15m depth range and in optically complex waters. The median reef
+depth is therefore used only as an indicative coarse descriptor for the purpose of ranking
+among reefs. Further limitations are outlined in the Discussion. Code to extract depth
+estimates, and the resulting depth estimates themselves, are available at @iwanaga2025.
 
 A Quality Assessment and Control process identified reefs with potential data limitations:
-reefs with no overlapping bathymetry data, reefs with minimum depth values above sea level
-(indicating potential data artifacts), and reefs where bathymetry pixels covered less than
-5% of the reef polygon area. This process removed 842 reefs, or 22%, from the initial set of
-3806 reefs. Furthermore, reefs that are not associated with GBRMPA Management areas
-[@GBRMPA2007] or reefal bioregions [@GBRMPA2024] were removed. Bioregions which contained
-fewer than three reefs after these processes were also excluded. As a result, 1377 reefs
-were excluded, leaving a total of 2429 remaining for time series clustering. To ensure
-effective data analysis, reefs with incoming or outgoing connectivity values below the 5th
-percentile were removed from post-hoc analyses, leaving 2197 reefs remaining for display in
-results (@fig-region-map).
+reefs with minimum depth values above sea level (indicating potential data artifacts), and
+reefs where valid bathymetry pixels covered less than 5% of the reef polygon area. This
+process removed 1304 reefs, or 34%, from the initial set of 3806 reefs. Furthermore, reefs
+that are not associated with GBRMPA Management areas [@GBRMPA2007] or reefal bioregions
+[@GBRMPA2024] were removed. Bioregions which contained fewer than three reefs after these
+processes were also excluded, removing one bioregion. Three was used as a pragmatic minimum
+to ensure each bioregion contained multiple time series to support clustering, while
+reducing the number of bioregions that would be excluded due to insufficient coverage of
+depth data. As a result, 1377 reefs were excluded, leaving a total of 2429 remaining for
+time series clustering. To ensure effective data analysis, reefs with incoming or outgoing
+connectivity values below the 5th percentile were removed from post-hoc analyses, leaving
+2197 reefs remaining for display in results (@fig-region-map).
 
 ![Map of the Great Barrier Reef region, including GBRMPA Management areas (polygons) and all
 considered reefs (points). Colour-coded polygons outline GBR marine park management regions:
@@ -298,9 +302,10 @@ Recent critiques have raised concerns around the use of calibrated ecological mo
 often have poor predictive capacity - for decision support [@lubianabotelho2025]. Here, the
 focus is on exploring the climatic and physical context that pertain to management decisions
 to understand the range of conditions under which conclusions hold true, rather than
-providing precise forecasts of future state. These environmental factors often set the
-context which influences ecological outcomes and have more manageable uncertainties than the
-precise ecological parameterisations [@reichert2005].
+providing precise forecasts of future state. Examining environmental and ecological factors
+that influence management goals (such as reef persistence), without relying on providing
+precise forecasts, provides conclusions that are robust, or remain consistent under a range
+of future scenarios, informing decisions under deep uncertainty [@reichert2005; @kalra2014].
 
 All data preparation, modelling and analyses were performed using the Julia programming
 language [@bezanson2017], with visualisations created using the Makie plotting ecosystem
@@ -325,17 +330,22 @@ November 18, 19, 20; 2019 – November 16, 17, 18; 2020 – November 5, 6 and 7,
 For each spawning night, particles were released from random locations within each reef
 polygon as neutrally buoyant virtual larvae every 27 seconds from 8:00 pm to 11:00 pm at
 2.25 m below the surface. In each of the reef polygons, 401 particles were released
-resulting in a total of 1,526,206 particles every night of spawning across the GBR. The
-model was run for 30 days with a 3-minute timestep, and the locations of the released
-particles were updated every 15 minutes until the end of the simulation. Larvae were assumed
-to become competent to settle from 4 to 28 days post release with a daily mortality rate of
-0.4 [@ani2024], which was implemented in 15-minute timestep as probabilistic mortality,
-corresponding to 0.0053 mortality rate per timestep. To incorporate the stochastic sensory
-behaviour of larvae during settlement, a 0.01 probability of settlement is assumed when
-larvae are over a reef during the competency period per 15-minute timestep. The information
-obtained on larvae settlement was used to compute a connectivity matrix among reef polygons
-for each spawning night (see @ani2024 for more details). A total of 24 connectivity matrices
-were generated for the spawning nights that were considered.
+resulting in a total of 1,526,206 particles every night of spawning across the GBR. A
+sensitivity analysis was conducted testing a range of numbers of released particles (61,
+181, 361 and 721). It was found that connections stabilised between 361 and 721 particles
+and increasing the number of particles resulted in additional computation time with no
+change in connectivity estimates. A final value of 401 was selected for a balance between
+connection stability and computation time. The model was run for 30 days with a 3-minute
+timestep, and the locations of the released particles were updated every 15 minutes until
+the end of the simulation. Larvae were assumed to become competent to settle from 4 to 28
+days post release with a daily mortality rate of 0.4 [@ani2024], which was implemented in
+15-minute timestep as probabilistic mortality, corresponding to 0.0053 mortality rate per
+timestep. To incorporate the stochastic sensory behaviour of larvae during settlement, a
+0.01 probability of settlement is assumed when larvae are over a reef during the competency
+period per 15-minute timestep. The information obtained on larvae settlement was used to
+compute a connectivity matrix among reef polygons for each spawning night (see @ani2024 for
+more details). A total of 24 connectivity matrices were generated for the spawning nights
+that were considered.
 
 Larval transition matrices indicate the probability of larval transfer between pairs of
 reefs in the GBR, herein referred to as connectivity strengths. Indicative connectivity
@@ -417,12 +427,10 @@ achieved using k-medoids clustering [cf. @steinmann2020]. Further details on the
 clustering approach are found in the supplementary materials.
 
 Time series clustering was applied over the time frame between 2025 and 2075. The clustering
-was conducted at three spatial scales: (1) the whole of GBR; (2) each GBR management area;
-and (3) for each reefal bioregion (defined in @GBRMPA2024). Analyses were conducted at the
-different spatial scales as, conceptually, the temporal behaviour constituting "low",
-"medium" or "high" coral cover may differ at different spatial scales. Analyses at the
-whole-of-GBR scale were found to lead to identical conclusions regarding reef
-characteristics which influence coral cover and so for brevity are not shown here.
+was conducted at two spatial scales: (1) each GBR management area; and (2) for each reefal
+bioregion (defined in @GBRMPA2024). Analyses were conducted at the different spatial scales
+as, conceptually, the temporal behaviour constituting "low", "medium" or "high" coral cover
+may differ at different spatial scales.
 
 To compare time series clustering results across GCMs, management area scale clustering
 results are used to preserve coarse scale latitudinal differences between regions, while
@@ -475,18 +483,22 @@ target predictor was set to the grid value for all samples, (2) probabilistic pr
 for all three cluster classes using the trained RF classifier, and (3) the mean predicted
 probability for each class across all test observations. The process isolates the marginal
 effect of each predictor by averaging over the natural distribution of all other
-representative reef characteristics in the test dataset. Additionally, to assess possible
-interaction between reef depth and connectivity metrics, two-way PDA was performed on grids
-along the ranges of depth and weighted incoming connectivity, and depth and outgoing
-connection strength.
+representative reef characteristics in the test dataset. Additionally, thermal refugia
+(depth) and larval supply may interact, boosting resilience for deep but well supplied
+reefs. To assess possible interaction between reef depth and connectivity metrics, two-way
+PDA was performed on grids along the ranges of depth and weighted incoming connectivity, and
+depth and outgoing connection strength.
 
 ### Carbonate budget analysis
 
-Using coral cover time series for each reef, the number of years each reef maintains coral
-cover above a given percent threshold were calculated. The threshold represents the level of
-live coral cover necessary to maintain a positive carbonate budget (denoted here as
+Using coral cover time series for each reef, the number of years each reef maintains live
+coral cover above a given percent threshold was calculated. The threshold represents the
+level of live coral cover necessary to maintain a positive carbonate budget (denoted here as
 $\theta_{0}$ to indicate the budget equilibrium). A greater number of years above
-$\theta_{0}$ suggests greater resilience and opportunity for recovery.
+$\theta_{0}$ suggests greater resilience and opportunity for recovery. While the number of
+years above $\theta_{0}$ refects ability for skeletal framework regeneration, it does not
+incorporate whether reefs are experiencing increasing or decreasing trends above
+$\theta_{0}$, or the proximity to $\theta_{0}$ cover threshold.
 
 Recent analyses suggest a general threshold of \~17% live coral cover in the case of the
 mid-shelf and offshore GBR reefs [@desbiens2021]. Given in-situ carbonate budgets are
@@ -496,12 +508,12 @@ to assume all reefs adhere to a single precise $\theta_{0}$ value. Concurrently,
 difficult to ascertain a suitable $\theta_{0}$ value for each individual reef.
 
 Given the uncertainties present, the proportion of modelled reefs that display capacity to
-maintain coral cover above a given $\theta_{0}$ threshold is examined. An indicative range
-of 10 to 20% is used (inclusive, with a step size of 1%). The range was informed by Perry et
-al., [-@perry2015] and Desbians et al., [-@desbiens2021] providing plausible indications of
-the lower and upper bounds respectively. Robustness of the conclusions drawn to the
-uncertainty in the precise value of $\theta_{0}$ for all reefs can then be assessed by using
-the indicative range.
+maintain coral cover above each of a plausible range of $\theta_{0}$ thresholds is examined.
+An indicative range of 10 to 20% is used (inclusive, with a step size of 1%). The range was
+informed by Perry et al., [-@perry2015] and Desbians et al., [-@desbiens2021] providing
+plausible indications of the lower and upper bounds respectively. Robustness of the
+conclusions drawn to the uncertainty in the precise value of $\theta_{0}$ for all reefs can
+then be assessed by using the indicative range.
 
 The relationships between the number of years above $\theta_{0}$ and characteristics such as
 median reef depth and log10 total connectivity strength were assessed with Spearman's rank
