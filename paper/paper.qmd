@@ -112,12 +112,12 @@ provide ecological functions such as benthic habitat and nutrient cycling [@fors
 
 Here, coral reef ecosystem resilience - the capacity to maintain coral populations and avoid
 ecosystem regime shifts - is conceptualised to depend on three interconnected mechanisms.
-First, the ability of individual corals to survive thermal stress. Second, the connectivity
-networks that enable recolonisation after disturbances [@hock2017; @mumby2008; @torres2024].
-Third, the maintenance, and accretion, of the carbonate framework that provides reef
-structure [@perry2012]. This investigation aims to assess how these mechanisms may interact
-under projected climate conditions to identify the characteristics of resilient reefs in the
-Great Barrier Reef (GBR) ecosystem.
+First, the ability of individual corals to survive thermal and other environmental stress
+[@hughes2010; @nunn2025]. Second, the connectivity networks that enable recolonisation after
+disturbances [@hock2017; @mumby2008; @torres2024]. Third, the maintenance, and accretion, of
+the carbonate framework that provides reef structure [@perry2012]. This investigation aims
+to assess how these mechanisms may interact under projected climate conditions to identify
+the characteristics of resilient reefs in the Great Barrier Reef (GBR) ecosystem.
 
 The GBR is the world's largest coral reef ecosystem consisting of thousands of individual
 reefs interconnected through larval dispersal pathways mediated by hydrodynamic, spatial,
@@ -927,14 +927,16 @@ vertical line) were removed from the
 investigation.](../figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
-![Map of GBRMPA [-@GBRMPA2020] satellite derived depth data coverage levels across
-3806 possible reefs (point centroids). Reefs below the 5% data coverage threshold are represented by the red
-centroid points and were removed from the
-investigation. Reefs with more than 5% depth data coverage are represented by coloured
-centroid points, indicating their depth coverage percentage. Not all reefs displayed
-with more than 5% data coverage were included in this investigation (see Methods).](../figs/depth_data_coverage_map.png){#sfig-depth-coverage-map fig-align="center" width="14.82cm"}
+![Map of GBRMPA [-@GBRMPA2020] satellite derived depth data coverage levels across 3806
+possible reefs (point centroids). Reefs below the 5% data coverage threshold are represented
+by the red centroid points and were removed from the investigation. Reefs with more than 5%
+depth data coverage are represented by coloured centroid points, indicating their depth
+coverage percentage. Not all reefs displayed with more than 5% data coverage were included
+in this investigation (see
+Methods).](../figs/depth_data_coverage_map.png){#sfig-depth-coverage-map fig-align="center"
+width="14.82cm"}
 
-![Map of reef sizes across the ]
+\![Map of reef sizes across the \]
 
 ![Reef Degree Heating Week time series clustered within each management area, for each GCM
 analysed. Time series were clustered based on their behaviour between 2030 and 2060. Time
