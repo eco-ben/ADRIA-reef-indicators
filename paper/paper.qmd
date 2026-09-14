@@ -811,16 +811,20 @@ where no further information is available.
 
 There are multiple caveats in how coral ecosystem dynamics are modelled in this
 investigation. Coral colonies are modelled as diameter values that increase over time
-through growth. Additionally, the influence of light intensity on coral growth or the
-negative influence of depth on coral growth rates due to reduced available light levels are
-not modelled in this investigation [@baker1975; @huston1985; @ruiz-diaz2022]. If included in
-this investigation, it is possible that reef recovery ability, via regrowth, would be
-reduced at greater depths, reducing the positive effect of depth refugia for temporal
-resilience. Additionally, reduced growth rates at increased depths may reduce carbonate
-budget maintenance due to lower rates of CaCO~3~ accretion. Due to the availability of
-quality future projected data this investigation does not consider other important impacts
-such as waves, cyclones, ocean currents and Crown of Thorns Starfish (CoTS) on coral colony
-survival and bleaching [@emslie2024a; @emslie2024b].
+through growth. The influence of light intensity on coral growth or the negative influences
+of depth and inshore turbidity on coral growth rates due to reduced available light levels
+are not modelled in this investigation [@baker1975; @harriott2002; @ruiz-diaz2022].
+
+If included in this investigation, it is possible that reef recovery ability, via regrowth,
+would be reduced at greater depths, reducing the positive effect of depth refugia for
+temporal resilience. Reduced growth rates at increased depths may reduce carbonate budget
+maintenance due to lower rates of CaCO~3~ accretion. coral cover is an aggregate measure
+across genera with differing calcification rates and thermal tolerances. Reefs with
+equivalent coral cover may therefore differ in their carbonate budgets . Further
+investigation to resolve morphological or taxonomic contributions to cover is warranted. Due
+to the availability of quality future projected data this investigation does not consider
+other important factors such as waves, cyclones, ocean currents and Crown of Thorns Starfish
+(CoTS) on coral colony survival and bleaching [@emslie2024a; @emslie2024b].
 
 Uncertainty in connectivity modelling outputs, satellite-derived bathymetry data and future
 thermal stress projections likely influence the results obtained in this investigation.
@@ -834,47 +838,72 @@ baseline connectivity data, along with the derivation of connectivity from an en
 biophysical models, would also improve confidence in connectivity data for ecological
 modelling and management applications [@choukroun2025].
 
+While this investigation aims to employ an uncertainty-aware modelling approach, exploring
+alternative future conditions and ecological parameterisations, the larval connectivity
+modelling conducted adopts fixed model parameters and conditions. Due to the temporal and
+computational expense in biophysical modelling, in-depth sensitivity analyses and
+alternative parameterisations were not explored. Although larval connectivity itself was not
+the primary driver of modelled reef outcomes, this conclusion may be sensitive to changes in
+biophysical model parameters that change the strength of connectivity inputs [@treml2012;
+@choukroun2025], especially in a time-varying and time-dependent manner that may influence
+recover processes after disturbance [cf. @gilmour2013; @graham2015].
+
 DHW data used in this investigation have not been bias corrected for the Great Barrier Reef
 region and are part of a wider Australian dataset [@dixon2022] developed using statistical
-downscaling. Lachs et al. [-@lachs2021] suggest the utility of DHW levels for prediction of
-coral bleaching can be improved by reducing the threshold for HotSpot Anomaly values from
-MMM +1 to MMM and reducing the accumulation window from 12 weeks to 8 weeks. The presented
+downscaling. Additionally, 23% of reefs analysed have an area of less than 1km$^2$,
+potentially only spanning a single pixel (@sfig-reef-sizes). Lachs et al. [-@lachs2021]
+suggest the utility of DHW levels for prediction of coral bleaching can be improved by
+reducing the threshold for HotSpot Anomaly values from MMM +1 to MMM and reducing the
+accumulation window from 12 weeks to 8 weeks. Additionally, ADRIA-CoralBlox does not model
+fine-scale spatio-temporal processes such as within-reef hydrodynamics and geomorphology
+which differentially affect exposure to thermal stress[@meoded-stern2025]. The presented
 analyses assessed a range of future climate responses, thermal projections and ecological
 parameterisations of ADRIA-CoralBlox to account for many possible futures and suggests the
 factors that influence reef resilience are consistent across these scenarios.
 
 Highly accurate and precise estimates of reef depth across the GBR are currently not
 possible to obtain with (publicly) available data. Data adopted for the given assessment are
-said to be accurate up to 15m from Mean Sea Level [@GBRMPA2020; @li2021], however there are
-many sources of uncertainty in the depth estimates used for this study. Satellite-derived
-estimates are subject to different bottom types (rock, sand, seagrass, etc) and their effect
-on reflectance, the water penetration depth of satellite sensors, influence of local
-conditions (e.g., turbidity and wave activity), among many other factors. The median depths
-for each indicative reef area were extracted from bathymetry data using zonal statistics and
-depth values beyond the stated 15m accuracy threshold [@GBRMPA2020] were included. The
-resulting depth estimates are therefore highly uncertain and are only adopted as a useful
-indication for the purpose of the presented analysis. They are not intended to be accurate
-and precise reef depths across the GBR.
+said to be accurate up to 15m from Mean Sea Level [@GBRMPA2020; @li2021], however depth
+values beyond this range were included. Satellite-derived estimates are subject to different
+bottom types (rock, sand, seagrass, etc) and their effect on reflectance, the water
+penetration depth of satellite sensors, influence of local conditions (e.g., turbidity and
+wave activity), among many other factors. The resulting depth estimates are therefore highly
+uncertain and are only adopted as a useful indication for the purpose of the presented
+analysis. They are not intended to be accurate and precise reef depths across the GBR. These
+issues limit the reliability of these data products at fine spatial scales and care should
+be taken if their use is intended for the prioritization or selection of specific
+restoration sites.
 
 In addition to the usual challenges of deriving data from satellite imagery, it is
 acknowledged that there is high potential for misalignment between the bathymetry data and
-GBRMPA reef outlines. Hammerton and Lawrey [-@hammerton2025], for example, identified 120
-false positives, where features identified as reefs were sand banks or rocky reefs (rather
-than coral reefs). Reefs with bathymetry data covering less than 5% of their indicative area
-were excluded from analyses (see @sfig-depth-cutoff). Existing GBRMPA reef outlines were
+GBRMPA reef outlines. Lawrey and Bycroft [@lawrey2024], for example, identified 144 false
+positives, where features identified as reefs were sand banks or rocky reefs (rather than
+coral reefs). The Mackay/Capricorn region contains 45% (592 of 1304) of the reefs excluded
+based on bathymetry data quality, possibly limiting the representativeness of this
+investigation for reefs in the region (@sfig-depth-coverage-map). GBRMPA reef outlines were
 adopted to align with other ongoing modelling and analyses conducted as part of the Reef
 Restoration and Adaptation Program [<https://gbrrestoration.org>, @thereef].
 
+Covering a range of \>2,500km latitude, regions of the GBR, and individual reefs, display
+substantial variation in community composition and characteristics [@harriott2002]. This
+investigation assumes that differences between reefs are captured in model inputs including
+initial coral cover and composition [@bozec2022; Supplementary Material Section 1.2.2],
+depth [@GBRMPA2020], connectivity and DHW projections [@dixon2022]. This investigation
+assumes that reefs across the GBR share the same ecological processes, represented in model
+mechanisms and parameteris.
+
 The modelling and future projection conducted with ADRIA-CoralBlox itself is subject to many
 uncertainties. Validation of CoralBlox using coral cover observations from a subset of GBR
-reefs [@ribeirodealmeida2026], and the consistency of projected patterns with known
-coral-climate relationships provides confidence in the model's ability to meaningfully
-capture ecological signals at the GBR scale. The mechanistic basis of the model supports the
-robustness of these findings for understanding broad-scale coral cover responses to climatic
-drivers. The aim here, however, was to assess the relative influence of reef characteristics
-on reef resilience across a range of future conditions and parameterisations, rather than
-provide spatially explicit and precise predictions of reef outcomes. Using this approach,
-results suggest reef depth is an important factor for reef resilience under thermal stress.
+reefs [@ribeirodealmeida2026], mechanistic basis of the model, and the consistency of
+projected patterns with known coral-climate relationships provides confidence in the model's
+ability to meaningfully capture ecological signals at the GBR scale. The aim here, however,
+was to assess the relative influence of reef characteristics on reef resilience across a
+range of future conditions and parameterisations, rather than provide spatially explicit and
+precise predictions of reef outcomes. This investigation employs Good Modelling Practice and
+advances current coral reef modelling literature, particularly by using open and
+reproducible (FAIR; Findable, Accessible, Interoperable and Reproducible) modelling tools
+and workflow, strategic treatment of uncertainty, and transparency around investigation
+limitations [@jakeman2024; @klein2024].
 
 Improvements in remote sensing approaches for broad scale bathymetry measurement and
 understanding of how depth impacts thermal stress experienced on reefs will further enhance
@@ -952,7 +981,7 @@ vertical line) were removed from the
 investigation.](../figs/reef_depth_included_cutoff.png){#sfig-depth-cutoff
 fig-align="center" width="14.8cm" height="9.5cm"}
 
-![Map of GBRMPA [-@GBRMPA2020] satellite derived depth data coverage levels across 3806
+![Map of GBRMPA [-@GBRMPA2020] satellite derived depth data coverage levels across all 3806
 possible reefs (point centroids). Reefs below the 5% data coverage threshold are represented
 by the red centroid points and were removed from the investigation. Reefs with more than 5%
 depth data coverage are represented by coloured centroid points, indicating their depth
@@ -961,7 +990,11 @@ in this investigation (see
 Methods).](../figs/depth_data_coverage_map.png){#sfig-depth-coverage-map fig-align="center"
 width="14.82cm"}
 
-\![Map of reef sizes across the \]
+![Map of reef sizes across the analysed reefs. Reefs are represented as geographic centroids
+for clarity, with point colour indicating reef area (km^2^). Reefs with an area of less than
+1km^2^ are displayed as red points to indicate reefs that potentially only span one DHW
+pixel (1km^2^ resolution).](../figs/reef_size_map.png){#sfig-reef-sizes fig-align="center"
+width="14.82cm"}
 
 ![Reef Degree Heating Week time series clustered within each management area, for each GCM
 analysed. Time series were clustered based on their behaviour between 2030 and 2060. Time
@@ -1051,9 +1084,9 @@ fig-align="center" width="14.82cm"}
 ![Scatter plots indicating the bioregion test-prediction accuracy (proportion of reefs in
 each bioregion assigned correct clusters) from the Random Forest model. Plot panels
 represent the bioregion accuracy across various predictor ranges and bioregion attributes,
-such as mean bioregion depth, carrying capacity, DHW value, total connectivity strength and
-the number of reefs in each
-bioregion.](../figs/rf_performance_across_predictors.png){#sfig-rf-predictor-perf
+such as mean bioregion depth, carrying capacity, DHW value, incoming and outgoing
+connectivity strengths, larval retention probability and mean bioregion
+latitude.](../figs/rf_performance_across_predictors.png){#sfig-rf-predictor-perf
 fig-align="center" width="14.82cm"}
 
 ![Heatmap indicating reef connectivity relative standard deviation (RSD %). Reef
@@ -1217,6 +1250,13 @@ susceptible to bleaching (i.e. has a thermal threshold below the experienced DHW
 Starting distributions for thermal tolerance levels are informed by Bairos-Novak et al.
 [-@bairos-novak2021] and expert opinion, and are additionally varied in the scenario
 exploration.
+
+### Ecological inputs
+
+Initial (2025) coral population inputs were extracted from ReefMod-GBR (ReefModEngine
+v1.0.33) [@bozec2022]. These inputs include coral habitable area estimates for each reef and
+initial coral composition values describing the proportion of habitable area occupied by
+each size class and functional group.
 
 ### Scenario generation
 
